@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "PayMeBack", "PayMeBack\PayMeBack.ccproj", "{88C13424-4625-4A77-95D0-4B7BDDA689C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcWebRole1", "MvcWebRole1\MvcWebRole1.csproj", "{9C703008-A412-47D6-A0AB-74761759A4B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayMeBackWeb.UnitTests", "PayMeBackWeb.UnitTests\PayMeBackWeb.UnitTests.csproj", "{28E13FFF-1447-4541-903E-1515A600AD72}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88C13424-4625-4A77-95D0-4B7BDDA689C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88C13424-4625-4A77-95D0-4B7BDDA689C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88C13424-4625-4A77-95D0-4B7BDDA689C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88C13424-4625-4A77-95D0-4B7BDDA689C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C703008-A412-47D6-A0AB-74761759A4B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C703008-A412-47D6-A0AB-74761759A4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C703008-A412-47D6-A0AB-74761759A4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C703008-A412-47D6-A0AB-74761759A4B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28E13FFF-1447-4541-903E-1515A600AD72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28E13FFF-1447-4541-903E-1515A600AD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28E13FFF-1447-4541-903E-1515A600AD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28E13FFF-1447-4541-903E-1515A600AD72}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
