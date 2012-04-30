@@ -37,12 +37,12 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvcWebRole1\MvcWebRole1.csproj">
-      <Name>MvcWebRole1</Name>
+    <ProjectReference Include="..\MvcWebRole1\Glav.PayMeBack.Web.csproj">
+      <Name>Glav.PayMeBack.Web</Name>
       <Project>{9c703008-a412-47d6-a0ab-74761759a4b5}</Project>
       <Private>True</Private>
       <RoleType>Web</RoleType>
-      <RoleName>MvcWebRole1</RoleName>
+      <RoleName>Glav.PayMeBack.Web</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>
