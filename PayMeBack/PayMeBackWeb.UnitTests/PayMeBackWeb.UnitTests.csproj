@@ -56,9 +56,9 @@
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvcWebRole1\MvcWebRole1.csproj">
+    <ProjectReference Include="..\MvcWebRole1\Glav.PayMeBack.Web.csproj">
       <Project>{9C703008-A412-47D6-A0AB-74761759A4B5}</Project>
-      <Name>MvcWebRole1</Name>
+      <Name>Glav.PayMeBack.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
