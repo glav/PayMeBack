@@ -5,7 +5,7 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 
-namespace MvcWebRole1
+namespace Glav.PayMeBack.Web
 {
 	public class WebRole : RoleEntryPoint
 	{

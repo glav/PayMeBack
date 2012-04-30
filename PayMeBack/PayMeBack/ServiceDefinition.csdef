@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="PayMeBack" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
-  <WebRole name="Glav.PayMeBack.Web" vmsize="Small">
+  <WebRole name="Glav.PayMeBack.Web" vmsize="Small" enableNativeCodeExecution="false">
     <Sites>
       <Site name="Web">
         <Bindings>

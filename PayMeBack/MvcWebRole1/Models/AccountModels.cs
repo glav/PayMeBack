@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace MvcWebRole1.Models
+namespace Glav.PayMeBack.Web.Models
 {
 
 	public class ChangePasswordModel

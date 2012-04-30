@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using MvcWebRole1.Models;
+using Glav.PayMeBack.Web.Models;
 
-namespace MvcWebRole1.Controllers
+namespace Glav.PayMeBack.Web.Controllers
 {
 
 	[Authorize]
