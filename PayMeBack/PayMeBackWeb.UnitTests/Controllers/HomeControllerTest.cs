@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvcWebRole1;
-using MvcWebRole1.Controllers;
+using Glav.PayMeBack.Web;
+using Glav.PayMeBack.Web.Controllers;
 
 namespace PayMeBackWeb.UnitTests.Controllers
 {
