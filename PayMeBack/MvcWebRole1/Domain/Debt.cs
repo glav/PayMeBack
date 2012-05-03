@@ -8,9 +8,8 @@ namespace Glav.PayMeBack.Web.Domain
 	public class Debt : BaseModel
 	{
 		public decimal TotalAmountOwed { get; set; }
-		public PaymentPeriod PaymentPeriod { get; set; }
-		public DateTime StartDate { get; set; }
-		public DateTime? ExpectedEndDate { get; set; }
-		public decimal InitialPayment { get; set; }  // How much have they paid off when the debt started?
+		public string ReasonForDebt { get; set; }
+		public string Notes { get; set; }
+
 	}
 }
