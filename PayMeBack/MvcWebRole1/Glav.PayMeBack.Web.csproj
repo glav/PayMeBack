@@ -128,6 +128,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\SignUpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Domain\DebtPaymentInstallment.cs" />
+    <Compile Include="Domain\DebtPaymentPlan.cs" />
+    <Compile Include="Domain\PaymentMethodType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
