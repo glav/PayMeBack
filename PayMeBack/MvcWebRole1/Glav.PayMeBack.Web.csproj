@@ -148,6 +148,7 @@
     <Compile Include="Domain\PaymentPeriod.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Models\ApiResponse.cs" />
+    <Compile Include="Models\SignUpResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>

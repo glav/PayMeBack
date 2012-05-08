@@ -4,14 +4,32 @@ using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using Glav.PayMeBack.Web.Models;
+using Glav.PayMeBack.Web.Domain.Services;
 
 namespace Glav.PayMeBack.Web.Controllers.Api
 {
     public class SignUpController : ApiController
     {
-		public ApiResponse PostSignUpDetails(string emailAddress, string firstNames, string lastName, string password)
+    	private ISignupService _signupService;
+
+    	public SignUpController(ISignupService signupService)
+    	{
+    		_signupService = signupService;
+    	}
+
+		public SignUpResponse PostSignUpDetails(string emailAddress, string firstNames, string lastName, string password)
 		{
-			throw new NotImplementedException();
+			var response = new SignUpResponse();
+			try
+			{
+				response.UserId = _signupService.SignUpNewUser(emailAddress, firstNames, lastName, password);
+				response.IsSuccessful = true;
+			}
+			catch (Exception ex)
+			{
+				response.ErrorMessage = ex.Message;
+			}
+			return response;
 		}
     }
 }
