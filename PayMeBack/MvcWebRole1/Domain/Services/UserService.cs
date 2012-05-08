@@ -42,7 +42,12 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		{
 			// TODO: encrypt/hash pwd
 			// TODO: save to DB with new Guid as ID
-			
+
+			if (_repository.GetUser(user.EmailAddress) != null)
+			{
+				throw new Exception(string.Format("User {0} already exists.",user.EmailAddress));
+			}
+
 			// dummy for now
 			user.Id = Guid.NewGuid();
 		}
