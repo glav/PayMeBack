@@ -9,5 +9,7 @@ namespace Glav.PayMeBack.Web.Data
 	public interface IRepository
 	{
 		User GetUser(string emailAddress);
+		User GetUser(Guid userId);
+		Guid AddUser(User user);
 	}
 }
