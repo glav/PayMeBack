@@ -11,11 +11,13 @@ namespace Glav.PayMeBack.Web.Domain.Services
 	{
 		private IEmailService _emailService;
 		private IUserService _userService;
+		private ISecurityService _securityService;
 
-		public SignupService(IEmailService emailService, IUserService userService)
+		public SignupService(IEmailService emailService, IUserService userService, ISecurityService securityService)
 		{
 			_emailService = emailService;
 			_userService = userService;
+			_securityService = securityService;
 		}
 		public Guid SignUpNewUser(string emailAddress, string firstNames, string lastName, string password)
 		{
@@ -27,8 +29,8 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 		private User RegisterUser(string emailAddress, string firstNames, string lastName, string password)
 		{
-			var user = new User {EmailAddress = emailAddress, FirstNames = firstNames, Surname = lastName};
-			_userService.RegisterUser(user,password);
+			var user = new User {EmailAddress = emailAddress, FirstNames = firstNames, Surname = lastName,Password = _securityService.CreateHashValue(password)};
+			_userService.RegisterUser(user);
 			return user;
 		}
 

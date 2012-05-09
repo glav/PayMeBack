@@ -136,8 +136,12 @@
     <Compile Include="Domain\PaymentMethodType.cs" />
     <Compile Include="Domain\Services\EmailService.cs" />
     <Compile Include="Domain\Services\IEmailService.cs" />
+    <Compile Include="Domain\Services\ISecurityService.cs" />
+    <Compile Include="Domain\Services\ISignInService.cs" />
     <Compile Include="Domain\Services\ISignupService.cs" />
     <Compile Include="Domain\Services\IUserService.cs" />
+    <Compile Include="Domain\Services\SecurityService.cs" />
+    <Compile Include="Domain\Services\SignInService.cs" />
     <Compile Include="Domain\Services\SignupService.cs" />
     <Compile Include="Domain\Services\UserService.cs" />
     <Compile Include="Global.asax.cs">

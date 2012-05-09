@@ -26,7 +26,7 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 		private static SignUpController GetController()
 		{
 			var mockRepo = new MockRepository();
-			var service = new SignupService(new MockEmailService(), new UserService(mockRepo));
+			var service = new SignupService(new MockEmailService(), new UserService(mockRepo),new SecurityService());
 			var controller = new SignUpController(service);
 			return controller;
 		}
@@ -60,6 +60,18 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 			}
 
 			return null;
+		}
+
+
+		public User GetUser(Guid userId)
+		{
+			return null;
+		}
+
+
+		public Guid AddUser(User user)
+		{
+			return Guid.NewGuid();
 		}
 	}
 
