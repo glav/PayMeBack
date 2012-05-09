@@ -11,7 +11,7 @@ namespace Glav.PayMeBack.Web.Data
 		public Domain.User GetUser(string emailAddress)
 		{
 			//TODO: Stub for now
-			return new User {EmailAddress = emailAddress};
+			return new User {EmailAddress = emailAddress, Id = Guid.NewGuid()};
 		}
 
 		public User GetUser(Guid userId)
