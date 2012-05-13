@@ -8,10 +8,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
 {
 	public class SignInService : ISignInService
 	{
-		private IRepository _repository;
+		private IUserRepository _repository;
 		private ISecurityService _securityService;
 
-		public SignInService(IRepository repository,ISecurityService securityService)
+		public SignInService(IUserRepository repository,ISecurityService securityService)
 		{
 			_repository = repository;
 			_securityService = securityService;

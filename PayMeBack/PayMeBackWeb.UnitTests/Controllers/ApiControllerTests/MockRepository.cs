@@ -7,7 +7,7 @@ using Glav.PayMeBack.Web.Domain;
 
 namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 {
-	public class MockRepository : IRepository
+	public class MockRepository : IUserRepository
 	{
 		public User GetUser(string emailAddress)
 		{

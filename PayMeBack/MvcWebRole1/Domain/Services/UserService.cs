@@ -13,10 +13,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
 	/// </summary>
 	public class UserService : IUserService
 	{
-		private IRepository _repository;
+		private IUserRepository _repository;
 		private ISecurityService _securityService;
 
-		public UserService(IRepository repository, ISecurityService securityService)
+		public UserService(IUserRepository repository, ISecurityService securityService)
 		{
 			_repository = repository;
 			_securityService = securityService;

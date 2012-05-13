@@ -6,7 +6,7 @@ using Glav.PayMeBack.Web.Domain;
 
 namespace Glav.PayMeBack.Web.Data
 {
-	public interface IRepository
+	public interface IUserRepository
 	{
 		User GetUser(string emailAddress);
 		User GetUser(Guid userId);
