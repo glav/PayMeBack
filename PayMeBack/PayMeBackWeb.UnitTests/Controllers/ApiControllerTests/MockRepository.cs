@@ -13,7 +13,7 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 		{
 			if (emailAddress == "exists@domain.com")
 			{
-				return new User() { EmailAddress = emailAddress, FirstNames = "Exists", Surname = "Domain", Id = Guid.NewGuid(), Password = "password" };
+				return new User() { EmailAddress = emailAddress, FirstNames = "Exists", Surname = "Domain", Id = Guid.NewGuid()};
 			}
 
 			return null;
@@ -26,9 +26,14 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 		}
 
 
-		public Guid AddUser(User user)
+		public Guid AddUser(User user, string password)
 		{
 			return Guid.NewGuid();
+		}
+
+		public string GetUserPassword(string emailAddress)
+		{
+			return "password";
 		}
 	}
 }

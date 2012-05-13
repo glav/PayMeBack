@@ -14,10 +14,12 @@ namespace Glav.PayMeBack.Web.Domain.Services
 	public class UserService : IUserService
 	{
 		private IRepository _repository;
+		private ISecurityService _securityService;
 
-		public UserService(IRepository repository)
+		public UserService(IRepository repository, ISecurityService securityService)
 		{
 			_repository = repository;
+			_securityService = securityService;
 		
 		}
 		public User GetUser(string emailAddress)
@@ -38,18 +40,18 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			throw new NotImplementedException();
 		}
 
-		public void RegisterUser(User user)
+		public Guid RegisterUser(string emailAddress, string firstNames, string lastName, string password)
 		{
 			// TODO: encrypt/hash pwd
 			// TODO: save to DB with new Guid as ID
-			var existingUser = _repository.GetUser(user.EmailAddress);
+			var existingUser = _repository.GetUser(emailAddress);
 			if ( existingUser != null)
 			{
-				throw new Exception(string.Format("User {0} already exists.",user.EmailAddress));
+				throw new Exception(string.Format("User {0} already exists.",emailAddress));
 			}
 
-			var userId = _repository.AddUser(user);
-			user.Id = userId;
+			var user = new User {EmailAddress = emailAddress, FirstNames = firstNames, Surname = lastName};
+			return _repository.AddUser(user,password);
 		}
 	}
 }

@@ -10,6 +10,6 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		User GetUser(string emailAddress);
 		void SaveOrUpdateUser(User user);
 		void DeleteUser(User user);
-		void RegisterUser(User user);
+		Guid RegisterUser(string emailAddress, string firstNames, string lastName, string password);
 	}
 }

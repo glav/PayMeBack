@@ -10,6 +10,7 @@ namespace Glav.PayMeBack.Web.Data
 	{
 		User GetUser(string emailAddress);
 		User GetUser(Guid userId);
-		Guid AddUser(User user);
+		Guid AddUser(User user , string password);
+		string GetUserPassword(string emailAddress);
 	}
 }
