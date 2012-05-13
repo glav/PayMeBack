@@ -7,6 +7,7 @@ namespace Glav.PayMeBack.Web.Domain
 {
 	public class DebtPaymentPlan : BaseModel
 	{
+		public User UserWhoOwesDebt { get; set; }
 		public Debt DebtOwed { get; set; }
 		public PaymentPeriod PaymentPeriod { get; set; }
 		public DateTime StartDate { get; set; }

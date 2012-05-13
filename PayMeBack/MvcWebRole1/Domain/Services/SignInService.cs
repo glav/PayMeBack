@@ -18,10 +18,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		}
 		public User SignIn(string email, string password)
 		{
-			var user = _repository.GetUser(email);
-			if (_securityService.CreateHashValue(user.Password) == _securityService.CreateHashValue(password))
+			var currentPwd = _repository.GetUserPassword(email);
+			if (_securityService.CreateHashValue(currentPwd) == _securityService.CreateHashValue(password))
 			{
-				return user;
+				return _repository.GetUser(email);
 			}
 			return null;
 		}

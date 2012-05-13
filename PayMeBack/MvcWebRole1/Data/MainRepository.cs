@@ -20,8 +20,14 @@ namespace Glav.PayMeBack.Web.Data
 			return new User { Id = userId };
 		}
 
+		public string GetUserPassword(string emailAddress)
+		{
+			//TODO: Stub for now
+			return string.Empty;
+		}
 
-		public Guid AddUser(User user)
+
+		public Guid AddUser(User user, string password)
 		{
 			//TODO: Stub for now
 			return Guid.NewGuid();

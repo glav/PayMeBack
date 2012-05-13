@@ -11,27 +11,17 @@ namespace Glav.PayMeBack.Web.Domain.Services
 	{
 		private IEmailService _emailService;
 		private IUserService _userService;
-		private ISecurityService _securityService;
 
-		public SignupService(IEmailService emailService, IUserService userService, ISecurityService securityService)
+		public SignupService(IEmailService emailService, IUserService userService)
 		{
 			_emailService = emailService;
 			_userService = userService;
-			_securityService = securityService;
 		}
 		public Guid SignUpNewUser(string emailAddress, string firstNames, string lastName, string password)
 		{
 			IsEmailValid(emailAddress);
 			VerifyUserDoesNotExist(emailAddress);
-			var registeredUser= RegisterUser(emailAddress, firstNames, lastName, password);
-			return registeredUser.Id;
-		}
-
-		private User RegisterUser(string emailAddress, string firstNames, string lastName, string password)
-		{
-			var user = new User {EmailAddress = emailAddress, FirstNames = firstNames, Surname = lastName,Password = _securityService.CreateHashValue(password)};
-			_userService.RegisterUser(user);
-			return user;
+			return _userService.RegisterUser(emailAddress, firstNames, lastName, password);
 		}
 
 		private void VerifyUserDoesNotExist(string emailAddress)

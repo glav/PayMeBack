@@ -32,7 +32,7 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 		public void InitControllers()
 		{
 			_repository = new MockRepository();
-			_signupService = new SignupService(new MockEmailService(), new UserService(_repository),new SecurityService());
+			_signupService = new SignupService(new MockEmailService(), new UserService(_repository, new SecurityService()));
 			_signUpController = new SignUpController(_signupService);
 			_signInService = new SignInService(_repository,new SecurityService());
 			_signInController = new SignInController(_signInService);
