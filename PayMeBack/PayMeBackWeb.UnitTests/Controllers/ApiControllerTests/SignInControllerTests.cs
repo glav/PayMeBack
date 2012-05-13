@@ -13,7 +13,7 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 	[TestClass]
 	public class SignInControllerTests
 	{
-		private IRepository _repository;
+		private IUserRepository _repository;
 		private ISignupService _signupService;
 		private SignUpController _signUpController;
 		private SignInController _signInController;
