@@ -3,31 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using Glav.PayMeBack.Web.Domain.Services;
+using Glav.PayMeBack.Web.Domain;
 
 namespace Glav.PayMeBack.Web.Controllers.Api
 {
     public class PeopleController : ApiController
     {
-        // GET /api/people
-        public IEnumerable<string> Get()
+    	private IPaymentPlanService _paymentPlanService;
+		private IUserService _userService;
+
+    	public PeopleController(IPaymentPlanService paymentPlanService, IUserService userService)
+    	{
+    		_paymentPlanService = paymentPlanService;
+			_userService = userService;
+    	}
+
+    	// GET /api/people
+		public IEnumerable<DebtPaymentPlan> Get(Guid userId, Guid accessTokenId)
         {
-        	return OweMeMoney();
+        	return OweMeMoney(userId, accessTokenId);
         }
 
-		public IEnumerable<string> OweMeMoney()
+		public IEnumerable<DebtPaymentPlan> OweMeMoney(Guid userId, Guid accessTokenId)
 		{
-			return new string[] {"1", "2"};
+
+			var list = new List<DebtPaymentPlan>();
+			return list;
 		}
 
-		public IEnumerable<string> OweMoneyTo()
+		public IEnumerable<DebtPaymentPlan> OweMoneyTo(Guid userId, Guid accessTokenId)
 		{
-			return new string[] { "1", "2" };
+			var list = new List<DebtPaymentPlan>();
+			return list;
 		}
 
-        // GET /api/people/5
-        public string Get(int id)
-        {
-            return "value";
-        }
     }
 }

@@ -33,7 +33,6 @@ namespace Glav.PayMeBack.Web.Data
 		public void UpdateDebt(Debt debt)
 		{
 			//TODO: Stub for now
-
 		}
 
 		public void DeleteDebt(Guid debtId)
@@ -42,14 +41,41 @@ namespace Glav.PayMeBack.Web.Data
 		}
 
 
-		public IEnumerable<Debt> GetAllPaymentPlansOwedToUser(Guid userId)
+		IEnumerable<DebtPaymentPlan> IDebtRepository.GetAllPaymentPlansOwedToUser(Guid userId)
 		{
-			throw new NotImplementedException();
+			//TODO: Stub for now
+			var list = new List<DebtPaymentPlan>();
+			list.Add(GetPaymentPlan(Guid.NewGuid()));
+			list.Add(GetPaymentPlan(Guid.NewGuid()));
+			return list;
 		}
 
-		public IEnumerable<Debt> GetAllPaymentPlansOwedByUser(Guid userId)
+		IEnumerable<DebtPaymentPlan> IDebtRepository.GetAllPaymentPlansOwedByUser(Guid userId)
 		{
-			throw new NotImplementedException();
+			//TODO: Stub for now
+			var list = new List<DebtPaymentPlan>();
+			list.Add(GetPaymentPlan(Guid.NewGuid()));
+			list.Add(GetPaymentPlan(Guid.NewGuid()));
+			return list;
+		}
+
+		public DebtPaymentPlan GetPaymentPlan(Guid paymentPlanId)
+		{
+			//TODO: Stub for now
+			var dummyPlan = new DebtPaymentPlan();
+			dummyPlan.Id = Guid.NewGuid();
+			dummyPlan.DebtOwed = new Debt { Id = Guid.NewGuid()};
+			return dummyPlan;
+		}
+
+		public void UpdatePaymentPlan(DebtPaymentPlan paymentPlan)
+		{
+			//TODO: Stub for now
+		}
+
+		public void DeletePaymentPlan(Guid paymentPlanId)
+		{
+			//TODO: Stub for now
 		}
 	}
 }
