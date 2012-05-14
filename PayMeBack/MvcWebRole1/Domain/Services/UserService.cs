@@ -22,6 +22,22 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			_securityService = securityService;
 		
 		}
+		public User GetUserByEmail(string emailAddress)
+		{
+			//TODO: Use cache
+
+			var user = _repository.GetUser(emailAddress);
+			return user;
+		}
+
+		public User GetUserById(Guid id)
+		{
+			//TODO: Use cache
+
+			var user = _repository.GetUser(id);
+			return user;
+		}
+
 		public User GetUser(string emailAddress)
 		{
 			//TODO: Use cache

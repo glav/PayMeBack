@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Glav.PayMeBack.Web.Domain.Services
 {
-	public interface ISecurityService
+	public interface IAccessTokenService
 	{
-		string CreateHashValue(string input);
-		Guid ValidateAndRenewToken(Guid userId, Guid tokenId);
+		Guid ExtractTokenFromQueryString(string url);
+		Guid TryExtractToken();
 	}
 }

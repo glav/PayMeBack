@@ -26,7 +26,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 		private void VerifyUserDoesNotExist(string emailAddress)
 		{
-			var user = _userService.GetUser(emailAddress);
+			var user = _userService.GetUserByEmail(emailAddress);
 			if (user != null)
 			{
 				throw new Exception(string.Format("User [{0}] already exists", emailAddress));

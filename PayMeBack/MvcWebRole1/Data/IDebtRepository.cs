@@ -10,10 +10,13 @@ namespace Glav.PayMeBack.Web.Data
 	{
 		IEnumerable<Debt> GetAllDebtsOwedToUser(Guid userId);
 		IEnumerable<Debt> GetAllDebtsOwedByUser(Guid userId);
-		IEnumerable<Debt> GetAllPaymentPlansOwedToUser(Guid userId);
-		IEnumerable<Debt> GetAllPaymentPlansOwedByUser(Guid userId);
+		IEnumerable<DebtPaymentPlan> GetAllPaymentPlansOwedToUser(Guid userId);
+		IEnumerable<DebtPaymentPlan> GetAllPaymentPlansOwedByUser(Guid userId);
 		Debt GetDebt(Guid debtId);
 		void UpdateDebt(Debt debt);
 		void DeleteDebt(Guid debtId);
+		DebtPaymentPlan GetPaymentPlan(Guid paymentPlanId);
+		void UpdatePaymentPlan(DebtPaymentPlan paymentPlan);
+		void DeletePaymentPlan(Guid paymentPlanId);
 	}
 }
