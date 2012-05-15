@@ -33,5 +33,16 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 			return token;
 		}
+
+
+		public bool IsAccessTokenValid(Guid accessTokenId)
+		{
+			var token = _securityRepository.GetAccessToken(accessTokenId);
+
+			return (token != null
+						&& token.UserId != Guid.Empty
+						&& token.Token != Guid.Empty
+						&& DateTime.UtcNow <= token.TokenExpiry);
+		}
 	}
 }

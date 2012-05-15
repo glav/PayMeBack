@@ -58,6 +58,7 @@
     <Compile Include="Controllers\ApiControllerTests\SignUpControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="Services\SecurityServiceTests.cs" />
     <Compile Include="Services\TokenServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>

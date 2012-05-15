@@ -9,5 +9,6 @@ namespace Glav.PayMeBack.Web.Domain.Services
 	{
 		string CreateHashValue(string input);
 		AccessToken CreateAccessToken(Guid userId, Guid tokenId);
+		bool IsAccessTokenValid(Guid accessTokenId);
 	}
 }
