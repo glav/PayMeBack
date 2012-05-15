@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Glav.PayMeBack.Web.Domain.Services;
+using Glav.PayMeBack.Web.Domain;
 
 namespace PayMeBackWeb.UnitTests.Services
 {
@@ -13,9 +14,11 @@ namespace PayMeBackWeb.UnitTests.Services
 		[TestMethod]
 		public void ShouldExtractTokenFromFromQueryString()
 		{
-			var tokenService = new AccessTokenService();
+			var tokenService = new SimpleAccessTokenService();
 			var originalToken = Guid.NewGuid();
-			var token = tokenService.ExtractTokenFromQueryString("http://localhost/?accesstoken=" + originalToken.ToString());
+
+			var queryString = string.Format("http://localhost/?{0}={1}",QueryStringConstants.AccessToken,originalToken.ToString());
+			var token = tokenService.ExtractTokenFromQueryString(queryString);
 			Assert.AreEqual<Guid>(originalToken, token);
 		}
 	}

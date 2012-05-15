@@ -8,11 +8,11 @@ using Glav.PayMeBack.Web.Models;
 
 namespace Glav.PayMeBack.Web.Controllers.Api
 {
-    public class SignInController : ApiController
+    public class SimpleSignInController : ApiController
     {
     	private ISignInService _signInService;
 
-    	public SignInController(ISignInService signInService)
+    	public SimpleSignInController(ISignInService signInService)
     	{
     		_signInService = signInService;
     	}
@@ -23,7 +23,7 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			if (user != null)
 			{
 				response.IsSuccessful = true;
-				response.UserId = user.Id;
+				response.AccessToken = user.Id;
 			}
 			return response;
 		}
