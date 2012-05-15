@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.WebPages;
 
 namespace Glav.PayMeBack.Web
 {
@@ -45,5 +46,29 @@ namespace Glav.PayMeBack.Web
 
 			BundleTable.Bundles.RegisterTemplateBundles();
 		}
+
+		private void RegisterMobileViews()
+		{
+			DisplayModeProvider.Instance.Modes.Insert(0, new
+			DefaultDisplayMode("Mobile")
+			{
+				ContextCondition = (context =>
+				{
+					var userAgent = context.GetOverriddenUserAgent();
+					var useMobileView = (userAgent.IndexOf("Mobi", StringComparison.OrdinalIgnoreCase) >= 0) || (userAgent.IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0);
+
+					// This is for debugging with Firefox - comment out for real use
+					//if (!useMobileView)
+					//{
+					//    useMobileView = userAgent.IndexOf("Mozilla", StringComparison.OrdinalIgnoreCase) >= 0;
+					//}
+
+					context.Items[MobileViewHelper.MobileContextKey] = useMobileView;
+					return useMobileView;
+				})
+			});
+
+		}
+
 	}
 }
