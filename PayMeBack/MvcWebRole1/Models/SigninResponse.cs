@@ -8,6 +8,6 @@ namespace Glav.PayMeBack.Web.Models
 {
 	public class SignInResponse : ApiResponse
 	{
-		public Guid UserId { get; set; }
+		public Guid AccessToken { get; set; }
 	}
 }

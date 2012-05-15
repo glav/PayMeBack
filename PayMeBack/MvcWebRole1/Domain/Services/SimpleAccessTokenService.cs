@@ -6,7 +6,7 @@ using System.Net.Http;
 
 namespace Glav.PayMeBack.Web.Domain.Services
 {
-	public class AccessTokenService : IAccessTokenService
+	public class SimpleAccessTokenService : ISimpleAccessTokenService
 	{
 		public Guid ExtractTokenFromQueryString(string url)
 		{

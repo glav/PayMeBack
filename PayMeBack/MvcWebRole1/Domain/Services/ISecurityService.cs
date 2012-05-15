@@ -8,6 +8,6 @@ namespace Glav.PayMeBack.Web.Domain.Services
 	public interface ISecurityService
 	{
 		string CreateHashValue(string input);
-		Guid ValidateAndRenewToken(Guid userId, Guid tokenId);
+		AccessToken CreateAccessToken(Guid userId, Guid tokenId);
 	}
 }

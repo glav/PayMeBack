@@ -22,7 +22,7 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			var response = new SignUpResponse();
 			try
 			{
-				response.UserId = _signupService.SignUpNewUser(emailAddress, firstNames, lastName, password);
+				response.AccessToken = _signupService.SignUpNewUser(emailAddress, firstNames, lastName, password);
 				response.IsSuccessful = true;
 			}
 			catch (Exception ex)

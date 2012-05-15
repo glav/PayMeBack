@@ -9,9 +9,9 @@ namespace Glav.PayMeBack.Web.Domain.Services
 {
 	public class SecurityService : ISecurityService
 	{
-		private ISecurityRepository _securityRepository;
+		private ISimpleSecurityRepository _securityRepository;
 
-		public SecurityService(ISecurityRepository securityRepository)
+		public SecurityService(ISimpleSecurityRepository securityRepository)
 		{
 			_securityRepository = securityRepository;
 		}
@@ -23,15 +23,15 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		}
 
 
-		public Guid ValidateAndRenewToken(Guid userId, Guid tokenId)
+		public AccessToken CreateAccessToken(Guid userId, Guid tokenId)
 		{
-			var renewedToken = _securityRepository.RenewTokenForUserIfOldTokenValid(userId, tokenId);
-			if (renewedToken == null || renewedToken == Guid.Empty)
+			var token = _securityRepository.CreateAccessTokenForUser(userId);
+			if (token == null || token.Token == Guid.Empty || token.TokenExpiry < DateTime.UtcNow)
 			{
 				throw new SecurityException("Invalid access token");
 			}
 
-			return renewedToken;
+			return token;
 		}
 	}
 }
