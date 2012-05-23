@@ -35,5 +35,15 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 		{
 			return "password";
 		}
+
+		UserDetail IUserRepository.GetUser(string emailAddress)
+		{
+			throw new NotImplementedException();
+		}
+
+		UserDetail IUserRepository.GetUser(Guid userId)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

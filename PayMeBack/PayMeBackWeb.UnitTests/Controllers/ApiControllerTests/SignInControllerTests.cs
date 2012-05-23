@@ -18,8 +18,8 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 		private ISignupService _signupService;
 		private SignUpController _signUpController;
 		private SimpleSignInController _signInController;
-		private ISignInService _signInService;
-		private Mock<ISimpleSecurityRepository> _securityRepoCustom;
+		private Mock<ISecurityRepository> _securityRepoCustom;
+		private IOAuthSecurityService _securityService;
 
 		[TestMethod]
 		public void ShouldSignIn()
@@ -34,16 +34,16 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 		public void InitControllers()
 		{
 			_userRepository = new Mock<IUserRepository>();
-			_securityRepoCustom = new Mock<ISimpleSecurityRepository>();
+			_securityRepoCustom = new Mock<ISecurityRepository>();
 
-			_securityRepoCustom.Setup<AccessToken>(m => m.CreateAccessTokenForUser(It.IsAny<Guid>())).Returns(new AccessToken { Token = Guid.NewGuid(), TokenExpiry = DateTime.UtcNow.AddMinutes(10), UserId = Guid.NewGuid() });
-			_userRepository.Setup<User>(m => m.GetUser("exists@domain.com")).Returns(new User { EmailAddress = "exists@domain.com", FirstNames = "exists", Surname = "domain", Id = Guid.NewGuid() });
+			_userRepository.Setup<UserDetail>(m => m.GetUser("exists@domain.com")).Returns(new UserDetail { EmailAddress = "exists@domain.com", FirstNames = "exists", Surname = "domain", Id = Guid.NewGuid() });
 			_userRepository.Setup<string>(m => m.GetUserPassword("exists@domain.com")).Returns("password");
 
-			_signupService = new SignupService(new MockEmailService(), new UserService(_userRepository.Object, new SecurityService(_securityRepoCustom.Object)));
+			_securityService = new OAuthSecurityService(_securityRepoCustom.Object, _userRepository.Object);
+
+			_signupService = new SignupService(new MockEmailService(), new UserService(_userRepository.Object,_securityService));
 			_signUpController = new SignUpController(_signupService);
-			_signInService = new SignInService(_userRepository.Object,new SecurityService(_securityRepoCustom.Object));
-			_signInController = new SimpleSignInController(_signInService);
+			_signInController = new SimpleSignInController(_securityService);
 		}
 
 	}
