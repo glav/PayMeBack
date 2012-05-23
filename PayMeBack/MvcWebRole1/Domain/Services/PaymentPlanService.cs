@@ -9,18 +9,18 @@ namespace Glav.PayMeBack.Web.Domain.Services
 	public class PaymentPlanService : IPaymentPlanService
 	{
 		private IUserService _userService;
-		private IUserRepository _repository;
+		private ICrudRepository _crudRepository;
 
-		public PaymentPlanService(IUserService userService, IUserRepository repository)
+		public PaymentPlanService(IUserService userService, ICrudRepository crudRepository)
 		{
 			_userService = userService;
-			_repository = repository;
+			_crudRepository = crudRepository;
 		}
 
 		public UserPaymentPlan GetPaymentPlan(Guid userId)
 		{
 			var paymentPlan = new UserPaymentPlan();
-			paymentPlan.User = new User(_repository.GetUser(userId));
+			paymentPlan.User = new User(_crudRepository.GetSingle<UserDetail>(u => u.Id == userId));
 
 			//TODO: Get plans from repository
 			paymentPlan.DebtsOwedToMe = new List<DebtPaymentPlan>();

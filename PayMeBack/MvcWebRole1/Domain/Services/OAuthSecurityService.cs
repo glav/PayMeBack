@@ -9,17 +9,15 @@ namespace Glav.PayMeBack.Web.Domain.Services
 {
 	public class OAuthSecurityService : IOAuthSecurityService
 	{
-		private ISecurityRepository _securityRepository;
+		private ICrudRepository _crudRepository;
 		//private ICacheProvider _cacheProvider;
-		private IUserRepository _userRepository;
 
 		private const string CacheKeyTokenEntry = "OAuthTokenEntry_{0}";
 
-		public OAuthSecurityService(ISecurityRepository securityRepository, IUserRepository userRepository)
+		public OAuthSecurityService(ICrudRepository crudRepository)
 		{
-			_securityRepository = securityRepository;
+			_crudRepository = crudRepository;
 			//_cacheProvider = cacheProvider;
-			_userRepository = userRepository;
 		}
 		public OAuthAuthorisationGrantResponse AuthorisePasswordCredentialsGrant(string emailAddress, string password, string scope)
 		{
@@ -28,7 +26,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			response.ErrorDetails = new OAuthGrantRequestError();
 			response.AccessGrant = new OAuthAccessTokenGrant();
 
-			var user = _userRepository.GetUser(emailAddress);
+			var user = _crudRepository.GetSingle<UserDetail>(u => u.EmailAddress == emailAddress);
 
 			if (user != null)
 			{
@@ -47,7 +45,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 						tokenEntry.RefreshTokenExpiry = DateTime.UtcNow.AddYears(1);
 						PopulateScopeForToken(tokenEntry, scope);
 
-						_securityRepository.Insert(tokenEntry);
+						_crudRepository.Insert<OAuthToken>(tokenEntry);
 						//_cacheProvider.Add(GetCacheKeyForTokenRecord(tokenEntry.AccessToken), tokenEntry.AccessTokenExpiry, tokenEntry);
 
 						response.IsSuccessfull = true;
@@ -107,12 +105,11 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 			try
 			{
-				var tokenEntry = _securityRepository.GetTokenDataByRefreshToken(refreshToken);
+				var tokenEntry = _crudRepository.GetSingle<OAuthToken>(t => t.RefreshToken == refreshToken);
 				if (tokenEntry != null)
 				{
 					var oldToken = tokenEntry.AccessToken;
-					//TODO: Need to ensure we get a proper userInfo and validate scope
-					var validUser =new User(_userRepository.GetUser(tokenEntry.AssociatedUserId));
+					var validUser =new User(_crudRepository.GetSingle<UserDetail>(u => u.Id == tokenEntry.AssociatedUserId));
 					
 					ValidateScopeForUse(validUser, scope);
 					
@@ -122,7 +119,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 						tokenEntry.AccessToken = CreateNewHashedToken();
 						tokenEntry.AccessTokenExpiry = DateTime.UtcNow.AddMinutes(30);
 						//_cacheProvider.InvalidateCacheItem(GetCacheKeyForTokenRecord(oldToken));
-						_securityRepository.Update(tokenEntry);
+						_crudRepository.Update<OAuthToken>(tokenEntry);
 						//_cacheProvider.Add(GetCacheKeyForTokenRecord(tokenEntry.AccessToken), tokenEntry.AccessTokenExpiry, tokenEntry);
 
 						response.IsSuccessfull = true;
@@ -150,6 +147,12 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 		public bool IsAccessTokenValid(string token)
 		{
+			//TODO: Use caching
+			var tokenEntry = _crudRepository.GetSingle<OAuthToken>(t => t.AccessToken == token);
+			if (tokenEntry != null && DateTime.UtcNow < tokenEntry.AccessTokenExpiry)
+			{
+				return true;
+			}
 			//var tokenEntry = _cacheProvider.InnerCache.Get<OAuthToken>(GetCacheKeyForTokenRecord(token));
 			//if (tokenEntry != null && tokenEntry.AccessTokenExpiry > DateTime.UtcNow)
 			//{
@@ -198,10 +201,14 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 		public User SignIn(string email, string password)
 		{
-			var currentPwd = _userRepository.GetUserPassword(email);
-			if (CreateHashedTokenFromInput(currentPwd) == CreateHashedTokenFromInput(password))
+			var userDetail = _crudRepository.GetSingle<UserDetail>(u => u.EmailAddress == email);
+			if (userDetail != null)
 			{
-				return new User(_userRepository.GetUser(email));
+				var currentPwd = userDetail.Password;
+				if (CreateHashedTokenFromInput(currentPwd) == CreateHashedTokenFromInput(password))
+				{
+					return new User(userDetail);
+				}
 			}
 			return null;
 		}
