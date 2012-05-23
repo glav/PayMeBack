@@ -8,8 +8,8 @@ namespace Glav.PayMeBack.Web.Data
 {
 	public interface IUserRepository
 	{
-		User GetUser(string emailAddress);
-		User GetUser(Guid userId);
+		UserDetail GetUser(string emailAddress);
+		UserDetail GetUser(Guid userId);
 		Guid AddUser(User user , string password);
 		string GetUserPassword(string emailAddress);
 	}

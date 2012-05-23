@@ -11,9 +11,11 @@ namespace Glav.PayMeBack.Web.Data
 	/// should be used but we should provide the functionality to use just a username/pwd
 	/// defined in this app too.
 	/// </summary>
-	public interface ISimpleSecurityRepository
+	public interface ISecurityRepository
 	{
-		AccessToken CreateAccessTokenForUser(Guid userId);
-		AccessToken GetAccessToken(Guid tokenId);
+		OAuthToken Insert(OAuthToken token);
+		void Update(OAuthToken token);
+		OAuthToken GetTokenDataByAccessToken(string token);
+		OAuthToken GetTokenDataByRefreshToken(string token);
 	}
 }

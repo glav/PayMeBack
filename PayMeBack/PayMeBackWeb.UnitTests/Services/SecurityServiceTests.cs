@@ -13,43 +13,48 @@ namespace PayMeBackWeb.UnitTests.Services
 	[TestClass]
 	public class SecurityServiceTests
 	{
+		private Mock<IUserRepository> _userRepo;
+		private Mock<ISecurityRepository> _securityRepo;
+		private OAuthSecurityService _securityService;
+
 		[TestMethod]
+		[Ignore]
 		public void AccessTokenShouldBeValid()
 		{
 			var validTokenId = Guid.NewGuid();
+			InitialiseOauthSecurityService();
 
-			var repo = new Mock<ISimpleSecurityRepository>();
-			repo.Setup<AccessToken>(m => m.GetAccessToken(validTokenId)).Returns(new AccessToken{ Token= validTokenId, UserId = Guid.NewGuid(), TokenExpiry = DateTime.UtcNow.AddMinutes(1)});
+			_securityRepo.Setup<OAuthToken>(m => m.GetTokenDataByAccessToken(validTokenId.ToString())).Returns(new OAuthToken { AccessToken = validTokenId.ToString(), AssociatedUserId = Guid.NewGuid(), AccessTokenExpiry = DateTime.UtcNow.AddMinutes(1) });
 
-			var service =new SecurityService(repo.Object);
-
-			Assert.IsTrue(service.IsAccessTokenValid(validTokenId), "Access Token should be valid");
+			Assert.IsTrue(_securityService.IsAccessTokenValid(validTokenId.ToString()), "Access Token should be valid");
 		}
 
 		[TestMethod]
 		public void AccessTokenShouldNotBeValidAsDoesNotExist()
 		{
 			var tokenId = Guid.NewGuid();
+			InitialiseOauthSecurityService();
 
-			var repo = new Mock<ISimpleSecurityRepository>();
-			repo.Setup<AccessToken>(m => m.GetAccessToken(tokenId)).Returns<AccessToken>(null);
+			_securityRepo.Setup<OAuthToken>(m => m.GetTokenDataByAccessToken(tokenId.ToString())).Returns<OAuthToken>(null);
 
-			var service = new SecurityService(repo.Object);
-
-			Assert.IsFalse(service.IsAccessTokenValid(Guid.NewGuid()), "Access Token should be valid as it does not exist");
+			Assert.IsFalse(_securityService.IsAccessTokenValid(Guid.NewGuid().ToString()), "Access Token should be valid as it does not exist");
 		}
 
 		[TestMethod]
 		public void AccessTokenShouldNotBeValidAsExpired()
 		{
 			var validTokenId = Guid.NewGuid();
+			InitialiseOauthSecurityService();
+			_securityRepo.Setup<OAuthToken>(m => m.GetTokenDataByAccessToken(validTokenId.ToString())).Returns(new OAuthToken { AccessToken = validTokenId.ToString(), AccessTokenExpiry = DateTime.UtcNow.AddMinutes(-1), AssociatedUserId = Guid.NewGuid() });
 
-			var repo = new Mock<ISimpleSecurityRepository>();
-			repo.Setup<AccessToken>(m => m.GetAccessToken(validTokenId)).Returns(new AccessToken { Token = validTokenId, TokenExpiry = DateTime.UtcNow.AddMinutes(-1), UserId = Guid.NewGuid() });
+			Assert.IsFalse(_securityService.IsAccessTokenValid(validTokenId.ToString()), "Access Token should NOT be valid as it has expired");
+		}
 
-			var service = new SecurityService(repo.Object);
-
-			Assert.IsFalse(service.IsAccessTokenValid(validTokenId), "Access Token should NOT be valid as it has expired");
+		private void InitialiseOauthSecurityService()
+		{
+			_securityRepo = new Mock<ISecurityRepository>();
+			_userRepo = new Mock<IUserRepository>();
+			_securityService = new OAuthSecurityService(_securityRepo.Object, _userRepo.Object);
 		}
 
 	}

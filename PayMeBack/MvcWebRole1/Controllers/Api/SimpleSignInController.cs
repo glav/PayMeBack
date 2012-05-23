@@ -10,16 +10,16 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 {
     public class SimpleSignInController : ApiController
     {
-    	private ISignInService _signInService;
+		private IOAuthSecurityService _securityService;
 
-    	public SimpleSignInController(ISignInService signInService)
+		public SimpleSignInController(IOAuthSecurityService securityService)
     	{
-    		_signInService = signInService;
+			_securityService = securityService;
     	}
 		public SignInResponse PostSignInDetails(string email, string password)
 		{
 			var response = new SignInResponse();
-			var user = _signInService.SignIn(email, password);
+			var user = _securityService.SignIn(email, password);
 			if (user != null)
 			{
 				response.IsSuccessful = true;

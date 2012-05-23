@@ -20,7 +20,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		public UserPaymentPlan GetPaymentPlan(Guid userId)
 		{
 			var paymentPlan = new UserPaymentPlan();
-			paymentPlan.User = _repository.GetUser(userId);
+			paymentPlan.User = new User(_repository.GetUser(userId));
 
 			//TODO: Get plans from repository
 			paymentPlan.DebtsOwedToMe = new List<DebtPaymentPlan>();

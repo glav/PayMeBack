@@ -27,13 +27,14 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 		private static SignUpController GetController()
 		{
 			var userRepository = new Mock<IUserRepository>();
-			var securityRepoCustom = new Mock<ISimpleSecurityRepository>();
+			var securityRepoCustom = new Mock<ISecurityRepository>();
 
-			securityRepoCustom.Setup<AccessToken>(m => m.CreateAccessTokenForUser(It.IsAny<Guid>())).Returns(new AccessToken { Token = Guid.NewGuid(), TokenExpiry = DateTime.UtcNow.AddMinutes(10), UserId = Guid.NewGuid() });
-			userRepository.Setup<User>(m => m.GetUser("exists@domain.com")).Returns(new User { EmailAddress = "exists@domain.com", FirstNames = "exists", Surname = "domain", Id = Guid.NewGuid() });
+			userRepository.Setup<UserDetail>(m => m.GetUser("exists@domain.com")).Returns(new UserDetail { EmailAddress = "exists@domain.com", FirstNames = "exists", Surname = "domain", Id = Guid.NewGuid() });
 			userRepository.Setup<string>(m => m.GetUserPassword("exists@domain.com")).Returns("password");
 
-			var service = new SignupService(new MockEmailService(), new UserService(userRepository.Object, new SecurityService(securityRepoCustom.Object)));
+			var securityService = new OAuthSecurityService(securityRepoCustom.Object, userRepository.Object);
+
+			var service = new SignupService(new MockEmailService(), new UserService(userRepository.Object, securityService));
 			var controller = new SignUpController(service);
 			return controller;
 		}

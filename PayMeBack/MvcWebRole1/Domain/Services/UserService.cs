@@ -14,9 +14,9 @@ namespace Glav.PayMeBack.Web.Domain.Services
 	public class UserService : IUserService
 	{
 		private IUserRepository _repository;
-		private ISecurityService _securityService;
+		private IOAuthSecurityService _securityService;
 
-		public UserService(IUserRepository repository, ISecurityService securityService)
+		public UserService(IUserRepository repository, IOAuthSecurityService securityService)
 		{
 			_repository = repository;
 			_securityService = securityService;
@@ -26,24 +26,24 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		{
 			//TODO: Use cache
 
-			var user = _repository.GetUser(emailAddress);
-			return user;
+			var userDetail = _repository.GetUser(emailAddress);
+			return new User(userDetail);
 		}
 
 		public User GetUserById(Guid id)
 		{
 			//TODO: Use cache
 
-			var user = _repository.GetUser(id);
-			return user;
+			var userDetail = _repository.GetUser(id);
+			return new User(userDetail);
 		}
 
 		public User GetUser(string emailAddress)
 		{
 			//TODO: Use cache
 
-			var user = _repository.GetUser(emailAddress);
-			return user;
+			var userDetail = _repository.GetUser(emailAddress);
+			return new User(userDetail);
 		}
 
 		public void SaveOrUpdateUser(User user)
@@ -67,7 +67,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			}
 
 			var user = new User {EmailAddress = emailAddress, FirstNames = firstNames, Surname = lastName};
-			return _repository.AddUser(user,password);
+			return _repository.AddUser(user,_securityService.CreateHashedTokenFromInput(password));
 		}
 	}
 }
