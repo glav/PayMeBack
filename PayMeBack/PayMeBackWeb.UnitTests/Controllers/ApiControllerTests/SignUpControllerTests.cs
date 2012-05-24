@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Glav.PayMeBack.Web.Controllers.Api;
 using Glav.PayMeBack.Web.Data;
 using Moq;
+using Glav.CacheAdapter.Core;
 
 namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 {
@@ -27,10 +28,11 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 		private static SignUpController GetController()
 		{
 			var crudRepository = new Mock<ICrudRepository>();
+			var cacheProvider = new Mock<ICacheProvider>();
 
 			crudRepository.Setup<UserDetail>(m => m.GetSingle<UserDetail>(u => u.EmailAddress == "exists@domain.com")).Returns(new UserDetail { EmailAddress = "exists@domain.com", FirstNames = "exists", Surname = "domain", Id = Guid.NewGuid() });
 
-			var securityService = new OAuthSecurityService(crudRepository.Object);
+			var securityService = new OAuthSecurityService(crudRepository.Object, cacheProvider.Object);
 
 			var service = new SignupService(new MockEmailService(), new UserService(crudRepository.Object, securityService));
 			var controller = new SignUpController(service);

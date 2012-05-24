@@ -7,6 +7,7 @@ using Glav.PayMeBack.Web.Data;
 using Moq;
 using Glav.PayMeBack.Web.Domain.Services;
 using Glav.PayMeBack.Web.Domain;
+using Glav.CacheAdapter.Core;
 
 namespace PayMeBackWeb.UnitTests.Services
 {
@@ -15,6 +16,7 @@ namespace PayMeBackWeb.UnitTests.Services
 	{
 		private Mock<ICrudRepository> _crudRepo;
 		private OAuthSecurityService _securityService;
+		private Mock<ICacheProvider> _cacheProvider;
 
 		[TestMethod]
 		public void AccessTokenShouldBeValid()
@@ -52,7 +54,8 @@ namespace PayMeBackWeb.UnitTests.Services
 		private void InitialiseOauthSecurityService()
 		{
 			_crudRepo = new Mock<ICrudRepository>();
-			_securityService = new OAuthSecurityService(_crudRepo.Object);
+			_cacheProvider = new Mock<ICacheProvider>();
+			_securityService = new OAuthSecurityService(_crudRepo.Object,_cacheProvider.Object);
 		}
 
 	}
