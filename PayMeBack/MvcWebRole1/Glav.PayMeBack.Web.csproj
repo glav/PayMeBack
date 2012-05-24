@@ -179,14 +179,11 @@
     <Compile Include="Data\UserDetail.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Domain\AuthorisationScope.cs" />
     <Compile Include="Domain\DebtPaymentInstallment.cs" />
     <Compile Include="Domain\DebtPaymentPlan.cs" />
     <Compile Include="Domain\OAuthAuthorisationGrantResponse.cs" />
     <Compile Include="Domain\OAuthConfig.cs" />
-    <Compile Include="Domain\OAuthTokenType.cs" />
     <Compile Include="Domain\PaymentMethodType.cs" />
-    <Compile Include="Domain\QueryStringConstants.cs" />
     <Compile Include="Domain\Services\IOAuthSecurityService.cs" />
     <Compile Include="Domain\Services\OAuthSecurityService.cs" />
     <Compile Include="Domain\Services\EmailService.cs" />
@@ -317,6 +314,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Glav.PayMeBack.Core\Glav.PayMeBack.Core.csproj">
+      <Project>{7839A946-2D89-4085-B5F4-6C19CB00B010}</Project>
+      <Name>Glav.PayMeBack.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
