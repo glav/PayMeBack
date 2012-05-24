@@ -5,6 +5,7 @@ using System.Text;
 using System.Security.Cryptography;
 using Glav.PayMeBack.Web.Data;
 using Glav.CacheAdapter.Core;
+using Glav.PayMeBack.Core;
 
 namespace Glav.PayMeBack.Web.Domain.Services
 {
@@ -179,8 +180,8 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				throw new System.Security.SecurityException("No authorisation scope presented");
 			}
 
-			// Currently we only support FULL scope
-			var isFullScopePresent = authScopesPresented.Count(s => s.ScopeType == AuthorisationScopeType.Full) > 0;
+			// Currently we only support Modify and super/uberuser scope
+			var isFullScopePresent = authScopesPresented.Count(s => s.ScopeType == AuthorisationScopeType.Modify || s.ScopeType == AuthorisationScopeType.UberUser) > 0;
 			return isFullScopePresent;
 		}
 

@@ -3,25 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Glav.PayMeBack.Web.Domain
+namespace Glav.PayMeBack.Core
 {
 	public class AuthorisationScopeValue
 	{
-		public const string View = "view";
+		public const string ReadOnly = "readonly";
 		public const string Modify = "modify";
-		public const string Delete = "delete";
-		public const string Full = "full";
-		public const string FileId = "fileid";
+		public const string UberUser = "uberuser";
 	}
 
 	public enum AuthorisationScopeType
 	{
 		None,
-		View,
+		Readonly,
 		Modify,
-		Delete,
-		Full,
-		FileId
+		UberUser
 	}
 
 	public class AuthorisationScope
@@ -37,34 +33,31 @@ namespace Glav.PayMeBack.Web.Domain
 			if (!string.IsNullOrWhiteSpace(scopeValue))
 			{
 				var lowerValue = scopeValue.ToLowerInvariant();
-				if (lowerValue == AuthorisationScopeValue.View)
-				{
-					return new AuthorisationScope { ScopeType = AuthorisationScopeType.View };
-				}
-				if (lowerValue == AuthorisationScopeValue.Delete)
-				{
-					return new AuthorisationScope { ScopeType = AuthorisationScopeType.Delete};
-				}
 				if (lowerValue == AuthorisationScopeValue.Modify)
 				{
-					return new AuthorisationScope { ScopeType = AuthorisationScopeType.Modify};
+					return new AuthorisationScope { ScopeType = AuthorisationScopeType.Modify };
 				}
-				if (lowerValue == AuthorisationScopeValue.Full)
+				if (lowerValue == AuthorisationScopeValue.ReadOnly)
 				{
-					return new AuthorisationScope { ScopeType = AuthorisationScopeType.Full};
+					return new AuthorisationScope { ScopeType = AuthorisationScopeType.Readonly};
+				}
+				if (lowerValue == AuthorisationScopeValue.UberUser)
+				{
+					return new AuthorisationScope { ScopeType = AuthorisationScopeType.UberUser};
 				}
 
-				if (lowerValue.StartsWith(AuthorisationScopeValue.FileId))
-				{
-					var scope = new AuthorisationScope { ScopeType = AuthorisationScopeType.FileId };
-					int index = lowerValue.IndexOf(':');
-					if (index >= 0)
-					{
-						var scopeContext = lowerValue.Substring(index + 1, lowerValue.Length - (index + 1));
-						scope.ScopeContext = scopeContext;
-					}
-					return scope;
-				}
+				// Requires parsing of scope context
+				//if (lowerValue.StartsWith(AuthorisationScopeValue.FileId))
+				//{
+				//    var scope = new AuthorisationScope { ScopeType = AuthorisationScopeType.FileId };
+				//    int index = lowerValue.IndexOf(':');
+				//    if (index >= 0)
+				//    {
+				//        var scopeContext = lowerValue.Substring(index + 1, lowerValue.Length - (index + 1));
+				//        scope.ScopeContext = scopeContext;
+				//    }
+				//    return scope;
+				//}
 			}
 
 			return new AuthorisationScope { ScopeType = AuthorisationScopeType.None};
