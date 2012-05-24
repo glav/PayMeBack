@@ -8,6 +8,7 @@ using Moq;
 using Glav.PayMeBack.Web.Domain.Services;
 using Glav.PayMeBack.Web.Domain;
 using Glav.CacheAdapter.Core;
+using System.Linq.Expressions;
 
 namespace PayMeBackWeb.UnitTests.Services
 {
@@ -24,8 +25,9 @@ namespace PayMeBackWeb.UnitTests.Services
 			var validTokenId = Guid.NewGuid();
 			InitialiseOauthSecurityService();
 
-			_crudRepo.Setup<OAuthToken>(m => m.GetSingle<OAuthToken>(t => t.AccessToken == validTokenId.ToString())).Returns(new OAuthToken { AccessToken = validTokenId.ToString(), AssociatedUserId = Guid.NewGuid(), AccessTokenExpiry = DateTime.UtcNow.AddMinutes(1) });
-
+			var token = new OAuthToken { AccessToken = validTokenId.ToString(), AssociatedUserId = Guid.NewGuid(), AccessTokenExpiry = DateTime.UtcNow.AddMinutes(1) };
+			_crudRepo.Setup<OAuthToken>(m => m.GetSingle<OAuthToken>(It.IsAny<Expression<Func<OAuthToken,bool>>>())).Returns(token);
+			_cacheProvider.Setup<OAuthToken>(m => m.Get<OAuthToken>(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<Func<OAuthToken>>())).Returns(token);
 			Assert.IsTrue(_securityService.IsAccessTokenValid(validTokenId.ToString()), "Access Token should be valid");
 		}
 
