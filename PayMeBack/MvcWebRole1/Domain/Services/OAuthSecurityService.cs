@@ -4,20 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 using Glav.PayMeBack.Web.Data;
+using Glav.CacheAdapter.Core;
 
 namespace Glav.PayMeBack.Web.Domain.Services
 {
 	public class OAuthSecurityService : IOAuthSecurityService
 	{
 		private ICrudRepository _crudRepository;
-		//private ICacheProvider _cacheProvider;
+		private ICacheProvider _cacheProvider;
 
 		private const string CacheKeyTokenEntry = "OAuthTokenEntry_{0}";
 
-		public OAuthSecurityService(ICrudRepository crudRepository)
+		public OAuthSecurityService(ICrudRepository crudRepository, ICacheProvider cacheProvider)
 		{
 			_crudRepository = crudRepository;
-			//_cacheProvider = cacheProvider;
+			_cacheProvider = cacheProvider;
 		}
 		public OAuthAuthorisationGrantResponse AuthorisePasswordCredentialsGrant(string emailAddress, string password, string scope)
 		{
@@ -40,13 +41,13 @@ namespace Glav.PayMeBack.Web.Domain.Services
 						var tokenEntry = new OAuthToken();
 						tokenEntry.AssociatedUserId = validUser.Id;
 						tokenEntry.AccessToken = CreateNewHashedToken();
-						tokenEntry.AccessTokenExpiry = DateTime.UtcNow.AddMinutes(30);
+						tokenEntry.AccessTokenExpiry = DateTime.UtcNow.AddMinutes(OAuthConfig.AccessTokenExpiryInMinutes);
 						tokenEntry.RefreshToken = CreateNewHashedToken();
-						tokenEntry.RefreshTokenExpiry = DateTime.UtcNow.AddYears(1);
+						tokenEntry.RefreshTokenExpiry = OAuthConfig.RefreshTokenExpiryInDays == 0 ? DateTime.MaxValue : DateTime.UtcNow.AddDays(OAuthConfig.RefreshTokenExpiryInDays);
 						PopulateScopeForToken(tokenEntry, scope);
 
 						_crudRepository.Insert<OAuthToken>(tokenEntry);
-						//_cacheProvider.Add(GetCacheKeyForTokenRecord(tokenEntry.AccessToken), tokenEntry.AccessTokenExpiry, tokenEntry);
+						_cacheProvider.Add(GetCacheKeyForTokenRecord(tokenEntry.AccessToken), tokenEntry.AccessTokenExpiry, tokenEntry);
 
 						response.IsSuccessfull = true;
 						MapOAuthTokenToAccessTokenResponse(tokenEntry, response);
@@ -90,7 +91,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		private void MapOAuthTokenToAccessTokenResponse(OAuthToken tokenEntry, OAuthAuthorisationGrantResponse response)
 		{
 			response.AccessGrant.access_token = tokenEntry.AccessToken;
-			response.AccessGrant.expires_in = 30 * 60;  // convert to seconds
+			response.AccessGrant.expires_in = OAuthConfig.AccessTokenExpiryInMinutes * 60;  // convert to seconds
 			response.AccessGrant.refresh_token = tokenEntry.RefreshToken;
 			response.AccessGrant.token_type = OAuthTokenType.Bearer;
 			response.AccessGrant.scope = tokenEntry.Scope;
@@ -118,9 +119,9 @@ namespace Glav.PayMeBack.Web.Domain.Services
 					{
 						tokenEntry.AccessToken = CreateNewHashedToken();
 						tokenEntry.AccessTokenExpiry = DateTime.UtcNow.AddMinutes(30);
-						//_cacheProvider.InvalidateCacheItem(GetCacheKeyForTokenRecord(oldToken));
+						_cacheProvider.InvalidateCacheItem(GetCacheKeyForTokenRecord(oldToken));
 						_crudRepository.Update<OAuthToken>(tokenEntry);
-						//_cacheProvider.Add(GetCacheKeyForTokenRecord(tokenEntry.AccessToken), tokenEntry.AccessTokenExpiry, tokenEntry);
+						_cacheProvider.Add(GetCacheKeyForTokenRecord(tokenEntry.AccessToken), tokenEntry.AccessTokenExpiry, tokenEntry);
 
 						response.IsSuccessfull = true;
 						MapOAuthTokenToAccessTokenResponse(tokenEntry, response);
@@ -147,17 +148,15 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 		public bool IsAccessTokenValid(string token)
 		{
-			//TODO: Use caching
-			var tokenEntry = _crudRepository.GetSingle<OAuthToken>(t => t.AccessToken == token);
-			if (tokenEntry != null && DateTime.UtcNow < tokenEntry.AccessTokenExpiry)
+			var tokenEntry = _cacheProvider.Get<OAuthToken>(GetCacheKeyForTokenRecord(token), DateTime.Now.AddMinutes(OAuthConfig.AccessTokenExpiryInMinutes), () =>
+				{
+					return _crudRepository.GetSingle<OAuthToken>(t => t.AccessToken == token);
+				});
+
+			if (tokenEntry != null && tokenEntry.AccessTokenExpiry > DateTime.UtcNow)
 			{
-				return true;
+			    return true;
 			}
-			//var tokenEntry = _cacheProvider.InnerCache.Get<OAuthToken>(GetCacheKeyForTokenRecord(token));
-			//if (tokenEntry != null && tokenEntry.AccessTokenExpiry > DateTime.UtcNow)
-			//{
-			//    return true;
-			//}
 
 			return false;
 		}
