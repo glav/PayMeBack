@@ -13,7 +13,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glav.PayMeBack.Client", "Gl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glav.PayMeBack.Core", "Glav.PayMeBack.Core\Glav.PayMeBack.Core.csproj", "{7839A946-2D89-4085-B5F4-6C19CB00B010}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glav.PayMeBack.Client.Tests", "Glav.PayMeBack.Client.Tests\Glav.PayMeBack.Client.Tests.csproj", "{7F7E4A30-5457-487C-A703-A6B127D991EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{37E40269-54F2-4976-8DC8-171B6B6A5E44}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		PayMeBack.vsmdi = PayMeBack.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = PayMeBack.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -39,11 +51,17 @@ Global
 		{7839A946-2D89-4085-B5F4-6C19CB00B010}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7839A946-2D89-4085-B5F4-6C19CB00B010}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7839A946-2D89-4085-B5F4-6C19CB00B010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F7E4A30-5457-487C-A703-A6B127D991EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F7E4A30-5457-487C-A703-A6B127D991EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F7E4A30-5457-487C-A703-A6B127D991EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F7E4A30-5457-487C-A703-A6B127D991EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A8D252EC-E1E8-4BBF-AB9B-D829013FFA69} = {4CEF6E63-E6D7-42DD-860E-055180D7C7DD}
+		{7F7E4A30-5457-487C-A703-A6B127D991EF} = {4CEF6E63-E6D7-42DD-860E-055180D7C7DD}
+		{37E40269-54F2-4976-8DC8-171B6B6A5E44} = {4CEF6E63-E6D7-42DD-860E-055180D7C7DD}
 	EndGlobalSection
 EndGlobal

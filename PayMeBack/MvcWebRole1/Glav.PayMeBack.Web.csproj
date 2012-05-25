@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\OAuthController.cs" />
     <Compile Include="Controllers\Api\PeopleController.cs" />
     <Compile Include="Controllers\Api\SimpleSignInController.cs" />
     <Compile Include="Controllers\Api\SignUpController.cs" />
@@ -179,11 +180,14 @@
     <Compile Include="Data\UserDetail.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\AuthorisationRequestType.cs" />
     <Compile Include="Domain\DebtPaymentInstallment.cs" />
     <Compile Include="Domain\DebtPaymentPlan.cs" />
+    <Compile Include="Domain\Engines\OAuthExtensions.cs" />
     <Compile Include="Domain\OAuthAuthorisationGrantResponse.cs" />
     <Compile Include="Domain\OAuthConfig.cs" />
     <Compile Include="Domain\PaymentMethodType.cs" />
+    <Compile Include="Domain\Engines\AuthenticationEngine.cs" />
     <Compile Include="Domain\Services\IOAuthSecurityService.cs" />
     <Compile Include="Domain\Services\OAuthSecurityService.cs" />
     <Compile Include="Domain\Services\EmailService.cs" />

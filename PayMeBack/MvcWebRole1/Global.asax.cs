@@ -8,6 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.WebPages;
 using Glav.CacheAdapter.Core.DependencyInjection;
+using Glav.PayMeBack.Core;
 
 namespace Glav.PayMeBack.Web
 {
@@ -24,6 +25,9 @@ namespace Glav.PayMeBack.Web
 		public static void RegisterRoutes(RouteCollection routes)
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+			routes.IgnoreRoute("{resource}.ico");
+
+			// Our special OAuth authenticatio mechansism, base route == http://host/authorisation
 
 			routes.MapHttpRoute(
 				name: "DefaultApi",
@@ -43,9 +47,19 @@ namespace Glav.PayMeBack.Web
 			AreaRegistration.RegisterAllAreas();
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
+			RegisterApis(GlobalConfiguration.Configuration);
 			RegisterRoutes(RouteTable.Routes);
 
 			BundleTable.Bundles.RegisterTemplateBundles();
+		}
+
+		private void RegisterApis(HttpConfiguration config)
+		{
+			//config.MessageHandlers.Add(new AuthenticationEngine(container.Resolve<IApiAuthenticationService>(), container.Resolve<IOAuthSecurityService>()));
+			//config.MessageHandlers.Add(new ApiUsageLogger(container.Resolve<IUsageLogRepository>()));
+
+			config.Routes.MapHttpRoute("OAuthPing", ResourceNames.Authorisation + "/{action}", new { controller = "OAuth" });
+			config.Routes.MapHttpRoute("OAuth", ResourceNames.Authorisation, new { controller = "OAuth" });
 		}
 
 		private void RegisterMobileViews()
