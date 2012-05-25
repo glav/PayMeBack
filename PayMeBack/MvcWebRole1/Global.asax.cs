@@ -9,6 +9,10 @@ using System.Web.Routing;
 using System.Web.WebPages;
 using Glav.CacheAdapter.Core.DependencyInjection;
 using Glav.PayMeBack.Core;
+using Autofac;
+using Glav.PayMeBack.Web.Domain.Services;
+using Glav.PayMeBack.Web.Data;
+using Glav.CacheAdapter.Core;
 
 namespace Glav.PayMeBack.Web
 {
@@ -46,11 +50,48 @@ namespace Glav.PayMeBack.Web
 		{
 			AreaRegistration.RegisterAllAreas();
 
+			SetupDepedencyInjection();
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterApis(GlobalConfiguration.Configuration);
 			RegisterRoutes(RouteTable.Routes);
 
 			BundleTable.Bundles.RegisterTemplateBundles();
+		}
+
+		private void SetupDepedencyInjection()
+		{
+			var config = GlobalConfiguration.Configuration;
+			var builder = new ContainerBuilder();
+			var defaultSvcResolver = new System.Web.Http.Services.DependencyResolver(config);
+
+			builder.Register(c => new CrudRepository()).As<ICrudRepository>();
+			builder.Register(c => CacheBinder.ResolveCacheFromConfig(null)).As<ICacheProvider>().SingleInstance();
+			builder.Register(c => new OAuthSecurityService(c.Resolve<ICrudRepository>(),c.Resolve<ICacheProvider>());
+
+			var container = builder.Build();
+
+			config.ServiceResolver.SetResolver(
+				t =>
+				{
+					object o;
+					if (container.TryResolve(t, out o))
+					{
+						return o;
+					}
+					else return defaultSvcResolver.GetService(t);// null;// defaultSvcResolver.GetService(t);
+				},
+				t =>
+				{
+					Type enumerableType = typeof(IEnumerable<>).MakeGenericType(new Type[] { t });
+					var customTypes = ((IEnumerable)container.Resolve(enumerableType)).Cast<object>();
+					var inbuiltTypes = defaultSvcResolver.GetServices(t);
+					var types = new List<object>();
+					types.AddRange(inbuiltTypes);
+					types.AddRange(customTypes);
+
+					return types;
+				}
+				);
 		}
 
 		private void RegisterApis(HttpConfiguration config)
