@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Glav.PayMeBack.Web.Models;
 using Glav.PayMeBack.Web.Domain.Services;
+using Glav.PayMeBack.Core;
 
 namespace Glav.PayMeBack.Web.Controllers.Api
 {
@@ -17,19 +18,25 @@ namespace Glav.PayMeBack.Web.Controllers.Api
     		_signupService = signupService;
     	}
 
-		public SignUpResponse PostSignUpDetails(string emailAddress, string firstNames, string lastName, string password)
+		public object PostSignUpDetails(string emailAddress, string firstNames, string lastName, string password)
 		{
-			var response = new SignUpResponse();
+			var response = new OAuthAuthorisationGrantResponse();
 			try
 			{
-				response.AccessToken = _signupService.SignUpNewUser(emailAddress, firstNames, lastName, password);
-				response.IsSuccessful = true;
+				response = _signupService.SignUpNewUser(emailAddress, firstNames, lastName, password);
+				if (response.IsSuccessfull)
+				{
+					return response.AccessGrant;
+				}
+
+				return response.ErrorDetails;
 			}
 			catch (Exception ex)
 			{
-				response.ErrorMessage = ex.Message;
+				response.IsSuccessfull = false;
+				response.ErrorDetails = new OAuthGrantRequestError { error = "invalid_client" };
+				return response.ErrorDetails;
 			}
-			return response;
 		}
     }
 }

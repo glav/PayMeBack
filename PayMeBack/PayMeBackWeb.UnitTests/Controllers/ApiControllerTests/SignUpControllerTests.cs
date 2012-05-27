@@ -9,6 +9,7 @@ using Glav.PayMeBack.Web.Controllers.Api;
 using Glav.PayMeBack.Web.Data;
 using Moq;
 using Glav.CacheAdapter.Core;
+using Glav.PayMeBack.Core;
 
 namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 {
@@ -22,7 +23,9 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 			var response = controller.PostSignUpDetails("newuser@somewhere.com", "new", "user", "passwod");
 			
 			Assert.IsNotNull(response,"No response from Signup Controller");
-			Assert.IsNotNull(response.AccessToken);
+			var realResponse = response as OAuthGrantRequestError;
+			Assert.IsNotNull(realResponse);
+			Assert.IsFalse(string.IsNullOrWhiteSpace(realResponse.error));
 		}
 
 		private static SignUpController GetController()
@@ -45,8 +48,10 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 			//TODO: Should ideally pre-register a user in the repo
 			var controller = GetController();
 			var response = controller.PostSignUpDetails("exists@domain.com", "exists", "domain", "password");
-			Assert.IsNotNull(response,"No response from sign up controller");
-			Assert.IsFalse(response.IsSuccessful,"Registered a user that already exists");
+			Assert.IsNotNull(response, "No response from sign up controller");
+			var realResponse = response as OAuthGrantRequestError;
+			Assert.IsNotNull(realResponse);
+			Assert.IsFalse(string.IsNullOrWhiteSpace(realResponse.error),"Registered a user that already exists");
 		}
 	}
 

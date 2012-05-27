@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Glav.PayMeBack.Client.Proxies;
+using Glav.PayMeBack.Core;
 
 namespace Glav.PayMeBack.Client.Tests
 {
@@ -22,7 +23,7 @@ namespace Glav.PayMeBack.Client.Tests
 
 
 		[TestMethod]
-		public void ShouldBeAbleToSignUp()
+		public void ShouldNotBeAbleToSignUp()
 		{
 			var proxy = new AuthorisationProxy();
 			var response = proxy.PasswordCredentialsGrantRequest(Guid.NewGuid().ToString(), "P@ssw0rd1");
@@ -30,8 +31,8 @@ namespace Glav.PayMeBack.Client.Tests
 			Assert.IsNotNull(response);
 			Assert.IsTrue(response.IsRequestSuccessfull);
 			Assert.IsNotNull(response.DataObject);
-			Assert.IsTrue(response.DataObject.IsSuccessfull);
-			Assert.IsFalse(string.IsNullOrWhiteSpace(response.DataObject.AccessGrant.access_token));
+			Assert.IsNotNull(response.DataObject.ErrorDetails);
+			Assert.IsFalse(string.IsNullOrWhiteSpace(response.DataObject.ErrorDetails.error));
 		}
 	}
 }

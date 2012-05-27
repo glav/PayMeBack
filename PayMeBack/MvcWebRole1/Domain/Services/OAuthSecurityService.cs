@@ -66,6 +66,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
 					response.ErrorDetails.error = "invalid_client";
 				}
 			}
+			else
+			{
+				response.ErrorDetails.error = "invalid_client";
+			}
 
 
 			return response;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security;
 using System.Web;
 using Glav.PayMeBack.Web.Data;
+using Glav.PayMeBack.Core;
 
 namespace Glav.PayMeBack.Web.Domain.Services
 {
@@ -69,7 +70,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			_crudRepository.Delete<UserDetail>(u => u.Id == user.Id);
 		}
 
-		public Guid RegisterUser(string emailAddress, string firstNames, string lastName, string password)
+		public OAuthAuthorisationGrantResponse RegisterUser(string emailAddress, string firstNames, string lastName, string password)
 		{
 			// TODO: encrypt/hash pwd
 			// TODO: save to DB with new Guid as ID
@@ -82,7 +83,8 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			var user = new User {EmailAddress = emailAddress, FirstNames = firstNames, Surname = lastName};
 
 			SaveOrUpdateUser(user, password);
-			return user.Id;
+			var scope = new AuthorisationScope() { ScopeType = AuthorisationScopeType.Readonly};
+			return _securityService.AuthorisePasswordCredentialsGrant(emailAddress, password, scope.ToString());
 		}
 	}
 }

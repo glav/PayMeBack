@@ -41,6 +41,8 @@ namespace Glav.PayMeBack.Client.Proxies
 			var response = GetResponse(uri);
 			if (response.IsRequestSuccessfull)
 			{
+				//TODO: This serialisation thing below doesn't work properly. The deserialisation of the OAuthAccessTokenGrant
+				// works even if an error structure is passed through. Need to parse it better
 				try
 				{
 					JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();

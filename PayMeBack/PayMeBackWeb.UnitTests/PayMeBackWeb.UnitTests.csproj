@@ -88,6 +88,10 @@
     <Content Include="CacheAdapter-ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Glav.PayMeBack.Core\Glav.PayMeBack.Core.csproj">
+      <Project>{7839A946-2D89-4085-B5F4-6C19CB00B010}</Project>
+      <Name>Glav.PayMeBack.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvcWebRole1\Glav.PayMeBack.Web.csproj">
       <Project>{9C703008-A412-47D6-A0AB-74761759A4B5}</Project>
       <Name>Glav.PayMeBack.Web</Name>

@@ -190,7 +190,6 @@
     <Compile Include="Domain\DebtPaymentInstallment.cs" />
     <Compile Include="Domain\DebtPaymentPlan.cs" />
     <Compile Include="Domain\Engines\OAuthExtensions.cs" />
-    <Compile Include="Domain\OAuthAuthorisationGrantResponse.cs" />
     <Compile Include="Domain\OAuthConfig.cs" />
     <Compile Include="Domain\PaymentMethodType.cs" />
     <Compile Include="Domain\Engines\AuthenticationEngine.cs" />
@@ -216,7 +215,6 @@
     <Compile Include="Domain\User.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\SignInResponse.cs" />
-    <Compile Include="Models\SignUpResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>

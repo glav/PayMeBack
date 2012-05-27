@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security;
 using System.Web;
 using Glav.PayMeBack.Web.Data;
+using Glav.PayMeBack.Core;
 
 namespace Glav.PayMeBack.Web.Domain.Services
 {
@@ -17,7 +18,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			_emailService = emailService;
 			_userService = userService;
 		}
-		public Guid SignUpNewUser(string emailAddress, string firstNames, string lastName, string password)
+		public OAuthAuthorisationGrantResponse SignUpNewUser(string emailAddress, string firstNames, string lastName, string password)
 		{
 			IsEmailValid(emailAddress);
 			VerifyUserDoesNotExist(emailAddress);
