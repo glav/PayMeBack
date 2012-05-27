@@ -9,7 +9,18 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-create schema [Security]
+/****** Object:  Schema [Security]    Script Date: 05/28/2012 07:52:31 ******/
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'Security')
+CREATE SCHEMA [Security] AUTHORIZATION [dbo]
+GO
+
+USE [PayMeBack]
+GO
+
+/****** Object:  Schema [Security]    Script Date: 05/28/2012 07:52:31 ******/
+GO
+
+
 
 CREATE TABLE [Security].[OAuthToken](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,

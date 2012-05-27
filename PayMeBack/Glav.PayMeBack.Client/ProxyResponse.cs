@@ -11,13 +11,13 @@ namespace Glav.PayMeBack.Client
 		public ProxyResponse(string rawResponse, bool wasSuccesfull, HttpStatusCode statusCode, string reasonCode)
 		{
 			RawResponse = rawResponse;
-			IsSuccessfull = wasSuccesfull;
+			IsRequestSuccessfull = wasSuccesfull;
 			StatusCode = statusCode;
 			ReasonCode = reasonCode;
 
 		}
 		public string RawResponse { get; private set; }
-		public bool IsSuccessfull { get; private set; }
+		public bool IsRequestSuccessfull { get; private set; }
 		public HttpStatusCode StatusCode { get; private set; }
 		public string ReasonCode { get; private set; }
 	}

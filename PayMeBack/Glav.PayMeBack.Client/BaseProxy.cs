@@ -45,8 +45,16 @@ namespace Glav.PayMeBack.Client
 
 		private StringBuilder GetBaseUri(string apiMethod)
 		{
+			if (string.IsNullOrWhiteSpace(_baseUri))
+			{
+				throw new System.ArgumentNullException("Base Uri is null (not configured)");
+			}
 			var uri = new StringBuilder();
 			uri.AppendFormat("{0}", _baseUri);
+			if (!_baseUri.EndsWith("/"))
+			{
+				uri.Append("/");
+			}
 			if (!string.IsNullOrWhiteSpace(RequestPrefix))
 			{
 				uri.AppendFormat("{0}", RequestPrefix);
