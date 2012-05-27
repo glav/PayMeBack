@@ -13,6 +13,9 @@ using Autofac;
 using Glav.PayMeBack.Web.Domain.Services;
 using Glav.PayMeBack.Web.Data;
 using Glav.CacheAdapter.Core;
+using System.Collections;
+using Glav.PayMeBack.Web.Domain.Engines;
+using Glav.PayMeBack.Web.Controllers.Api;
 
 namespace Glav.PayMeBack.Web
 {
@@ -66,8 +69,8 @@ namespace Glav.PayMeBack.Web
 
 			builder.Register(c => new CrudRepository()).As<ICrudRepository>();
 			builder.Register(c => CacheBinder.ResolveCacheFromConfig(null)).As<ICacheProvider>().SingleInstance();
-			builder.Register(c => new OAuthSecurityService(c.Resolve<ICrudRepository>(),c.Resolve<ICacheProvider>());
-
+			builder.Register(c => new OAuthSecurityService(c.Resolve<ICrudRepository>(), c.Resolve<ICacheProvider>())).As<IOAuthSecurityService>();
+			builder.Register(c => new OAuthController(c.Resolve<IOAuthSecurityService>())).As<OAuthController>();
 			var container = builder.Build();
 
 			config.ServiceResolver.SetResolver(
@@ -96,7 +99,7 @@ namespace Glav.PayMeBack.Web
 
 		private void RegisterApis(HttpConfiguration config)
 		{
-			//config.MessageHandlers.Add(new AuthenticationEngine(container.Resolve<IApiAuthenticationService>(), container.Resolve<IOAuthSecurityService>()));
+			config.MessageHandlers.Add(new AuthenticationEngine((IOAuthSecurityService)config.ServiceResolver.GetService(typeof(IOAuthSecurityService))));
 			//config.MessageHandlers.Add(new ApiUsageLogger(container.Resolve<IUsageLogRepository>()));
 
 			config.Routes.MapHttpRoute("OAuthPing", ResourceNames.Authorisation + "/{action}", new { controller = "OAuth" });

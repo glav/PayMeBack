@@ -39,7 +39,7 @@ namespace Glav.PayMeBack.Client.Proxies
 			ContentType = RequestContentType.ApplicationJson;
 			var uri = base.GetRequestUri(string.Format("?grant_type=password&username={0}&password={1}&scope={2}",username,password,scope));
 			var response = GetResponse(uri);
-			if (response.IsSuccessfull)
+			if (response.IsRequestSuccessfull)
 			{
 				try
 				{
@@ -82,7 +82,7 @@ namespace Glav.PayMeBack.Client.Proxies
 
 			//TODO: The deserialisation and casting is incorrect for the authorisation code grant
 			// and needs to be changed
-			if (response.IsSuccessfull)
+			if (response.IsRequestSuccessfull)
 			{
 				try
 				{
@@ -119,7 +119,7 @@ namespace Glav.PayMeBack.Client.Proxies
 
 			//TODO: The deserialisation and casting is incorrect for the authorisation code grant
 			// and needs to be changed
-			if (response.IsSuccessfull)
+			if (response.IsRequestSuccessfull)
 			{
 				try
 				{
