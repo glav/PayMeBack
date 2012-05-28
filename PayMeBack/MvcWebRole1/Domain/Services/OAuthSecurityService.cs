@@ -209,7 +209,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			if (userDetail != null)
 			{
 				var currentPwd = userDetail.Password;
-				if (CreateHashedTokenFromInput(currentPwd) == CreateHashedTokenFromInput(password))
+				if (currentPwd == CreateHashedTokenFromInput(password))
 				{
 					return new User(userDetail);
 				}

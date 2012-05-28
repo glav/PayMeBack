@@ -41,22 +41,7 @@ namespace Glav.PayMeBack.Client.Proxies
 			var response = GetResponse(uri);
 			if (response.IsRequestSuccessfull)
 			{
-				//TODO: This serialisation thing below doesn't work properly. The deserialisation of the OAuthAccessTokenGrant
-				// works even if an error structure is passed through. Need to parse it better
-				try
-				{
-					JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-					var dto = jsonSerializer.Deserialize<OAuthAccessTokenGrant>(response.RawResponse);
-					result.IsSuccessfull = true;
-					result.AccessGrant = dto;
-				}
-				catch
-				{
-					JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-					var dto = jsonSerializer.Deserialize<OAuthGrantRequestError>(response.RawResponse);
-					result.IsSuccessfull = false;
-					result.ErrorDetails = dto;
-				}
+				result = ParseRawOAuthResponse(response.RawResponse);
 			}
 			else
 			{
@@ -82,24 +67,9 @@ namespace Glav.PayMeBack.Client.Proxies
 			var uri = base.GetRequestUri(string.Format("?response_type=code&client_id={0}&scope={1}&state={2}", client_id, scope, state));
 			var response = GetResponse(uri);
 
-			//TODO: The deserialisation and casting is incorrect for the authorisation code grant
-			// and needs to be changed
 			if (response.IsRequestSuccessfull)
 			{
-				try
-				{
-					JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-					var dto = jsonSerializer.Deserialize<OAuthAccessTokenGrant>(response.RawResponse);
-					result.IsSuccessfull = true;
-					result.AccessGrant = dto;
-				}
-				catch
-				{
-					JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-					var dto = jsonSerializer.Deserialize<OAuthGrantRequestError>(response.RawResponse);
-					result.IsSuccessfull = false;
-					result.ErrorDetails = dto;
-				}
+				result = ParseRawOAuthResponse(response.RawResponse);
 			}
 			else
 			{
@@ -119,24 +89,9 @@ namespace Glav.PayMeBack.Client.Proxies
 			var uri = base.GetRequestUri(string.Format("?grant_type=refresh_token&refresh_token={0}&scope={1}", refreshToken, scope));
 			var response = GetResponse(uri);
 
-			//TODO: The deserialisation and casting is incorrect for the authorisation code grant
-			// and needs to be changed
 			if (response.IsRequestSuccessfull)
 			{
-				try
-				{
-					JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-					var dto = jsonSerializer.Deserialize<OAuthAccessTokenGrant>(response.RawResponse);
-					result.IsSuccessfull = true;
-					result.AccessGrant = dto;
-				}
-				catch
-				{
-					JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-					var dto = jsonSerializer.Deserialize<OAuthGrantRequestError>(response.RawResponse);
-					result.IsSuccessfull = false;
-					result.ErrorDetails = dto;
-				}
+				result = ParseRawOAuthResponse(response.RawResponse);
 			}
 			else
 			{
@@ -149,11 +104,73 @@ namespace Glav.PayMeBack.Client.Proxies
 			
 		}
 
+		private OAuthAuthorisationGrantResponse ParseRawOAuthResponse(string rawResponse)
+		{
+			var result = new OAuthAuthorisationGrantResponse();
+			try
+			{
+				JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+				var successDto = jsonSerializer.Deserialize<OAuthAccessTokenGrant>(rawResponse);
+				if (successDto != null && !string.IsNullOrWhiteSpace(successDto.access_token))
+				{
+					result.IsSuccessfull = true;
+					result.AccessGrant = successDto;
+				}
+				var failureDto = jsonSerializer.Deserialize<OAuthGrantRequestError>(rawResponse);
+				// If we try and deserialise and get bugger all, then form up a default error response
+				if (failureDto == null || string.IsNullOrWhiteSpace(failureDto.error))
+				{
+					failureDto = new OAuthGrantRequestError { error = "invalid_client" };
+				}
+				result.IsSuccessfull = false;
+				result.ErrorDetails = failureDto;
+			}
+			catch
+			{
+				JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+				var dto = jsonSerializer.Deserialize<OAuthGrantRequestError>(rawResponse);
+				result.IsSuccessfull = false;
+				result.ErrorDetails = dto;
+			}
+
+			return result;
+		}
+
 		public ProxyResponse<string> AuthorisationPing()
 		{
 			ContentType = RequestContentType.ApplicationJson;
 			var uri = base.GetRequestUri("Ping");
 			return base.GetResponse<string>(uri);
 		}
+
+		public ProxyResponse<OAuthAuthorisationGrantResponse> Signup(string emailAddress, string firstNames, string lastName, string password)
+		{
+			var result = new OAuthAuthorisationGrantResponse();
+
+			ContentType = RequestContentType.ApplicationJson;
+			
+			var uri = base.GetRequestUri("");
+
+			var postData = new SignupPostData {emailAddress = emailAddress, firstNames = firstNames, lastName = lastName, password = password};
+			var response = base.GetResponse(uri, postData);
+			if (response.IsRequestSuccessfull)
+			{
+				result = ParseRawOAuthResponse(response.RawResponse);
+			}
+			else
+			{
+				result.IsSuccessfull = false;
+			}
+
+			return new ProxyResponse<OAuthAuthorisationGrantResponse>(response.RawResponse, result, response.IsRequestSuccessfull,response.StatusCode,response.ReasonCode);
+		}
+	}
+
+	public class SignupPostData
+	{
+		public string emailAddress;
+		public string firstNames;
+		public string lastName;
+		public string password;
 	}
 }

@@ -58,10 +58,14 @@ namespace Glav.PayMeBack.Client
 			if (!string.IsNullOrWhiteSpace(RequestPrefix))
 			{
 				uri.AppendFormat("{0}", RequestPrefix);
-				if (!string.IsNullOrWhiteSpace(apiMethod))
+			}
+			if (!string.IsNullOrWhiteSpace(apiMethod))
+			{
+				if (!uri.ToString().EndsWith("/"))
 				{
-					uri.AppendFormat("/{0}", apiMethod);
+					uri.Append("/");
 				}
+				uri.AppendFormat("{0}", apiMethod);
 			}
 			return uri;
 		}
