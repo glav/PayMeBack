@@ -115,6 +115,7 @@ namespace Glav.PayMeBack.Client.Proxies
 				{
 					result.IsSuccessfull = true;
 					result.AccessGrant = successDto;
+					return result;
 				}
 				var failureDto = jsonSerializer.Deserialize<OAuthGrantRequestError>(rawResponse);
 				// If we try and deserialise and get bugger all, then form up a default error response
