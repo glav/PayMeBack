@@ -34,5 +34,20 @@ namespace Glav.PayMeBack.Client.Tests
 			Assert.IsNotNull(response.DataObject.ErrorDetails);
 			Assert.IsFalse(string.IsNullOrWhiteSpace(response.DataObject.ErrorDetails.error));
 		}
+
+
+		[TestMethod]
+		public void ShouldBeAbleToSignUp()
+		{
+			var proxy = new AuthorisationProxy();
+			var email = string.Format("{0}@integrationtest.com",Guid.NewGuid());
+			var response = proxy.Signup(email, "test","dude","P@ssw0rd1");
+
+			Assert.IsNotNull(response);
+			Assert.IsTrue(response.IsRequestSuccessfull);
+			Assert.IsNotNull(response.DataObject);
+			Assert.IsNotNull(response.DataObject.AccessGrant);
+			Assert.IsFalse(string.IsNullOrWhiteSpace(response.DataObject.AccessGrant.access_token));
+		}
 	}
 }

@@ -159,7 +159,6 @@
     <Compile Include="Controllers\Api\OAuthController.cs" />
     <Compile Include="Controllers\Api\PeopleController.cs" />
     <Compile Include="Controllers\Api\SimpleSignInController.cs" />
-    <Compile Include="Controllers\Api\SignUpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\CrudRepository.cs" />
     <Compile Include="Data\DebtRepository.cs" />

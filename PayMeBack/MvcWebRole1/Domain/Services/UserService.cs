@@ -28,6 +28,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			//TODO: Use cache
 
 			var userDetail = _crudRepository.GetSingle<UserDetail>(u => u.EmailAddress == emailAddress);
+			if (userDetail == null)
+			{
+				return null;
+			}
 			return new User(userDetail);
 		}
 
@@ -42,9 +46,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		public void SaveOrUpdateUser(User user, string password = null)
 		{
 			var currentUser = _crudRepository.GetSingle<UserDetail>(u => u.Id == user.Id);
-			if (currentUser != null)
+			if (currentUser == null)
 			{
 				currentUser = new UserDetail();
+				currentUser.Id = Guid.NewGuid();
 				MapUserToUserDetail(user,currentUser,password);
 				_crudRepository.Insert<UserDetail>(currentUser);
 				user.Id = currentUser.Id;
@@ -84,7 +89,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 			SaveOrUpdateUser(user, password);
 			var scope = new AuthorisationScope() { ScopeType = AuthorisationScopeType.Readonly};
-			return _securityService.AuthorisePasswordCredentialsGrant(emailAddress, password, scope.ToString());
+			return _securityService.AuthorisePasswordCredentialsGrant(emailAddress, password, scope.ToTextValue());
 		}
 	}
 }

@@ -17,7 +17,6 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 	public class SignInControllerTests
 	{
 		private ISignupService _signupService;
-		private SignUpController _signUpController;
 		private SimpleSignInController _signInController;
 		private Mock<ICrudRepository> _crudRepo;
 		private IOAuthSecurityService _securityService;
@@ -42,7 +41,6 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 			_cacheProvider = new Mock<ICacheProvider>();
 			_securityService = new OAuthSecurityService(_crudRepo.Object,_cacheProvider.Object);
 			_signupService = new SignupService(new MockEmailService(), new UserService(_crudRepo.Object, _securityService));
-			_signUpController = new SignUpController(_signupService);
 			_signInController = new SimpleSignInController(_securityService);
 		}
 

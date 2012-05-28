@@ -37,6 +37,12 @@ namespace Glav.PayMeBack.Web
 			// Our special OAuth authenticatio mechansism, base route == http://host/authorisation
 
 			routes.MapHttpRoute(
+				name: "SignUp",
+				routeTemplate: ResourceNames.Authorisation+"/Signup",
+				defaults: new { controller="OAuth", action="Signup"}
+			);
+
+			routes.MapHttpRoute(
 				name: "DefaultApi",
 				routeTemplate: "api/{controller}/{id}",
 				defaults: new { id = RouteParameter.Optional }
@@ -69,8 +75,13 @@ namespace Glav.PayMeBack.Web
 
 			builder.Register(c => new CrudRepository()).As<ICrudRepository>();
 			builder.Register(c => CacheBinder.ResolveCacheFromConfig(null)).As<ICacheProvider>().SingleInstance();
+
+			builder.Register(c => new EmailService()).As<IEmailService>();
+			builder.Register(c => new UserService(c.Resolve<ICrudRepository>(), c.Resolve<IOAuthSecurityService>())).As<IUserService>();
 			builder.Register(c => new OAuthSecurityService(c.Resolve<ICrudRepository>(), c.Resolve<ICacheProvider>())).As<IOAuthSecurityService>();
-			builder.Register(c => new OAuthController(c.Resolve<IOAuthSecurityService>())).As<OAuthController>();
+			builder.Register(c => new SignupService(c.Resolve<IEmailService>(), c.Resolve<IUserService>())).As<ISignupService>();
+			builder.Register(c => new OAuthController(c.Resolve<IOAuthSecurityService>(), c.Resolve<ISignupService>())).As<OAuthController>();
+
 			var container = builder.Build();
 
 			config.ServiceResolver.SetResolver(
