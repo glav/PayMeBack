@@ -39,21 +39,28 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 					if (validUser != null)
 					{
-						var tokenEntry = new OAuthToken();
-						tokenEntry.AssociatedUserId = validUser.Id;
-						tokenEntry.AccessToken = CreateNewHashedToken();
-						tokenEntry.AccessTokenExpiry = DateTime.UtcNow.AddMinutes(OAuthConfig.AccessTokenExpiryInMinutes);
-						tokenEntry.RefreshToken = CreateNewHashedToken();
-						tokenEntry.RefreshTokenExpiry = OAuthConfig.RefreshTokenExpiryInDays == 0 ? DateTime.MaxValue : DateTime.UtcNow.AddDays(OAuthConfig.RefreshTokenExpiryInDays);
-						PopulateScopeForToken(tokenEntry, scope);
+						if (!isScopeValid)
+						{
+							response.ErrorDetails.error = "invalid_scope";
+						}
+						else
+						{
+							var tokenEntry = new OAuthToken();
+							tokenEntry.AssociatedUserId = validUser.Id;
+							tokenEntry.AccessToken = CreateNewHashedToken();
+							tokenEntry.AccessTokenExpiry = DateTime.UtcNow.AddMinutes(OAuthConfig.AccessTokenExpiryInMinutes);
+							tokenEntry.RefreshToken = CreateNewHashedToken();
+							tokenEntry.RefreshTokenExpiry = OAuthConfig.RefreshTokenExpiryInDays == 0 ? DateTime.MaxValue : DateTime.UtcNow.AddDays(OAuthConfig.RefreshTokenExpiryInDays);
+							PopulateScopeForToken(tokenEntry, scope);
 
-						_crudRepository.Insert<OAuthToken>(tokenEntry);
-						_cacheProvider.Add(GetCacheKeyForTokenRecord(tokenEntry.AccessToken), tokenEntry.AccessTokenExpiry, tokenEntry);
+							_crudRepository.Insert<OAuthToken>(tokenEntry);
+							_cacheProvider.Add(GetCacheKeyForTokenRecord(tokenEntry.AccessToken), tokenEntry.AccessTokenExpiry, tokenEntry);
 
-						response.IsSuccessfull = true;
-						MapOAuthTokenToAccessTokenResponse(tokenEntry, response);
+							response.IsSuccessfull = true;
+							MapOAuthTokenToAccessTokenResponse(tokenEntry, response);
 
-						return response;
+							return response;
+						}
 					}
 					else
 					{
@@ -117,24 +124,31 @@ namespace Glav.PayMeBack.Web.Domain.Services
 					var oldToken = tokenEntry.AccessToken;
 					var validUser =new User(_crudRepository.GetSingle<UserDetail>(u => u.Id == tokenEntry.AssociatedUserId));
 					
-					ValidateScopeForUse(validUser, scope);
-					
+					var isScopeValid = ValidateScopeForUse(validUser, scope);
 
-					if (DateTime.UtcNow < tokenEntry.RefreshTokenExpiry)
+					if (!isScopeValid)
 					{
-						tokenEntry.AccessToken = CreateNewHashedToken();
-						tokenEntry.AccessTokenExpiry = DateTime.UtcNow.AddMinutes(30);
-						_cacheProvider.InvalidateCacheItem(GetCacheKeyForTokenRecord(oldToken));
-						_crudRepository.Update<OAuthToken>(tokenEntry);
-						_cacheProvider.Add(GetCacheKeyForTokenRecord(tokenEntry.AccessToken), tokenEntry.AccessTokenExpiry, tokenEntry);
-
-						response.IsSuccessfull = true;
-						MapOAuthTokenToAccessTokenResponse(tokenEntry, response);
+						response.ErrorDetails.error = "invalid_scope";
 					}
 					else
 					{
-						//TODO: Proper response code required here
-						response.ErrorDetails.error = "invalid_client";
+
+						if (DateTime.UtcNow < tokenEntry.RefreshTokenExpiry)
+						{
+							tokenEntry.AccessToken = CreateNewHashedToken();
+							tokenEntry.AccessTokenExpiry = DateTime.UtcNow.AddMinutes(30);
+							_cacheProvider.InvalidateCacheItem(GetCacheKeyForTokenRecord(oldToken));
+							_crudRepository.Update<OAuthToken>(tokenEntry);
+							_cacheProvider.Add(GetCacheKeyForTokenRecord(tokenEntry.AccessToken), tokenEntry.AccessTokenExpiry, tokenEntry);
+
+							response.IsSuccessfull = true;
+							MapOAuthTokenToAccessTokenResponse(tokenEntry, response);
+						}
+						else
+						{
+							//TODO: Proper response code required here
+							response.ErrorDetails.error = "invalid_client";
+						}
 					}
 				}
 				else
@@ -184,9 +198,11 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				throw new System.Security.SecurityException("No authorisation scope presented");
 			}
 
-			// Currently we only support Modify and super/uberuser scope
-			var isFullScopePresent = authScopesPresented.Count(s => s.ScopeType == AuthorisationScopeType.Modify || s.ScopeType == AuthorisationScopeType.UberUser) > 0;
-			return isFullScopePresent;
+			// Currently we only assert that a valid scope is present
+			var isValidPresent = authScopesPresented.Count(s => s.ScopeType == AuthorisationScopeType.Modify 
+							|| s.ScopeType == AuthorisationScopeType.UberUser
+							|| s.ScopeType == AuthorisationScopeType.Readonly) > 0;
+			return isValidPresent;
 		}
 
 		public string CreateNewHashedToken()
