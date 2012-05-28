@@ -43,6 +43,7 @@
     <Compile Include="ApiConstants.cs" />
     <Compile Include="AuthorisationScope.cs" />
     <Compile Include="OAuthAuthorisationGrantResponse.cs" />
+    <Compile Include="OAuthErrorResponseCode.cs" />
     <Compile Include="OAuthTokenType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestPagingFilter.cs" />

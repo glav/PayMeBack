@@ -41,7 +41,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 					{
 						if (!isScopeValid)
 						{
-							response.ErrorDetails.error = "invalid_scope";
+							response.ErrorDetails.error = OAuthErrorResponseCode.InvalidScope;
 						}
 						else
 						{
@@ -64,18 +64,18 @@ namespace Glav.PayMeBack.Web.Domain.Services
 					}
 					else
 					{
-						response.ErrorDetails.error = "invalid_client";
+						response.ErrorDetails.error = OAuthErrorResponseCode.InvalidClient;
 					}
 				}
 				catch (Exception ex)
 				{
 					//TODO: Proper response code required here
-					response.ErrorDetails.error = "invalid_client";
+					response.ErrorDetails.error = OAuthErrorResponseCode.InvalidClient;
 				}
 			}
 			else
 			{
-				response.ErrorDetails.error = "invalid_client";
+				response.ErrorDetails.error = OAuthErrorResponseCode.InvalidClient;
 			}
 
 
@@ -128,7 +128,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 					if (!isScopeValid)
 					{
-						response.ErrorDetails.error = "invalid_scope";
+						response.ErrorDetails.error = OAuthErrorResponseCode.InvalidScope;
 					}
 					else
 					{
@@ -146,20 +146,18 @@ namespace Glav.PayMeBack.Web.Domain.Services
 						}
 						else
 						{
-							//TODO: Proper response code required here
-							response.ErrorDetails.error = "invalid_client";
+							response.ErrorDetails.error = OAuthErrorResponseCode.InvalidClient;
 						}
 					}
 				}
 				else
 				{
-					response.ErrorDetails.error = "invalid_grant";
+					response.ErrorDetails.error = OAuthErrorResponseCode.InvalidGrant;
 				}
 			}
 			catch (Exception ex)
 			{
-				//TODO: Proper response code required here
-				response.ErrorDetails.error = "invalid_client";
+				response.ErrorDetails.error = OAuthErrorResponseCode.InvalidClient;
 			}
 
 			return response;
@@ -189,13 +187,13 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		{
 			if (validUser == null || string.IsNullOrWhiteSpace(scope))
 			{
-				throw new System.Security.SecurityException("Invalid User");
+				return false;
 			}
 
 			var authScopesPresented = scope.ToScopeArray();
 			if (authScopesPresented.Length == 0)
 			{
-				throw new System.Security.SecurityException("No authorisation scope presented");
+				return false;
 			}
 
 			// Currently we only assert that a valid scope is present
