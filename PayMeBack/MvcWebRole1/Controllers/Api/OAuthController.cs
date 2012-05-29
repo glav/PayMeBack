@@ -13,9 +13,9 @@ namespace Glav.PayMeBack.Web.Controllers.Api
     public class OAuthController : ApiController
     {
 		private IOAuthSecurityService _oAuthSecurityService;
-		private ISignupService _signupService;
+		private ISignupManager _signupService;
 
-		public OAuthController(IOAuthSecurityService oAuthSecurityService, ISignupService signupService)
+		public OAuthController(IOAuthSecurityService oAuthSecurityService, ISignupManager signupService)
 		{
 			_oAuthSecurityService = oAuthSecurityService;
 			_signupService = signupService;

@@ -27,5 +27,8 @@ namespace Glav.PayMeBack.Web.Data
     
         public DbSet<OAuthToken> OAuthTokens { get; set; }
         public DbSet<UserDetail> UserDetails { get; set; }
+        public DbSet<DebtPaymentPlan> DebtPaymentPlans { get; set; }
+        public DbSet<UserPaymentPlan> UserPaymentPlans { get; set; }
+        public DbSet<Debt> Debts { get; set; }
     }
 }

@@ -11,13 +11,14 @@ using Moq;
 using Glav.CacheAdapter.Core;
 using System.Linq.Expressions;
 using Glav.PayMeBack.Core;
+using Glav.PayMeBack.Web.Domain.Engines;
 
 namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 {
 	[TestClass]
 	public class OAuthControllerTests
 	{
-		private ISignupService _signupService;
+		private ISignupManager _signupService;
 		private Mock<ICrudRepository> _crudRepo;
 		private IOAuthSecurityService _securityService;
 		private Mock<ICacheProvider> _cacheProvider;
@@ -45,7 +46,7 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 
 			_cacheProvider = new Mock<ICacheProvider>();
 			_securityService = new OAuthSecurityService(_crudRepo.Object,_cacheProvider.Object);
-			_signupService = new SignupService(new MockEmailService(), new UserService(_crudRepo.Object, _securityService));
+			_signupService = new SignupManager(new MockEmailService(), new UserEngine(_crudRepo.Object, _securityService), _securityService);
 			_controller = new OAuthController(_securityService, _signupService);
 		}
 

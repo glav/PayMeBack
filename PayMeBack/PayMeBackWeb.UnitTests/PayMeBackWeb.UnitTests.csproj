@@ -81,6 +81,7 @@
     <Compile Include="Example-CacheAdapterUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="Services\PaymentPlanServiceTests.cs" />
     <Compile Include="Services\SecurityServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
