@@ -160,6 +160,12 @@
     <Compile Include="Controllers\Api\PeopleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\CrudRepository.cs" />
+    <Compile Include="Data\Debt.cs">
+      <DependentUpon>PayMeBackModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DebtPaymentPlan.cs">
+      <DependentUpon>PayMeBackModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\DebtRepository.cs" />
     <Compile Include="Data\ICrudRepository.cs" />
     <Compile Include="Data\IDebtRepository.cs" />
@@ -184,6 +190,9 @@
     <Compile Include="Data\UserDetail.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\UserPaymentPlan.cs">
+      <DependentUpon>PayMeBackModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\AuthorisationRequestType.cs" />
     <Compile Include="Domain\DebtPaymentInstallment.cs" />
     <Compile Include="Domain\DebtPaymentPlan.cs" />
@@ -193,14 +202,14 @@
     <Compile Include="Domain\Engines\AuthenticationEngine.cs" />
     <Compile Include="Domain\Services\IOAuthSecurityService.cs" />
     <Compile Include="Domain\Services\OAuthSecurityService.cs" />
-    <Compile Include="Domain\Services\EmailService.cs" />
-    <Compile Include="Domain\Services\IEmailService.cs" />
+    <Compile Include="Domain\Engines\EmailEngine.cs" />
+    <Compile Include="Domain\Engines\IEmailEngine.cs" />
     <Compile Include="Domain\Services\IPaymentPlanService.cs" />
-    <Compile Include="Domain\Services\ISignupService.cs" />
-    <Compile Include="Domain\Services\IUserService.cs" />
+    <Compile Include="Domain\Services\ISignupManager.cs" />
+    <Compile Include="Domain\Engines\IUserEngine.cs" />
     <Compile Include="Domain\Services\PaymentPlanService.cs" />
-    <Compile Include="Domain\Services\SignupService.cs" />
-    <Compile Include="Domain\Services\UserService.cs" />
+    <Compile Include="Domain\Services\SignupManager.cs" />
+    <Compile Include="Domain\Engines\UserEngine.cs" />
     <Compile Include="Domain\UserPaymentPlan.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

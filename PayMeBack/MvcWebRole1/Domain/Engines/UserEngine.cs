@@ -5,19 +5,20 @@ using System.Security;
 using System.Web;
 using Glav.PayMeBack.Web.Data;
 using Glav.PayMeBack.Core;
+using Glav.PayMeBack.Web.Domain.Services;
 
-namespace Glav.PayMeBack.Web.Domain.Services
+namespace Glav.PayMeBack.Web.Domain.Engines
 {
 	/// <summary>
 	/// This class looks suspiciously like a CRUD class but it deals with caching
 	/// as well and acts as the unit of work for saving/loading users.
 	/// </summary>
-	public class UserService : IUserService
+	public class UserEngine : IUserEngine
 	{
 		private ICrudRepository _crudRepository;
 		private IOAuthSecurityService _securityService;
 
-		public UserService(ICrudRepository crudRepository, IOAuthSecurityService securityService)
+		public UserEngine(ICrudRepository crudRepository, IOAuthSecurityService securityService)
 		{
 			_crudRepository = crudRepository;
 			_securityService = securityService;
@@ -75,21 +76,5 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			_crudRepository.Delete<UserDetail>(u => u.Id == user.Id);
 		}
 
-		public OAuthAuthorisationGrantResponse RegisterUser(string emailAddress, string firstNames, string lastName, string password)
-		{
-			// TODO: encrypt/hash pwd
-			// TODO: save to DB with new Guid as ID
-			var existingUser = GetUserByEmail(emailAddress);
-			if ( existingUser != null)
-			{
-				throw new Exception(string.Format("User {0} already exists.",emailAddress));
-			}
-
-			var user = new User {EmailAddress = emailAddress, FirstNames = firstNames, Surname = lastName};
-
-			SaveOrUpdateUser(user, password);
-			var scope = new AuthorisationScope() { ScopeType = AuthorisationScopeType.Readonly};
-			return _securityService.AuthorisePasswordCredentialsGrant(emailAddress, password, scope.ToTextValue());
-		}
 	}
 }

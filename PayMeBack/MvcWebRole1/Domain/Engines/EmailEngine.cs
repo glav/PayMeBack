@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Glav.PayMeBack.Web.Domain.Services
+namespace Glav.PayMeBack.Web.Domain.Engines
 {
-	public class EmailService : IEmailService
+	public class EmailEngine : IEmailEngine
 	{
 		public bool IsValidEmail(string emailAddress)
 		{

@@ -64,7 +64,7 @@ namespace Glav.PayMeBack.Web.Data
 			//TODO: Stub for now
 			var dummyPlan = new DebtPaymentPlan();
 			dummyPlan.Id = Guid.NewGuid();
-			dummyPlan.DebtOwed = new Debt { Id = Guid.NewGuid()};
+			dummyPlan.Debt = new Debt { Id = Guid.NewGuid()};
 			return dummyPlan;
 		}
 

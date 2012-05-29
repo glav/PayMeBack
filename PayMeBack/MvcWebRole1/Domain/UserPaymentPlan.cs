@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Glav.PayMeBack.Web.Domain
 {
-	public class UserPaymentPlan
+	public class UserPaymentPlan: BaseModel
 	{
 		public User User { get; set; }
 		public List<DebtPaymentPlan> DebtsOwedToOthers { get; set; }

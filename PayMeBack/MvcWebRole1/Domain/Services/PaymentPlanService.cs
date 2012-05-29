@@ -2,30 +2,56 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Glav.PayMeBack.Web.Data;
+using Data=Glav.PayMeBack.Web.Data;
+using Glav.PayMeBack.Web.Domain.Engines;
 
 namespace Glav.PayMeBack.Web.Domain.Services
 {
 	public class PaymentPlanService : IPaymentPlanService
 	{
-		private IUserService _userService;
-		private ICrudRepository _crudRepository;
+		private IUserEngine _userEngine;
+		private Data.ICrudRepository _crudRepository;
+		private Data.IDebtRepository _debtRepository;
 
-		public PaymentPlanService(IUserService userService, ICrudRepository crudRepository)
+		public PaymentPlanService(IUserEngine userEngine, Data.ICrudRepository crudRepository, Data.IDebtRepository debtRepository)
 		{
-			_userService = userService;
+			_userEngine = userEngine;
 			_crudRepository = crudRepository;
+			_debtRepository = debtRepository;
 		}
 
 		public UserPaymentPlan GetPaymentPlan(Guid userId)
 		{
+			var paymentPlanDetail = _crudRepository.GetSingle<Data.UserPaymentPlan>(p => p.Id == userId);
 			var paymentPlan = new UserPaymentPlan();
-			paymentPlan.User = new User(_crudRepository.GetSingle<UserDetail>(u => u.Id == userId));
+			if (paymentPlanDetail == null)
+			{
+				paymentPlan = new UserPaymentPlan
+				{
+					DebtsOwedToMe = new List<DebtPaymentPlan>(),
+					DebtsOwedToOthers = new List<DebtPaymentPlan>(),
+					Id = Guid.Empty
+				};
+			}
+			paymentPlan.User = _userEngine.GetUserById(userId);
 
-			//TODO: Get plans from repository
-			paymentPlan.DebtsOwedToMe = new List<DebtPaymentPlan>();
-			paymentPlan.DebtsOwedToOthers = new List<DebtPaymentPlan>();
+			if (paymentPlanDetail.Id !=Guid.Empty)
+			{
+				paymentPlan.Id = paymentPlanDetail.Id;
+				paymentPlan.DebtsOwedToMe = GetDebtPaymentPlansOwedToUser();
+				paymentPlan.DebtsOwedToOthers = GetDebtPaymentPlansThatUserOwes();
+			}
 			return paymentPlan;
+		}
+
+		private List<DebtPaymentPlan> GetDebtPaymentPlansThatUserOwes()
+		{
+			throw new NotImplementedException();
+		}
+
+		private List<DebtPaymentPlan> GetDebtPaymentPlansOwedToUser()
+		{
+			throw new NotImplementedException();
 		}
 
 		public void AddDebt(Guid userId, Debt debt)
