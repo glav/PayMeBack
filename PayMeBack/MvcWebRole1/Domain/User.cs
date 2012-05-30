@@ -21,10 +21,13 @@ namespace Glav.PayMeBack.Web.Domain
 
 		private void MapDetailToDomainEntity(UserDetail userDetail)
 		{
-			Id = userDetail.Id;
-			EmailAddress = userDetail.EmailAddress;
-			FirstNames = userDetail.FirstNames;
-			Surname = userDetail.Surname;
+			if (userDetail != null)
+			{
+				Id = userDetail.Id;
+				EmailAddress = userDetail.EmailAddress;
+				FirstNames = userDetail.FirstNames;
+				Surname = userDetail.Surname;
+			}
 		}
 
 	}
