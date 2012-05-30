@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Data=Glav.PayMeBack.Web.Data;
+using Data = Glav.PayMeBack.Web.Data;
 using Glav.PayMeBack.Web.Domain.Engines;
 
 namespace Glav.PayMeBack.Web.Domain.Services
@@ -22,36 +22,41 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 		public UserPaymentPlan GetPaymentPlan(Guid userId)
 		{
-			var paymentPlanDetail = _crudRepository.GetSingle<Data.UserPaymentPlan>(p => p.Id == userId);
-			var paymentPlan = new UserPaymentPlan();
-			if (paymentPlanDetail == null)
-			{
-				paymentPlan = new UserPaymentPlan
-				{
-					DebtsOwedToMe = new List<DebtPaymentPlan>(),
-					DebtsOwedToOthers = new List<DebtPaymentPlan>(),
-					Id = Guid.Empty
-				};
-			}
-			paymentPlan.User = _userEngine.GetUserById(userId);
+			var paymentPlanDetail = _debtRepository.GetUserPaymentPlan(userId);
 
-			if (paymentPlanDetail.Id !=Guid.Empty)
+			var paymentPlan = new UserPaymentPlan();
+			if (paymentPlanDetail == null || paymentPlanDetail.Id == Guid.Empty)
 			{
-				paymentPlan.Id = paymentPlanDetail.Id;
-				paymentPlan.DebtsOwedToMe = GetDebtPaymentPlansOwedToUser();
-				paymentPlan.DebtsOwedToOthers = GetDebtPaymentPlansThatUserOwes();
+				paymentPlan.User = new User(_crudRepository.GetSingle<Data.UserDetail>(u => u.Id == userId));
+				paymentPlan.DebtsOwedToMe = new List<DebtPaymentPlan>();
+				paymentPlan.DebtsOwedToOthers = new List<DebtPaymentPlan>();
+				paymentPlan.Id = Guid.Empty;
+				return paymentPlan;
 			}
+
+			paymentPlan.Id = paymentPlanDetail.Id;
+			paymentPlan.User = new Domain.User(paymentPlanDetail.UserDetail);
+
+			paymentPlan.DebtsOwedToMe = GetDebtsRelatedToUser(userId, paymentPlanDetail, true);
+			paymentPlan.DebtsOwedToOthers = GetDebtsRelatedToUser(userId, paymentPlanDetail, false);
 			return paymentPlan;
 		}
 
-		private List<DebtPaymentPlan> GetDebtPaymentPlansThatUserOwes()
+		private List<DebtPaymentPlan> GetDebtsRelatedToUser(Guid userId, Data.UserPaymentPlan paymentPlanDetail, bool debtsOwedToUser)
 		{
-			throw new NotImplementedException();
-		}
+			var debtPaymentPlans = new List<DebtPaymentPlan>();
+			if (paymentPlanDetail.DebtPaymentPlans != null && paymentPlanDetail.DebtPaymentPlans.Count > 0)
+			{
+				paymentPlanDetail.DebtPaymentPlans.ToList().ForEach(p =>
+				{
+					if ((p.UserIdWhoOwesDebt != userId && debtsOwedToUser) || (p.UserIdWhoOwesDebt == userId && !debtsOwedToUser))
+					{
+						debtPaymentPlans.Add(new DebtPaymentPlan(p));
+					}
+				});
+			}
 
-		private List<DebtPaymentPlan> GetDebtPaymentPlansOwedToUser()
-		{
-			throw new NotImplementedException();
+			return debtPaymentPlans;
 		}
 
 		public void AddDebt(Guid userId, Debt debt)

@@ -8,6 +8,7 @@ using Data=Glav.PayMeBack.Web.Data;
 using Glav.PayMeBack.Web.Domain.Services;
 using Glav.PayMeBack.Web.Domain;
 using Glav.PayMeBack.Web.Domain.Engines;
+using System.Linq.Expressions;
 
 namespace PayMeBackWeb.UnitTests.Services
 {
@@ -22,9 +23,10 @@ namespace PayMeBackWeb.UnitTests.Services
 		[TestMethod]
 		public void ShouldBeAbleToCreateANewPaymentPlanForAUserIfNoPlanExists()
 		{
-			var testUser = new User { EmailAddress = "newuser@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
+			var testDetailUser = new Data.UserDetail {EmailAddress = "newuser@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
+			var testUser = new User(testDetailUser);
 			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
-
+			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail,bool>>>())).Returns(testDetailUser);
 			var plan = _paymentPlanService.GetPaymentPlan(testUser.Id);
 
 			Assert.IsNotNull(plan);
