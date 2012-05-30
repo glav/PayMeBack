@@ -16,6 +16,7 @@ using Glav.CacheAdapter.Core;
 using System.Collections;
 using Glav.PayMeBack.Web.Domain.Engines;
 using Glav.PayMeBack.Web.Controllers.Api;
+using Glav.PayMeBack.Web.Helpers;
 
 namespace Glav.PayMeBack.Web
 {
@@ -70,21 +71,10 @@ namespace Glav.PayMeBack.Web
 		private void SetupDepedencyInjection()
 		{
 			var config = GlobalConfiguration.Configuration;
-			var builder = new ContainerBuilder();
 			var defaultSvcResolver = new System.Web.Http.Services.DependencyResolver(config);
 
-			builder.Register(c => new CrudRepository()).As<ICrudRepository>();
-			builder.Register(c => CacheBinder.ResolveCacheFromConfig(null)).As<ICacheProvider>().SingleInstance();
-
-			builder.Register(c => new EmailEngine()).As<IEmailEngine>();
-			builder.Register(c => new UserEngine(c.Resolve<ICrudRepository>(), c.Resolve<IOAuthSecurityService>())).As<IUserEngine>();
-			builder.Register(c => new OAuthSecurityService(c.Resolve<ICrudRepository>(), c.Resolve<ICacheProvider>())).As<IOAuthSecurityService>();
-			builder.Register(c => new SignupManager(c.Resolve<IEmailEngine>(), c.Resolve<IUserEngine>(),c.Resolve<IOAuthSecurityService>())).As<ISignupManager>();
-			builder.Register(c => new OAuthController(c.Resolve<IOAuthSecurityService>(), c.Resolve<ISignupManager>())).As<OAuthController>();
-			builder.Register(c => new DebtRepository()).As<IDebtRepository>();
-			builder.Register(c => new PaymentPlanService(c.Resolve<IUserEngine>(), c.Resolve<ICrudRepository>(),c.Resolve<Data.IDebtRepository>())).As<IPaymentPlanService>();
-			
-			var container = builder.Build();
+			var builder = new WebDependencyBuilder();
+			var container = builder.BuildDependencies();
 
 			config.ServiceResolver.SetResolver(
 				t =>

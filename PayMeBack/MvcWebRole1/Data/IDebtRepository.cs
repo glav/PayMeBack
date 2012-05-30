@@ -17,5 +17,6 @@ namespace Glav.PayMeBack.Web.Data
 		void DeletePaymentPlan(Guid paymentPlanId);
 
 		UserPaymentPlan GetUserPaymentPlan(Guid userId);
+		void UpdateUserPaymentPlan(UserPaymentPlan userPaymentPlan);
 	}
 }

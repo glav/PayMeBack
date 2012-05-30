@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using Data = Glav.PayMeBack.Web.Data;
 using Glav.PayMeBack.Web.Domain.Engines;
+using Glav.CacheAdapter.Core;
+using System.Transactions;
+using Glav.PayMeBack.Web.Helpers;
 
 namespace Glav.PayMeBack.Web.Domain.Services
 {
@@ -12,17 +15,23 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		private IUserEngine _userEngine;
 		private Data.ICrudRepository _crudRepository;
 		private Data.IDebtRepository _debtRepository;
+		private ICacheProvider _cacheProvider;
+		private const string UserPaymentPlanCacheKey = "UserPaymentPlan_{0}";
 
-		public PaymentPlanService(IUserEngine userEngine, Data.ICrudRepository crudRepository, Data.IDebtRepository debtRepository)
+		public PaymentPlanService(IUserEngine userEngine, Data.ICrudRepository crudRepository, Data.IDebtRepository debtRepository, ICacheProvider cacheProvider)
 		{
 			_userEngine = userEngine;
 			_crudRepository = crudRepository;
 			_debtRepository = debtRepository;
+			_cacheProvider = cacheProvider;
 		}
 
 		public UserPaymentPlan GetPaymentPlan(Guid userId)
 		{
-			var paymentPlanDetail = _debtRepository.GetUserPaymentPlan(userId);
+			var paymentPlanDetail = _cacheProvider.Get<Data.UserPaymentPlan>(GetCacheKeyForUserPaymentPlan(userId), DateTime.Now.AddHours(1), () =>
+				{
+					return _debtRepository.GetUserPaymentPlan(userId);
+				});
 
 			var paymentPlan = new UserPaymentPlan();
 			if (paymentPlanDetail == null || paymentPlanDetail.Id == Guid.Empty)
@@ -42,6 +51,11 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			return paymentPlan;
 		}
 
+		private string GetCacheKeyForUserPaymentPlan(Guid userId)
+		{
+			return string.Format(UserPaymentPlanCacheKey, userId.ToString());
+		}
+
 		private List<DebtPaymentPlan> GetDebtsRelatedToUser(Guid userId, Data.UserPaymentPlan paymentPlanDetail, bool debtsOwedToUser)
 		{
 			var debtPaymentPlans = new List<DebtPaymentPlan>();
@@ -59,17 +73,75 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			return debtPaymentPlans;
 		}
 
-		public void AddDebt(Guid userId, Debt debt)
+		public void AddDebtOwed(Guid userId, Debt debt)
 		{
-			throw new NotImplementedException();
+			var userPaymentPlan = GetPaymentPlan(userId);
+			userPaymentPlan.DebtsOwedToMe.Add(new DebtPaymentPlan()
+				{
+					DebtOwed = debt,
+					UserWhoOwesDebt = userPaymentPlan.User,
+				});
+			UpdatePaymentPlan(userPaymentPlan);
 		}
 
-		public void UpdateDebt(Guid userId, Debt debt)
+		public void AddDebtOwing(Guid userId, Debt debt)
 		{
-			throw new NotImplementedException();
+			var userPaymentPlan = GetPaymentPlan(userId);
+			userPaymentPlan.DebtsOwedToOthers.Add(new DebtPaymentPlan()
+			{
+				DebtOwed = debt,
+				UserWhoOwesDebt = userPaymentPlan.User,
+			});
+			UpdatePaymentPlan(userPaymentPlan);
 		}
 
-		public void RemoveDebt(Guid userId, Guid debtId)
+		public void UpdatePaymentPlan(UserPaymentPlan usersPaymentPlan)
+		{
+			_cacheProvider.InvalidateCacheItem(GetCacheKeyForUserPaymentPlan(usersPaymentPlan.User.Id));
+
+			using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted }))
+			{
+				var existingPlan = _debtRepository.GetUserPaymentPlan(usersPaymentPlan.User.Id);
+				if (existingPlan.DebtPaymentPlans != null)
+				{
+					usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
+					{
+						var foundPlan = existingPlan.DebtPaymentPlans.Where(p => p.Id == d.Id).FirstOrDefault();
+						if (foundPlan == null)
+						{
+							existingPlan.DebtPaymentPlans.Add(d.ToDataRecord());
+						}
+						else
+						{
+							foundPlan = d.ToDataRecord();
+						}
+					});
+					usersPaymentPlan.DebtsOwedToOthers.ForEach(d =>
+					{
+						var foundPlan = existingPlan.DebtPaymentPlans.Where(p => p.Id == d.Id).FirstOrDefault();
+						if (foundPlan == null)
+						{
+							existingPlan.DebtPaymentPlans.Add(d.ToDataRecord());
+						}
+						else
+						{
+							foundPlan = d.ToDataRecord();
+						}
+					});
+				}
+				else
+				{
+					usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
+						{
+							_crudRepository.Insert<Data.Debt>(d.DebtOwed.ToDataRecord());
+							_crudRepository.Insert<Data.DebtPaymentPlan>(d.ToDataRecord());
+						});
+				}
+				_debtRepository.UpdateUserPaymentPlan(existingPlan);
+			}
+		}
+
+		public void RemoveDebt(Guid userId, DebtPaymentPlan debtPaymentPlan)
 		{
 			throw new NotImplementedException();
 		}

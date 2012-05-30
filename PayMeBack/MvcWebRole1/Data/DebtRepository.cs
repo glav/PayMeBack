@@ -43,7 +43,7 @@ namespace Glav.PayMeBack.Web.Data
 			}
 		}
 
-		IEnumerable<DebtPaymentPlan> IDebtRepository.GetAllPaymentPlansForUser(Guid userPaymentPlanId)
+		public IEnumerable<DebtPaymentPlan> GetAllPaymentPlansForUser(Guid userPaymentPlanId)
 		{
 			//TODO: Stub for now
 			var list = new List<DebtPaymentPlan>();
@@ -59,6 +59,11 @@ namespace Glav.PayMeBack.Web.Data
 			dummyPlan.Id = Guid.NewGuid();
 			dummyPlan.Debt = new Debt { Id = Guid.NewGuid() };
 			return dummyPlan;
+		}
+
+		public void UpdateUserPaymentPlan(UserPaymentPlan userPaymentPlan)
+		{
+			throw new NotImplementedException();
 		}
 
 		public void UpdatePaymentPlan(DebtPaymentPlan paymentPlan)
