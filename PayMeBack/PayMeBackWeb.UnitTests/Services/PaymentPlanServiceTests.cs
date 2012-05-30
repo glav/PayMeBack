@@ -9,6 +9,7 @@ using Glav.PayMeBack.Web.Domain.Services;
 using Glav.PayMeBack.Web.Domain;
 using Glav.PayMeBack.Web.Domain.Engines;
 using System.Linq.Expressions;
+using Glav.CacheAdapter.Core;
 
 namespace PayMeBackWeb.UnitTests.Services
 {
@@ -19,6 +20,7 @@ namespace PayMeBackWeb.UnitTests.Services
 		private IPaymentPlanService _paymentPlanService;
 		private Mock<Data.ICrudRepository> _crudRepo;
 		private Mock<Data.IDebtRepository> _debtRepo;
+		private Mock<ICacheProvider> _cacheProvider;
 
 		[TestMethod]
 		public void ShouldBeAbleToCreateANewPaymentPlanForAUserIfNoPlanExists()
@@ -41,12 +43,13 @@ namespace PayMeBackWeb.UnitTests.Services
 		[TestMethod]
 		public void ShouldBeAleToAddDebtToPaymentPlan()
 		{
-			var testUser = new User { EmailAddress = "test@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user"};
+			var testDetailUser = new Data.UserDetail { EmailAddress = "test@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
+			var testUser = new User(testDetailUser);
 			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
-			
+			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
 
-			var debt = new Debt { Id = Guid.NewGuid(), Notes = "test debt", ReasonForDebt = "drugs", TotalAmountOwed = 100};
-			_paymentPlanService.AddDebt(testUser.Id, debt);
+			var debt = new Debt { Id = Guid.Empty, Notes = "test debt", ReasonForDebt = "drugs", TotalAmountOwed = 100};
+			_paymentPlanService.AddDebtOwed(testUser.Id, debt);
 		}
 
 		[TestInitialize]
@@ -55,7 +58,9 @@ namespace PayMeBackWeb.UnitTests.Services
 			_crudRepo = new Mock<Data.ICrudRepository>();
 			_userEngine = new Mock<IUserEngine>();
 			_debtRepo = new Mock<Data.IDebtRepository>();
-			_paymentPlanService = new PaymentPlanService(_userEngine.Object, _crudRepo.Object, _debtRepo.Object);
+			_cacheProvider = new Mock<ICacheProvider>();
+
+			_paymentPlanService = new PaymentPlanService(_userEngine.Object, _crudRepo.Object, _debtRepo.Object, _cacheProvider.Object);
 		}
 	}
 }

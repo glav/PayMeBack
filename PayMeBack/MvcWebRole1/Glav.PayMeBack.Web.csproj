@@ -96,6 +96,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -160,6 +161,7 @@
     <Compile Include="Controllers\Api\PeopleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\CrudRepository.cs" />
+    <Compile Include="Helpers\DataExtensions.cs" />
     <Compile Include="Data\Debt.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
@@ -215,6 +217,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\MobileViewHelper.cs" />
+    <Compile Include="Helpers\WebDependencyBuilder.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Domain\BaseModel.cs" />
     <Compile Include="Domain\Debt.cs" />
