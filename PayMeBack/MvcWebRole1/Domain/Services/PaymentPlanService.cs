@@ -37,8 +37,8 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			if (paymentPlanDetail == null || paymentPlanDetail.Id == Guid.Empty)
 			{
 				paymentPlan.User = new User(_crudRepository.GetSingle<Data.UserDetail>(u => u.Id == userId));
-				paymentPlan.DebtsOwedToMe = new List<DebtPaymentPlan>();
-				paymentPlan.DebtsOwedToOthers = new List<DebtPaymentPlan>();
+				paymentPlan.DebtsOwedToMe = new List<Debt>();
+				paymentPlan.DebtsOwedToOthers = new List<Debt>();
 				paymentPlan.Id = Guid.Empty;
 				return paymentPlan;
 			}
@@ -56,29 +56,28 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			return string.Format(UserPaymentPlanCacheKey, userId.ToString());
 		}
 
-		private List<DebtPaymentPlan> GetDebtsRelatedToUser(Guid userId, Data.UserPaymentPlan paymentPlanDetail, bool debtsOwedToUser)
+		private List<Debt> GetDebtsRelatedToUser(Guid userId, Data.UserPaymentPlan paymentPlanDetail, bool debtsOwedToUser)
 		{
-			var debtPaymentPlans = new List<DebtPaymentPlan>();
-			if (paymentPlanDetail.DebtPaymentPlans != null && paymentPlanDetail.DebtPaymentPlans.Count > 0)
+			var debts = new List<Debt>();
+			if (paymentPlanDetail.Debts != null && paymentPlanDetail.Debts.Count > 0)
 			{
-				paymentPlanDetail.DebtPaymentPlans.ToList().ForEach(p =>
+				paymentPlanDetail.Debts.ToList().ForEach(p =>
 				{
 					if ((p.UserIdWhoOwesDebt != userId && debtsOwedToUser) || (p.UserIdWhoOwesDebt == userId && !debtsOwedToUser))
 					{
-						debtPaymentPlans.Add(new DebtPaymentPlan(p));
+						debts.Add(new Debt(p));
 					}
 				});
 			}
 
-			return debtPaymentPlans;
+			return debts;
 		}
 
 		public void AddDebtOwed(Guid userId, Debt debt)
 		{
 			var userPaymentPlan = GetPaymentPlan(userId);
-			userPaymentPlan.DebtsOwedToMe.Add(new DebtPaymentPlan()
+			userPaymentPlan.DebtsOwedToMe.Add(new Debt()
 				{
-					DebtOwed = debt,
 					UserWhoOwesDebt = userPaymentPlan.User,
 				});
 			UpdatePaymentPlan(userPaymentPlan);
@@ -87,9 +86,8 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		public void AddDebtOwing(Guid userId, Debt debt)
 		{
 			var userPaymentPlan = GetPaymentPlan(userId);
-			userPaymentPlan.DebtsOwedToOthers.Add(new DebtPaymentPlan()
+			userPaymentPlan.DebtsOwedToOthers.Add(new Debt()
 			{
-				DebtOwed = debt,
 				UserWhoOwesDebt = userPaymentPlan.User,
 			});
 			UpdatePaymentPlan(userPaymentPlan);
@@ -102,14 +100,14 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted }))
 			{
 				var existingPlan = _debtRepository.GetUserPaymentPlan(usersPaymentPlan.User.Id);
-				if (existingPlan.DebtPaymentPlans != null)
+				if (existingPlan.Debts != null)
 				{
 					usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
 					{
-						var foundPlan = existingPlan.DebtPaymentPlans.Where(p => p.Id == d.Id).FirstOrDefault();
+						var foundPlan = existingPlan.Debts.Where(p => p.Id == d.Id).FirstOrDefault();
 						if (foundPlan == null)
 						{
-							existingPlan.DebtPaymentPlans.Add(d.ToDataRecord());
+							existingPlan.Debts.Add(d.ToDataRecord());
 						}
 						else
 						{
@@ -118,10 +116,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
 					});
 					usersPaymentPlan.DebtsOwedToOthers.ForEach(d =>
 					{
-						var foundPlan = existingPlan.DebtPaymentPlans.Where(p => p.Id == d.Id).FirstOrDefault();
+						var foundPlan = existingPlan.Debts.Where(p => p.Id == d.Id).FirstOrDefault();
 						if (foundPlan == null)
 						{
-							existingPlan.DebtPaymentPlans.Add(d.ToDataRecord());
+							existingPlan.Debts.Add(d.ToDataRecord());
 						}
 						else
 						{
@@ -133,15 +131,14 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				{
 					usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
 						{
-							_crudRepository.Insert<Data.Debt>(d.DebtOwed.ToDataRecord());
-							_crudRepository.Insert<Data.DebtPaymentPlan>(d.ToDataRecord());
+							_crudRepository.Insert<Data.Debt>(d.ToDataRecord());
 						});
 				}
 				_debtRepository.UpdateUserPaymentPlan(existingPlan);
 			}
 		}
 
-		public void RemoveDebt(Guid userId, DebtPaymentPlan debtPaymentPlan)
+		public void RemoveDebt(Guid userId, Debt debt)
 		{
 			throw new NotImplementedException();
 		}

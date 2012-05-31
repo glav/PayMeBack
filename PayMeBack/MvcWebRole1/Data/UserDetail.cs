@@ -16,9 +16,8 @@ namespace Glav.PayMeBack.Web.Data
     {
         public UserDetail()
         {
-            this.UserPaymentPlans = new HashSet<UserPaymentPlan>();
-            this.DebtPaymentPlans = new HashSet<DebtPaymentPlan>();
             this.Debts = new HashSet<Debt>();
+            this.UserPaymentPlans = new HashSet<UserPaymentPlan>();
         }
     
         public System.Guid Id { get; set; }
@@ -27,8 +26,7 @@ namespace Glav.PayMeBack.Web.Data
         public string Surname { get; set; }
         public string Password { get; set; }
     
-        public virtual ICollection<UserPaymentPlan> UserPaymentPlans { get; set; }
-        public virtual ICollection<DebtPaymentPlan> DebtPaymentPlans { get; set; }
         public virtual ICollection<Debt> Debts { get; set; }
+        public virtual ICollection<UserPaymentPlan> UserPaymentPlans { get; set; }
     }
 }

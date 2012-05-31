@@ -11,6 +11,6 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		void AddDebtOwed(Guid userId, Debt debt);
 		void AddDebtOwing(Guid userId, Debt debt);
 		void UpdatePaymentPlan(UserPaymentPlan usersPaymentPlan);
-		void RemoveDebt(Guid userId, DebtPaymentPlan debtPaymentPlan);
+		void RemoveDebt(Guid userId, Debt debtPaymentPlan);
 	}
 }

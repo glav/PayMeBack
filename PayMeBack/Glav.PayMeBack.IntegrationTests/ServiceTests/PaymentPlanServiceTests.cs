@@ -38,9 +38,10 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 			_signupMgr.SignUpNewUser(emailAddress, "I", "owe", "password");
 			var userWhoOwesDebt = _securityService.SignIn(emailAddress, "password");
 
-			paymentPlan.DebtsOwedToMe.Add(new DebtPaymentPlan
+			paymentPlan.DebtsOwedToMe.Add(new Debt
 				{
-					DebtOwed = new Debt { ReasonForDebt="test", TotalAmountOwed=100 },
+					ReasonForDebt="test",
+					TotalAmountOwed=100,
 					InitialPayment=10,
 					PaymentPeriod= PaymentPeriod.Weekly,
 					StartDate = DateTime.Now,

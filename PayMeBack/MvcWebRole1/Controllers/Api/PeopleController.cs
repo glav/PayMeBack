@@ -21,21 +21,21 @@ namespace Glav.PayMeBack.Web.Controllers.Api
     	}
 
     	// GET /api/people
-		public IEnumerable<DebtPaymentPlan> Get(Guid userId, Guid accessTokenId)
+		public IEnumerable<Debt> Get(Guid userId, Guid accessTokenId)
         {
         	return OweMeMoney(userId, accessTokenId);
         }
 
-		public IEnumerable<DebtPaymentPlan> OweMeMoney(Guid userId, Guid accessTokenId)
+		public IEnumerable<Debt> OweMeMoney(Guid userId, Guid accessTokenId)
 		{
 
-			var list = new List<DebtPaymentPlan>();
+			var list = new List<Debt>();
 			return list;
 		}
 
-		public IEnumerable<DebtPaymentPlan> OweMoneyTo(Guid userId, Guid accessTokenId)
+		public IEnumerable<Debt> OweMoneyTo(Guid userId, Guid accessTokenId)
 		{
-			var list = new List<DebtPaymentPlan>();
+			var list = new List<Debt>();
 			return list;
 		}
 

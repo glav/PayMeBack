@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Domain = Glav.PayMeBack.Web.Domain;
+using Glav.PayMeBack.Web.Helpers;
 
 namespace Glav.PayMeBack.Web.Data
 {
@@ -43,37 +44,28 @@ namespace Glav.PayMeBack.Web.Data
 			}
 		}
 
-		public IEnumerable<DebtPaymentPlan> GetAllPaymentPlansForUser(Guid userPaymentPlanId)
-		{
-			//TODO: Stub for now
-			var list = new List<DebtPaymentPlan>();
-			list.Add(GetPaymentPlan(Guid.NewGuid()));
-			list.Add(GetPaymentPlan(Guid.NewGuid()));
-			return list;
-		}
-
-		public DebtPaymentPlan GetPaymentPlan(Guid paymentPlanId)
-		{
-			//TODO: Stub for now
-			var dummyPlan = new DebtPaymentPlan();
-			dummyPlan.Id = Guid.NewGuid();
-			dummyPlan.Debt = new Debt { Id = Guid.NewGuid() };
-			return dummyPlan;
-		}
-
 		public void UpdateUserPaymentPlan(UserPaymentPlan userPaymentPlan)
 		{
+			using (var ctxt = new PayMeBackEntities())
+			{
+				if (userPaymentPlan.Id == Guid.Empty)
+				{
+					ctxt.UserPaymentPlans.Add(userPaymentPlan);
+				}
+				else
+				{
+					var dbEntry = ctxt.Entry<UserPaymentPlan>(userPaymentPlan);
+					dbEntry.State = System.Data.EntityState.Modified;
+				}
+				ctxt.SaveChanges();
+			}
 			throw new NotImplementedException();
 		}
 
-		public void UpdatePaymentPlan(DebtPaymentPlan paymentPlan)
-		{
-			//TODO: Stub for now
-		}
 
-		public void DeletePaymentPlan(Guid paymentPlanId)
+		public IEnumerable<Debt> GetAllPaymentPlansForUser(Guid userPaymentPlanId)
 		{
-			//TODO: Stub for now
+			throw new NotImplementedException();
 		}
 	}
 }
