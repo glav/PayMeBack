@@ -48,6 +48,9 @@ namespace PayMeBackWeb.UnitTests.Services
 			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
 			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
 
+			_debtRepo.Setup<Data.UserPaymentPlan>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(new Data.UserPaymentPlan { UserDetail= testDetailUser, UserId = testUser.Id });
+			_debtRepo.Setup(m => m.UpdateUserPaymentPlan(It.IsAny<Data.UserPaymentPlan>()));
+
 			var debt = new Debt { Id = Guid.Empty, Notes = "test debt", ReasonForDebt = "drugs", TotalAmountOwed = 100};
 			_paymentPlanService.AddDebtOwed(testUser.Id, debt);
 		}

@@ -8,7 +8,7 @@ namespace Glav.PayMeBack.Web.Domain
 	public class UserPaymentPlan: BaseModel
 	{
 		public User User { get; set; }
-		public List<DebtPaymentPlan> DebtsOwedToOthers { get; set; }
-		public List<DebtPaymentPlan> DebtsOwedToMe { get; set; } 
+		public List<Debt> DebtsOwedToOthers { get; set; }
+		public List<Debt> DebtsOwedToMe { get; set; } 
 	}
 }

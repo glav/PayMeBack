@@ -27,24 +27,14 @@ namespace Glav.PayMeBack.Web.Helpers
 			{
 				Id = debt.Id,
 				Notes = debt.Notes,
-				ReasonForDebt = debt.ReasonForDebt
-			};
-			return detail;
-		}
-		public static DebtPaymentPlan ToDataRecord(this Domain.DebtPaymentPlan debtPlan)
-		{
-			var detail = new DebtPaymentPlan
-			{
-				Id = debtPlan.Id,
-				Debt = debtPlan.DebtOwed.ToDataRecord(),
-				DebtId = debtPlan.DebtOwed.Id,
-				ExpectedEndDate = debtPlan.ExpectedEndDate,
-				InitialPayment = debtPlan.InitialPayment,
-				IsOutstanding = debtPlan.IsOutstanding,
-				PaymentPeriod = (int)debtPlan.PaymentPeriod,
-				StartDate = debtPlan.StartDate,
-				UserIdWhoOwesDebt = debtPlan.UserWhoOwesDebt.Id,
-				UserDetail = debtPlan.UserWhoOwesDebt.ToDataRecord()
+				ReasonForDebt = debt.ReasonForDebt,
+				ExpectedEndDate = debt.ExpectedEndDate,
+				InitialPayment = debt.InitialPayment,
+				IsOutstanding = debt.IsOutstanding,
+				PaymentPeriod = (int)debt.PaymentPeriod,
+				StartDate = debt.StartDate,
+				UserIdWhoOwesDebt = debt.UserWhoOwesDebt.Id,
+				UserDetail = debt.UserWhoOwesDebt.ToDataRecord()
 			};
 			return detail;
 		}

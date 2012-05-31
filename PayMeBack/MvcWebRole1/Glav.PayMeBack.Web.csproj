@@ -161,13 +161,13 @@
     <Compile Include="Controllers\Api\PeopleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\CrudRepository.cs" />
-    <Compile Include="Helpers\DataExtensions.cs" />
     <Compile Include="Data\Debt.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\DebtPaymentPlan.cs">
+    <Compile Include="Data\UserPaymentPlan.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DataExtensions.cs" />
     <Compile Include="Data\DebtRepository.cs" />
     <Compile Include="Data\ICrudRepository.cs" />
     <Compile Include="Data\IDebtRepository.cs" />
@@ -192,12 +192,8 @@
     <Compile Include="Data\UserDetail.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\UserPaymentPlan.cs">
-      <DependentUpon>PayMeBackModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Domain\AuthorisationRequestType.cs" />
     <Compile Include="Domain\DebtPaymentInstallment.cs" />
-    <Compile Include="Domain\DebtPaymentPlan.cs" />
     <Compile Include="Domain\Engines\OAuthExtensions.cs" />
     <Compile Include="Domain\OAuthConfig.cs" />
     <Compile Include="Domain\PaymentMethodType.cs" />
