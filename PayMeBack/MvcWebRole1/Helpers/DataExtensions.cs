@@ -34,7 +34,8 @@ namespace Glav.PayMeBack.Web.Helpers
 				PaymentPeriod = (int)debt.PaymentPeriod,
 				StartDate = debt.StartDate,
 				UserIdWhoOwesDebt = debt.UserWhoOwesDebt.Id,
-				UserDetail = debt.UserWhoOwesDebt.ToDataRecord()
+				UserDetail = debt.UserWhoOwesDebt.ToDataRecord(),
+				TotalAmountOwed = debt.TotalAmountOwed
 			};
 			return detail;
 		}
