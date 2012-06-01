@@ -41,7 +41,7 @@ namespace PayMeBackWeb.UnitTests.Services
 		}
 
 		[TestMethod]
-		public void ShouldBeAleToAddDebtToPaymentPlan()
+		public void ShouldBeAbleToAddDebtToPaymentPlan()
 		{
 			var testDetailUser = new Data.UserDetail { EmailAddress = "test@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
 			var testUser = new User(testDetailUser);
@@ -52,7 +52,10 @@ namespace PayMeBackWeb.UnitTests.Services
 			_debtRepo.Setup(m => m.UpdateUserPaymentPlan(It.IsAny<Data.UserPaymentPlan>()));
 
 			var debt = new Debt { Id = Guid.Empty, Notes = "test debt", ReasonForDebt = "drugs", TotalAmountOwed = 100};
-			_paymentPlanService.AddDebtOwed(testUser.Id, debt);
+			var result = _paymentPlanService.AddDebtOwed(testUser.Id, debt);
+
+			Assert.IsNotNull(result);
+			Assert.IsTrue(result.WasSuccessfull);
 		}
 
 		[TestInitialize]

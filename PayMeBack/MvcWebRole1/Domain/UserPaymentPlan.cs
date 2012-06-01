@@ -9,6 +9,7 @@ namespace Glav.PayMeBack.Web.Domain
 	{
 		public User User { get; set; }
 		public List<Debt> DebtsOwedToOthers { get; set; }
-		public List<Debt> DebtsOwedToMe { get; set; } 
+		public List<Debt> DebtsOwedToMe { get; set; }
+		public DateTime DateCreated {get; set;}
 	}
 }

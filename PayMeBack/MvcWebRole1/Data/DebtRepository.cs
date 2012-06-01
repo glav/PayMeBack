@@ -40,7 +40,7 @@ namespace Glav.PayMeBack.Web.Data
 				{
 					return paymentPlan;
 				}
-				return new UserPaymentPlan();
+				return new UserPaymentPlan() { UserId = userId };
 			}
 		}
 
@@ -48,8 +48,29 @@ namespace Glav.PayMeBack.Web.Data
 		{
 			using (var ctxt = new PayMeBackEntities())
 			{
+				SetDataStateToUnchanged<UserDetail>(ctxt,userPaymentPlan.UserDetail);
+				
+				foreach (var d in userPaymentPlan.Debts)
+				{
+					SetDataStateToUnchanged(ctxt,d.UserDetail);
+					if (d.StartDate == DateTime.MinValue)
+					{
+						d.StartDate = DateTime.UtcNow;
+					}
+					if (d.DateCreated == DateTime.MinValue)
+					{
+						d.DateCreated = DateTime.UtcNow;
+					}
+					if (d.Id == Guid.Empty)
+					{
+						d.Id = Guid.NewGuid();
+						d.IsOutstanding = true;
+					}
+				}
 				if (userPaymentPlan.Id == Guid.Empty)
 				{
+					userPaymentPlan.DateCreated = DateTime.UtcNow;
+					userPaymentPlan.Id = Guid.NewGuid();
 					ctxt.UserPaymentPlans.Add(userPaymentPlan);
 				}
 				else
@@ -59,13 +80,20 @@ namespace Glav.PayMeBack.Web.Data
 				}
 				ctxt.SaveChanges();
 			}
-			throw new NotImplementedException();
 		}
 
 
 		public IEnumerable<Debt> GetAllPaymentPlansForUser(Guid userPaymentPlanId)
 		{
 			throw new NotImplementedException();
+		}
+
+		private void SetDataStateToUnchanged<T>(PayMeBackEntities context, T entity) where T : class
+		{
+			if (entity != null)
+			{
+				context.Entry<T>(entity).State = System.Data.EntityState.Unchanged;
+			}
 		}
 	}
 }

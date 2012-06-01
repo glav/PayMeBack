@@ -27,7 +27,7 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 
 
 		[TestMethod]
-		public void ShouldBeAbleToAddToAddDebtToUserPaymentPlan()
+		public void ShouldBeAbleToAddDebtToUserPaymentPlan()
 		{
 			BuildServices();
 
@@ -45,9 +45,12 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 					InitialPayment=10,
 					PaymentPeriod= PaymentPeriod.Weekly,
 					StartDate = DateTime.Now,
-					UserWhoOwesDebt = userWhoOwesDebt
+					UserWhoOwesDebt = userWhoOwesDebt,
 				});
-			_paymentPlanService.UpdatePaymentPlan(paymentPlan);
+			var result = _paymentPlanService.UpdatePaymentPlan(paymentPlan);
+			Assert.IsNotNull(result);
+			Assert.IsTrue(result.WasSuccessfull);
+
 		}
 
 

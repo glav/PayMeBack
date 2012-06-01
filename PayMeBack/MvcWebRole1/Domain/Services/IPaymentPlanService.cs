@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Glav.PayMeBack.Web.Data;
 
 namespace Glav.PayMeBack.Web.Domain.Services
 {
 	public interface IPaymentPlanService
 	{
 		UserPaymentPlan GetPaymentPlan(Guid userId);
-		void AddDebtOwed(Guid userId, Debt debt);
-		void AddDebtOwing(Guid userId, Debt debt);
-		void UpdatePaymentPlan(UserPaymentPlan usersPaymentPlan);
+		DataAccessResult AddDebtOwed(Guid userId, Debt debt);
+		DataAccessResult AddDebtOwing(Guid userId, Debt debt);
+		DataAccessResult UpdatePaymentPlan(UserPaymentPlan usersPaymentPlan);
 		void RemoveDebt(Guid userId, Debt debtPaymentPlan);
 	}
 }

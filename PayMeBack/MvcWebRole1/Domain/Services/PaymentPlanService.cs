@@ -7,6 +7,7 @@ using Glav.PayMeBack.Web.Domain.Engines;
 using Glav.CacheAdapter.Core;
 using System.Transactions;
 using Glav.PayMeBack.Web.Helpers;
+using Glav.PayMeBack.Web.Data;
 
 namespace Glav.PayMeBack.Web.Domain.Services
 {
@@ -45,6 +46,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 			paymentPlan.Id = paymentPlanDetail.Id;
 			paymentPlan.User = new Domain.User(paymentPlanDetail.UserDetail);
+			paymentPlan.DateCreated = paymentPlanDetail.DateCreated;
 
 			paymentPlan.DebtsOwedToMe = GetDebtsRelatedToUser(userId, paymentPlanDetail, true);
 			paymentPlan.DebtsOwedToOthers = GetDebtsRelatedToUser(userId, paymentPlanDetail, false);
@@ -73,28 +75,29 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			return debts;
 		}
 
-		public void AddDebtOwed(Guid userId, Debt debt)
+		public DataAccessResult AddDebtOwed(Guid userId, Debt debt)
 		{
 			var userPaymentPlan = GetPaymentPlan(userId);
 			userPaymentPlan.DebtsOwedToMe.Add(new Debt()
 				{
 					UserWhoOwesDebt = userPaymentPlan.User,
 				});
-			UpdatePaymentPlan(userPaymentPlan);
+			return UpdatePaymentPlan(userPaymentPlan);
 		}
 
-		public void AddDebtOwing(Guid userId, Debt debt)
+		public DataAccessResult AddDebtOwing(Guid userId, Debt debt)
 		{
 			var userPaymentPlan = GetPaymentPlan(userId);
 			userPaymentPlan.DebtsOwedToOthers.Add(new Debt()
 			{
 				UserWhoOwesDebt = userPaymentPlan.User,
 			});
-			UpdatePaymentPlan(userPaymentPlan);
+			return UpdatePaymentPlan(userPaymentPlan);
 		}
 
-		public void UpdatePaymentPlan(UserPaymentPlan usersPaymentPlan)
+		public DataAccessResult UpdatePaymentPlan(UserPaymentPlan usersPaymentPlan)
 		{
+			var result = new DataAccessResult();
 			_cacheProvider.InvalidateCacheItem(GetCacheKeyForUserPaymentPlan(usersPaymentPlan.User.Id));
 
 			using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted }))
@@ -134,8 +137,25 @@ namespace Glav.PayMeBack.Web.Domain.Services
 							_crudRepository.Insert<Data.Debt>(d.ToDataRecord());
 						});
 				}
-				_debtRepository.UpdateUserPaymentPlan(existingPlan);
+				try
+				{
+					_debtRepository.UpdateUserPaymentPlan(existingPlan);
+					result.WasSuccessfull = true;
+					scope.Complete();
+
+				}
+				catch (System.Data.Entity.Validation.DbEntityValidationException valEx)
+				{
+					// log it - return it
+					return valEx.ToDataResult();
+				}
+				catch (Exception ex)
+				{
+					// log it - return it
+					return ex.ToDataResult();
+				}
 			}
+			return result;
 		}
 
 		public void RemoveDebt(Guid userId, Debt debt)
