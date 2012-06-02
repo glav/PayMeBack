@@ -29,5 +29,6 @@ namespace Glav.PayMeBack.Web.Data
         public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<Debt> Debts { get; set; }
         public DbSet<UserPaymentPlan> UserPaymentPlans { get; set; }
+        public DbSet<DebtPaymentInstallment> DebtPaymentInstallments { get; set; }
     }
 }
