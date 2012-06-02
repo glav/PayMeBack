@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glav.PayMeBack.Client", "Glav.PayMeBack.Client\Glav.PayMeBack.Client.csproj", "{A8D252EC-E1E8-4BBF-AB9B-D829013FFA69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glav.PayMeBack.Client.Tests", "Glav.PayMeBack.Client.Tests\Glav.PayMeBack.Client.Tests.csproj", "{7F7E4A30-5457-487C-A703-A6B127D991EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glav.PayMeBack.Core", "Glav.PayMeBack.Core\Glav.PayMeBack.Core.csproj", "{7839A946-2D89-4085-B5F4-6C19CB00B010}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8D252EC-E1E8-4BBF-AB9B-D829013FFA69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8D252EC-E1E8-4BBF-AB9B-D829013FFA69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8D252EC-E1E8-4BBF-AB9B-D829013FFA69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8D252EC-E1E8-4BBF-AB9B-D829013FFA69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F7E4A30-5457-487C-A703-A6B127D991EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F7E4A30-5457-487C-A703-A6B127D991EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F7E4A30-5457-487C-A703-A6B127D991EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F7E4A30-5457-487C-A703-A6B127D991EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7839A946-2D89-4085-B5F4-6C19CB00B010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7839A946-2D89-4085-B5F4-6C19CB00B010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7839A946-2D89-4085-B5F4-6C19CB00B010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7839A946-2D89-4085-B5F4-6C19CB00B010}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
