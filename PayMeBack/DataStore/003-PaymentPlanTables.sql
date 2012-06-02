@@ -117,3 +117,31 @@ ALTER TABLE [Payment].[DebtPaymentInstallments] ADD  CONSTRAINT [DF_DebtPaymentI
 GO
 
 
+
+
+USE [PayMeBack]
+GO
+
+/****** Object:  Table [dbo].[PaymentMethodType]    Script Date: 06/02/2012 16:38:49 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [Payment].[PaymentMethodType](
+	[Id] [int] NOT NULL,
+	[PaymentMethod] [nvarchar](25) NOT NULL,
+ CONSTRAINT [PK_PaymentMethodType] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+insert into [Payment].[PaymentMethodType] ([Id], [PaymentMethod]) values (1,'Cash')
+insert into [Payment].[PaymentMethodType] ([Id], [PaymentMethod]) values (2,'Bank Transfer')
+insert into [Payment].[PaymentMethodType] ([Id], [PaymentMethod]) values (3,'Services')
+insert into [Payment].[PaymentMethodType] ([Id], [PaymentMethod]) values (4,'Goods')
