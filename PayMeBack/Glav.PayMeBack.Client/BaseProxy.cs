@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using System.Web.Script.Serialization;
 
 using Glav.PayMeBack.Core;
+using System.Net.Http.Formatting;
 
 namespace Glav.PayMeBack.Client
 {
@@ -103,7 +104,7 @@ namespace Glav.PayMeBack.Client
 
 		public virtual ProxyResponse GetResponse(string requestUrl)
 		{
-			var responseMsg = GetResponseMessage(requestUrl, null);
+			var responseMsg = GetResponseMessage(requestUrl);
 			var rawResponse = responseMsg.Content != null ? responseMsg.Content.ReadAsStringAsync().Result : string.Empty;
 			return new ProxyResponse(rawResponse, responseMsg.IsSuccessStatusCode, responseMsg.StatusCode, responseMsg.ReasonPhrase);
 		}
@@ -118,12 +119,11 @@ namespace Glav.PayMeBack.Client
 			HttpResponseMessage responseMsg;
 			if (postData == null)
 			{
-				responseMsg = GetResponseMessage(requestUri, null);
+				responseMsg = GetResponseMessage<object>(requestUri, null);
 			}
 			else
 			{
-				var rqstMsg = new HttpRequestMessage<T>(postData, ContentType.AsContentTypeString());
-				responseMsg = GetResponseMessage(requestUri, rqstMsg.Content);
+				responseMsg = GetResponseMessage<T>(requestUri,postData);
 			}
 			if (responseMsg.IsSuccessStatusCode)
 			{
@@ -143,12 +143,26 @@ namespace Glav.PayMeBack.Client
 
 		}
 
-		protected virtual System.Net.Http.HttpResponseMessage GetResponseMessage(string requestUri, HttpContent postData)
+		protected virtual System.Net.Http.HttpResponseMessage GetResponseMessage(string requestUri)
+		{
+			return GetResponseMessage<object>(requestUri, null);
+		}
+		protected virtual System.Net.Http.HttpResponseMessage GetResponseMessage<T>(string requestUri, T postData)
 		{
 			HttpClient client = new HttpClient();
 			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(ContentType.AsContentTypeString()));
 			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(OAuthTokenType.Bearer, _bearerToken);
 
+			MediaTypeFormatter mediaFormatter;
+
+			if (ContentType == RequestContentType.ApplicationXml)
+			{
+				mediaFormatter = new System.Net.Http.Formatting.XmlMediaTypeFormatter();
+
+			} else
+			{
+				mediaFormatter = new System.Net.Http.Formatting.JsonMediaTypeFormatter();
+			}
 			HttpResponseMessage responseMsg = null;
 			if (OperationMethod == HttpMethod.Get && postData == null)
 			{
@@ -164,11 +178,11 @@ namespace Glav.PayMeBack.Client
 				//Note: Need to explicitly specify the content type here otherwise this call fails.
 				if (OperationMethod == HttpMethod.Put)
 				{
-					responseMsg = client.PutAsync(requestUri, postData).Result;
+					responseMsg = client.PutAsync<T>(requestUri, postData,mediaFormatter).Result;
 				}
 				else
 				{
-					responseMsg = client.PostAsync(requestUri, postData).Result;
+					responseMsg = client.PostAsync<T>(requestUri, postData, mediaFormatter).Result;
 				}
 			}
 
