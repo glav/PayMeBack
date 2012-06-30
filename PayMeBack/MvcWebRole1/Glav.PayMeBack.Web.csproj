@@ -158,6 +158,9 @@
     <Compile Include="Data\DebtPaymentInstallment.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\UsageLog.cs">
+      <DependentUpon>PayMeBackModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\UserPaymentPlan.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>

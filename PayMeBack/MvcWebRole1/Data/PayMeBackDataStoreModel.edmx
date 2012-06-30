@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="PayMeBackModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="PayMeBackModelStoreContainer">
+          <EntitySet Name="UsageLog" EntityType="PayMeBackModel.Store.UsageLog" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Debt" EntityType="PayMeBackModel.Store.Debt" store:Type="Tables" Schema="Payment" />
           <EntitySet Name="DebtPaymentInstallments" EntityType="PayMeBackModel.Store.DebtPaymentInstallments" store:Type="Tables" Schema="Payment" />
           <EntitySet Name="UserPaymentPlan" EntityType="PayMeBackModel.Store.UserPaymentPlan" store:Type="Tables" Schema="Payment" />
@@ -28,6 +29,19 @@
             <End Role="UserPaymentPlan" EntitySet="UserPaymentPlan" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="UsageLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="IsRequest" Type="bit" Nullable="false" />
+          <Property Name="TimeOfOperation" Type="datetime" Nullable="false" />
+          <Property Name="HttpMethod" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="ClientIdentifier" Type="nvarchar" MaxLength="128" />
+          <Property Name="Uri" Type="nvarchar" Nullable="false" MaxLength="1024" />
+          <Property Name="Body" Type="nvarchar(max)" />
+          <Property Name="StatusCode" Type="int" />
+        </EntityType>
         <EntityType Name="Debt">
           <Key>
             <PropertyRef Name="Id" />
@@ -159,6 +173,7 @@
             <End Role="Debt" EntitySet="Debts" />
             <End Role="DebtPaymentInstallment" EntitySet="DebtPaymentInstallments" />
           </AssociationSet>
+          <EntitySet Name="UsageLogs" EntityType="PayMeBackModel.UsageLog" />
         </EntityContainer>
         <EntityType Name="OAuthToken">
           <Key>
@@ -273,6 +288,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="UsageLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="Boolean" Name="IsRequest" Nullable="false" />
+          <Property Type="DateTime" Name="TimeOfOperation" Nullable="false" />
+          <Property Type="String" Name="HttpMethod" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="ClientIdentifier" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Uri" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Body" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="StatusCode" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -337,6 +365,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UsageLogs">
+            <EntityTypeMapping TypeName="PayMeBackModel.UsageLog">
+              <MappingFragment StoreEntitySet="UsageLog">
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Uri" ColumnName="Uri" />
+                <ScalarProperty Name="ClientIdentifier" ColumnName="ClientIdentifier" />
+                <ScalarProperty Name="HttpMethod" ColumnName="HttpMethod" />
+                <ScalarProperty Name="TimeOfOperation" ColumnName="TimeOfOperation" />
+                <ScalarProperty Name="IsRequest" ColumnName="IsRequest" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -380,6 +422,7 @@
           <ConnectorPoint PointX="8.75" PointY="2.4612939453125" />
           <ConnectorPoint PointX="9.5" PointY="2.4612939453125" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="PayMeBackModel.UsageLog" Width="1.5" PointX="0.75" PointY="4.75" Height="2.5571907552083317" />
         </Diagram>
     </Diagrams>
   </Designer>
