@@ -31,7 +31,9 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 				throw new ArgumentException("invalid response type");
 				// Need to ensure we return a valid OAuth2 complient error response with invalid code error
 			}
-			return new HttpResponseMessage<string>(string.Format("response_type=[{0}], client_id=[{1}], scope=[{2}], state=[{3}]", response_type, client_id, scope, state));
+			return new HttpResponseMessage() { Content = new StringContent(string.Format("response_type=[{0}], client_id=[{1}], scope=[{2}], state=[{3}]", response_type, client_id, scope, state))};
+
+			//return new HttpResponseMessage(string.Format("response_type=[{0}], client_id=[{1}], scope=[{2}], state=[{3}]", response_type, client_id, scope, state));
 		}
 
 		public object GetAuthorisationPasswordCredentialsGrant(string grant_type, string username, string password, string scope)

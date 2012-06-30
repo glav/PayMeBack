@@ -12,10 +12,12 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 	public class AuthenticationEngine : DelegatingHandler
 	{
 		private IOAuthSecurityService _oAuthSecurityService;
+		private IUsageLogger _usageLogger;
 
-		public AuthenticationEngine(IOAuthSecurityService oAuthSecurityService) 
+		public AuthenticationEngine(IOAuthSecurityService oAuthSecurityService, IUsageLogger usageLogger) 
 		{
 			_oAuthSecurityService = oAuthSecurityService;
+			_usageLogger = usageLogger;
 		}
 
 		public AuthenticationEngine(HttpMessageHandler innerHandler, IOAuthSecurityService oAuthSecurityService)

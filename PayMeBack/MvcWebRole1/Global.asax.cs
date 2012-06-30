@@ -17,6 +17,8 @@ using System.Collections;
 using Glav.PayMeBack.Web.Domain.Engines;
 using Glav.PayMeBack.Web.Controllers.Api;
 using Glav.PayMeBack.Web.Helpers;
+using Glav.PayMeBack.Web.Domain;
+using System.Net.Http;
 
 namespace Glav.PayMeBack.Web
 {
@@ -71,38 +73,45 @@ namespace Glav.PayMeBack.Web
 		private void SetupDepedencyInjection()
 		{
 			var config = GlobalConfiguration.Configuration;
-			var defaultSvcResolver = new System.Web.Http.Services.DependencyResolver(config);
+			//var defaultSvcResolver = new System.Web.Http.Services.DependencyResolver(config);
 
 			var builder = new WebDependencyBuilder();
 			var container = builder.BuildDependencies();
 
-			config.ServiceResolver.SetResolver(
-				t =>
-				{
-					object o;
-					if (container.TryResolve(t, out o))
-					{
-						return o;
-					}
-					else return defaultSvcResolver.GetService(t);// null;// defaultSvcResolver.GetService(t);
-				},
-				t =>
-				{
-					Type enumerableType = typeof(IEnumerable<>).MakeGenericType(new Type[] { t });
-					var customTypes = ((IEnumerable)container.Resolve(enumerableType)).Cast<object>();
-					var inbuiltTypes = defaultSvcResolver.GetServices(t);
-					var types = new List<object>();
-					types.AddRange(inbuiltTypes);
-					types.AddRange(customTypes);
+			var resolver = new ApiDependencyResolver(container);
+			GlobalConfiguration.Configuration.DependencyResolver = resolver;
 
-					return types;
-				}
-				);
+			//config.ServiceResolver.SetResolver(
+			//    t =>
+			//    {
+			//        object o;
+			//        if (container.TryResolve(t, out o))
+			//        {
+			//            return o;
+			//        }
+			//        else return defaultSvcResolver.GetService(t);// null;// defaultSvcResolver.GetService(t);
+			//    },
+			//    t =>
+			//    {
+			//        Type enumerableType = typeof(IEnumerable<>).MakeGenericType(new Type[] { t });
+			//        var customTypes = ((IEnumerable)container.Resolve(enumerableType)).Cast<object>();
+			//        var inbuiltTypes = defaultSvcResolver.GetServices(t);
+			//        var types = new List<object>();
+			//        types.AddRange(inbuiltTypes);
+			//        types.AddRange(customTypes);
+
+			//        return types;
+			//    }
+			//    );
 		}
 
 		private void RegisterApis(HttpConfiguration config)
 		{
-			config.MessageHandlers.Add(new AuthenticationEngine((IOAuthSecurityService)config.ServiceResolver.GetService(typeof(IOAuthSecurityService))));
+			//TODO: Now where the fuck do I resolve the IoC container
+			var authHandler = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(AuthenticationEngine)) as DelegatingHandler;
+			config.MessageHandlers.Add(authHandler);
+			
+			
 			//config.MessageHandlers.Add(new ApiUsageLogger(container.Resolve<IUsageLogRepository>()));
 
 			config.Routes.MapHttpRoute("OAuthPing", ResourceNames.Authorisation + "/{action}", new { controller = "OAuth" });
