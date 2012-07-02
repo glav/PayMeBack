@@ -152,7 +152,7 @@ namespace Glav.PayMeBack.Client.Proxies
 			
 			var uri = base.GetRequestUri("");
 
-			var postData = new SignupPostData {emailAddress = emailAddress, firstNames = firstNames, lastName = lastName, password = password};
+			var postData = new SignupData { emailAddress = emailAddress, firstNames = firstNames, lastName = lastName, password = password };
 			var response = base.GetResponse(uri, postData);
 			if (response.IsRequestSuccessfull)
 			{
@@ -167,11 +167,4 @@ namespace Glav.PayMeBack.Client.Proxies
 		}
 	}
 
-	public class SignupPostData
-	{
-		public string emailAddress;
-		public string firstNames;
-		public string lastName;
-		public string password;
-	}
 }

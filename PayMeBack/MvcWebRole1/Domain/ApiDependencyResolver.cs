@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http.Dependencies;
 using Autofac;
+using System.Collections;
 
 namespace Glav.PayMeBack.Web.Domain
 {
@@ -13,7 +14,7 @@ namespace Glav.PayMeBack.Web.Domain
 		public ApiDependencyResolver(IContainer container)
 			: base(container)
 		{
-			_container= container;
+			_container = container;
 		}
 		public IDependencyScope BeginScope()
 		{
@@ -41,11 +42,13 @@ namespace Glav.PayMeBack.Web.Domain
 
 		public IEnumerable<object> GetServices(Type serviceType)
 		{
-			if (_scope.IsRegistered(serviceType))
-			{
-				return (IEnumerable<object>)_scope.Resolve(serviceType);
-			}
-			return null;
+			Type enumerableType = typeof(IEnumerable<>).MakeGenericType(new Type[] { serviceType });
+			var customTypes = ((IEnumerable)_scope.Resolve(enumerableType)).Cast<object>();
+			var types = new List<object>();
+			types.AddRange(customTypes);
+
+			return types;
+
 		}
 		public void Dispose()
 		{

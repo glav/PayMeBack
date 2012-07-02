@@ -78,17 +78,18 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 		/// This is provided simply to be able to test whether the access/bearer token issued is valid
 		/// </summary>
 		/// <returns></returns>
+		[System.Web.Http.HttpGet]
 		public bool Ping()
 		{
 			return true;
 		}
 
-		public object PostSignUpDetails(string emailAddress, string firstNames, string lastName, string password)
+		public object PostSignUpDetails(SignupData signupData)
 		{
 			var response = new OAuthAuthorisationGrantResponse();
 			try
 			{
-				response = _signupService.SignUpNewUser(emailAddress, firstNames, lastName, password);
+				response = _signupService.SignUpNewUser(signupData.emailAddress, signupData.firstNames, signupData.lastName, signupData.password);
 				if (response.IsSuccessfull)
 				{
 					return response.AccessGrant;
