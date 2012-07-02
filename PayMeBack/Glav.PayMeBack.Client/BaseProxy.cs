@@ -132,10 +132,10 @@ namespace Glav.PayMeBack.Client
 					var textData = responseMsg.Content.ReadAsStringAsync().Result;
 					if (!string.IsNullOrWhiteSpace(textData))
 					{
-						var dto = Deserialise<T>(responseMsg.Content.ReadAsStringAsync().Result);
-						return new ProxyResponse<T>(responseMsg.Content.ReadAsStringAsync().Result, dto, true, responseMsg.StatusCode, responseMsg.ReasonPhrase);
+						var dto = Deserialise<T>(textData);
+						return new ProxyResponse<T>(textData, dto, true, responseMsg.StatusCode, responseMsg.ReasonPhrase);
 					}
-					return new ProxyResponse<T>(responseMsg.Content.ReadAsStringAsync().Result, default(T), true, responseMsg.StatusCode, responseMsg.ReasonPhrase);
+					return new ProxyResponse<T>(textData, default(T), true, responseMsg.StatusCode, responseMsg.ReasonPhrase);
 				}
 			}
 

@@ -32,7 +32,8 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 			// Need to NOT mock the DB and allow. This should be integration test
 			_crudRepo.Setup(m => m.GetSingle<UserDetail>(It.IsAny<Expression<Func<UserDetail,bool>>>())).Returns<UserDetail>(null);
 
-			var signUpResponse = _controller.PostSignUpDetails(string.Format("{0}@unittests.com",Guid.NewGuid()),"new","user", "password");
+			var signupDetails = new SignupData { emailAddress = string.Format("{0}@unittests.com",Guid.NewGuid()), firstNames="new", lastName="user", password="password"};
+			var signUpResponse = _controller.PostSignUpDetails(signupDetails);
 			var realResponse = signUpResponse as OAuthAccessTokenGrant;
 			Assert.IsNotNull(signUpResponse,"No response from OAuth controller");
 			Assert.IsNotNull(realResponse, "No access token grant response from OAuth controller");
