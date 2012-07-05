@@ -33,7 +33,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="IsRequest" Type="bit" Nullable="false" />
           <Property Name="TimeOfOperation" Type="datetime" Nullable="false" />
           <Property Name="HttpMethod" Type="nchar" Nullable="false" MaxLength="10" />

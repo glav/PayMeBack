@@ -9,6 +9,6 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 	public interface IUsageLogger
 	{
 		void LogRequestInformation(HttpRequestMessage request);
-		void LogRequestInformation(HttpResponseMessage response);
+		void LogResponseInformation(HttpResponseMessage response);
 	}
 }
