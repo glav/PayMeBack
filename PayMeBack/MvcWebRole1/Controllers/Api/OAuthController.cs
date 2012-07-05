@@ -28,7 +28,7 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			// TODO: move this to external service
 			if (response_type != "code")
 			{
-				throw new ArgumentException("invalid response type");
+				throw new ArgumentException(OAuthErrorResponseCode.InvalidRequest);
 				// Need to ensure we return a valid OAuth2 complient error response with invalid code error
 			}
 			return new HttpResponseMessage() { Content = new StringContent(string.Format("response_type=[{0}], client_id=[{1}], scope=[{2}], state=[{3}]", response_type, client_id, scope, state))};
@@ -41,7 +41,7 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			// TODO: move this to external service
 			if (grant_type != "password")
 			{
-				throw new ArgumentException("invalid grant type");
+				throw new ArgumentException(OAuthErrorResponseCode.InvalidGrant);
 				// Need to ensure we return a valid OAuth2 complient error response with invalid code error
 			}
 
@@ -60,7 +60,7 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			// TODO: move this to external service
 			if (grant_type != "refresh_token")
 			{
-				throw new ArgumentException("invalid grant type");
+				throw new ArgumentException(OAuthErrorResponseCode.InvalidGrant);
 				// Need to ensure we return a valid OAuth2 complient error response with invalid code error
 			}
 
@@ -100,7 +100,7 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			catch (Exception ex)
 			{
 				response.IsSuccessfull = false;
-				response.ErrorDetails = new OAuthGrantRequestError { error = "invalid_client" };
+				response.ErrorDetails = new OAuthGrantRequestError { error = OAuthErrorResponseCode.InvalidClient };
 				return response.ErrorDetails;
 			}
 		}
