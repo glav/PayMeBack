@@ -9,6 +9,7 @@ using Glav.PayMeBack.Web.Domain.Engines;
 using Glav.PayMeBack.Web.Domain.Services;
 using Glav.PayMeBack.Web.Controllers.Api;
 using Glav.CacheAdapter.Core;
+using Glav.PayMeBack.Web.Framework;
 
 namespace Glav.PayMeBack.Web.Helpers
 {
@@ -30,6 +31,9 @@ namespace Glav.PayMeBack.Web.Helpers
 			builder.Register(c => new DebtRepository()).As<IDebtRepository>();
 			builder.Register(c => new PaymentPlanService(c.Resolve<IUserEngine>(), c.Resolve<ICrudRepository>(), c.Resolve<Data.IDebtRepository>(), c.Resolve<ICacheProvider>())).As<IPaymentPlanService>();
 			builder.Register(c => new AuthenticationEngine(c.Resolve<IOAuthSecurityService>(), c.Resolve<IUsageLogger>())).As<AuthenticationEngine>();
+			builder.Register(c => new ApiUsageLoggerEngine(c.Resolve<ICrudRepository>())).As<IUsageLogger>();
+			builder.Register(c => new ApiUsageHandler(c.Resolve<IUsageLogger>())).As<ApiUsageHandler>();
+
 			return builder.Build();
 		}
 	}

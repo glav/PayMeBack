@@ -9,7 +9,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[UsageLog](
-	[Id] [bigint] NOT NULL,
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[IsRequest] [bit] NOT NULL,
 	[TimeOfOperation] [datetime] NOT NULL,
 	[HttpMethod] [nchar](10) NOT NULL,

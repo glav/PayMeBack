@@ -19,6 +19,7 @@ using Glav.PayMeBack.Web.Controllers.Api;
 using Glav.PayMeBack.Web.Helpers;
 using Glav.PayMeBack.Web.Domain;
 using System.Net.Http;
+using Glav.PayMeBack.Web.Framework;
 
 namespace Glav.PayMeBack.Web
 {
@@ -81,38 +82,15 @@ namespace Glav.PayMeBack.Web
 			var resolver = new ApiDependencyResolver(container);
 			GlobalConfiguration.Configuration.DependencyResolver = resolver;
 
-			//config.ServiceResolver.SetResolver(
-			//    t =>
-			//    {
-			//        object o;
-			//        if (container.TryResolve(t, out o))
-			//        {
-			//            return o;
-			//        }
-			//        else return defaultSvcResolver.GetService(t);// null;// defaultSvcResolver.GetService(t);
-			//    },
-			//    t =>
-			//    {
-			//        Type enumerableType = typeof(IEnumerable<>).MakeGenericType(new Type[] { t });
-			//        var customTypes = ((IEnumerable)container.Resolve(enumerableType)).Cast<object>();
-			//        var inbuiltTypes = defaultSvcResolver.GetServices(t);
-			//        var types = new List<object>();
-			//        types.AddRange(inbuiltTypes);
-			//        types.AddRange(customTypes);
-
-			//        return types;
-			//    }
-			//    );
 		}
 
 		private void RegisterApis(HttpConfiguration config)
 		{
-			//TODO: Now where the fuck do I resolve the IoC container
 			var authHandler = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(AuthenticationEngine)) as DelegatingHandler;
+			var usageHandler = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ApiUsageHandler)) as DelegatingHandler;
+
+			config.MessageHandlers.Add(usageHandler);
 			config.MessageHandlers.Add(authHandler);
-			
-			
-			//config.MessageHandlers.Add(new ApiUsageLogger(container.Resolve<IUsageLogRepository>()));
 
 			config.Routes.MapHttpRoute("OAuthPing", ResourceNames.Authorisation + "/{action}", new { controller = "OAuth" });
 			config.Routes.MapHttpRoute("OAuth", ResourceNames.Authorisation, new { controller = "OAuth" });

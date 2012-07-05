@@ -167,6 +167,8 @@
     <Compile Include="Domain\ApiDependencyResolver.cs" />
     <Compile Include="Domain\Engines\IUsageLogger.cs" />
     <Compile Include="Domain\Engines\UsageLogger.cs" />
+    <Compile Include="Domain\Services\IUserService.cs" />
+    <Compile Include="Framework\ApiUsageHandler.cs" />
     <Compile Include="Helpers\DataExtensions.cs" />
     <Compile Include="Data\DebtRepository.cs" />
     <Compile Include="Data\ICrudRepository.cs" />
