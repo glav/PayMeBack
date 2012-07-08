@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Glav.PayMeBack.Web.Domain;
 using Domain=Glav.PayMeBack.Web.Domain;
 using Glav.PayMeBack.Web.Data;
 
@@ -21,9 +22,9 @@ namespace Glav.PayMeBack.Web.Helpers
 			return detail;
 		}
 
-		public static Debt ToDataRecord(this Domain.Debt debt)
+		public static DebtDetail ToDataRecord(this Domain.Debt debt)
 		{
-			var detail = new Debt
+			var detail = new DebtDetail
 			{
 				Id = debt.Id,
 				Notes = debt.Notes,
@@ -37,6 +38,19 @@ namespace Glav.PayMeBack.Web.Helpers
 				UserDetail = debt.UserWhoOwesDebt.ToDataRecord(),
 				TotalAmountOwed = debt.TotalAmountOwed
 			};
+			return detail;
+		}
+
+		public static DebtPaymentInstallmentDetail ToDataRecord(this DebtPaymentInstallment paymentInstallment)
+		{
+			var detail = new DebtPaymentInstallmentDetail
+			             	{
+								Id = paymentInstallment.Id,
+								AmountPaid = paymentInstallment.AmountPaid,
+								DebtId = paymentInstallment.DebtId,
+								PaymentDate = paymentInstallment.PaymentDate,
+								PaymentMethod = (int)paymentInstallment.TypeOfPayment
+			             	};
 			return detail;
 		}
 	}

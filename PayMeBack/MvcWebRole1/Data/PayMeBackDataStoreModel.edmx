@@ -7,26 +7,26 @@
     <Schema Namespace="PayMeBackModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="PayMeBackModelStoreContainer">
           <EntitySet Name="UsageLog" EntityType="PayMeBackModel.Store.UsageLog" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Debt" EntityType="PayMeBackModel.Store.Debt" store:Type="Tables" Schema="Payment" />
-          <EntitySet Name="DebtPaymentInstallments" EntityType="PayMeBackModel.Store.DebtPaymentInstallments" store:Type="Tables" Schema="Payment" />
-          <EntitySet Name="UserPaymentPlan" EntityType="PayMeBackModel.Store.UserPaymentPlan" store:Type="Tables" Schema="Payment" />
+          <EntitySet Name="DebtDetail" EntityType="PayMeBackModel.Store.DebtDetail" store:Type="Tables" Schema="Payment" />
+          <EntitySet Name="DebtPaymentInstallmentDetail" EntityType="PayMeBackModel.Store.DebtPaymentInstallmentDetail" store:Type="Tables" Schema="Payment" />
+          <EntitySet Name="UserPaymentPlanDetail" EntityType="PayMeBackModel.Store.UserPaymentPlanDetail" store:Type="Tables" Schema="Payment" />
           <EntitySet Name="OAuthToken" EntityType="PayMeBackModel.Store.OAuthToken" store:Type="Tables" Schema="Security" />
           <EntitySet Name="UserDetail" EntityType="PayMeBackModel.Store.UserDetail" store:Type="Tables" Schema="Security" />
           <AssociationSet Name="FK_Debt_UserDetail" Association="PayMeBackModel.Store.FK_Debt_UserDetail">
             <End Role="UserDetail" EntitySet="UserDetail" />
-            <End Role="Debt" EntitySet="Debt" />
+            <End Role="DebtDetail" EntitySet="DebtDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK_Debt_UserPaymentPlan" Association="PayMeBackModel.Store.FK_Debt_UserPaymentPlan">
-            <End Role="UserPaymentPlan" EntitySet="UserPaymentPlan" />
-            <End Role="Debt" EntitySet="Debt" />
+          <AssociationSet Name="FK_Debt_UserPaymentPlanDetail" Association="PayMeBackModel.Store.FK_Debt_UserPaymentPlanDetail">
+            <End Role="UserPaymentPlanDetail" EntitySet="UserPaymentPlanDetail" />
+            <End Role="DebtDetail" EntitySet="DebtDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK_DebtPaymentInstallments_Debt" Association="PayMeBackModel.Store.FK_DebtPaymentInstallments_Debt">
-            <End Role="Debt" EntitySet="Debt" />
-            <End Role="DebtPaymentInstallments" EntitySet="DebtPaymentInstallments" />
+          <AssociationSet Name="FK_DebtPaymentInstallmentDetail_Debt" Association="PayMeBackModel.Store.FK_DebtPaymentInstallmentDetail_Debt">
+            <End Role="DebtDetail" EntitySet="DebtDetail" />
+            <End Role="DebtPaymentInstallmentDetail" EntitySet="DebtPaymentInstallmentDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserPaymentPlan_UserDetail" Association="PayMeBackModel.Store.FK_UserPaymentPlan_UserDetail">
+          <AssociationSet Name="FK_UserPaymentPlanDetail_UserDetail" Association="PayMeBackModel.Store.FK_UserPaymentPlanDetail_UserDetail">
             <End Role="UserDetail" EntitySet="UserDetail" />
-            <End Role="UserPaymentPlan" EntitySet="UserPaymentPlan" />
+            <End Role="UserPaymentPlanDetail" EntitySet="UserPaymentPlanDetail" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UsageLog">
@@ -42,7 +42,7 @@
           <Property Name="Body" Type="nvarchar(max)" />
           <Property Name="StatusCode" Type="int" />
         </EntityType>
-        <EntityType Name="Debt">
+        <EntityType Name="DebtDetail">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -59,7 +59,7 @@
           <Property Name="ReasonForDebt" Type="nvarchar" MaxLength="250" />
           <Property Name="Notes" Type="nvarchar" MaxLength="1024" />
         </EntityType>
-        <EntityType Name="DebtPaymentInstallments">
+        <EntityType Name="DebtPaymentInstallmentDetail">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -69,7 +69,7 @@
           <Property Name="AmountPaid" Type="money" Nullable="false" />
           <Property Name="PaymentMethod" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="UserPaymentPlan">
+        <EntityType Name="UserPaymentPlanDetail">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -101,48 +101,48 @@
         </EntityType>
         <Association Name="FK_Debt_UserDetail">
           <End Role="UserDetail" Type="PayMeBackModel.Store.UserDetail" Multiplicity="1" />
-          <End Role="Debt" Type="PayMeBackModel.Store.Debt" Multiplicity="*" />
+          <End Role="DebtDetail" Type="PayMeBackModel.Store.DebtDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserDetail">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Debt">
+            <Dependent Role="DebtDetail">
               <PropertyRef Name="UserIdWhoOwesDebt" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Debt_UserPaymentPlan">
-          <End Role="UserPaymentPlan" Type="PayMeBackModel.Store.UserPaymentPlan" Multiplicity="1" />
-          <End Role="Debt" Type="PayMeBackModel.Store.Debt" Multiplicity="*" />
+        <Association Name="FK_Debt_UserPaymentPlanDetail">
+          <End Role="UserPaymentPlanDetail" Type="PayMeBackModel.Store.UserPaymentPlanDetail" Multiplicity="1" />
+          <End Role="DebtDetail" Type="PayMeBackModel.Store.DebtDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserPaymentPlan">
+            <Principal Role="UserPaymentPlanDetail">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Debt">
+            <Dependent Role="DebtDetail">
               <PropertyRef Name="UserPaymentPlanId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DebtPaymentInstallments_Debt">
-          <End Role="Debt" Type="PayMeBackModel.Store.Debt" Multiplicity="1" />
-          <End Role="DebtPaymentInstallments" Type="PayMeBackModel.Store.DebtPaymentInstallments" Multiplicity="*" />
+        <Association Name="FK_DebtPaymentInstallmentDetail_Debt">
+          <End Role="DebtDetail" Type="PayMeBackModel.Store.DebtDetail" Multiplicity="1" />
+          <End Role="DebtPaymentInstallmentDetail" Type="PayMeBackModel.Store.DebtPaymentInstallmentDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Debt">
+            <Principal Role="DebtDetail">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="DebtPaymentInstallments">
+            <Dependent Role="DebtPaymentInstallmentDetail">
               <PropertyRef Name="DebtId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserPaymentPlan_UserDetail">
+        <Association Name="FK_UserPaymentPlanDetail_UserDetail">
           <End Role="UserDetail" Type="PayMeBackModel.Store.UserDetail" Multiplicity="1" />
-          <End Role="UserPaymentPlan" Type="PayMeBackModel.Store.UserPaymentPlan" Multiplicity="*" />
+          <End Role="UserPaymentPlanDetail" Type="PayMeBackModel.Store.UserPaymentPlanDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserDetail">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UserPaymentPlan">
+            <Dependent Role="UserPaymentPlanDetail">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -154,26 +154,26 @@
         <EntityContainer Name="PayMeBackEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="OAuthTokens" EntityType="PayMeBackModel.OAuthToken" />
           <EntitySet Name="UserDetails" EntityType="PayMeBackModel.UserDetail" />
-          <EntitySet Name="Debts" EntityType="PayMeBackModel.Debt" />
-          <EntitySet Name="UserPaymentPlans" EntityType="PayMeBackModel.UserPaymentPlan" />
+          <EntitySet Name="UsageLogs" EntityType="PayMeBackModel.UsageLog" />
+          <EntitySet Name="DebtDetails" EntityType="PayMeBackModel.DebtDetail" />
           <AssociationSet Name="FK_Debt_UserDetail" Association="PayMeBackModel.FK_Debt_UserDetail">
             <End Role="UserDetail" EntitySet="UserDetails" />
-            <End Role="Debt" EntitySet="Debts" />
+            <End Role="DebtDetail" EntitySet="DebtDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_Debt_UserPaymentPlan" Association="PayMeBackModel.FK_Debt_UserPaymentPlan">
-            <End Role="UserPaymentPlan" EntitySet="UserPaymentPlans" />
-            <End Role="Debt" EntitySet="Debts" />
+          <EntitySet Name="UserPaymentPlanDetails" EntityType="PayMeBackModel.UserPaymentPlanDetail" />
+          <AssociationSet Name="FK_Debt_UserPaymentPlanDetail" Association="PayMeBackModel.FK_Debt_UserPaymentPlanDetail">
+            <End Role="UserPaymentPlanDetail" EntitySet="UserPaymentPlanDetails" />
+            <End Role="DebtDetail" EntitySet="DebtDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserPaymentPlan_UserDetail" Association="PayMeBackModel.FK_UserPaymentPlan_UserDetail">
+          <AssociationSet Name="FK_UserPaymentPlanDetail_UserDetail" Association="PayMeBackModel.FK_UserPaymentPlanDetail_UserDetail">
             <End Role="UserDetail" EntitySet="UserDetails" />
-            <End Role="UserPaymentPlan" EntitySet="UserPaymentPlans" />
+            <End Role="UserPaymentPlanDetail" EntitySet="UserPaymentPlanDetails" />
           </AssociationSet>
-          <EntitySet Name="DebtPaymentInstallments" EntityType="PayMeBackModel.DebtPaymentInstallment" />
-          <AssociationSet Name="FK_DebtPaymentInstallments_Debt" Association="PayMeBackModel.FK_DebtPaymentInstallments_Debt">
-            <End Role="Debt" EntitySet="Debts" />
-            <End Role="DebtPaymentInstallment" EntitySet="DebtPaymentInstallments" />
+          <EntitySet Name="DebtPaymentInstallmentDetails" EntityType="PayMeBackModel.DebtPaymentInstallmentDetail" />
+          <AssociationSet Name="FK_DebtPaymentInstallmentDetail_Debt" Association="PayMeBackModel.FK_DebtPaymentInstallmentDetail_Debt">
+            <End Role="DebtDetail" EntitySet="DebtDetails" />
+            <End Role="DebtPaymentInstallmentDetail" EntitySet="DebtPaymentInstallmentDetails" />
           </AssociationSet>
-          <EntitySet Name="UsageLogs" EntityType="PayMeBackModel.UsageLog" />
         </EntityContainer>
         <EntityType Name="OAuthToken">
           <Key>
@@ -196,10 +196,23 @@
           <Property Type="String" Name="FirstNames" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Surname" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Debts" Relationship="PayMeBackModel.FK_Debt_UserDetail" FromRole="UserDetail" ToRole="Debt" />
-          <NavigationProperty Name="UserPaymentPlans" Relationship="PayMeBackModel.FK_UserPaymentPlan_UserDetail" FromRole="UserDetail" ToRole="UserPaymentPlan" />
+          <NavigationProperty Name="DebtDetails" Relationship="PayMeBackModel.FK_Debt_UserDetail" FromRole="UserDetail" ToRole="DebtDetail" />
+          <NavigationProperty Name="UserPaymentPlanDetails" Relationship="PayMeBackModel.FK_UserPaymentPlanDetail_UserDetail" FromRole="UserDetail" ToRole="UserPaymentPlanDetail" />
         </EntityType>
-        <EntityType Name="Debt">
+        <EntityType Name="UsageLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="Boolean" Name="IsRequest" Nullable="false" />
+          <Property Type="DateTime" Name="TimeOfOperation" Nullable="false" />
+          <Property Type="String" Name="HttpMethod" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="ClientIdentifier" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Uri" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Body" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="StatusCode" />
+        </EntityType>
+        <EntityType Name="DebtDetail">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -215,57 +228,57 @@
           <Property Type="Decimal" Name="TotalAmountOwed" Nullable="false" Precision="19" Scale="4" />
           <Property Type="String" Name="ReasonForDebt" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Notes" MaxLength="1024" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserDetail" Relationship="PayMeBackModel.FK_Debt_UserDetail" FromRole="Debt" ToRole="UserDetail" />
-          <NavigationProperty Name="UserPaymentPlan" Relationship="PayMeBackModel.FK_Debt_UserPaymentPlan" FromRole="Debt" ToRole="UserPaymentPlan" />
-          <NavigationProperty Name="DebtPaymentInstallments" Relationship="PayMeBackModel.FK_DebtPaymentInstallments_Debt" FromRole="Debt" ToRole="DebtPaymentInstallment" />
+          <NavigationProperty Name="UserDetail" Relationship="PayMeBackModel.FK_Debt_UserDetail" FromRole="DebtDetail" ToRole="UserDetail" />
+          <NavigationProperty Name="UserPaymentPlanDetail" Relationship="PayMeBackModel.FK_Debt_UserPaymentPlanDetail" FromRole="DebtDetail" ToRole="UserPaymentPlanDetail" />
+          <NavigationProperty Name="DebtPaymentInstallmentDetails" Relationship="PayMeBackModel.FK_DebtPaymentInstallmentDetail_Debt" FromRole="DebtDetail" ToRole="DebtPaymentInstallmentDetail" />
         </EntityType>
-        <EntityType Name="UserPaymentPlan">
+        <Association Name="FK_Debt_UserDetail">
+          <End Type="PayMeBackModel.UserDetail" Role="UserDetail" Multiplicity="1" />
+          <End Type="PayMeBackModel.DebtDetail" Role="DebtDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebtDetail">
+              <PropertyRef Name="UserIdWhoOwesDebt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserPaymentPlanDetail">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="UserId" Nullable="false" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" />
-          <NavigationProperty Name="Debts" Relationship="PayMeBackModel.FK_Debt_UserPaymentPlan" FromRole="UserPaymentPlan" ToRole="Debt" />
-          <NavigationProperty Name="UserDetail" Relationship="PayMeBackModel.FK_UserPaymentPlan_UserDetail" FromRole="UserPaymentPlan" ToRole="UserDetail" />
+          <NavigationProperty Name="DebtDetails" Relationship="PayMeBackModel.FK_Debt_UserPaymentPlanDetail" FromRole="UserPaymentPlanDetail" ToRole="DebtDetail" />
+          <NavigationProperty Name="UserDetail" Relationship="PayMeBackModel.FK_UserPaymentPlanDetail_UserDetail" FromRole="UserPaymentPlanDetail" ToRole="UserDetail" />
         </EntityType>
-        <Association Name="FK_Debt_UserDetail">
-          <End Type="PayMeBackModel.UserDetail" Role="UserDetail" Multiplicity="1" />
-          <End Type="PayMeBackModel.Debt" Role="Debt" Multiplicity="*" />
+        <Association Name="FK_Debt_UserPaymentPlanDetail">
+          <End Type="PayMeBackModel.UserPaymentPlanDetail" Role="UserPaymentPlanDetail" Multiplicity="1" />
+          <End Type="PayMeBackModel.DebtDetail" Role="DebtDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserDetail">
+            <Principal Role="UserPaymentPlanDetail">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Debt">
-              <PropertyRef Name="UserIdWhoOwesDebt" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Debt_UserPaymentPlan">
-          <End Type="PayMeBackModel.UserPaymentPlan" Role="UserPaymentPlan" Multiplicity="1" />
-          <End Type="PayMeBackModel.Debt" Role="Debt" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserPaymentPlan">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Debt">
+            <Dependent Role="DebtDetail">
               <PropertyRef Name="UserPaymentPlanId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserPaymentPlan_UserDetail">
+        <Association Name="FK_UserPaymentPlanDetail_UserDetail">
           <End Type="PayMeBackModel.UserDetail" Role="UserDetail" Multiplicity="1" />
-          <End Type="PayMeBackModel.UserPaymentPlan" Role="UserPaymentPlan" Multiplicity="*" />
+          <End Type="PayMeBackModel.UserPaymentPlanDetail" Role="UserPaymentPlanDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserDetail">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UserPaymentPlan">
+            <Dependent Role="UserPaymentPlanDetail">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="DebtPaymentInstallment">
+        <EntityType Name="DebtPaymentInstallmentDetail">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -274,33 +287,20 @@
           <Property Type="DateTime" Name="PaymentDate" Nullable="false" />
           <Property Type="Decimal" Name="AmountPaid" Nullable="false" Precision="19" Scale="4" />
           <Property Type="Int32" Name="PaymentMethod" Nullable="false" />
-          <NavigationProperty Name="Debt" Relationship="PayMeBackModel.FK_DebtPaymentInstallments_Debt" FromRole="DebtPaymentInstallment" ToRole="Debt" />
+          <NavigationProperty Name="DebtDetail" Relationship="PayMeBackModel.FK_DebtPaymentInstallmentDetail_Debt" FromRole="DebtPaymentInstallmentDetail" ToRole="DebtDetail" />
         </EntityType>
-        <Association Name="FK_DebtPaymentInstallments_Debt">
-          <End Type="PayMeBackModel.Debt" Role="Debt" Multiplicity="1" />
-          <End Type="PayMeBackModel.DebtPaymentInstallment" Role="DebtPaymentInstallment" Multiplicity="*" />
+        <Association Name="FK_DebtPaymentInstallmentDetail_Debt">
+          <End Type="PayMeBackModel.DebtDetail" Role="DebtDetail" Multiplicity="1" />
+          <End Type="PayMeBackModel.DebtPaymentInstallmentDetail" Role="DebtPaymentInstallmentDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Debt">
+            <Principal Role="DebtDetail">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="DebtPaymentInstallment">
+            <Dependent Role="DebtPaymentInstallmentDetail">
               <PropertyRef Name="DebtId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="UsageLog">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" />
-          <Property Type="Boolean" Name="IsRequest" Nullable="false" />
-          <Property Type="DateTime" Name="TimeOfOperation" Nullable="false" />
-          <Property Type="String" Name="HttpMethod" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Type="String" Name="ClientIdentifier" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Uri" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Body" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="StatusCode" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -327,9 +327,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Debts">
-            <EntityTypeMapping TypeName="PayMeBackModel.Debt">
-              <MappingFragment StoreEntitySet="Debt">
+          <EntitySetMapping Name="UsageLogs">
+            <EntityTypeMapping TypeName="PayMeBackModel.UsageLog">
+              <MappingFragment StoreEntitySet="UsageLog">
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Uri" ColumnName="Uri" />
+                <ScalarProperty Name="ClientIdentifier" ColumnName="ClientIdentifier" />
+                <ScalarProperty Name="HttpMethod" ColumnName="HttpMethod" />
+                <ScalarProperty Name="TimeOfOperation" ColumnName="TimeOfOperation" />
+                <ScalarProperty Name="IsRequest" ColumnName="IsRequest" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DebtDetails">
+            <EntityTypeMapping TypeName="PayMeBackModel.DebtDetail">
+              <MappingFragment StoreEntitySet="DebtDetail">
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="ReasonForDebt" ColumnName="ReasonForDebt" />
                 <ScalarProperty Name="TotalAmountOwed" ColumnName="TotalAmountOwed" />
@@ -345,36 +359,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserPaymentPlans">
-            <EntityTypeMapping TypeName="PayMeBackModel.UserPaymentPlan">
-              <MappingFragment StoreEntitySet="UserPaymentPlan">
+          <EntitySetMapping Name="UserPaymentPlanDetails">
+            <EntityTypeMapping TypeName="PayMeBackModel.UserPaymentPlanDetail">
+              <MappingFragment StoreEntitySet="UserPaymentPlanDetail">
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DebtPaymentInstallments">
-            <EntityTypeMapping TypeName="PayMeBackModel.DebtPaymentInstallment">
-              <MappingFragment StoreEntitySet="DebtPaymentInstallments">
+          <EntitySetMapping Name="DebtPaymentInstallmentDetails">
+            <EntityTypeMapping TypeName="PayMeBackModel.DebtPaymentInstallmentDetail">
+              <MappingFragment StoreEntitySet="DebtPaymentInstallmentDetail">
                 <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
                 <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
                 <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
                 <ScalarProperty Name="DebtId" ColumnName="DebtId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UsageLogs">
-            <EntityTypeMapping TypeName="PayMeBackModel.UsageLog">
-              <MappingFragment StoreEntitySet="UsageLog">
-                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
-                <ScalarProperty Name="Body" ColumnName="Body" />
-                <ScalarProperty Name="Uri" ColumnName="Uri" />
-                <ScalarProperty Name="ClientIdentifier" ColumnName="ClientIdentifier" />
-                <ScalarProperty Name="HttpMethod" ColumnName="HttpMethod" />
-                <ScalarProperty Name="TimeOfOperation" ColumnName="TimeOfOperation" />
-                <ScalarProperty Name="IsRequest" ColumnName="IsRequest" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -403,26 +403,26 @@
       <Diagram Name="PayMeBackDataStoreModel">
         <EntityTypeShape EntityType="PayMeBackModel.OAuthToken" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
         <EntityTypeShape EntityType="PayMeBackModel.UserDetail" Width="1.5" PointX="3.375" PointY="0.75" Height="1.9802864583333335" />
-        <EntityTypeShape EntityType="PayMeBackModel.Debt" Width="1.5" PointX="7.25" PointY="0.5" Height="3.7109993489583322" />
-        <EntityTypeShape EntityType="PayMeBackModel.UserPaymentPlan" Width="1.5" PointX="5.375" PointY="2.375" Height="1.9802864583333317" />
-        <AssociationConnector Association="PayMeBackModel.FK_Debt_UserDetail" >
-          <ConnectorPoint PointX="4.875" PointY="1.53125" />
-          <ConnectorPoint PointX="7.25" PointY="1.53125" />
-        </AssociationConnector>
-        <AssociationConnector Association="PayMeBackModel.FK_Debt_UserPaymentPlan" >
-          <ConnectorPoint PointX="6.875" PointY="3.3651432291666659" />
-          <ConnectorPoint PointX="7.25" PointY="3.3651432291666659" />
-        </AssociationConnector>
-        <AssociationConnector Association="PayMeBackModel.FK_UserPaymentPlan_UserDetail" >
-          <ConnectorPoint PointX="4.875" PointY="2.7449446614583328" />
-          <ConnectorPoint PointX="5.375" PointY="2.7449446614583328" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="PayMeBackModel.DebtPaymentInstallment" Width="1.5" PointX="9.5" PointY="1.375" Height="2.1725878906249996" />
-        <AssociationConnector Association="PayMeBackModel.FK_DebtPaymentInstallments_Debt" >
-          <ConnectorPoint PointX="8.75" PointY="2.4612939453125" />
-          <ConnectorPoint PointX="9.5" PointY="2.4612939453125" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="PayMeBackModel.UsageLog" Width="1.5" PointX="0.75" PointY="4.75" Height="2.5571907552083317" />
+        <EntityTypeShape EntityType="PayMeBackModel.DebtDetail" Width="1.5" PointX="8.75" PointY="1.125" Height="3.7109993489583335" />
+        <AssociationConnector Association="PayMeBackModel.FK_Debt_UserDetail" >
+          <ConnectorPoint PointX="4.875" PointY="3.0788378906249987" />
+          <ConnectorPoint PointX="8.75" PointY="3.0788378906249987" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="PayMeBackModel.UserPaymentPlanDetail" Width="1.5" PointX="5.625" PointY="1" Height="1.9802864583333317" />
+        <AssociationConnector Association="PayMeBackModel.FK_Debt_UserPaymentPlanDetail" >
+          <ConnectorPoint PointX="7.125" PointY="2.0526432291666659" />
+          <ConnectorPoint PointX="8.75" PointY="2.0526432291666659" />
+        </AssociationConnector>
+        <AssociationConnector Association="PayMeBackModel.FK_UserPaymentPlanDetail_UserDetail" >
+          <ConnectorPoint PointX="4.875" PointY="1.9901432291666659" />
+          <ConnectorPoint PointX="5.625" PointY="1.9901432291666659" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="PayMeBackModel.DebtPaymentInstallmentDetail" Width="1.5" PointX="11" PointY="2" Height="2.1725878906249996" />
+        <AssociationConnector Association="PayMeBackModel.FK_DebtPaymentInstallmentDetail_Debt" >
+          <ConnectorPoint PointX="10.25" PointY="3.0862939453125" />
+          <ConnectorPoint PointX="11" PointY="3.0862939453125" />
+        </AssociationConnector>
         </Diagram>
     </Diagrams>
   </Designer>

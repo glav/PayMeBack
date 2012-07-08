@@ -9,13 +9,13 @@ namespace Glav.PayMeBack.Web.Data
 {
 	public class DebtRepository : IDebtRepository
 	{
-		public Debt GetDebt(Guid debtId)
+		public DebtDetail GetDebt(Guid debtId)
 		{
 			//TODO: Stub for now
-			return new Debt { Id = Guid.NewGuid(), Notes = "Dummy", ReasonForDebt = "test", TotalAmountOwed = 100 };
+			return new DebtDetail { Id = Guid.NewGuid(), Notes = "Dummy", ReasonForDebt = "test", TotalAmountOwed = 100 };
 		}
 
-		public void UpdateDebt(Debt debt)
+		public void UpdateDebt(DebtDetail debt)
 		{
 			//TODO: Stub for now
 		}
@@ -25,14 +25,14 @@ namespace Glav.PayMeBack.Web.Data
 			//TODO: Stub for now
 		}
 
-		public UserPaymentPlan GetUserPaymentPlan(Guid userId)
+		public UserPaymentPlanDetail GetUserPaymentPlan(Guid userId)
 		{
 			using (var context = new PayMeBackEntities())
 			{
 				context.Configuration.ProxyCreationEnabled = false;
 				context.Configuration.LazyLoadingEnabled = false;
 
-				var paymentPlan = (from plan in context.UserPaymentPlans
+				var paymentPlan = (from plan in context.UserPaymentPlanDetails
 									where plan.UserId == userId
 									select plan).FirstOrDefault();
 
@@ -40,17 +40,17 @@ namespace Glav.PayMeBack.Web.Data
 				{
 					return paymentPlan;
 				}
-				return new UserPaymentPlan() { UserId = userId };
+				return new UserPaymentPlanDetail() { UserId = userId };
 			}
 		}
 
-		public void UpdateUserPaymentPlan(UserPaymentPlan userPaymentPlan)
+		public void UpdateUserPaymentPlan(UserPaymentPlanDetail userPaymentPlan)
 		{
 			using (var ctxt = new PayMeBackEntities())
 			{
 				SetDataStateToUnchanged<UserDetail>(ctxt,userPaymentPlan.UserDetail);
 				
-				foreach (var d in userPaymentPlan.Debts)
+				foreach (var d in userPaymentPlan.DebtDetails)
 				{
 					SetDataStateToUnchanged(ctxt,d.UserDetail);
 					if (d.StartDate == DateTime.MinValue)
@@ -71,11 +71,11 @@ namespace Glav.PayMeBack.Web.Data
 				{
 					userPaymentPlan.DateCreated = DateTime.UtcNow;
 					userPaymentPlan.Id = Guid.NewGuid();
-					ctxt.UserPaymentPlans.Add(userPaymentPlan);
+					ctxt.UserPaymentPlanDetails.Add(userPaymentPlan);
 				}
 				else
 				{
-					var dbEntry = ctxt.Entry<UserPaymentPlan>(userPaymentPlan);
+					var dbEntry = ctxt.Entry<UserPaymentPlanDetail>(userPaymentPlan);
 					dbEntry.State = System.Data.EntityState.Modified;
 				}
 				ctxt.SaveChanges();
@@ -83,7 +83,7 @@ namespace Glav.PayMeBack.Web.Data
 		}
 
 
-		public IEnumerable<Debt> GetAllPaymentPlansForUser(Guid userPaymentPlanId)
+		public IEnumerable<DebtDetail> GetAllPaymentPlansForUser(Guid userPaymentPlanId)
 		{
 			throw new NotImplementedException();
 		}

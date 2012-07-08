@@ -19,6 +19,7 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 
 		public void LogRequestInformation(HttpRequestMessage request)
 		{
+			//TODO: Need to extract client information to allow identification of client
 			var logRecord = new UsageLog();
 			logRecord.HttpMethod = request.Method.ToString();
 			logRecord.IsRequest = true;
@@ -51,6 +52,7 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 
 		public void LogResponseInformation(HttpResponseMessage response)
 		{
+			//TODO: Need to extract client information to allow identification of client
 			var logRecord = new UsageLog();
 			logRecord.HttpMethod = response.RequestMessage.Method.ToString();
 			logRecord.IsRequest = false;
