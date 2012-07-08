@@ -42,7 +42,6 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			if (grant_type != "password")
 			{
 				throw new ArgumentException(OAuthErrorResponseCode.InvalidGrant);
-				// Need to ensure we return a valid OAuth2 complient error response with invalid code error
 			}
 
 			// validate grant type - ensure it is password

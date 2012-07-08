@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Glav.PayMeBack.Web.Data;
 
 namespace Glav.PayMeBack.Web.Domain
 {
@@ -9,7 +10,7 @@ namespace Glav.PayMeBack.Web.Domain
 	{
 		public Debt() { }
 
-		public Debt(Data.Debt debtDetail)
+		public Debt(DebtDetail debtDetail)
 		{
 			if (debtDetail.UserDetail != null)
 			{
@@ -31,6 +32,11 @@ namespace Glav.PayMeBack.Web.Domain
 			TotalAmountOwed = debtDetail.TotalAmountOwed;
 			ReasonForDebt = debtDetail.ReasonForDebt;
 			Notes = debtDetail.Notes;
+			PaymentInstallments = new List<DebtPaymentInstallment>();
+			if (debtDetail.DebtPaymentInstallmentDetails != null)
+			{
+				debtDetail.DebtPaymentInstallmentDetails.ToList().ForEach(d => PaymentInstallments.Add(new DebtPaymentInstallment(d)));
+			}
 		}
 
 		public User UserWhoOwesDebt { get; set; }

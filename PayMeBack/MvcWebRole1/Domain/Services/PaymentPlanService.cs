@@ -29,7 +29,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 		public UserPaymentPlan GetPaymentPlan(Guid userId)
 		{
-			var paymentPlanDetail = _cacheProvider.Get<Data.UserPaymentPlan>(GetCacheKeyForUserPaymentPlan(userId), DateTime.Now.AddHours(1), () =>
+			var paymentPlanDetail = _cacheProvider.Get<UserPaymentPlanDetail>(GetCacheKeyForUserPaymentPlan(userId), DateTime.Now.AddHours(1), () =>
 				{
 					return _debtRepository.GetUserPaymentPlan(userId);
 				});
@@ -58,12 +58,12 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			return string.Format(UserPaymentPlanCacheKey, userId.ToString());
 		}
 
-		private List<Debt> GetDebtsRelatedToUser(Guid userId, Data.UserPaymentPlan paymentPlanDetail, bool debtsOwedToUser)
+		private List<Debt> GetDebtsRelatedToUser(Guid userId, UserPaymentPlanDetail paymentPlanDetail, bool debtsOwedToUser)
 		{
 			var debts = new List<Debt>();
-			if (paymentPlanDetail.Debts != null && paymentPlanDetail.Debts.Count > 0)
+			if (paymentPlanDetail.DebtDetails != null && paymentPlanDetail.DebtDetails.Count > 0)
 			{
-				paymentPlanDetail.Debts.ToList().ForEach(p =>
+				paymentPlanDetail.DebtDetails.ToList().ForEach(p =>
 				{
 					if ((p.UserIdWhoOwesDebt != userId && debtsOwedToUser) || (p.UserIdWhoOwesDebt == userId && !debtsOwedToUser))
 					{
@@ -103,14 +103,14 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted }))
 			{
 				var existingPlan = _debtRepository.GetUserPaymentPlan(usersPaymentPlan.User.Id);
-				if (existingPlan.Debts != null)
+				if (existingPlan.DebtDetails != null)
 				{
 					usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
 					{
-						var foundPlan = existingPlan.Debts.Where(p => p.Id == d.Id).FirstOrDefault();
+						var foundPlan = existingPlan.DebtDetails.Where(p => p.Id == d.Id).FirstOrDefault();
 						if (foundPlan == null)
 						{
-							existingPlan.Debts.Add(d.ToDataRecord());
+							existingPlan.DebtDetails.Add(d.ToDataRecord());
 						}
 						else
 						{
@@ -119,10 +119,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
 					});
 					usersPaymentPlan.DebtsOwedToOthers.ForEach(d =>
 					{
-						var foundPlan = existingPlan.Debts.Where(p => p.Id == d.Id).FirstOrDefault();
+						var foundPlan = existingPlan.DebtDetails.Where(p => p.Id == d.Id).FirstOrDefault();
 						if (foundPlan == null)
 						{
-							existingPlan.Debts.Add(d.ToDataRecord());
+							existingPlan.DebtDetails.Add(d.ToDataRecord());
 						}
 						else
 						{
@@ -134,7 +134,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				{
 					usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
 						{
-							_crudRepository.Insert<Data.Debt>(d.ToDataRecord());
+							_crudRepository.Insert<DebtDetail>(d.ToDataRecord());
 						});
 				}
 				try

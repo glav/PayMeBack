@@ -12,11 +12,11 @@ namespace Glav.PayMeBack.Web.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Debt
+    public partial class DebtDetail
     {
-        public Debt()
+        public DebtDetail()
         {
-            this.DebtPaymentInstallments = new HashSet<DebtPaymentInstallment>();
+            this.DebtPaymentInstallmentDetails = new HashSet<DebtPaymentInstallmentDetail>();
         }
     
         public System.Guid Id { get; set; }
@@ -33,7 +33,7 @@ namespace Glav.PayMeBack.Web.Data
         public string Notes { get; set; }
     
         public virtual UserDetail UserDetail { get; set; }
-        public virtual UserPaymentPlan UserPaymentPlan { get; set; }
-        public virtual ICollection<DebtPaymentInstallment> DebtPaymentInstallments { get; set; }
+        public virtual UserPaymentPlanDetail UserPaymentPlanDetail { get; set; }
+        public virtual ICollection<DebtPaymentInstallmentDetail> DebtPaymentInstallmentDetails { get; set; }
     }
 }

@@ -12,18 +12,14 @@ namespace Glav.PayMeBack.Web.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class UserPaymentPlan
+    public partial class DebtPaymentInstallmentDetail
     {
-        public UserPaymentPlan()
-        {
-            this.Debts = new HashSet<Debt>();
-        }
-    
         public System.Guid Id { get; set; }
-        public System.Guid UserId { get; set; }
-        public System.DateTime DateCreated { get; set; }
+        public System.Guid DebtId { get; set; }
+        public System.DateTime PaymentDate { get; set; }
+        public decimal AmountPaid { get; set; }
+        public int PaymentMethod { get; set; }
     
-        public virtual ICollection<Debt> Debts { get; set; }
-        public virtual UserDetail UserDetail { get; set; }
+        public virtual DebtDetail DebtDetail { get; set; }
     }
 }

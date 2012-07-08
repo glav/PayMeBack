@@ -8,12 +8,12 @@ namespace Glav.PayMeBack.Web.Data
 {
 	public interface IDebtRepository
 	{
-		IEnumerable<Debt> GetAllPaymentPlansForUser(Guid userPaymentPlanId);
-		Debt GetDebt(Guid debtId);
-		void UpdateDebt(Debt debt);
+		IEnumerable<DebtDetail> GetAllPaymentPlansForUser(Guid userPaymentPlanId);
+		DebtDetail GetDebt(Guid debtId);
+		void UpdateDebt(DebtDetail debt);
 		void DeleteDebt(Guid debtId);
 
-		UserPaymentPlan GetUserPaymentPlan(Guid userId);
-		void UpdateUserPaymentPlan(UserPaymentPlan userPaymentPlan);
+		UserPaymentPlanDetail GetUserPaymentPlan(Guid userId);
+		void UpdateUserPaymentPlan(UserPaymentPlanDetail userPaymentPlan);
 	}
 }

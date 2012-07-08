@@ -1,26 +1,27 @@
 USE [PayMeBack]
 GO
-/****** Object:  Table [Payment].[UserPaymentPlan]    Script Date: 05/30/2012 07:17:16 ******/
+/****** Object:  Table [Payment].[UserPaymentPlanDetail]    Script Date: 05/30/2012 07:17:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [Payment].[UserPaymentPlan](
+
+CREATE TABLE [Payment].[UserPaymentPlanDetail](
 	[Id] [uniqueidentifier] NOT NULL,
 	[UserId] [uniqueidentifier] NOT NULL,
 	[DateCreated] [datetime] NOT NULL,
- CONSTRAINT [PK_UserPaymentPlan] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_UserPaymentPlanDetail] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Payment].[Debt]    Script Date: 05/30/2012 07:17:16 ******/
+/****** Object:  Table [Payment].[DebtDetail]    Script Date: 05/30/2012 07:17:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [Payment].[Debt](
+CREATE TABLE [Payment].[DebtDetail](
 	[Id] [uniqueidentifier] NOT NULL,
 	[DateCreated] [datetime] NOT NULL,
 	[UserPaymentPlanId] [uniqueidentifier] NOT NULL,
@@ -47,49 +48,49 @@ GO
 SET ANSI_NULLS ON
 GO
 
-ALTER TABLE [Payment].[Debt]  WITH CHECK ADD  CONSTRAINT [FK_Debt_UserDetail] FOREIGN KEY([UserIdWhoOwesDebt])
+ALTER TABLE [Payment].[DebtDetail]  WITH CHECK ADD  CONSTRAINT [FK_Debt_UserDetail] FOREIGN KEY([UserIdWhoOwesDebt])
 REFERENCES [Security].[UserDetail] ([Id])
 GO
 
-ALTER TABLE [Payment].[Debt] CHECK CONSTRAINT [FK_Debt_UserDetail]
+ALTER TABLE [Payment].[DebtDetail] CHECK CONSTRAINT [FK_Debt_UserDetail]
 GO
 
-ALTER TABLE [Payment].[Debt]  WITH CHECK ADD  CONSTRAINT [FK_Debt_UserPaymentPlan] FOREIGN KEY([UserPaymentPlanId])
-REFERENCES [Payment].[UserPaymentPlan] ([Id])
+ALTER TABLE [Payment].[DebtDetail]  WITH CHECK ADD  CONSTRAINT [FK_Debt_UserPaymentPlanDetail] FOREIGN KEY([UserPaymentPlanId])
+REFERENCES [Payment].[UserPaymentPlanDetail] ([Id])
 GO
 
-ALTER TABLE [Payment].[Debt] CHECK CONSTRAINT [FK_Debt_UserPaymentPlan]
+ALTER TABLE [Payment].[DebtDetail] CHECK CONSTRAINT [FK_Debt_UserPaymentPlanDetail]
 GO
 
-ALTER TABLE [Payment].[Debt] ADD  CONSTRAINT [DF_Debt_IsOutstanding]  DEFAULT ((1)) FOR [IsOutstanding]
+ALTER TABLE [Payment].[DebtDetail] ADD  CONSTRAINT [DF_Debt_IsOutstanding]  DEFAULT ((1)) FOR [IsOutstanding]
 GO
 
 
 /****** Object:  ForeignKey [FK_UserPaymentPlan_UserDetail]    Script Date: 05/30/2012 07:17:16 ******/
-ALTER TABLE [Payment].[UserPaymentPlan]  WITH CHECK ADD  CONSTRAINT [FK_UserPaymentPlan_UserDetail] FOREIGN KEY([UserId])
+ALTER TABLE [Payment].[UserPaymentPlanDetail]  WITH CHECK ADD  CONSTRAINT [FK_UserPaymentPlanDetail_UserDetail] FOREIGN KEY([UserId])
 REFERENCES [Security].[UserDetail] ([Id])
 GO
-ALTER TABLE [Payment].[UserPaymentPlan] CHECK CONSTRAINT [FK_UserPaymentPlan_UserDetail]
+ALTER TABLE [Payment].[UserPaymentPlanDetail] CHECK CONSTRAINT [FK_UserPaymentPlanDetail_UserDetail]
 GO
 
 
 USE [PayMeBack]
 GO
 
-/****** Object:  Table [dbo].[DebtPaymentInstallments]    Script Date: 06/02/2012 16:29:24 ******/
+/****** Object:  Table [dbo].[DebtPaymentInstallmentDetail]    Script Date: 06/02/2012 16:29:24 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [Payment].[DebtPaymentInstallments](
+CREATE TABLE [Payment].[DebtPaymentInstallmentDetail](
 	[Id] [uniqueidentifier] NOT NULL,
 	[DebtId] [uniqueidentifier] NOT NULL,
 	[PaymentDate] [date] NOT NULL,
 	[AmountPaid] [money] NOT NULL,
 	[PaymentMethod] [int] NOT NULL,
- CONSTRAINT [PK_DebtPaymentInstallments] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_DebtPaymentInstallmentDetail] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
@@ -99,21 +100,21 @@ GO
 
 
 USE [PayMeBack]
-/****** Object:  Index [IX_DebtPaymentInstallments]    Script Date: 06/02/2012 16:29:24 ******/
-CREATE NONCLUSTERED INDEX [IX_DebtPaymentInstallments] ON [Payment].[DebtPaymentInstallments] 
+/****** Object:  Index [IX_DebtPaymentInstallmentDetail]    Script Date: 06/02/2012 16:29:24 ******/
+CREATE NONCLUSTERED INDEX [IX_DebtPaymentInstallmentDetail] ON [Payment].[DebtPaymentInstallmentDetail] 
 (
 	[DebtId] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
 
-ALTER TABLE [Payment].[DebtPaymentInstallments]  WITH CHECK ADD  CONSTRAINT [FK_DebtPaymentInstallments_Debt] FOREIGN KEY([DebtId])
-REFERENCES [Payment].[Debt] ([Id])
+ALTER TABLE [Payment].[DebtPaymentInstallmentDetail]  WITH CHECK ADD  CONSTRAINT [FK_DebtPaymentInstallmentDetail_Debt] FOREIGN KEY([DebtId])
+REFERENCES [Payment].[DebtDetail] ([Id])
 GO
 
-ALTER TABLE [Payment].[DebtPaymentInstallments] CHECK CONSTRAINT [FK_DebtPaymentInstallments_Debt]
+ALTER TABLE [Payment].[DebtPaymentInstallmentDetail] CHECK CONSTRAINT [FK_DebtPaymentInstallmentDetail_Debt]
 GO
 
-ALTER TABLE [Payment].[DebtPaymentInstallments] ADD  CONSTRAINT [DF_DebtPaymentInstallments_Id]  DEFAULT (newid()) FOR [Id]
+ALTER TABLE [Payment].[DebtPaymentInstallmentDetail] ADD  CONSTRAINT [DF_DebtPaymentInstallmentDetail_Id]  DEFAULT (newid()) FOR [Id]
 GO
 
 
