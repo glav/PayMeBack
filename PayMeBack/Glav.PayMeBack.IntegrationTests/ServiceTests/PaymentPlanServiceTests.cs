@@ -55,7 +55,12 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 			Assert.IsNotNull(planToCheck);
 			Assert.IsNotNull(planToCheck.DebtsOwedToMe);
 			Assert.IsNotNull(planToCheck.DebtsOwedToOthers);
-			Assert.IsTrue(paymentPlan.DateCreated == planToCheck.DateCreated);
+			Assert.IsTrue(paymentPlan.DateCreated.Day == planToCheck.DateCreated.Day);
+			Assert.IsTrue(paymentPlan.DateCreated.Month == planToCheck.DateCreated.Month);
+			Assert.IsTrue(paymentPlan.DateCreated.Year == planToCheck.DateCreated.Year);
+			Assert.IsTrue(paymentPlan.DateCreated.Hour == planToCheck.DateCreated.Hour);
+			Assert.IsTrue(paymentPlan.DateCreated.Minute == planToCheck.DateCreated.Minute);
+			Assert.IsTrue(paymentPlan.DateCreated.Second == planToCheck.DateCreated.Second);
 			Assert.AreEqual<int>(paymentPlan.DebtsOwedToMe.Count,planToCheck.DebtsOwedToMe.Count);
 			Assert.AreEqual<int>(paymentPlan.DebtsOwedToOthers.Count, planToCheck.DebtsOwedToOthers.Count);
 
