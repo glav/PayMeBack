@@ -8,7 +8,10 @@ namespace Glav.PayMeBack.Web.Domain
 {
 	public class Debt : BaseModel
 	{
-		public Debt() { }
+		public Debt()
+		{
+			IsOutstanding = true;
+		}
 
 		public Debt(DebtDetail debtDetail)
 		{
