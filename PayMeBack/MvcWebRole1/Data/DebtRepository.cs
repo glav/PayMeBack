@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using Domain = Glav.PayMeBack.Web.Domain;
@@ -34,11 +35,11 @@ namespace Glav.PayMeBack.Web.Data
 
 				var paymentPlan = (from plan in context.UserPaymentPlanDetails
 									where plan.UserId == userId
-									select plan).FirstOrDefault();
+									select new {Plan = plan, User=plan.UserDetail, Debts = plan.DebtDetails}).FirstOrDefault();
 
 				if (paymentPlan != null)
 				{
-					return paymentPlan;
+					return paymentPlan.Plan;
 				}
 				return new UserPaymentPlanDetail() { UserId = userId };
 			}
@@ -48,11 +49,12 @@ namespace Glav.PayMeBack.Web.Data
 		{
 			using (var ctxt = new PayMeBackEntities())
 			{
-				SetDataStateToUnchanged<UserDetail>(ctxt,userPaymentPlan.UserDetail);
+				ctxt.SetDataState<UserDetail>(userPaymentPlan.UserDetail,EntityState.Unchanged);
 				
 				foreach (var d in userPaymentPlan.DebtDetails)
 				{
-					SetDataStateToUnchanged(ctxt,d.UserDetail);
+					ctxt.SetDataState<UserDetail>(d.UserDetail, EntityState.Unchanged);
+
 					if (d.StartDate == DateTime.MinValue)
 					{
 						d.StartDate = DateTime.UtcNow;
@@ -69,14 +71,12 @@ namespace Glav.PayMeBack.Web.Data
 				}
 				if (userPaymentPlan.Id == Guid.Empty)
 				{
-					userPaymentPlan.DateCreated = DateTime.UtcNow;
 					userPaymentPlan.Id = Guid.NewGuid();
 					ctxt.UserPaymentPlanDetails.Add(userPaymentPlan);
 				}
 				else
 				{
-					var dbEntry = ctxt.Entry<UserPaymentPlanDetail>(userPaymentPlan);
-					dbEntry.State = System.Data.EntityState.Modified;
+					ctxt.SetDataState<UserPaymentPlanDetail>(userPaymentPlan,EntityState.Modified);
 				}
 				ctxt.SaveChanges();
 			}
@@ -88,12 +88,5 @@ namespace Glav.PayMeBack.Web.Data
 			throw new NotImplementedException();
 		}
 
-		private void SetDataStateToUnchanged<T>(PayMeBackEntities context, T entity) where T : class
-		{
-			if (entity != null)
-			{
-				context.Entry<T>(entity).State = System.Data.EntityState.Unchanged;
-			}
-		}
 	}
 }

@@ -37,12 +37,14 @@ namespace Glav.PayMeBack.Web.Domain
 			{
 				debtDetail.DebtPaymentInstallmentDetails.ToList().ForEach(d => PaymentInstallments.Add(new DebtPaymentInstallment(d)));
 			}
+			DateCreated = debtDetail.DateCreated;
 		}
 
 		public User UserWhoOwesDebt { get; set; }
 		public PaymentPeriod PaymentPeriod { get; set; }
 		public DateTime StartDate { get; set; }
 		public DateTime? ExpectedEndDate { get; set; }
+		public DateTime? DateCreated { get; set; }
 		public decimal InitialPayment { get; set; }  // How much have they paid off when the debt started?
 		public List<DebtPaymentInstallment> PaymentInstallments { get; set; }
 		public bool IsOutstanding { get; set; }  // Has it been paid off yet?
