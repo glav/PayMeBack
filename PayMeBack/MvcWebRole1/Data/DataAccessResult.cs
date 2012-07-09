@@ -40,6 +40,7 @@ namespace Glav.PayMeBack.Web.Data
 
 			return new DataAccessResult { WasSuccessfull = false, Errors = descritpiveList };
 		}
+
 		public static DataAccessResult ToDataResult(this Exception ex)
 		{
 			var msg = new StringBuilder("Error: ");
@@ -56,5 +57,6 @@ namespace Glav.PayMeBack.Web.Data
 			result.Errors.Add(msg.ToString());
 			return result;
 		}
+
 	}
 }

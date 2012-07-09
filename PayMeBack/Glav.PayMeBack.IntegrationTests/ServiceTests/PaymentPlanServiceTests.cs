@@ -51,6 +51,19 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 			Assert.IsNotNull(result);
 			Assert.IsTrue(result.WasSuccessfull);
 
+			var planToCheck = _paymentPlanService.GetPaymentPlan(user.Id);
+			Assert.IsNotNull(planToCheck);
+			Assert.IsNotNull(planToCheck.DebtsOwedToMe);
+			Assert.IsNotNull(planToCheck.DebtsOwedToOthers);
+			Assert.IsTrue(paymentPlan.DateCreated == planToCheck.DateCreated);
+			Assert.AreEqual<int>(paymentPlan.DebtsOwedToMe.Count,planToCheck.DebtsOwedToMe.Count);
+			Assert.AreEqual<int>(paymentPlan.DebtsOwedToOthers.Count, planToCheck.DebtsOwedToOthers.Count);
+
+			Assert.AreEqual<string>(paymentPlan.DebtsOwedToMe[0].ReasonForDebt,planToCheck.DebtsOwedToMe[0].ReasonForDebt);
+			Assert.IsTrue(paymentPlan.DebtsOwedToMe[0].ExpectedEndDate == planToCheck.DebtsOwedToMe[0].ExpectedEndDate);
+			Assert.AreEqual<decimal>(paymentPlan.DebtsOwedToMe[0].InitialPayment, planToCheck.DebtsOwedToMe[0].InitialPayment);
+			Assert.AreEqual<bool>(paymentPlan.DebtsOwedToMe[0].IsOutstanding, planToCheck.DebtsOwedToMe[0].IsOutstanding);
+			Assert.AreEqual<decimal>(paymentPlan.DebtsOwedToMe[0].TotalAmountOwed, planToCheck.DebtsOwedToMe[0].TotalAmountOwed);
 		}
 
 

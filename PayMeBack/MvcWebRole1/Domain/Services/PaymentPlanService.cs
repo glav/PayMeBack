@@ -41,6 +41,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				paymentPlan.DebtsOwedToMe = new List<Debt>();
 				paymentPlan.DebtsOwedToOthers = new List<Debt>();
 				paymentPlan.Id = Guid.Empty;
+				paymentPlan.DateCreated = DateTime.UtcNow;
 				return paymentPlan;
 			}
 
@@ -102,44 +103,9 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 			using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted }))
 			{
-				var existingPlan = _debtRepository.GetUserPaymentPlan(usersPaymentPlan.User.Id);
-				if (existingPlan.DebtDetails != null)
-				{
-					usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
-					{
-						var foundPlan = existingPlan.DebtDetails.Where(p => p.Id == d.Id).FirstOrDefault();
-						if (foundPlan == null)
-						{
-							existingPlan.DebtDetails.Add(d.ToDataRecord());
-						}
-						else
-						{
-							foundPlan = d.ToDataRecord();
-						}
-					});
-					usersPaymentPlan.DebtsOwedToOthers.ForEach(d =>
-					{
-						var foundPlan = existingPlan.DebtDetails.Where(p => p.Id == d.Id).FirstOrDefault();
-						if (foundPlan == null)
-						{
-							existingPlan.DebtDetails.Add(d.ToDataRecord());
-						}
-						else
-						{
-							foundPlan = d.ToDataRecord();
-						}
-					});
-				}
-				else
-				{
-					usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
-						{
-							_crudRepository.Insert<DebtDetail>(d.ToDataRecord());
-						});
-				}
 				try
 				{
-					_debtRepository.UpdateUserPaymentPlan(existingPlan);
+					_debtRepository.UpdateUserPaymentPlan(usersPaymentPlan.ToDataRecord());
 					result.WasSuccessfull = true;
 					scope.Complete();
 

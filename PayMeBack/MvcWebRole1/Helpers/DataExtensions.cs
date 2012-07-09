@@ -5,6 +5,7 @@ using System.Web;
 using Glav.PayMeBack.Web.Domain;
 using Domain=Glav.PayMeBack.Web.Domain;
 using Glav.PayMeBack.Web.Data;
+using Glav.PayMeBack.Web.Models;
 
 namespace Glav.PayMeBack.Web.Helpers
 {
@@ -35,9 +36,13 @@ namespace Glav.PayMeBack.Web.Helpers
 				PaymentPeriod = (int)debt.PaymentPeriod,
 				StartDate = debt.StartDate,
 				UserIdWhoOwesDebt = debt.UserWhoOwesDebt.Id,
-				UserDetail = debt.UserWhoOwesDebt.ToDataRecord(),
-				TotalAmountOwed = debt.TotalAmountOwed
+				TotalAmountOwed = debt.TotalAmountOwed,
+				DateCreated = debt.DateCreated.GetValueOrDefault()
 			};
+			if (detail.DateCreated == DateTime.MinValue)
+			{
+				detail.DateCreated = DateTime.UtcNow;
+			}
 			return detail;
 		}
 
@@ -53,5 +58,27 @@ namespace Glav.PayMeBack.Web.Helpers
 			             	};
 			return detail;
 		}
+
+		public static UserPaymentPlanDetail ToDataRecord(this UserPaymentPlan paymentPlan)
+		{
+			var detail = new UserPaymentPlanDetail
+			             	{
+								DateCreated = paymentPlan.DateCreated,
+								Id = paymentPlan.Id,
+
+								UserId = paymentPlan.User != null ? paymentPlan.User.Id : Guid.Empty
+			             	};
+			detail.DebtDetails = new List<DebtDetail>();
+			if (paymentPlan.DebtsOwedToMe != null)
+			{
+				paymentPlan.DebtsOwedToMe.ForEach(d => detail.DebtDetails.Add(d.ToDataRecord()));
+			}
+			if (paymentPlan.DebtsOwedToOthers != null)
+			{
+				paymentPlan.DebtsOwedToOthers.ForEach(d => detail.DebtDetails.Add(d.ToDataRecord()));
+			}
+			return detail;
+		}
+
 	}
 }

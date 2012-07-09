@@ -152,6 +152,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\CrudRepository.cs" />
     <Compile Include="Data\DataAccessResult.cs" />
+    <Compile Include="Data\DataEntityExtensions.cs" />
     <Compile Include="Data\DebtDetail.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
