@@ -71,6 +71,61 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 			Assert.AreEqual<decimal>(paymentPlan.DebtsOwedToMe[0].TotalAmountOwed, planToCheck.DebtsOwedToMe[0].TotalAmountOwed);
 		}
 
+		[TestMethod]
+		public void ShouldBeAbleToAddPaymentInstallmentToDebt()
+		{
+			BuildServices();
+
+			var user = SignUpSignInAndGetNewPlan();
+			var paymentPlan = _paymentPlanService.GetPaymentPlan(user.Id);
+
+			var emailAddress = string.Format("owes-debt-{0}@integrationtests.com", Guid.NewGuid());
+			_signupMgr.SignUpNewUser(emailAddress, "I", "owe", "password");
+			var userWhoOwesDebt = _securityService.SignIn(emailAddress, "password");
+
+			paymentPlan.DebtsOwedToMe.Add(new Debt
+			{
+				ReasonForDebt = "test",
+				TotalAmountOwed = 100,
+				InitialPayment = 10,
+				PaymentPeriod = PaymentPeriod.Weekly,
+				StartDate = DateTime.Now,
+				UserWhoOwesDebt = userWhoOwesDebt,
+			});
+			var result = _paymentPlanService.UpdatePaymentPlan(paymentPlan);
+			Assert.IsNotNull(result);
+			Assert.IsTrue(result.WasSuccessfull);
+
+			var savedPaymentPlan = _paymentPlanService.GetPaymentPlan(user.Id);
+			Assert.IsNotNull(savedPaymentPlan.DebtsOwedToMe);
+			Assert.IsTrue(savedPaymentPlan.DebtsOwedToMe.Count> 0);
+
+			var installment = new DebtPaymentInstallment();
+			installment.TypeOfPayment = PaymentMethodType.Cash;
+			var installmentDate = DateTime.Now;
+			installment.PaymentDate = installmentDate;
+			installment.AmountPaid = 20;
+			savedPaymentPlan.DebtsOwedToMe[0].PaymentInstallments.Add(installment);
+
+			result = _paymentPlanService.UpdatePaymentPlan(savedPaymentPlan);
+			Assert.IsTrue(result.WasSuccessfull);
+
+			var updatedPlan = _paymentPlanService.GetPaymentPlan(user.Id);
+			Assert.IsNotNull(updatedPlan);
+			Assert.IsNotNull(updatedPlan.DebtsOwedToMe);
+			Assert.IsTrue(updatedPlan.DebtsOwedToMe.Count > 0);
+			Assert.IsNotNull(updatedPlan.DebtsOwedToMe[0].PaymentInstallments);
+			
+			Assert.IsTrue(updatedPlan.DebtsOwedToMe[0].PaymentInstallments.Count > 0);
+			Assert.AreNotEqual<Guid>(Guid.Empty,updatedPlan.DebtsOwedToMe[0].PaymentInstallments[0].DebtId);
+			Assert.AreEqual<decimal>(20,updatedPlan.DebtsOwedToMe[0].PaymentInstallments[0].AmountPaid);
+			Assert.AreEqual<PaymentMethodType>(PaymentMethodType.Cash, updatedPlan.DebtsOwedToMe[0].PaymentInstallments[0].TypeOfPayment);
+
+			Assert.IsTrue(installmentDate.Day == updatedPlan.DebtsOwedToMe[0].PaymentInstallments[0].PaymentDate.Day);
+			Assert.IsTrue(installmentDate.Month == updatedPlan.DebtsOwedToMe[0].PaymentInstallments[0].PaymentDate.Month);
+			Assert.IsTrue(installmentDate.Year == updatedPlan.DebtsOwedToMe[0].PaymentInstallments[0].PaymentDate.Year);
+		}
+
 
 		private User SignUpSignInAndGetNewPlan()
 		{

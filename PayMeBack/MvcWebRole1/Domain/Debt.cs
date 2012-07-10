@@ -15,6 +15,7 @@ namespace Glav.PayMeBack.Web.Domain
 
 		public Debt(DebtDetail debtDetail)
 		{
+			Id = debtDetail.Id;
 			if (debtDetail.UserDetail != null)
 			{
 				UserWhoOwesDebt = new User(debtDetail.UserDetail);
