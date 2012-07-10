@@ -43,6 +43,12 @@ namespace Glav.PayMeBack.Web.Helpers
 			{
 				detail.DateCreated = DateTime.UtcNow;
 			}
+
+			if (debt.PaymentInstallments != null && debt.PaymentInstallments.Count > 0)
+			{
+				detail.DebtPaymentInstallmentDetails = new List<DebtPaymentInstallmentDetail>();
+				debt.PaymentInstallments.ForEach(i=> detail.DebtPaymentInstallmentDetails.Add(i.ToDataRecord()));
+			}
 			return detail;
 		}
 

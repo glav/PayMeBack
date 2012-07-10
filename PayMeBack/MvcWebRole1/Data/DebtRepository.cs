@@ -33,13 +33,13 @@ namespace Glav.PayMeBack.Web.Data
 				context.Configuration.ProxyCreationEnabled = false;
 				context.Configuration.LazyLoadingEnabled = false;
 
-				var paymentPlan = (from plan in context.UserPaymentPlanDetails
+				var paymentPlan = (from plan in context.UserPaymentPlanDetails.Include("UserDetail").Include("DebtDetails").Include("DebtDetails.DebtPaymentInstallmentDetails")
 									where plan.UserId == userId
-									select new {Plan = plan, User=plan.UserDetail, Debts = plan.DebtDetails}).FirstOrDefault();
+									select plan).FirstOrDefault();
 
 				if (paymentPlan != null)
 				{
-					return paymentPlan.Plan;
+					return paymentPlan;
 				}
 				return new UserPaymentPlanDetail() { UserId = userId };
 			}
@@ -49,36 +49,79 @@ namespace Glav.PayMeBack.Web.Data
 		{
 			using (var ctxt = new PayMeBackEntities())
 			{
+				//ctxt.UserPaymentPlanDetails.Attach(userPaymentPlan);
 				ctxt.SetDataState<UserDetail>(userPaymentPlan.UserDetail,EntityState.Unchanged);
 				
-				foreach (var d in userPaymentPlan.DebtDetails)
-				{
-					ctxt.SetDataState<UserDetail>(d.UserDetail, EntityState.Unchanged);
-
-					if (d.StartDate == DateTime.MinValue)
-					{
-						d.StartDate = DateTime.UtcNow;
-					}
-					if (d.DateCreated == DateTime.MinValue)
-					{
-						d.DateCreated = DateTime.UtcNow;
-					}
-					if (d.Id == Guid.Empty)
-					{
-						d.Id = Guid.NewGuid();
-						d.IsOutstanding = true;
-					}
-				}
 				if (userPaymentPlan.Id == Guid.Empty)
 				{
 					userPaymentPlan.Id = Guid.NewGuid();
 					ctxt.UserPaymentPlanDetails.Add(userPaymentPlan);
+					AssociateChildEntities(userPaymentPlan, ctxt);
 				}
 				else
 				{
-					ctxt.SetDataState<UserPaymentPlanDetail>(userPaymentPlan,EntityState.Modified);
+					// do we have to attach? userPaymentPlan to context
+					AssociateChildEntities(userPaymentPlan, ctxt);
+				    ctxt.SetDataState<UserPaymentPlanDetail>(userPaymentPlan,EntityState.Modified);
 				}
 				ctxt.SaveChanges();
+			}
+		}
+
+		private static void AssociateChildEntities(UserPaymentPlanDetail userPaymentPlan, PayMeBackEntities ctxt)
+		{
+			foreach (var d in userPaymentPlan.DebtDetails)
+			{
+				d.UserPaymentPlanDetail = userPaymentPlan;
+				ctxt.SetDataState<UserDetail>(d.UserDetail, EntityState.Unchanged);
+
+				if (d.DebtPaymentInstallmentDetails != null)
+				{
+					foreach (var installment in d.DebtPaymentInstallmentDetails)
+					{
+						installment.DebtDetail = d;
+						if (installment.DebtId == Guid.Empty)
+						{
+							installment.DebtId = d.Id;
+						}
+						if (installment.Id == Guid.Empty)
+						{
+							installment.Id = Guid.NewGuid();
+							ctxt.DebtPaymentInstallmentDetails.Add(installment);
+							//ctxt.SetDataState<DebtPaymentInstallmentDetail>(installment, EntityState.Added);
+						}
+						else
+						{
+							ctxt.DebtPaymentInstallmentDetails.Attach(installment);
+						}
+					}
+				}
+
+				if (d.StartDate == DateTime.MinValue)
+				{
+					d.StartDate = DateTime.UtcNow;
+				}
+				if (d.DateCreated == DateTime.MinValue)
+				{
+					d.DateCreated = DateTime.UtcNow;
+				}
+				if (d.UserPaymentPlanId == Guid.Empty)
+				{
+					d.UserPaymentPlanId = userPaymentPlan.Id;
+				}
+				if (d.Id == Guid.Empty)
+				{
+					d.Id = Guid.NewGuid();
+					ctxt.DebtDetails.Add(d);
+					d.IsOutstanding = true;
+				}
+				else
+				{
+				    // do we have to attach?
+					ctxt.DebtDetails.Attach(d);
+//				    ctxt.SetDataState<DebtDetail>(d, EntityState.Modified);
+				}
+
 			}
 		}
 
