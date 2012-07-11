@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Data = Glav.PayMeBack.Web.Data;
@@ -105,6 +106,8 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			{
 				try
 				{
+					ValidatePlan(usersPaymentPlan);
+					AdjustDebtAggregateValues(usersPaymentPlan);
 					_debtRepository.UpdateUserPaymentPlan(usersPaymentPlan.ToDataRecord());
 					result.WasSuccessfull = true;
 					scope.Complete();
@@ -122,6 +125,62 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				}
 			}
 			return result;
+		}
+
+		private void AdjustDebtAggregateValues(UserPaymentPlan usersPaymentPlan)
+		{
+			if (usersPaymentPlan.DebtsOwedToMe != null)
+			{
+				usersPaymentPlan
+					.DebtsOwedToMe
+					.ForEach(d =>
+						{
+							if (d.PaymentInstallments != null)
+							{
+								var totalPayedOff = d.InitialPayment;
+								d.PaymentInstallments.ForEach(p =>
+								{
+									totalPayedOff += p.AmountPaid;
+								});
+								if (totalPayedOff == d.TotalAmountOwed)
+								{
+									d.IsOutstanding = false;
+								}
+							}
+						});
+			}
+		}
+
+		private void ValidatePlan(UserPaymentPlan usersPaymentPlan)
+		{
+			if (usersPaymentPlan == null)
+			{
+				throw new ArgumentException("Payment plan is empty");
+			}
+
+			// Ensure the amount of payments does not exceed the total debt.
+			// If the debt has been paid in full, then ensure it is no longer
+			// marked as outstanding
+			if (usersPaymentPlan.DebtsOwedToMe != null)
+			{
+				usersPaymentPlan
+					.DebtsOwedToMe
+					.ForEach(d =>
+							{
+								if (d.PaymentInstallments != null)
+								{
+									var totalPayedOff = d.InitialPayment;
+									d.PaymentInstallments.ForEach(p =>
+												{
+													totalPayedOff += p.AmountPaid;
+												});
+									if (totalPayedOff > d.TotalAmountOwed)
+									{
+										throw new ValidationException("Amount paid off exceeds total debt.");
+									}
+								}
+							});
+			}
 		}
 
 		public void RemoveDebt(Guid userId, Debt debt)

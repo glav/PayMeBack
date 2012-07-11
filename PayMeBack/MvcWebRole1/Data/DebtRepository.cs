@@ -49,7 +49,6 @@ namespace Glav.PayMeBack.Web.Data
 		{
 			using (var ctxt = new PayMeBackEntities())
 			{
-				//ctxt.UserPaymentPlanDetails.Attach(userPaymentPlan);
 				ctxt.SetDataState<UserDetail>(userPaymentPlan.UserDetail,EntityState.Unchanged);
 				
 				if (userPaymentPlan.Id == Guid.Empty)
@@ -60,7 +59,6 @@ namespace Glav.PayMeBack.Web.Data
 				}
 				else
 				{
-					// do we have to attach? userPaymentPlan to context
 					AssociateChildEntities(userPaymentPlan, ctxt);
 				    ctxt.SetDataState<UserPaymentPlanDetail>(userPaymentPlan,EntityState.Modified);
 				}
@@ -72,30 +70,17 @@ namespace Glav.PayMeBack.Web.Data
 		{
 			foreach (var d in userPaymentPlan.DebtDetails)
 			{
-				d.UserPaymentPlanDetail = userPaymentPlan;
+				if (d.UserIdWhoOwesDebt == userPaymentPlan.UserId)
+				{
+					// do not update debts not controlled by the user
+					// ie. what they owe to others
+					continue;
+				}
 				ctxt.SetDataState<UserDetail>(d.UserDetail, EntityState.Unchanged);
 
-				if (d.DebtPaymentInstallmentDetails != null)
-				{
-					foreach (var installment in d.DebtPaymentInstallmentDetails)
-					{
-						installment.DebtDetail = d;
-						if (installment.DebtId == Guid.Empty)
-						{
-							installment.DebtId = d.Id;
-						}
-						if (installment.Id == Guid.Empty)
-						{
-							installment.Id = Guid.NewGuid();
-							ctxt.DebtPaymentInstallmentDetails.Add(installment);
-							//ctxt.SetDataState<DebtPaymentInstallmentDetail>(installment, EntityState.Added);
-						}
-						else
-						{
-							ctxt.DebtPaymentInstallmentDetails.Attach(installment);
-						}
-					}
-				}
+				// Ensure our debt record has all its referential integrity and
+				// necessary fields set
+				d.UserPaymentPlanDetail = userPaymentPlan;
 
 				if (d.StartDate == DateTime.MinValue)
 				{
@@ -109,6 +94,33 @@ namespace Glav.PayMeBack.Web.Data
 				{
 					d.UserPaymentPlanId = userPaymentPlan.Id;
 				}
+
+				//Now populate each debt payment installment with the required
+				//relationship fields
+				if (d.DebtPaymentInstallmentDetails != null)
+				{
+					d.DebtPaymentInstallmentDetails.ToList().ForEach(i =>
+					                                                 	{
+					                                                 		i.DebtDetail = d;
+					                                                 		i.DebtId = d.Id;
+					                                                 	});
+
+					foreach (var installment in d.DebtPaymentInstallmentDetails)
+					{
+						if (installment.Id == Guid.Empty)
+						{
+							ctxt.DebtPaymentInstallmentDetails.Add(installment);
+							installment.Id = Guid.NewGuid();
+						}
+						else
+						{
+							ctxt.DebtPaymentInstallmentDetails.Attach(installment);
+							ctxt.SetDataState<DebtPaymentInstallmentDetail>(installment,EntityState.Modified);
+						}
+					}
+				}
+
+				// Finally attach the parent to the context to prep for updating
 				if (d.Id == Guid.Empty)
 				{
 					d.Id = Guid.NewGuid();
@@ -119,7 +131,7 @@ namespace Glav.PayMeBack.Web.Data
 				{
 				    // do we have to attach?
 					ctxt.DebtDetails.Attach(d);
-//				    ctxt.SetDataState<DebtDetail>(d, EntityState.Modified);
+					ctxt.SetDataState<DebtDetail>(d,EntityState.Modified);
 				}
 
 			}
