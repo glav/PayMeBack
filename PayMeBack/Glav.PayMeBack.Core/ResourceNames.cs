@@ -8,5 +8,6 @@ namespace Glav.PayMeBack.Core
 	public static class ResourceNames
 	{
 		public const string Authorisation = "authorisation";
+		public const string Debt = "debt";
 	}
 }
