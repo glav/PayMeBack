@@ -169,9 +169,9 @@
     <Compile Include="Domain\DetailModelDataExtensions.cs" />
     <Compile Include="Domain\Engines\IUsageLogger.cs" />
     <Compile Include="Domain\Engines\UsageLogger.cs" />
-    <Compile Include="Domain\Services\IUserService.cs" />
-    <Compile Include="Domain\Services\UserService.cs" />
     <Compile Include="Framework\ApiUsageHandler.cs" />
+    <Compile Include="Framework\PayMeBackModelBinderProvider.cs" />
+    <Compile Include="Framework\UserFromAccessTokenModelBinder.cs" />
     <Compile Include="Helpers\DataExtensions.cs" />
     <Compile Include="Data\DebtRepository.cs" />
     <Compile Include="Data\ICrudRepository.cs" />

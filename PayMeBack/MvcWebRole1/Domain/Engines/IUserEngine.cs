@@ -13,5 +13,6 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 		User GetUserById(Guid id);
 		void SaveOrUpdateUser(User user, string password = null);
 		void DeleteUser(User user);
+		User GetUserByAccessToken(string token);
 	}
 }

@@ -45,6 +45,11 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 						// there was a valid token present
 						return base.SendAsync(request, cancellationToken);
 					}
+					else
+					{
+						// Auth token was fine so return processed response
+						return base.SendAsync(request, cancellationToken);
+					}
 				}
 				// There was no authorisation request we could find in the path
 				// and there was no token. So that means no access

@@ -24,9 +24,9 @@ namespace Glav.PayMeBack.Web.Controllers.Api
     	}
 
     	// GET /api/people
-		public UserPaymentPlan Get(Guid userId)
+		public UserPaymentPlan Get([FromUri] User user)
 		{
-			return _paymentPlanService.GetPaymentPlan(userId);
+			return _paymentPlanService.GetPaymentPlan(user.Id);
         }
 
 		public ApiResponse Post(UserPaymentPlan paymentPlan)
