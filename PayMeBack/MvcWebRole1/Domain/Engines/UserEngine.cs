@@ -45,6 +45,23 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 			return userDetail.ToModel();
 		}
 
+		public User GetUserByAccessToken(string token)
+		{
+			//TODO: Use cache
+
+			var tokenRecord = _crudRepository.GetSingle<OAuthToken>(t => t.AccessToken == token);
+			if (token == null)
+			{
+				return null;
+			}
+			if (!_securityService.IsAccessTokenValid(token))
+			{
+				throw new SecurityException("Access token not valid");
+			}
+			var userDetail = _crudRepository.GetSingle<UserDetail>(u => u.Id == tokenRecord.AssociatedUserId);
+			return userDetail.ToModel();
+		}
+
 		public void SaveOrUpdateUser(User user, string password = null)
 		{
 			var currentUser = _crudRepository.GetSingle<UserDetail>(u => u.Id == user.Id);

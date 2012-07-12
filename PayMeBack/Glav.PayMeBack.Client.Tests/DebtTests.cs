@@ -18,7 +18,8 @@ namespace Glav.PayMeBack.Client.Tests
 		public void ShouldBeAbleToRetrieveNewPlan()
 		{
 			var proxy = new AuthorisationProxy();
-			var response = proxy.Signup(Guid.NewGuid().ToString(),"test","dude", "P@ssw0rd1");
+			var email = string.Format("{0}@integrationtest.com",Guid.NewGuid());
+			var response = proxy.Signup(email,"test","dude", "P@ssw0rd1");
 
 			Assert.IsNotNull(response);
 			Assert.IsTrue(response.IsRequestSuccessfull);
@@ -28,7 +29,14 @@ namespace Glav.PayMeBack.Client.Tests
 
 			proxy.BearerToken = response.DataObject.AccessGrant.access_token;
 
-			Assert.Inconclusive("Still need to make call to GetPlan");
+			var debtProxy = new DebtProxy(response.DataObject.AccessGrant.access_token);
+
+			//TODO: Where de we get the userId from?
+			//TODO:Should we just allow the server to parse it from the passed in access token
+			var planResponse = debtProxy.GetDebtPaymentPlan();
+			Assert.IsNotNull(planResponse);
+			Assert.IsTrue(planResponse.IsRequestSuccessfull);
+			Assert.IsNotNull(planResponse.DataObject);
 		}
 
 
