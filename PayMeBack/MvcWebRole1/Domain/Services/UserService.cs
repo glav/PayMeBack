@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Glav.PayMeBack.Core.Domain;
 
 namespace Glav.PayMeBack.Web.Domain.Services
 {

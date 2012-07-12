@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Glav.PayMeBack.Core.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Data=Glav.PayMeBack.Web.Data;
@@ -26,7 +27,7 @@ namespace PayMeBackWeb.UnitTests.Services
 		public void ShouldBeAbleToCreateANewPaymentPlanForAUserIfNoPlanExists()
 		{
 			var testDetailUser = new Data.UserDetail {EmailAddress = "newuser@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
-			var testUser = new User(testDetailUser);
+			var testUser = testDetailUser.ToModel();
 			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
 			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail,bool>>>())).Returns(testDetailUser);
 			var plan = _paymentPlanService.GetPaymentPlan(testUser.Id);
@@ -44,7 +45,7 @@ namespace PayMeBackWeb.UnitTests.Services
 		public void ShouldBeAbleToAddDebtToPaymentPlan()
 		{
 			var testDetailUser = new Data.UserDetail { EmailAddress = "test@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
-			var testUser = new User(testDetailUser);
+			var testUser = testDetailUser.ToModel();
 			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
 			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
 
@@ -62,9 +63,9 @@ namespace PayMeBackWeb.UnitTests.Services
 		public void ShouldBeAbleToAddPaymentInstallmentToDebtInPaymentPlan()
 		{
 			var testDetailUser = new Data.UserDetail { EmailAddress = "test@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
-			var testUser = new User(testDetailUser);
+			var testUser = testDetailUser.ToModel();
 			var userDetailWhoOwesDebt = new Data.UserDetail { EmailAddress = "iowe@test.com", Id = Guid.NewGuid(), FirstNames = "I", Surname = "Owe" };
-			var userWhoOwesDebt = new User(userDetailWhoOwesDebt);
+			var userWhoOwesDebt = userDetailWhoOwesDebt.ToModel();
 
 			_userEngine.Setup<User>(m => m.GetUserById(testDetailUser.Id)).Returns(testUser);
 			_userEngine.Setup<User>(m => m.GetUserById(userDetailWhoOwesDebt.Id)).Returns(userWhoOwesDebt);

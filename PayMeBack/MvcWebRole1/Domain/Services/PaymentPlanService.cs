@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Glav.PayMeBack.Core.Domain;
 using Data = Glav.PayMeBack.Web.Data;
 using Glav.PayMeBack.Web.Domain.Engines;
 using Glav.CacheAdapter.Core;
@@ -38,7 +39,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			var paymentPlan = new UserPaymentPlan();
 			if (paymentPlanDetail == null || paymentPlanDetail.Id == Guid.Empty)
 			{
-				paymentPlan.User = new User(_crudRepository.GetSingle<Data.UserDetail>(u => u.Id == userId));
+				paymentPlan.User = _crudRepository.GetSingle<Data.UserDetail>(u => u.Id == userId).ToModel();
 				paymentPlan.DebtsOwedToMe = new List<Debt>();
 				paymentPlan.DebtsOwedToOthers = new List<Debt>();
 				paymentPlan.Id = Guid.Empty;
@@ -47,7 +48,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			}
 
 			paymentPlan.Id = paymentPlanDetail.Id;
-			paymentPlan.User = new Domain.User(paymentPlanDetail.UserDetail);
+			paymentPlan.User = paymentPlanDetail.UserDetail.ToModel();
 			paymentPlan.DateCreated = paymentPlanDetail.DateCreated;
 
 			paymentPlan.DebtsOwedToMe = GetDebtsRelatedToUser(userId, paymentPlanDetail, true);
@@ -69,7 +70,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				{
 					if ((p.UserIdWhoOwesDebt != userId && debtsOwedToUser) || (p.UserIdWhoOwesDebt == userId && !debtsOwedToUser))
 					{
-						debts.Add(new Debt(p));
+						debts.Add(p.ToModel());
 					}
 				});
 			}

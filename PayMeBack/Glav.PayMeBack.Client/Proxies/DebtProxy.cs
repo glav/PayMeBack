@@ -24,5 +24,10 @@ namespace Glav.PayMeBack.Client.Proxies
 		{
 			get { return ResourceNames.Debt; }
 		}
+
+		public void GetDebtPaymentPlan(Guid userId)
+		{
+			
+		}
 	}
 }

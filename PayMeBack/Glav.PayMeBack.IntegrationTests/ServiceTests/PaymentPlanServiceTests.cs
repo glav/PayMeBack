@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Glav.PayMeBack.Core.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Glav.PayMeBack.Web.Helpers;
 using Autofac;
