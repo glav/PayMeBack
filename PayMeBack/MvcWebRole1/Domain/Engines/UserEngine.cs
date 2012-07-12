@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 using System.Web;
+using Glav.PayMeBack.Core.Domain;
 using Glav.PayMeBack.Web.Data;
 using Glav.PayMeBack.Core;
 using Glav.PayMeBack.Web.Domain.Services;
@@ -33,7 +34,7 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 			{
 				return null;
 			}
-			return new User(userDetail);
+			return userDetail.ToModel();
 		}
 
 		public User GetUserById(Guid id)
@@ -41,7 +42,7 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 			//TODO: Use cache
 
 			var userDetail = _crudRepository.GetSingle<UserDetail>(u => u.Id == id);
-			return new User(userDetail);
+			return userDetail.ToModel();
 		}
 
 		public void SaveOrUpdateUser(User user, string password = null)

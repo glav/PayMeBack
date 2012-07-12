@@ -166,6 +166,7 @@
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\ApiDependencyResolver.cs" />
+    <Compile Include="Domain\DetailModelDataExtensions.cs" />
     <Compile Include="Domain\Engines\IUsageLogger.cs" />
     <Compile Include="Domain\Engines\UsageLogger.cs" />
     <Compile Include="Domain\Services\IUserService.cs" />
@@ -197,10 +198,8 @@
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\AuthorisationRequestType.cs" />
-    <Compile Include="Domain\DebtPaymentInstallment.cs" />
     <Compile Include="Domain\Engines\OAuthExtensions.cs" />
     <Compile Include="Domain\OAuthConfig.cs" />
-    <Compile Include="Domain\PaymentMethodType.cs" />
     <Compile Include="Domain\Engines\AuthenticationEngine.cs" />
     <Compile Include="Domain\Services\IOAuthSecurityService.cs" />
     <Compile Include="Domain\Services\OAuthSecurityService.cs" />
@@ -212,17 +211,12 @@
     <Compile Include="Domain\Services\PaymentPlanService.cs" />
     <Compile Include="Domain\Services\SignupManager.cs" />
     <Compile Include="Domain\Engines\UserEngine.cs" />
-    <Compile Include="Domain\UserPaymentPlan.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\MobileViewHelper.cs" />
     <Compile Include="Helpers\WebDependencyBuilder.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Domain\BaseModel.cs" />
-    <Compile Include="Domain\Debt.cs" />
-    <Compile Include="Domain\PaymentPeriod.cs" />
-    <Compile Include="Domain\User.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\SignInResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

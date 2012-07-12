@@ -42,6 +42,13 @@
   <ItemGroup>
     <Compile Include="ApiConstants.cs" />
     <Compile Include="AuthorisationScope.cs" />
+    <Compile Include="Domain\BaseModel.cs" />
+    <Compile Include="Domain\Debt.cs" />
+    <Compile Include="Domain\DebtPaymentInstallment.cs" />
+    <Compile Include="Domain\PaymentMethodType.cs" />
+    <Compile Include="Domain\PaymentPeriod.cs" />
+    <Compile Include="Domain\User.cs" />
+    <Compile Include="Domain\UserPaymentPlan.cs" />
     <Compile Include="OAuthAuthorisationGrantResponse.cs" />
     <Compile Include="OAuthErrorResponseCode.cs" />
     <Compile Include="OAuthTokenType.cs" />

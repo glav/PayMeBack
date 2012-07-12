@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+using Glav.PayMeBack.Core.Domain;
 using Glav.PayMeBack.Web.Data;
 using Glav.CacheAdapter.Core;
 using Glav.PayMeBack.Core;
@@ -122,8 +123,18 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				if (tokenEntry != null)
 				{
 					var oldToken = tokenEntry.AccessToken;
-					var validUser =new User(_crudRepository.GetSingle<UserDetail>(u => u.Id == tokenEntry.AssociatedUserId));
-					
+					var validUserRecord = _crudRepository.GetSingle<UserDetail>(u => u.Id == tokenEntry.AssociatedUserId);
+					User validUser = null;
+					if (validUserRecord !=null)
+					{
+						validUser = validUserRecord.ToModel();
+					} else
+					{
+						response.IsSuccessfull = false;
+						response.ErrorDetails.error = OAuthErrorResponseCode.UnauthorizedClient;
+						return response;
+					}
+
 					var isScopeValid = ValidateScopeForUse(validUser, scope);
 
 					if (!isScopeValid)
@@ -132,7 +143,6 @@ namespace Glav.PayMeBack.Web.Domain.Services
 					}
 					else
 					{
-
 						if (DateTime.UtcNow < tokenEntry.RefreshTokenExpiry)
 						{
 							tokenEntry.AccessToken = CreateNewHashedToken();
@@ -225,7 +235,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				var currentPwd = userDetail.Password;
 				if (currentPwd == CreateHashedTokenFromInput(password))
 				{
-					return new User(userDetail);
+					return userDetail.ToModel();
 				}
 			}
 			return null;

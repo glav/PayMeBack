@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 using System.Web;
+using Glav.PayMeBack.Core.Domain;
 using Glav.PayMeBack.Web.Data;
 using Glav.PayMeBack.Core;
 using Glav.PayMeBack.Web.Domain.Engines;

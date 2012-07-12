@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Glav.PayMeBack.Core.Domain;
 using Glav.PayMeBack.Web.Domain;
 using Domain=Glav.PayMeBack.Web.Domain;
 using Glav.PayMeBack.Web.Data;
@@ -11,7 +12,7 @@ namespace Glav.PayMeBack.Web.Helpers
 {
 	public static class DataExtensions
 	{
-		public static UserDetail ToDataRecord(this Domain.User user)
+		public static UserDetail ToDataRecord(this User user)
 		{
 			var detail = new UserDetail
 			{
@@ -23,7 +24,7 @@ namespace Glav.PayMeBack.Web.Helpers
 			return detail;
 		}
 
-		public static DebtDetail ToDataRecord(this Domain.Debt debt)
+		public static DebtDetail ToDataRecord(this Debt debt)
 		{
 			var detail = new DebtDetail
 			{
