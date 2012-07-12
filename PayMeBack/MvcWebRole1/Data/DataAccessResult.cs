@@ -58,5 +58,29 @@ namespace Glav.PayMeBack.Web.Data
 			return result;
 		}
 
+		public static string ToSingleMessage(this DataAccessResult result)
+		{
+			if (result.WasSuccessfull)
+			{
+				return "ok";
+			}
+
+			if (result.Errors != null)
+			{
+				var msg = new StringBuilder();
+				result.Errors.ForEach(e =>
+				                      	{
+											if (msg.Length > 0)
+											{
+												msg.Append(", ");
+											}
+				                      		msg.Append(e);
+				                      	});
+				return msg.ToString();
+			}
+
+			return "System Error";
+		}
+
 	}
 }
