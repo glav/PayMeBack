@@ -33,7 +33,8 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 				return false;
 			}
 			var lowerUri = request.RequestUri.PathAndQuery.ToLowerInvariant();
-			if (lowerUri.StartsWith(string.Format("/{0}",ResourceNames.Authorisation)))
+			if (lowerUri.StartsWith(string.Format("/{0}",ResourceNames.Authorisation)) 
+					&& !lowerUri.StartsWith(string.Format("/{0}",ResourceNames.SecurePing)))
 			{
 				return true;
 			}
