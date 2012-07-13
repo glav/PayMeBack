@@ -117,7 +117,7 @@ namespace Glav.PayMeBack.Client
 		public virtual ProxyResponse<T> GetResponse<T>(string requestUri, T postData) where T : class
 		{
 			HttpResponseMessage responseMsg;
-			if (postData == null)
+			if (OperationMethod != HttpMethod.Put && OperationMethod != HttpMethod.Post)
 			{
 				responseMsg = GetResponseMessage<object>(requestUri, null);
 			}
@@ -164,7 +164,7 @@ namespace Glav.PayMeBack.Client
 				mediaFormatter = new System.Net.Http.Formatting.JsonMediaTypeFormatter();
 			}
 			HttpResponseMessage responseMsg = null;
-			if (OperationMethod == HttpMethod.Get && postData == null)
+			if (OperationMethod == HttpMethod.Get)
 			{
 				responseMsg = client.GetAsync(requestUri).Result;
 			}
@@ -172,13 +172,17 @@ namespace Glav.PayMeBack.Client
 			{
 				responseMsg = client.DeleteAsync(requestUri).Result;
 			}
-
+			else if (OperationMethod == HttpMethod.Head)
+			{
+				var rqstMsg = new HttpRequestMessage(HttpMethod.Head, requestUri);
+				responseMsg = client.SendAsync(rqstMsg).Result;
+			}
 			else
 			{
 				//Note: Need to explicitly specify the content type here otherwise this call fails.
 				if (OperationMethod == HttpMethod.Put)
 				{
-					responseMsg = client.PutAsync<T>(requestUri, postData,mediaFormatter).Result;
+					responseMsg = client.PutAsync<T>(requestUri, postData, mediaFormatter).Result;
 				}
 				else
 				{

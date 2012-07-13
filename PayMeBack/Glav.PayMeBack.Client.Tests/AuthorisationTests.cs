@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Glav.PayMeBack.Client.Proxies;
 using Glav.PayMeBack.Core;
+using System.Net;
 
 namespace Glav.PayMeBack.Client.Tests
 {
@@ -38,8 +39,6 @@ namespace Glav.PayMeBack.Client.Tests
 			var pingResponse = proxy.AuthorisationPing();
 			Assert.IsNotNull(pingResponse);
 			Assert.IsTrue(pingResponse.IsRequestSuccessfull);
-			Assert.IsFalse(string.IsNullOrEmpty(pingResponse.DataObject));
-			Assert.AreEqual<string>("true", pingResponse.DataObject.ToLowerInvariant());
 		}
 
 
@@ -55,6 +54,19 @@ namespace Glav.PayMeBack.Client.Tests
 			Assert.IsNotNull(response.DataObject);
 			Assert.IsNotNull(response.DataObject.AccessGrant);
 			Assert.IsFalse(string.IsNullOrWhiteSpace(response.DataObject.AccessGrant.access_token));
+		}
+
+		[TestMethod]
+		public void ShouldNotBeAbleToAccessServiceWithBogusToken()
+		{
+			var proxy = new AuthorisationProxy();
+
+			//Now as for a refresh of the access token
+			proxy.BearerToken = "JJSJ99SMMMnbxuiwslsodi==";
+			var response = proxy.AuthorisationPing();
+			Assert.IsNotNull(response);
+			Assert.IsFalse(response.IsRequestSuccessfull);
+			Assert.AreEqual<HttpStatusCode>(HttpStatusCode.Unauthorized,  response.StatusCode);
 		}
 
 		[TestMethod]
@@ -81,8 +93,6 @@ namespace Glav.PayMeBack.Client.Tests
 			var pingRespose = proxy.AuthorisationPing();
 			Assert.IsNotNull(pingRespose);
 			Assert.IsTrue(pingRespose.IsRequestSuccessfull);
-			Assert.IsFalse(string.IsNullOrWhiteSpace(pingRespose.DataObject));
-			Assert.AreEqual<string>("true", pingRespose.DataObject.ToLowerInvariant());
 		}
 
 	}

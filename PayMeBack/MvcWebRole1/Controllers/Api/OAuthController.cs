@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Http;
@@ -77,8 +78,7 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 		/// This is provided simply to be able to test whether the access/bearer token issued is valid
 		/// </summary>
 		/// <returns></returns>
-		[System.Web.Http.HttpGet]
-		public bool Ping()
+		public bool HeadPing()
 		{
 			return true;
 		}

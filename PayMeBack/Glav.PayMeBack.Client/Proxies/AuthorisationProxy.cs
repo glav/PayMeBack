@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 using System.Net;
 using Glav.PayMeBack.Core;
+using System.Net.Http;
 
 namespace Glav.PayMeBack.Client.Proxies
 {
@@ -139,9 +140,15 @@ namespace Glav.PayMeBack.Client.Proxies
 
 		public ProxyResponse<string> AuthorisationPing()
 		{
+			var originalOperationType = OperationMethod;
+			OperationMethod = HttpMethod.Head;
 			ContentType = RequestContentType.ApplicationJson;
+			
 			var uri = base.GetRequestUri("Ping");
-			return base.GetResponse<string>(uri);
+			var response = base.GetResponse<string>(uri);
+
+			OperationMethod = originalOperationType;
+			return response;
 		}
 
 		public ProxyResponse<OAuthAuthorisationGrantResponse> Signup(string emailAddress, string firstNames, string lastName, string password)
@@ -152,8 +159,12 @@ namespace Glav.PayMeBack.Client.Proxies
 			
 			var uri = base.GetRequestUri("");
 
+			var originalOperation = OperationMethod;
+			OperationMethod = HttpMethod.Post;
+
 			var postData = new SignupData { emailAddress = emailAddress, firstNames = firstNames, lastName = lastName, password = password };
 			var response = base.GetResponse(uri, postData);
+			OperationMethod = originalOperation;
 			if (response.IsRequestSuccessfull)
 			{
 				result = ParseRawOAuthResponse(response.RawResponse);

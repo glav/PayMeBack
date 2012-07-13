@@ -92,7 +92,7 @@ namespace Glav.PayMeBack.Web
 			config.MessageHandlers.Add(usageHandler);
 			config.MessageHandlers.Add(authHandler);
 
-			config.Routes.MapHttpRoute("OAuthPing", ResourceNames.Authorisation + "/{action}", new { controller = "OAuth" });
+			config.Routes.MapHttpRoute("OAuthPing", ResourceNames.Authorisation + "/Ping", new { controller = "OAuth", action="HeadPing" });
 			config.Routes.MapHttpRoute("OAuth", ResourceNames.Authorisation, new { controller = "OAuth" });
 		}
 
