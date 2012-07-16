@@ -7,6 +7,10 @@ namespace Glav.PayMeBack.Core.Domain
 {
 	public class User : BaseModel
 	{
+		public User()
+		{
+			Id = Guid.Empty;
+		}
 		public Guid Id { get; set; }
 		public string EmailAddress { get; set; }
 		public string FirstNames { get; set; }

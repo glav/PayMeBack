@@ -81,20 +81,14 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		public DataAccessResult AddDebtOwed(Guid userId, Debt debt)
 		{
 			var userPaymentPlan = GetPaymentPlan(userId);
-			userPaymentPlan.DebtsOwedToMe.Add(new Debt()
-				{
-					UserWhoOwesDebt = userPaymentPlan.User,
-				});
+			userPaymentPlan.DebtsOwedToMe.Add(debt);
 			return UpdatePaymentPlan(userPaymentPlan);
 		}
 
 		public DataAccessResult AddDebtOwing(Guid userId, Debt debt)
 		{
 			var userPaymentPlan = GetPaymentPlan(userId);
-			userPaymentPlan.DebtsOwedToOthers.Add(new Debt()
-			{
-				UserWhoOwesDebt = userPaymentPlan.User,
-			});
+			userPaymentPlan.DebtsOwedToOthers.Add(debt);
 			return UpdatePaymentPlan(userPaymentPlan);
 		}
 
@@ -109,6 +103,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				{
 					ValidatePlan(usersPaymentPlan);
 					AdjustDebtAggregateValues(usersPaymentPlan);
+					AddNewUsersIfRequired(usersPaymentPlan);
 					_debtRepository.UpdateUserPaymentPlan(usersPaymentPlan.ToDataRecord());
 					result.WasSuccessfull = true;
 					scope.Complete();
@@ -126,6 +121,31 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				}
 			}
 			return result;
+		}
+
+		/// <summary>
+		/// If there are users (with email, first/last name) defined in the debt
+		/// but they dont have a valid id, then we add a record into the system
+		/// as unvalidated users. These are users defined in our systembut who
+		/// cannot actually login. They may later join the system and that is when
+		/// we convert to validated users and they can login.
+		/// In addition, typically before a user can be notified via email or SMS
+		/// they need to be validated. This requires that the user themselves login
+		/// and verify they are ok with being added into the system and notified
+		/// by our mechanisms. This way, people just cant go adding heaps of people who
+		/// are spammed by our system. They will require an explicit OK before we
+		/// notify them
+		/// </summary>
+		/// <param name="usersPaymentPlan"></param>
+		private void AddNewUsersIfRequired(UserPaymentPlan usersPaymentPlan)
+		{
+			usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
+			                                       	{
+			                                       		if (d.UserWhoOwesDebt.Id == Guid.Empty)
+			                                       		{
+			                                       			_userEngine.SaveOrUpdateUser(d.UserWhoOwesDebt);
+			                                       		}
+			                                       	});
 		}
 
 		private void AdjustDebtAggregateValues(UserPaymentPlan usersPaymentPlan)
@@ -158,6 +178,20 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			{
 				throw new ArgumentException("Payment plan is empty");
 			}
+
+			//Ensure we have some user information associated with the debt
+			if (usersPaymentPlan.User == null)
+			{
+				throw new ArgumentException("No user associated with this payment plan");
+			}
+
+			usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
+			                                       	{
+														if (d.UserWhoOwesDebt == null)
+														{
+															throw new ArgumentException("No user information associated with a debt");
+														}
+			                                       	});
 
 			// Ensure the amount of payments does not exceed the total debt.
 			// If the debt has been paid in full, then ensure it is no longer

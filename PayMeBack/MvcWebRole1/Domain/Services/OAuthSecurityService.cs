@@ -229,7 +229,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 		public User SignIn(string email, string password)
 		{
-			var userDetail = _crudRepository.GetSingle<UserDetail>(u => u.EmailAddress == email);
+			var userDetail = _crudRepository.GetSingle<UserDetail>(u => u.EmailAddress == email && u.IsValidated);
 			if (userDetail != null)
 			{
 				var currentPwd = userDetail.Password;
