@@ -34,14 +34,20 @@ namespace Glav.PayMeBack.Web.Data
 				context.Configuration.LazyLoadingEnabled = false;
 
 				var paymentPlan = (from plan in context.UserPaymentPlanDetails.Include("UserDetail").Include("DebtDetails").Include("DebtDetails.DebtPaymentInstallmentDetails")
-									where plan.UserId == userId
-									select plan).FirstOrDefault();
+								   where plan.UserId == userId
+								   select plan).FirstOrDefault();
 
-				if (paymentPlan != null)
+				var debtsOwed = (from d in context.DebtDetails.Include("UserDetail").Include("DebtPaymentInstallmentDetails")
+								 where d.UserIdWhoOwesDebt == userId
+								 select d).ToList();
+
+				if (paymentPlan == null)
 				{
-					return paymentPlan;
+					paymentPlan = new UserPaymentPlanDetail() { UserId = userId };
+					paymentPlan.DebtDetails = new List<DebtDetail>();
 				}
-				return new UserPaymentPlanDetail() { UserId = userId };
+				debtsOwed.ForEach(d => paymentPlan.DebtDetails.Add(d));
+				return paymentPlan;
 			}
 		}
 
@@ -49,8 +55,8 @@ namespace Glav.PayMeBack.Web.Data
 		{
 			using (var ctxt = new PayMeBackEntities())
 			{
-				ctxt.SetDataState<UserDetail>(userPaymentPlan.UserDetail,EntityState.Unchanged);
-				
+				ctxt.SetDataState<UserDetail>(userPaymentPlan.UserDetail, EntityState.Unchanged);
+
 				if (userPaymentPlan.Id == Guid.Empty)
 				{
 					userPaymentPlan.Id = Guid.NewGuid();
@@ -60,7 +66,7 @@ namespace Glav.PayMeBack.Web.Data
 				else
 				{
 					AssociateChildEntities(userPaymentPlan, ctxt);
-				    ctxt.SetDataState<UserPaymentPlanDetail>(userPaymentPlan,EntityState.Modified);
+					ctxt.SetDataState<UserPaymentPlanDetail>(userPaymentPlan, EntityState.Modified);
 				}
 				ctxt.SaveChanges();
 			}
@@ -101,10 +107,10 @@ namespace Glav.PayMeBack.Web.Data
 				if (d.DebtPaymentInstallmentDetails != null)
 				{
 					d.DebtPaymentInstallmentDetails.ToList().ForEach(i =>
-					                                                 	{
-					                                                 		i.DebtDetail = d;
-					                                                 		i.DebtId = d.Id;
-					                                                 	});
+																		{
+																			i.DebtDetail = d;
+																			i.DebtId = d.Id;
+																		});
 
 					foreach (var installment in d.DebtPaymentInstallmentDetails)
 					{
@@ -116,7 +122,7 @@ namespace Glav.PayMeBack.Web.Data
 						else
 						{
 							ctxt.DebtPaymentInstallmentDetails.Attach(installment);
-							ctxt.SetDataState<DebtPaymentInstallmentDetail>(installment,EntityState.Modified);
+							ctxt.SetDataState<DebtPaymentInstallmentDetail>(installment, EntityState.Modified);
 						}
 					}
 				}
@@ -130,9 +136,9 @@ namespace Glav.PayMeBack.Web.Data
 				}
 				else
 				{
-				    // do we have to attach?
+					// do we have to attach?
 					ctxt.DebtDetails.Attach(d);
-					ctxt.SetDataState<DebtDetail>(d,EntityState.Modified);
+					ctxt.SetDataState<DebtDetail>(d, EntityState.Modified);
 				}
 
 			}
