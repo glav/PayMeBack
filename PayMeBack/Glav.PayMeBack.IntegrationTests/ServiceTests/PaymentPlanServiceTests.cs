@@ -8,6 +8,7 @@ using Glav.PayMeBack.Web.Helpers;
 using Autofac;
 using Glav.PayMeBack.Web.Domain.Services;
 using Glav.PayMeBack.Web.Domain;
+using System.Diagnostics;
 
 namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 {
@@ -236,6 +237,68 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 			Assert.IsNotNull(updatedPlan.DebtsOwedToMe);
 			Assert.AreEqual<int>(1,updatedPlan.DebtsOwedToMe.Count);
 			Assert.AreEqual<Guid>(user2.Id,updatedPlan.DebtsOwedToMe[0].UserWhoOwesDebt.Id);
+		}
+
+		[TestMethod]
+		public void CanNotChangeDebtsOwedToOthers()
+		{
+			BuildServices();
+
+			var user = SignUpSignInAndGetNewPlan();
+
+			var debtToAdd = new Debt
+			{
+				ReasonForDebt = "test",
+				TotalAmountOwed = 100,
+				InitialPayment = 10,
+				PaymentPeriod = PaymentPeriod.Weekly,
+				StartDate = DateTime.Now,
+				UserWhoOwesDebt = new User { Id = user.Id }
+			};
+			var usersPlan = _paymentPlanService.GetPaymentPlan(user.Id);
+			Assert.IsNotNull(usersPlan);
+
+			usersPlan.DebtsOwedToOthers.Add(debtToAdd);
+			var result = _paymentPlanService.UpdatePaymentPlan(usersPlan);
+			Assert.IsNotNull(result);
+			Assert.IsTrue(result.WasSuccessfull);
+
+			var planToCheck = _paymentPlanService.GetPaymentPlan(user.Id);
+			Assert.IsNotNull(planToCheck);
+			Assert.IsNotNull(planToCheck.DebtsOwedToOthers);
+			Assert.AreEqual<int>(0,planToCheck.DebtsOwedToOthers.Count);
+		}
+
+		[TestMethod]
+		public void CanRetrieveDebtsIOweToOthers()
+		{
+			BuildServices();
+
+			var userWhoOwesDebt = new SignupServiceTests().SignUpThenSignIn();
+			var userWhoIsOwedDebt = new SignupServiceTests().SignUpThenSignIn();
+
+			Trace.WriteLine(string.Format("User who owes debt = {0}",userWhoOwesDebt.Id));
+			Trace.WriteLine(string.Format("User who is owed the debt = {0}", userWhoIsOwedDebt.Id));
+
+			var debtToAdd = new Debt
+			{
+				ReasonForDebt = "test",
+				TotalAmountOwed = 100,
+				InitialPayment = 10,
+				PaymentPeriod = PaymentPeriod.Weekly,
+				StartDate = DateTime.Now,
+				UserWhoOwesDebt = new User { Id = userWhoOwesDebt.Id }
+			};
+			var addResponse = _paymentPlanService.AddDebtOwed(userWhoIsOwedDebt.Id, debtToAdd);
+
+			Assert.IsNotNull(addResponse);
+			Assert.IsTrue(addResponse.WasSuccessfull);
+
+			var paymentPlan = _paymentPlanService.GetPaymentPlan(userWhoOwesDebt.Id);
+			Assert.IsNotNull(paymentPlan);
+			Assert.IsNotNull(paymentPlan.DebtsOwedToOthers);
+			Assert.AreEqual<int>(1, paymentPlan.DebtsOwedToOthers.Count);
+			Assert.AreEqual<Guid>(userWhoOwesDebt.Id, paymentPlan.DebtsOwedToOthers[0].UserWhoOwesDebt.Id);
 		}
 
 		private void BuildServices()

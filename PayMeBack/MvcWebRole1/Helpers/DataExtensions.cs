@@ -76,13 +76,11 @@ namespace Glav.PayMeBack.Web.Helpers
 								UserId = paymentPlan.User != null ? paymentPlan.User.Id : Guid.Empty
 			             	};
 			detail.DebtDetails = new List<DebtDetail>();
+			// Only do the debts owed to the person. The user cannot change who they owe
+			// to and how much they owe, just who owes them
 			if (paymentPlan.DebtsOwedToMe != null)
 			{
 				paymentPlan.DebtsOwedToMe.ForEach(d => detail.DebtDetails.Add(d.ToDataRecord()));
-			}
-			if (paymentPlan.DebtsOwedToOthers != null)
-			{
-				paymentPlan.DebtsOwedToOthers.ForEach(d => detail.DebtDetails.Add(d.ToDataRecord()));
 			}
 			return detail;
 		}

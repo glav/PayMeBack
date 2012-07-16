@@ -44,13 +44,14 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				paymentPlan.DebtsOwedToOthers = new List<Debt>();
 				paymentPlan.Id = Guid.Empty;
 				paymentPlan.DateCreated = DateTime.UtcNow;
-				return paymentPlan;
 			}
-
-			paymentPlan.Id = paymentPlanDetail.Id;
-			paymentPlan.User = paymentPlanDetail.UserDetail.ToModel();
-			paymentPlan.DateCreated = paymentPlanDetail.DateCreated;
-
+			else
+			{
+				paymentPlan.Id = paymentPlanDetail.Id;
+				paymentPlan.User = paymentPlanDetail.UserDetail.ToModel();
+				paymentPlan.DateCreated = paymentPlanDetail.DateCreated;
+			}
+			
 			paymentPlan.DebtsOwedToMe = GetDebtsRelatedToUser(userId, paymentPlanDetail, true);
 			paymentPlan.DebtsOwedToOthers = GetDebtsRelatedToUser(userId, paymentPlanDetail, false);
 			return paymentPlan;
@@ -64,7 +65,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		private List<Debt> GetDebtsRelatedToUser(Guid userId, UserPaymentPlanDetail paymentPlanDetail, bool debtsOwedToUser)
 		{
 			var debts = new List<Debt>();
-			if (paymentPlanDetail.DebtDetails != null && paymentPlanDetail.DebtDetails.Count > 0)
+			if (paymentPlanDetail != null && paymentPlanDetail.DebtDetails != null && paymentPlanDetail.DebtDetails.Count > 0)
 			{
 				paymentPlanDetail.DebtDetails.ToList().ForEach(p =>
 				{
@@ -82,13 +83,6 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		{
 			var userPaymentPlan = GetPaymentPlan(userId);
 			userPaymentPlan.DebtsOwedToMe.Add(debt);
-			return UpdatePaymentPlan(userPaymentPlan);
-		}
-
-		public DataAccessResult AddDebtOwing(Guid userId, Debt debt)
-		{
-			var userPaymentPlan = GetPaymentPlan(userId);
-			userPaymentPlan.DebtsOwedToOthers.Add(debt);
 			return UpdatePaymentPlan(userPaymentPlan);
 		}
 
