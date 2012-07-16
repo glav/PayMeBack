@@ -11,6 +11,7 @@ CREATE TABLE [Security].[UserDetail](
 	[FirstNames] [nvarchar](128) NOT NULL,
 	[Surname] [nvarchar](128) NOT NULL,
 	[Password] [nvarchar](128) NOT NULL,
+	[IsValidated] [bit] NOT NULL,
  CONSTRAINT [PK_UserDetail] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

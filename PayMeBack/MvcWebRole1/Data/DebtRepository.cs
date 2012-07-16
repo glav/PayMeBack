@@ -76,6 +76,7 @@ namespace Glav.PayMeBack.Web.Data
 					// ie. what they owe to others
 					continue;
 				}
+
 				ctxt.SetDataState<UserDetail>(d.UserDetail, EntityState.Unchanged);
 
 				// Ensure our debt record has all its referential integrity and

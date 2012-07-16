@@ -64,7 +64,11 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 
 		public void SaveOrUpdateUser(User user, string password = null)
 		{
-			var currentUser = _crudRepository.GetSingle<UserDetail>(u => u.Id == user.Id);
+			UserDetail currentUser = null;
+			if (user.Id != Guid.Empty)
+			{
+				currentUser = _crudRepository.GetSingle<UserDetail>(u => u.Id == user.Id);
+			}
 			if (currentUser == null)
 			{
 				currentUser = new UserDetail();
@@ -80,12 +84,26 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 
 		private void MapUserToUserDetail(User user, UserDetail userDetail, string password = null)
 		{
+			if (string.IsNullOrWhiteSpace(user.EmailAddress))
+			{
+				throw new ArgumentException("Email cannot be empty");
+			}
 			userDetail.EmailAddress = user.EmailAddress;
 			userDetail.FirstNames = user.FirstNames;
 			userDetail.Surname = user.Surname;
 			if (!string.IsNullOrEmpty(password))
 			{
 				userDetail.Password = _securityService.CreateHashedTokenFromInput(password);
+			}
+		}
+
+		public void SetUserToValidated(Guid userId)
+		{
+			var user = _crudRepository.GetSingle<UserDetail>(u => u.Id == userId && !u.IsValidated);
+			if (user != null)
+			{
+				user.IsValidated = true;
+				_crudRepository.Update<UserDetail>(user);
 			}
 		}
 

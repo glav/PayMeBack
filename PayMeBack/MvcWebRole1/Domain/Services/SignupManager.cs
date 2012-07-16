@@ -36,10 +36,23 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			var user = new User { EmailAddress = emailAddress, FirstNames = firstNames, Surname = lastName };
 
 			_userService.SaveOrUpdateUser(user, password);
+			_userService.SetUserToValidated(user.Id);
 			var scope = new AuthorisationScope() { ScopeType = AuthorisationScopeType.Readonly };
 			return _securityService.AuthorisePasswordCredentialsGrant(emailAddress, password, scope.ToTextValue());
 
 		}
+
+		/// <summary>
+		/// Sets a user to be validated. Validated users can sign in and create payment
+		/// plans. Non validated users are attached to debts but are not necessarily users
+		/// in the system.
+		/// </summary>
+		/// <param name="userId"></param>
+		public void SetUserToValidated(Guid userId)
+		{
+			_userService.SetUserToValidated(userId);
+		}
+
 
 		private void VerifyUserDoesNotExist(string emailAddress)
 		{

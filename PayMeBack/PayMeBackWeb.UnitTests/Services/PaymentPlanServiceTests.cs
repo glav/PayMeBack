@@ -53,10 +53,29 @@ namespace PayMeBackWeb.UnitTests.Services
 			_debtRepo.Setup(m => m.UpdateUserPaymentPlan(It.IsAny<Data.UserPaymentPlanDetail>()));
 
 			var debt = new Debt { Id = Guid.Empty, Notes = "test debt", ReasonForDebt = "drugs", TotalAmountOwed = 100};
+			debt.UserWhoOwesDebt = new User {EmailAddress = "whatever@test.com"};
 			var result = _paymentPlanService.AddDebtOwed(testUser.Id, debt);
 
 			Assert.IsNotNull(result);
 			Assert.IsTrue(result.WasSuccessfull);
+		}
+
+		[TestMethod]
+		public void ShouldNotBeAbleToAddDebtToPaymentPlanWithoutAssociatedUser()
+		{
+			var testDetailUser = new Data.UserDetail { EmailAddress = "test@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
+			var testUser = testDetailUser.ToModel();
+			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
+			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
+
+			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(new Data.UserPaymentPlanDetail { UserDetail = testDetailUser, UserId = testUser.Id });
+			_debtRepo.Setup(m => m.UpdateUserPaymentPlan(It.IsAny<Data.UserPaymentPlanDetail>()));
+
+			var debt = new Debt { Id = Guid.Empty, Notes = "test debt", ReasonForDebt = "drugs", TotalAmountOwed = 100 };
+			var result = _paymentPlanService.AddDebtOwed(testUser.Id, debt);
+
+			Assert.IsNotNull(result);
+			Assert.IsFalse(result.WasSuccessfull);
 		}
 
 		[TestMethod]
