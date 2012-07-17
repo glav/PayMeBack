@@ -51,7 +51,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				paymentPlan.User = paymentPlanDetail.UserDetail.ToModel();
 				paymentPlan.DateCreated = paymentPlanDetail.DateCreated;
 			}
-			
+
 			paymentPlan.DebtsOwedToMe = GetDebtsRelatedToUser(userId, paymentPlanDetail, true);
 			paymentPlan.DebtsOwedToOthers = GetDebtsRelatedToUser(userId, paymentPlanDetail, false);
 			return paymentPlan;
@@ -134,12 +134,12 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		private void AddNewUsersIfRequired(UserPaymentPlan usersPaymentPlan)
 		{
 			usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
-			                                       	{
-			                                       		if (d.UserWhoOwesDebt.Id == Guid.Empty)
-			                                       		{
-			                                       			_userEngine.SaveOrUpdateUser(d.UserWhoOwesDebt);
-			                                       		}
-			                                       	});
+													{
+														if (d.UserWhoOwesDebt.Id == Guid.Empty)
+														{
+															_userEngine.SaveOrUpdateUser(d.UserWhoOwesDebt);
+														}
+													});
 		}
 
 		private void AdjustDebtAggregateValues(UserPaymentPlan usersPaymentPlan)
@@ -180,12 +180,12 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			}
 
 			usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
-			                                       	{
+													{
 														if (d.UserWhoOwesDebt == null)
 														{
 															throw new ArgumentException("No user information associated with a debt");
 														}
-			                                       	});
+													});
 
 			// Ensure the amount of payments does not exceed the total debt.
 			// If the debt has been paid in full, then ensure it is no longer
@@ -210,6 +210,47 @@ namespace Glav.PayMeBack.Web.Domain.Services
 								}
 							});
 			}
+		}
+
+		public DebtSummary GetDebtSummaryForUser(Guid userId)
+		{
+			var summary = new DebtSummary();
+			var paymentPlan = GetPaymentPlan(userId);
+			if (paymentPlan.Id == Guid.Empty)
+			{
+				return summary;
+			}
+
+			paymentPlan.DebtsOwedToMe.ForEach(d =>
+			{
+				if (d.IsOutstanding)
+				{
+					summary.TotalAmountOwedToYou += d.AmountLeftOwing();
+					summary.DebtsOwedToYou.Add(new DebtSummaryItem
+					{
+						AmountOwing = d.AmountLeftOwing(),
+						StartDate = d.StartDate,
+						LastAmountPaid = d.LastAmountPaid(),
+						LastPaymentDate = d.LastPaymentDate()
+					});
+				}
+			});
+			paymentPlan.DebtsOwedToOthers.ForEach(d =>
+			{
+				if (d.IsOutstanding)
+				{
+					summary.TotalAmountYouOwe += d.AmountLeftOwing();
+					summary.DebtsYouOwe.Add(new DebtSummaryItem
+					                        	{
+					                        		AmountOwing = d.AmountLeftOwing(),
+													StartDate = d.StartDate,
+													LastAmountPaid = d.LastAmountPaid(),
+													LastPaymentDate= d.LastPaymentDate()
+					                        	});
+				}
+			});
+			
+			return summary;
 		}
 
 		public void RemoveDebt(Guid userId, Debt debt)

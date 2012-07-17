@@ -25,5 +25,35 @@ namespace Glav.PayMeBack.Core.Domain
 		public string ReasonForDebt { get; set; }
 		public string Notes { get; set; }
 
+		public decimal AmountLeftOwing()
+		{
+			var amountRemaining = TotalAmountOwed - InitialPayment;
+			if (PaymentInstallments != null)
+			{
+				PaymentInstallments.ForEach(p =>
+				                            	{
+				                            		amountRemaining -= p.AmountPaid;
+				                            	});	
+			}
+			return amountRemaining;
+		}
+
+		public decimal LastAmountPaid()
+		{
+			if (PaymentInstallments != null && PaymentInstallments.Count > 0)
+			{
+				return PaymentInstallments[PaymentInstallments.Count - 1].AmountPaid;
+			}
+			return InitialPayment;
+		}
+		public DateTime? LastPaymentDate()
+		{
+			if (PaymentInstallments != null && PaymentInstallments.Count > 0)
+			{
+				return PaymentInstallments[PaymentInstallments.Count - 1].PaymentDate;
+			}
+			return null;
+		}
+
 	}
 }

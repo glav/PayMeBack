@@ -240,6 +240,39 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 		}
 
 		[TestMethod]
+		public void CanProvideSummaryOfDebtOwedToMe()
+		{
+			BuildServices();
+
+			var user = SignUpSignInAndGetNewPlan();
+			var user2 = new SignupServiceTests().SignUpThenSignIn();
+
+			var debtToAdd = new Debt
+			{
+				ReasonForDebt = "test",
+				TotalAmountOwed = 100,
+				InitialPayment = 10,
+				PaymentPeriod = PaymentPeriod.Weekly,
+				StartDate = DateTime.Now,
+				UserWhoOwesDebt = new User { Id = user2.Id }
+			};
+			var addResponse = _paymentPlanService.AddDebtOwed(user.Id, debtToAdd);
+
+			Assert.IsNotNull(addResponse);
+			Assert.IsTrue(addResponse.WasSuccessfull);
+
+			var summary = _paymentPlanService.GetDebtSummaryForUser(user.Id);
+
+			Assert.IsNotNull(summary);
+			Assert.IsNotNull(summary.DebtsOwedToYou);
+			Assert.IsNotNull(summary.DebtsYouOwe);
+			Assert.AreEqual<int>(1, summary.DebtsOwedToYou.Count);
+			Assert.AreEqual<decimal>(90,summary.TotalAmountOwedToYou);
+			Assert.AreEqual<decimal>(0, summary.TotalAmountYouOwe);
+			Assert.AreEqual<decimal>(10,summary.DebtsOwedToYou[0].LastAmountPaid);
+		}
+
+		[TestMethod]
 		public void CanNotChangeDebtsOwedToOthers()
 		{
 			BuildServices();

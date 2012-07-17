@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Glav.PayMeBack.Core.Domain;
+using Glav.PayMeBack.Web.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Data=Glav.PayMeBack.Web.Data;
@@ -124,6 +125,215 @@ namespace PayMeBackWeb.UnitTests.Services
 			Assert.IsNotNull(result);
 			Assert.IsTrue(result.WasSuccessfull);
 		}
+
+		[TestMethod]
+		public void ShouldBeAbleToCalculateDebtSummaryOfDebtsOwedToUser()
+		{
+			var testDetailUser = new Data.UserDetail { EmailAddress = "test@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
+			var testUser = testDetailUser.ToModel();
+			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
+			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
+
+			var paymentPlan = new Data.UserPaymentPlanDetail { Id = Guid.NewGuid(), UserDetail = testDetailUser, UserId = testUser.Id };
+			var debts = new List<Data.DebtDetail>();
+			// Setup a debt  owing $100 to the user
+			debts.Add(new DebtDetail
+			          	{
+			          		DateCreated =DateTime.Now.AddDays(-10),
+							Id = Guid.NewGuid(),
+							TotalAmountOwed= 100,
+							InitialPayment= 0,
+							UserDetail = testDetailUser,
+							UserIdWhoOwesDebt = Guid.NewGuid(),
+							StartDate = DateTime.Now.AddDays(-1)
+			          	});
+			paymentPlan.DebtDetails = debts;
+
+			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(paymentPlan);
+			_cacheProvider.Setup(m => m.Get<UserPaymentPlanDetail>(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<Func<UserPaymentPlanDetail>>())).Returns(paymentPlan);
+			var result = _paymentPlanService.GetDebtSummaryForUser(testUser.Id);
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual<decimal>(100,result.TotalAmountOwedToYou);
+			// do some more asserts
+		}
+
+		[TestMethod]
+		public void ShouldBeAbleToProvideSummaryForNewUserWithNoDebts()
+		{
+			var testDetailUser = new Data.UserDetail { EmailAddress = "test@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
+			var testUser = testDetailUser.ToModel();
+			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
+			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
+
+			var paymentPlan = new Data.UserPaymentPlanDetail { UserDetail = testDetailUser, UserId = testUser.Id };
+
+			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(paymentPlan);
+			var result = _paymentPlanService.GetDebtSummaryForUser(testUser.Id);
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual<decimal>(0, result.TotalAmountOwedToYou);
+			Assert.IsNotNull(result.DebtsOwedToYou);
+			Assert.AreEqual<int>(0, result.DebtsOwedToYou.Count);
+			Assert.IsNotNull(result.DebtsYouOwe);
+			Assert.AreEqual<int>(0, result.DebtsYouOwe.Count);
+		}
+
+		[TestMethod]
+		public void ShouldBeAbleToCalculateMultipleDebtsWithInstallmentsToProvideSummaryOfDebtsOwedToUser()
+		{
+			var testDetailUser = new Data.UserDetail { EmailAddress = "test@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
+			var testUser = testDetailUser.ToModel();
+			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
+			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
+			var paymentPlan = new Data.UserPaymentPlanDetail {Id = Guid.NewGuid(), UserDetail = testDetailUser, UserId = testUser.Id };
+			var debts = new List<Data.DebtDetail>();
+			// Setup a debt  owing $100 to the user
+			debts.Add(new DebtDetail
+			{
+				DateCreated = DateTime.Now.AddDays(-10),
+				Id = Guid.NewGuid(),
+				TotalAmountOwed = 100,
+				InitialPayment = 0,
+				UserDetail = testDetailUser,
+				UserIdWhoOwesDebt = Guid.NewGuid(),
+				StartDate = DateTime.Now.AddDays(-1)
+			});
+			// Debt owing $50 but with $30 initially paid so $20 owing
+			debts.Add(new DebtDetail
+			{
+				DateCreated = DateTime.Now.AddDays(-10),
+				Id = Guid.NewGuid(),
+				TotalAmountOwed = 50,
+				InitialPayment = 30,
+				UserDetail = testDetailUser,
+				UserIdWhoOwesDebt = Guid.NewGuid(),
+				StartDate = DateTime.Now.AddDays(-1)
+			});
+			// Debt of $100 but with installments of $20 and $50 leaving $30 owing
+			var paymentInstallments = new List<DebtPaymentInstallmentDetail>();
+			var debtWithInstallments = new DebtDetail
+			                           	{
+			                           		DateCreated = DateTime.Now.AddDays(-10),
+			                           		Id = Guid.NewGuid(),
+			                           		TotalAmountOwed = 100,
+			                           		InitialPayment = 0,
+			                           		UserDetail = testDetailUser,
+			                           		UserIdWhoOwesDebt = Guid.NewGuid(),
+			                           		StartDate = DateTime.Now.AddDays(-1)
+			                           	};
+			paymentInstallments.Add(new DebtPaymentInstallmentDetail
+			                        	{
+			                        		Id= Guid.NewGuid(),
+											AmountPaid=20,
+											PaymentMethod = (int)PaymentMethodType.Cash,
+											PaymentDate =DateTime.Now.AddDays(-1),
+											DebtDetail =debtWithInstallments
+			                        	});
+			paymentInstallments.Add(new DebtPaymentInstallmentDetail
+			{
+				Id = Guid.NewGuid(),
+				AmountPaid = 50,
+				PaymentMethod = (int)PaymentMethodType.Cash,
+				PaymentDate = DateTime.Now.AddDays(-1),
+				DebtDetail = debtWithInstallments
+			});
+			debtWithInstallments.DebtPaymentInstallmentDetails = paymentInstallments;
+			debts.Add(debtWithInstallments);
+			paymentPlan.DebtDetails = debts;
+
+			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(paymentPlan);
+			_cacheProvider.Setup(m => m.Get<UserPaymentPlanDetail>(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<Func<UserPaymentPlanDetail>>())).Returns(paymentPlan);
+
+			var result = _paymentPlanService.GetDebtSummaryForUser(testUser.Id);
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual<decimal>(150, result.TotalAmountOwedToYou);
+			Assert.IsNotNull(result.DebtsOwedToYou);
+			Assert.AreEqual<int>(3,result.DebtsOwedToYou.Count);
+			// do some more asserts
+		}
+
+		[TestMethod]
+		public void ShouldBeAbleToCalculateMultipleDebtsOwedByMeAndToMeWithInstallmentsToProvideSummaryOfDebtsOwedToUser()
+		{
+			var testDetailUser = new Data.UserDetail { EmailAddress = "test@test.com", Id = Guid.NewGuid(), FirstNames = "test", Surname = "user" };
+			var testUser = testDetailUser.ToModel();
+			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
+			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
+			var paymentPlan = new Data.UserPaymentPlanDetail { Id = Guid.NewGuid(), UserDetail = testDetailUser, UserId = testUser.Id };
+			var debts = new List<Data.DebtDetail>();
+			// Setup a debt  owing $100 to the user
+			debts.Add(new DebtDetail
+			{
+				DateCreated = DateTime.Now.AddDays(-10),
+				Id = Guid.NewGuid(),
+				TotalAmountOwed = 100,
+				InitialPayment = 0,
+				UserDetail = testDetailUser,
+				UserIdWhoOwesDebt = Guid.NewGuid(),
+				StartDate = DateTime.Now.AddDays(-1)
+			});
+			// Debt which ME or the owner is owing $50 but with $30 initially paid so $20 owing
+			debts.Add(new DebtDetail
+			{
+				DateCreated = DateTime.Now.AddDays(-10),
+				Id = Guid.NewGuid(),
+				TotalAmountOwed = 50,
+				InitialPayment = 30,
+				UserDetail = testDetailUser,
+				UserIdWhoOwesDebt = testDetailUser.Id,
+				StartDate = DateTime.Now.AddDays(-1)
+			});
+			// Debt of $100 but with installments of $20 and $50 leaving $30 owing
+			var paymentInstallments = new List<DebtPaymentInstallmentDetail>();
+			var debtWithInstallments = new DebtDetail
+			{
+				DateCreated = DateTime.Now.AddDays(-10),
+				Id = Guid.NewGuid(),
+				TotalAmountOwed = 100,
+				InitialPayment = 0,
+				UserDetail = testDetailUser,
+				UserIdWhoOwesDebt = testDetailUser.Id,
+				StartDate = DateTime.Now.AddDays(-1)
+			};
+			paymentInstallments.Add(new DebtPaymentInstallmentDetail
+			{
+				Id = Guid.NewGuid(),
+				AmountPaid = 20,
+				PaymentMethod = (int)PaymentMethodType.Cash,
+				PaymentDate = DateTime.Now.AddDays(-1),
+				DebtDetail = debtWithInstallments
+			});
+			paymentInstallments.Add(new DebtPaymentInstallmentDetail
+			{
+				Id = Guid.NewGuid(),
+				AmountPaid = 50,
+				PaymentMethod = (int)PaymentMethodType.Cash,
+				PaymentDate = DateTime.Now.AddDays(-1),
+				DebtDetail = debtWithInstallments
+			});
+			debtWithInstallments.DebtPaymentInstallmentDetails = paymentInstallments;
+			debts.Add(debtWithInstallments);
+			paymentPlan.DebtDetails = debts;
+
+			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(paymentPlan);
+			_cacheProvider.Setup(m => m.Get<UserPaymentPlanDetail>(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<Func<UserPaymentPlanDetail>>())).Returns(paymentPlan);
+
+			var result = _paymentPlanService.GetDebtSummaryForUser(testUser.Id);
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual<decimal>(100, result.TotalAmountOwedToYou);
+			Assert.AreEqual<decimal>(50, result.TotalAmountYouOwe);
+			Assert.IsNotNull(result.DebtsOwedToYou);
+			Assert.IsNotNull(result.DebtsYouOwe);
+			Assert.AreEqual<int>(1, result.DebtsOwedToYou.Count);
+			Assert.AreEqual<int>(2, result.DebtsYouOwe.Count);
+			// do some more asserts
+		}
+
+
+
 
 		[TestInitialize]
 		public void Initialise()

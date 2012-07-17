@@ -45,6 +45,7 @@
     <Compile Include="Domain\BaseModel.cs" />
     <Compile Include="Domain\Debt.cs" />
     <Compile Include="Domain\DebtPaymentInstallment.cs" />
+    <Compile Include="Domain\DebtSummary.cs" />
     <Compile Include="Domain\PaymentMethodType.cs" />
     <Compile Include="Domain\PaymentPeriod.cs" />
     <Compile Include="Domain\User.cs" />
