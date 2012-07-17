@@ -99,6 +99,7 @@
           <Property Name="Surname" Type="nvarchar" Nullable="false" MaxLength="128" />
           <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
           <Property Name="IsValidated" Type="bit" Nullable="false" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK_Debt_UserDetail">
           <End Role="UserDetail" Type="PayMeBackModel.Store.UserDetail" Multiplicity="1" />
@@ -200,6 +201,7 @@
           <NavigationProperty Name="DebtDetails" Relationship="PayMeBackModel.FK_Debt_UserDetail" FromRole="UserDetail" ToRole="DebtDetail" />
           <NavigationProperty Name="UserPaymentPlanDetails" Relationship="PayMeBackModel.FK_UserPaymentPlanDetail_UserDetail" FromRole="UserDetail" ToRole="UserPaymentPlanDetail" />
           <Property Type="Boolean" Name="IsValidated" Nullable="false" />
+          <Property Type="String" Name="MobilePhone" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UsageLog">
           <Key>
@@ -321,6 +323,7 @@
           <EntitySetMapping Name="UserDetails">
             <EntityTypeMapping TypeName="PayMeBackModel.UserDetail">
               <MappingFragment StoreEntitySet="UserDetail">
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
                 <ScalarProperty Name="IsValidated" ColumnName="IsValidated" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />

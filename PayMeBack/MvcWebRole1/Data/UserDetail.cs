@@ -26,6 +26,7 @@ namespace Glav.PayMeBack.Web.Data
         public string Surname { get; set; }
         public string Password { get; set; }
         public bool IsValidated { get; set; }
+        public string MobilePhone { get; set; }
     
         public virtual ICollection<DebtDetail> DebtDetails { get; set; }
         public virtual ICollection<UserPaymentPlanDetail> UserPaymentPlanDetails { get; set; }
