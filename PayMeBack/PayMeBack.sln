@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glav.PayMeBack.IntegrationTests", "Glav.PayMeBack.IntegrationTests\Glav.PayMeBack.IntegrationTests.csproj", "{FDA480C0-BC7A-47ED-BEB9-C3D921FC450E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataStore", "DataStore", "{C6611CE1-52B4-4AA4-B591-5518270987DD}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = PayMeBack.vsmdi
