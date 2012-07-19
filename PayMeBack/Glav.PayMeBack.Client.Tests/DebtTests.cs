@@ -77,12 +77,13 @@ namespace Glav.PayMeBack.Client.Tests
 			Assert.IsNotNull(planResponse);
 			Assert.IsTrue(planResponse.IsRequestSuccessfull);
 
+			var uniqueEmail = string.Format("test-{0}@debttests.com", Guid.NewGuid());
 			var debtToAdd = new Debt
 								{
 									DateCreated = DateTime.Now,
 									InitialPayment = 20,
 									TotalAmountOwed = 100,
-									UserWhoOwesDebt = new User { EmailAddress="new@user.com" }
+									UserWhoOwesDebt = new User { EmailAddress=uniqueEmail }
 								};
 			planResponse.DataObject.DebtsOwedToMe.Add(debtToAdd);
 			var updateResponse = debtProxy.UpdatePaymentPlan(planResponse.DataObject);
@@ -122,12 +123,13 @@ namespace Glav.PayMeBack.Client.Tests
 			Assert.IsNotNull(planResponse);
 			Assert.IsTrue(planResponse.IsRequestSuccessfull);
 
+			var uniqueEmail = string.Format("test-{0}@debttests.com", Guid.NewGuid());
 			var debtToAdd = new Debt
 			{
 				DateCreated = DateTime.Now,
 				InitialPayment = 20,
 				TotalAmountOwed = 100,
-				UserWhoOwesDebt = new User { EmailAddress = "new@user.com" }
+				UserWhoOwesDebt = new User { EmailAddress = uniqueEmail }
 			};
 			planResponse.DataObject.DebtsOwedToMe.Add(debtToAdd);
 			var updateResponse = debtProxy.UpdatePaymentPlan(planResponse.DataObject);
