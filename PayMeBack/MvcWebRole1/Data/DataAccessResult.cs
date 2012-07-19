@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity.Validation;
 using System.Text;
+using Glav.PayMeBack.Core.Domain;
 
 namespace Glav.PayMeBack.Web.Data
 {
@@ -80,6 +81,24 @@ namespace Glav.PayMeBack.Web.Data
 			}
 
 			return "System Error";
+		}
+
+		public static ApiResponse ToApiResponse(this DataAccessResult result)
+		{
+			var apiResponse = new ApiResponse();
+			if (result.WasSuccessfull)
+			{
+				apiResponse.IsSuccessful = true;
+				return apiResponse;
+			}
+
+			if (result.Errors != null)
+			{
+				apiResponse.ErrorMessages = result.Errors;
+				apiResponse.IsSuccessful = false;
+			}
+
+			return apiResponse;
 		}
 
 	}

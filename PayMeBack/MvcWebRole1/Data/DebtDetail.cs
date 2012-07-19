@@ -32,8 +32,8 @@ namespace Glav.PayMeBack.Web.Data
         public string ReasonForDebt { get; set; }
         public string Notes { get; set; }
     
-        public virtual UserDetail UserDetail { get; set; }
         public virtual UserPaymentPlanDetail UserPaymentPlanDetail { get; set; }
         public virtual ICollection<DebtPaymentInstallmentDetail> DebtPaymentInstallmentDetails { get; set; }
+        public virtual UserDetail UserDetail { get; set; }
     }
 }

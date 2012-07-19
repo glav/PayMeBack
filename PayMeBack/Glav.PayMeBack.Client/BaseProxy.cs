@@ -7,6 +7,7 @@ using System.Web.Script.Serialization;
 
 using Glav.PayMeBack.Core;
 using System.Net.Http.Formatting;
+using Glav.PayMeBack.Core.Domain;
 
 namespace Glav.PayMeBack.Client
 {
@@ -111,10 +112,11 @@ namespace Glav.PayMeBack.Client
 
 		public virtual ProxyResponse<T> GetResponse<T>(string requestUri) where T : class
 		{
-			return GetResponse<T>(requestUri, null);
+			return GetResponse<T,T>(requestUri, null);
 		}
 
-		public virtual ProxyResponse<T> GetResponse<T>(string requestUri, T postData) where T : class
+		public virtual ProxyResponse<R> GetResponse<T,R>(string requestUri, T postData) where T : class
+			where R : class
 		{
 			HttpResponseMessage responseMsg;
 			if (OperationMethod != HttpMethod.Put && OperationMethod != HttpMethod.Post)
@@ -132,14 +134,20 @@ namespace Glav.PayMeBack.Client
 					var textData = responseMsg.Content.ReadAsStringAsync().Result;
 					if (!string.IsNullOrWhiteSpace(textData))
 					{
-						var dto = Deserialise<T>(textData);
-						return new ProxyResponse<T>(textData, dto, true, responseMsg.StatusCode, responseMsg.ReasonPhrase);
+						var dto = Deserialise<R>(textData);
+						var proxResponse = new ProxyResponse<R>(textData, dto, true, responseMsg.StatusCode, responseMsg.ReasonPhrase);
+						var apiResponse = dto as ApiResponse;
+						if (apiResponse != null)
+						{
+							proxResponse.MapApiResult(apiResponse);
+						}
+						return proxResponse;
 					}
-					return new ProxyResponse<T>(textData, default(T), true, responseMsg.StatusCode, responseMsg.ReasonPhrase);
+					return new ProxyResponse<R>(textData, default(R), true, responseMsg.StatusCode, responseMsg.ReasonPhrase);
 				}
 			}
 
-			return new ProxyResponse<T>(responseMsg.Content.ReadAsStringAsync().Result, default(T), false, responseMsg.StatusCode, responseMsg.ReasonPhrase);
+			return new ProxyResponse<R>(responseMsg.Content.ReadAsStringAsync().Result, default(R), false, responseMsg.StatusCode, responseMsg.ReasonPhrase);
 
 		}
 

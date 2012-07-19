@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ApiConstants.cs" />
     <Compile Include="AuthorisationScope.cs" />
+    <Compile Include="Domain\ApiResponse.cs" />
     <Compile Include="Domain\BaseModel.cs" />
     <Compile Include="Domain\Debt.cs" />
     <Compile Include="Domain\DebtPaymentInstallment.cs" />

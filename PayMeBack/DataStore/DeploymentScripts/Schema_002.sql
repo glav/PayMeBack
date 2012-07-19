@@ -8,9 +8,9 @@ GO
 CREATE TABLE [Security].[UserDetail](
 	[Id] [uniqueidentifier] NOT NULL,
 	[EmailAddress] [nvarchar](128) NOT NULL,
-	[FirstNames] [nvarchar](128) NOT NULL,
-	[Surname] [nvarchar](128) NOT NULL,
-	[Password] [nvarchar](128) NOT NULL,
+	[FirstNames] [nvarchar](128) NULL,
+	[Surname] [nvarchar](128) NULL,
+	[Password] [nvarchar](128) NULL,
 	[IsValidated] [bit] NOT NULL,
 	[MobilePhone] [nvarchar](20) NULL,
  CONSTRAINT [PK_UserDetail] PRIMARY KEY CLUSTERED 

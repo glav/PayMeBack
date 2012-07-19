@@ -233,6 +233,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			if (userDetail != null)
 			{
 				var currentPwd = userDetail.Password;
+				if (string.IsNullOrWhiteSpace(currentPwd))
+				{
+					return null;
+				}
 				if (currentPwd == CreateHashedTokenFromInput(password))
 				{
 					return userDetail.ToModel();

@@ -9,3 +9,9 @@ GO
 /****** Object:  Schema [Payment]    Script Date: 05/30/2012 07:17:14 ******/
 CREATE SCHEMA [Payment] AUTHORIZATION [dbo]
 GO
+
+USE [PayMeBack]
+GO
+EXEC sp_addrolemember N'db_owner', N'NETWORK SERVICE'
+GO
+
