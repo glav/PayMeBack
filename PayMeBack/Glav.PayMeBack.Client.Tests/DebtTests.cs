@@ -85,9 +85,65 @@ namespace Glav.PayMeBack.Client.Tests
 									UserWhoOwesDebt = new User { EmailAddress="new@user.com" }
 								};
 			planResponse.DataObject.DebtsOwedToMe.Add(debtToAdd);
+			var updateResponse = debtProxy.UpdatePaymentPlan(planResponse.DataObject);
+			Assert.IsNotNull(updateResponse);
+			Assert.IsTrue(updateResponse.IsRequestSuccessfull);
 
-			Assert.Inconclusive("Need to get plan, make amendments, then update plan");
+			var updatedPlanResponse = debtProxy.GetDebtPaymentPlan();
+			Assert.IsNotNull(updatedPlanResponse);
+			Assert.IsTrue(updatedPlanResponse.IsRequestSuccessfull);
+			Assert.IsNotNull(updatedPlanResponse.DataObject.DebtsOwedToMe);
+			Assert.AreEqual<int>(1, updatedPlanResponse.DataObject.DebtsOwedToMe.Count);
+
 		}
 
+		[TestMethod]
+		public void ShouldBeAbleToGetAccurateDebtSummary()
+		{
+			var proxy = new AuthorisationProxy();
+			var ownerEmail = string.Format("{0}@integrationtest.com", Guid.NewGuid());
+			var owesDebtEmail = string.Format("{0}@integrationtest.com", Guid.NewGuid());
+
+			// Sign up owner of primary account - person whois owed a debt
+			var response = proxy.Signup(ownerEmail, "test", "dude", "P@ssw0rd1");
+
+			Assert.IsNotNull(response);
+			Assert.IsTrue(response.IsRequestSuccessfull);
+			var token = response.DataObject.AccessGrant.access_token;
+
+			// Now sign up person who owes dent
+			var secondSignUpResponse = proxy.Signup(owesDebtEmail, "I", "OweDebt", "P@ssw0rd1");
+			Assert.IsNotNull(secondSignUpResponse);
+			Assert.IsTrue(secondSignUpResponse.IsRequestSuccessfull);
+
+			var debtProxy = new DebtProxy(token);
+
+			var planResponse = debtProxy.GetDebtPaymentPlan();
+			Assert.IsNotNull(planResponse);
+			Assert.IsTrue(planResponse.IsRequestSuccessfull);
+
+			var debtToAdd = new Debt
+			{
+				DateCreated = DateTime.Now,
+				InitialPayment = 20,
+				TotalAmountOwed = 100,
+				UserWhoOwesDebt = new User { EmailAddress = "new@user.com" }
+			};
+			planResponse.DataObject.DebtsOwedToMe.Add(debtToAdd);
+			var updateResponse = debtProxy.UpdatePaymentPlan(planResponse.DataObject);
+			Assert.IsNotNull(updateResponse);
+			Assert.IsTrue(updateResponse.IsRequestSuccessfull);
+
+			// Now we have signed up,and added a debt to our payment plan
+			// lets get the summary
+			var summaryResponse = debtProxy.GetDebtSummary();
+			Assert.IsNotNull(summaryResponse);
+			Assert.IsTrue(summaryResponse.IsRequestSuccessfull);
+			Assert.IsNotNull(summaryResponse.DataObject);
+			Assert.AreEqual<decimal>(80,summaryResponse.DataObject.TotalAmountOwedToYou);
+			Assert.IsNotNull(summaryResponse.DataObject.DebtsOwedToYou);
+			Assert.IsNotNull(summaryResponse.DataObject.DebtsYouOwe);
+			Assert.AreEqual<int>(1,summaryResponse.DataObject.DebtsOwedToYou.Count);
+		}
 	}
 }

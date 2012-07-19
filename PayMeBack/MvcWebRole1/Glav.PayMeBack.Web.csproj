@@ -149,6 +149,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\OAuthController.cs" />
     <Compile Include="Controllers\Api\DebtsController.cs" />
+    <Compile Include="Controllers\Api\SummaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\CrudRepository.cs" />
     <Compile Include="Data\DataAccessResult.cs" />
@@ -217,8 +218,6 @@
     <Compile Include="Helpers\MobileViewHelper.cs" />
     <Compile Include="Helpers\WebDependencyBuilder.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\ApiResponse.cs" />
-    <Compile Include="Models\SignInResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>

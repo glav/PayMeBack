@@ -15,12 +15,10 @@ namespace Glav.PayMeBack.Web.Controllers.Api
     public class DebtsController : ApiController
     {
     	private IPaymentPlanService _paymentPlanService;
-		private IUserEngine _userEngine;
 
-    	public DebtsController(IPaymentPlanService paymentPlanService, IUserEngine userEngine)
+    	public DebtsController(IPaymentPlanService paymentPlanService)
     	{
     		_paymentPlanService = paymentPlanService;
-			_userEngine = userEngine;
     	}
 
     	// GET /api/people
@@ -32,12 +30,8 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 		public ApiResponse Post(UserPaymentPlan paymentPlan)
 		{
 			var result = _paymentPlanService.UpdatePaymentPlan(paymentPlan);
-			var response = new ApiResponse
-			               	{
-			               		IsSuccessful = result.WasSuccessfull,
-			               		ErrorMessage = result.ToSingleMessage()
-			               	};
-			return response;
+			return result.ToApiResponse();
 		}
+
     }
 }

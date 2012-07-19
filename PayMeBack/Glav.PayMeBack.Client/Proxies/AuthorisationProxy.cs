@@ -163,7 +163,7 @@ namespace Glav.PayMeBack.Client.Proxies
 			OperationMethod = HttpMethod.Post;
 
 			var postData = new SignupData { emailAddress = emailAddress, firstNames = firstNames, lastName = lastName, password = password };
-			var response = base.GetResponse(uri, postData);
+			var response = base.GetResponse<SignupData,object>(uri, postData);
 			OperationMethod = originalOperation;
 			if (response.IsRequestSuccessfull)
 			{

@@ -62,13 +62,38 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 			return userDetail.ToModel();
 		}
 
-		public void SaveOrUpdateUser(User user, string password = null)
+		private UserDetail ValidateUserForSave(User user)
 		{
+			if (user == null)
+			{
+				throw new ArgumentException("No user data to save.");
+			}
+			if (string.IsNullOrWhiteSpace(user.EmailAddress))
+			{
+				throw new ArgumentException("Email cannot be empty");
+			}
 			UserDetail currentUser = null;
 			if (user.Id != Guid.Empty)
 			{
 				currentUser = _crudRepository.GetSingle<UserDetail>(u => u.Id == user.Id);
 			}
+			else
+			{
+				// Id is empty so it is probably a new user BUT we need to ensure we
+				// dont save the user with an email that already exists
+				var normalisedEmailAddress = user.EmailAddress.ToLowerInvariant();
+				var existingUser = _crudRepository.GetSingle<UserDetail>(u => u.EmailAddress == normalisedEmailAddress);
+				if (existingUser != null)
+				{
+					throw new ArgumentException("User with that email already exists and a new one cannot be added");
+				}
+			}
+			return currentUser;
+
+		}
+		public void SaveOrUpdateUser(User user, string password = null)
+		{
+			var currentUser = ValidateUserForSave(user);
 			if (currentUser == null)
 			{
 				currentUser = new UserDetail();
@@ -84,11 +109,7 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 
 		private void MapUserToUserDetail(User user, UserDetail userDetail, string password = null)
 		{
-			if (string.IsNullOrWhiteSpace(user.EmailAddress))
-			{
-				throw new ArgumentException("Email cannot be empty");
-			}
-			userDetail.EmailAddress = user.EmailAddress;
+			userDetail.EmailAddress = user.EmailAddress.ToLowerInvariant();
 			userDetail.FirstNames = user.FirstNames;
 			userDetail.Surname = user.Surname;
 			if (!string.IsNullOrEmpty(password))

@@ -47,6 +47,12 @@ namespace Glav.PayMeBack.Web
 			);
 
 			routes.MapHttpRoute(
+				name: "DebtSummary",
+				routeTemplate: "api/debts/summary",
+				defaults: new {Controller = "Summary"}
+				);
+
+			routes.MapHttpRoute(
 				name: "DefaultApi",
 				routeTemplate: "api/{controller}/{id}",
 				defaults: new { id = RouteParameter.Optional }

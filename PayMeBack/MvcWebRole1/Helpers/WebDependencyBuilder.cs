@@ -39,7 +39,8 @@ namespace Glav.PayMeBack.Web.Helpers
 
 			// Register our controllers
 			builder.Register(c => new OAuthController(c.Resolve<IOAuthSecurityService>(), c.Resolve<ISignupManager>())).As<OAuthController>();
-			builder.Register(c => new DebtsController(c.Resolve<IPaymentPlanService>(), c.Resolve<IUserEngine>())).As<DebtsController>();
+			builder.Register(c => new DebtsController(c.Resolve<IPaymentPlanService>())).As<DebtsController>();
+			builder.Register(c => new SummaryController(c.Resolve<IPaymentPlanService>())).As<SummaryController>();
 			return builder.Build();
 		}
 	}
