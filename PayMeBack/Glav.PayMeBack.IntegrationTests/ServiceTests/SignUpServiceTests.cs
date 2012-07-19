@@ -45,6 +45,17 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 			Assert.IsFalse(string.IsNullOrWhiteSpace(response.ErrorDetails.error));
 		}
 
+		[TestMethod]
+		public void ShouldNotBeAbleToSignInWithEmptyPasswordEvenIfValidated()
+		{
+			BuildServices();
+
+			var emailAddress = string.Format("{0}@integrationtests.com", Guid.NewGuid());
+			var signUpResponse = _signupMgr.SignUpNewUser(emailAddress, "integration", "test", "");
+			var signInResponse = _securityService.SignIn(emailAddress, "");
+			Assert.IsNull(signInResponse);
+		}
+
 		public User SignUpThenSignIn()
 		{
 			BuildServices();
