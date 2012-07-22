@@ -21,12 +21,25 @@ namespace Glav.PayMeBack.Web.Controllers.Api
     		_paymentPlanService = paymentPlanService;
     	}
 
-    	// GET /api/people
+		/// <summary>
+		/// Returns an existing payment plan, or a new one if one does not
+		/// exist for the user. The user is inferred from the user making the
+		/// request
+		/// </summary>
+		/// <param name="user">The user to retrieve the paymentplan for. This is
+		/// retrieving from the users access token who is making the request</param>
+		/// <returns>A <see cref="UserPaymentPlan"/></returns>
 		public UserPaymentPlan Get([FromUri] User user)
 		{
 			return _paymentPlanService.GetPaymentPlan(user.Id);
         }
 
+		/// <summary>
+		/// Updates an existing payment plan for the user making the request
+		/// </summary>
+		/// <param name="paymentPlan">The payment plan to be updated.</param>
+		/// <returns>A standard ApiResponse containing a success indicator or a
+		/// series of errors if unsuccessfull</returns>
 		public ApiResponse Post(UserPaymentPlan paymentPlan)
 		{
 			var result = _paymentPlanService.UpdatePaymentPlan(paymentPlan);

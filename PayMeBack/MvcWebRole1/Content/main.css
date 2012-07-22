@@ -1,0 +1,14 @@
+﻿/* File Created: July 23, 2012 */
+
+/* Documentation */
+ul li.api-method-header {
+	font-size: 1.2em;
+}
+ul li.api-method-content {
+	margin-left: 20px;
+	list-style-type: circle;
+}
+ul li.api-method-payload {
+	margin-left: 25px;
+	list-style-type: none;
+}

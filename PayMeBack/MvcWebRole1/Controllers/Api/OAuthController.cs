@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Http.Description;
 using System.Web.Mvc;
 using System.Web.Http;
 using System.Net.Http;
@@ -37,6 +38,16 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			//return new HttpResponseMessage(string.Format("response_type=[{0}], client_id=[{1}], scope=[{2}], state=[{3}]", response_type, client_id, scope, state));
 		}
 
+		/// <summary>
+		/// The primary way of signing into the system and getting an access token issued
+		/// to enable further access to the system. This is typically a one time process
+		/// with the refresh token acting for subsequent access to the system.
+		/// </summary>
+		/// <param name="grant_type"></param>
+		/// <param name="username"></param>
+		/// <param name="password"></param>
+		/// <param name="scope"></param>
+		/// <returns></returns>
 		public object GetAuthorisationPasswordCredentialsGrant(string grant_type, string username, string password, string scope)
 		{
 			// TODO: move this to external service
