@@ -20,6 +20,7 @@ using Glav.PayMeBack.Web.Helpers;
 using Glav.PayMeBack.Web.Domain;
 using System.Net.Http;
 using Glav.PayMeBack.Web.Framework;
+using System.Web.Http.Description;
 
 namespace Glav.PayMeBack.Web
 {
@@ -70,11 +71,24 @@ namespace Glav.PayMeBack.Web
 			AreaRegistration.RegisterAllAreas();
 
 			SetupDepedencyInjection();
+			SetupDocumentationProvider();
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterApis(GlobalConfiguration.Configuration);
 			RegisterRoutes(RouteTable.Routes);
 
+			var cssBundle = new Bundle("~/MainCss");
+			cssBundle.AddFile("~/Content/main.css");
+			BundleTable.Bundles.Add(cssBundle);
+
 			BundleTable.Bundles.RegisterTemplateBundles();
+		}
+
+		private void SetupDocumentationProvider()
+		{
+			var xmlDocPath = HttpContext.Current.Server.MapPath("~/bin/Glav.PayMeBack.Web.XML");
+			//var xmlDocPath = "Glav.PayMeBack.Web.XML";
+			GlobalConfiguration.Configuration.Services.Replace(typeof(IDocumentationProvider),
+										new XmlCommentDocumentationProvider(xmlDocPath));
 		}
 
 		private void SetupDepedencyInjection()

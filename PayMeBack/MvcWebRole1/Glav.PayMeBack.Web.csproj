@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Glav.PayMeBack.Web.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -147,6 +148,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DocumentationController.cs" />
+    <Compile Include="Controllers\Api\HelpController.cs" />
     <Compile Include="Controllers\Api\OAuthController.cs" />
     <Compile Include="Controllers\Api\DebtsController.cs" />
     <Compile Include="Controllers\Api\SummaryController.cs" />
@@ -168,11 +171,14 @@
     </Compile>
     <Compile Include="Domain\ApiDependencyResolver.cs" />
     <Compile Include="Domain\DetailModelDataExtensions.cs" />
+    <Compile Include="Domain\Engines\HelpEngine.cs" />
+    <Compile Include="Domain\Engines\IHelpEngine.cs" />
     <Compile Include="Domain\Engines\IUsageLogger.cs" />
     <Compile Include="Domain\Engines\UsageLogger.cs" />
     <Compile Include="Framework\ApiUsageHandler.cs" />
     <Compile Include="Framework\PayMeBackModelBinderProvider.cs" />
     <Compile Include="Framework\UserFromAccessTokenModelBinder.cs" />
+    <Compile Include="Framework\XmlCommentDocProvider.cs" />
     <Compile Include="Helpers\DataExtensions.cs" />
     <Compile Include="Data\DebtRepository.cs" />
     <Compile Include="Data\ICrudRepository.cs" />
@@ -222,6 +228,7 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\main.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -324,6 +331,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PayMeBackModel.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Documentation\Api.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

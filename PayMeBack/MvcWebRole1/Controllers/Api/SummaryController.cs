@@ -18,6 +18,11 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			_paymentPlanService = paymentPlanService;
 		}
 
+		/// <summary>
+		/// Returns a Summarised version of a users debts owed and owing.
+		/// </summary>
+		/// <param name="user"></param>
+		/// <returns></returns>
 		public DebtSummary Get([FromUri] User user)
 		{
 			return _paymentPlanService.GetDebtSummaryForUser(user.Id);
