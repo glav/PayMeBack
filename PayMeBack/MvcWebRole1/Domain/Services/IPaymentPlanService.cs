@@ -12,7 +12,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		UserPaymentPlan GetPaymentPlan(Guid userId);
 		DataAccessResult AddDebtOwed(Guid userId, Debt debt);
 		DataAccessResult UpdatePaymentPlan(UserPaymentPlan usersPaymentPlan);
-		void RemoveDebt(Guid userId, Debt debtPaymentPlan);
+		DataAccessResult RemoveDebt(Guid userId, Guid debtId);
 		DebtSummary GetDebtSummaryForUser(Guid userId);
 	}
 }

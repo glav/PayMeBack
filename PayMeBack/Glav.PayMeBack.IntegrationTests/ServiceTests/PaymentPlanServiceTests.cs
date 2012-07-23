@@ -334,6 +334,76 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 			Assert.AreEqual<Guid>(userWhoOwesDebt.Id, paymentPlan.DebtsOwedToOthers[0].UserWhoOwesDebt.Id);
 		}
 
+		[TestMethod]
+		public void EnsureValidUserCannotDeleteDebtNotBelongingToThem()
+		{
+			BuildServices();
+
+			var userWhoOwnsDebt = SignUpSignInAndGetNewPlan();
+			var userWhoOwesDebt = new SignupServiceTests().SignUpThenSignIn();
+			var userWhoDoesNotOwnDebt = new SignupServiceTests().SignUpThenSignIn();
+
+			var debtToAdd = new Debt
+			{
+				ReasonForDebt = "test",
+				TotalAmountOwed = 100,
+				InitialPayment = 10,
+				PaymentPeriod = PaymentPeriod.Weekly,
+				StartDate = DateTime.Now,
+				UserWhoOwesDebt = new User { Id = userWhoOwesDebt.Id }
+			};
+			var addResponse = _paymentPlanService.AddDebtOwed(userWhoOwnsDebt.Id, debtToAdd);
+			Assert.IsNotNull(addResponse);
+			Assert.IsTrue(addResponse.WasSuccessfull);
+			var updatedPlan = _paymentPlanService.GetPaymentPlan(userWhoOwnsDebt.Id);
+			Assert.IsNotNull(updatedPlan);
+
+			var deleteResponse = _paymentPlanService.RemoveDebt(userWhoDoesNotOwnDebt.Id, updatedPlan.DebtsOwedToMe[0].Id);
+			Assert.IsNotNull(deleteResponse);
+			Assert.IsFalse(deleteResponse.WasSuccessfull);
+			Assert.IsNotNull(deleteResponse.Errors);
+			Assert.AreEqual<int>(1,deleteResponse.Errors.Count);
+		}
+
+		[TestMethod]
+		public void EnsureValidUserCanDeleteDebtBelongingToThem()
+		{
+			BuildServices();
+
+			var userWhoOwnsDebt = SignUpSignInAndGetNewPlan();
+			var userWhoOwesDebt = new SignupServiceTests().SignUpThenSignIn();
+
+			var debtToAdd = new Debt
+			{
+				ReasonForDebt = "test",
+				TotalAmountOwed = 100,
+				InitialPayment = 10,
+				PaymentPeriod = PaymentPeriod.Weekly,
+				StartDate = DateTime.Now,
+				UserWhoOwesDebt = new User { Id = userWhoOwesDebt.Id }
+			};
+			debtToAdd.PaymentInstallments.Add(new DebtPaymentInstallment
+			                                  	{
+			                                  		AmountPaid = 5,
+													PaymentDate = DateTime.Now,
+													TypeOfPayment = PaymentMethodType.Cash
+			                                  	});
+			var addResponse = _paymentPlanService.AddDebtOwed(userWhoOwnsDebt.Id, debtToAdd);
+			Assert.IsNotNull(addResponse);
+			Assert.IsTrue(addResponse.WasSuccessfull);
+			var updatedPlan = _paymentPlanService.GetPaymentPlan(userWhoOwnsDebt.Id);
+			Assert.IsNotNull(updatedPlan);
+
+			var deleteResponse = _paymentPlanService.RemoveDebt(userWhoOwnsDebt.Id, updatedPlan.DebtsOwedToMe[0].Id);
+			Assert.IsNotNull(deleteResponse);
+			Assert.IsTrue(deleteResponse.WasSuccessfull);
+
+			updatedPlan = _paymentPlanService.GetPaymentPlan(userWhoOwnsDebt.Id);
+			Assert.IsNotNull(updatedPlan);
+			Assert.AreEqual<int>(0,updatedPlan.DebtsOwedToMe.Count);
+
+		}
+
 		private void BuildServices()
 		{
 			var builder = new WebDependencyBuilder();

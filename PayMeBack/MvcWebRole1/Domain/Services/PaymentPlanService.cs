@@ -253,9 +253,51 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			return summary;
 		}
 
-		public void RemoveDebt(Guid userId, Debt debt)
+		public DataAccessResult RemoveDebt(Guid userId, Guid debtId)
 		{
-			throw new NotImplementedException();
+			var result = new DataAccessResult();
+			var user = _userEngine.GetUserById(userId);
+			if (user == null)
+			{
+				result.Errors.Add("Invalid User");
+				return result;
+			}
+			
+			var usersPlan = GetPaymentPlan(user.Id);
+			if (!EnsureUserCanDeleteDebt(user,debtId, usersPlan))
+			{
+				result.Errors.Add("Insufficient access to remove debt or you do not manage the debt");
+				return result;
+			};
+
+			try
+			{
+				using (var trx = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }))
+				{
+					_crudRepository.Delete<DebtPaymentInstallmentDetail>(p => p.DebtId == debtId);
+					_crudRepository.Delete<DebtDetail>(d => d.Id == debtId);
+					trx.Complete();
+				}
+				_cacheProvider.InvalidateCacheItem(GetCacheKeyForUserPaymentPlan(usersPlan.User.Id));
+				result.WasSuccessfull = true;
+			}
+			catch (Exception ex)
+			{
+				result = ex.ToDataResult();
+			}
+			return result;
+		}
+
+		private bool EnsureUserCanDeleteDebt(User user,Guid debtId, UserPaymentPlan usersPlan )
+		{
+			//TODO: Examine scope associated with the user and return false if readonly
+			//TODO: Optionally check permissions with the app
+
+			// If the debt is a part of the debts that the user manages (ie. those debts
+			// that are owed to the user), then they can delete it
+			var userCanRemoveDebt = (usersPlan.DebtsOwedToMe.Count(d => d.Id == debtId) > 0);
+			
+			return userCanRemoveDebt;
 		}
 	}
 }

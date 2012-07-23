@@ -46,5 +46,17 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			return result.ToApiResponse();
 		}
 
+		/// <summary>
+		/// Removes/deletes a debt that is owed to or managed bythe user
+		/// </summary>
+		/// <param name="user"></param>
+		/// <param name="debtId"></param>
+		/// <returns></returns>
+		public ApiResponse Delete([FromUri] User user, Guid debtId)
+		{
+			var result = _paymentPlanService.RemoveDebt(user.Id,debtId);
+			return result.ToApiResponse();
+		}
+
     }
 }
