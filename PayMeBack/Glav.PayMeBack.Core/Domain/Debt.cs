@@ -10,6 +10,7 @@ namespace Glav.PayMeBack.Core.Domain
 		public Debt()
 		{
 			IsOutstanding = true;
+			PaymentInstallments = new List<DebtPaymentInstallment>();
 		}
 
 		public User UserWhoOwesDebt { get; set; }
