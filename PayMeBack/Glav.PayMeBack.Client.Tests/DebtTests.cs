@@ -99,6 +99,56 @@ namespace Glav.PayMeBack.Client.Tests
 		}
 
 		[TestMethod]
+		public void ShouldBeAbleRemoveDebt()
+		{
+			var proxy = new AuthorisationProxy();
+			var ownerEmail = string.Format("{0}@integrationtest.com", Guid.NewGuid());
+			var owesDebtEmail = string.Format("{0}@integrationtest.com", Guid.NewGuid());
+
+			// Sign up owner of primary account - person whois owed a debt
+			var response = proxy.Signup(ownerEmail, "test", "dude", "P@ssw0rd1");
+
+			Assert.IsNotNull(response);
+			Assert.IsTrue(response.IsRequestSuccessfull);
+			Assert.IsFalse(string.IsNullOrWhiteSpace(response.DataObject.AccessGrant.access_token));
+			var token = response.DataObject.AccessGrant.access_token;
+
+			var debtProxy = new DebtProxy(response.DataObject.AccessGrant.access_token);
+			debtProxy.BearerToken = token;
+
+			var planResponse = debtProxy.GetDebtPaymentPlan();
+			Assert.IsNotNull(planResponse);
+			Assert.IsTrue(planResponse.IsRequestSuccessfull);
+
+			var uniqueEmail = string.Format("test-{0}@debttests.com", Guid.NewGuid());
+			var debtToAdd = new Debt
+			{
+				DateCreated = DateTime.Now,
+				InitialPayment = 20,
+				TotalAmountOwed = 100,
+				UserWhoOwesDebt = new User { EmailAddress = uniqueEmail }
+			};
+			planResponse.DataObject.DebtsOwedToMe.Add(debtToAdd);
+			var updateResponse = debtProxy.UpdatePaymentPlan(planResponse.DataObject);
+			Assert.IsNotNull(updateResponse);
+			Assert.IsTrue(updateResponse.IsRequestSuccessfull);
+
+			var updatedPlanResponse = debtProxy.GetDebtPaymentPlan();
+			Assert.IsNotNull(updatedPlanResponse);
+			Assert.IsTrue(updatedPlanResponse.IsRequestSuccessfull);
+
+			var removeResponse = debtProxy.RemoveDebtFromPaymentPlan(updatedPlanResponse.DataObject.DebtsOwedToMe[0].Id);
+			Assert.IsNotNull(removeResponse);
+			Assert.IsTrue(removeResponse.IsRequestSuccessfull);
+			Assert.IsTrue(removeResponse.DataObject.IsSuccessful);
+
+			updatedPlanResponse = debtProxy.GetDebtPaymentPlan();
+			Assert.IsNotNull(updatedPlanResponse);
+			Assert.IsTrue(updatedPlanResponse.IsRequestSuccessfull);
+			Assert.AreEqual<int>(0,updatedPlanResponse.DataObject.DebtsOwedToMe.Count);
+		}
+
+		[TestMethod]
 		public void ShouldBeAbleToGetAccurateDebtSummary()
 		{
 			var proxy = new AuthorisationProxy();

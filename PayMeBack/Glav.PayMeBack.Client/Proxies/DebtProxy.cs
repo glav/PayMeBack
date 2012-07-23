@@ -42,15 +42,32 @@ namespace Glav.PayMeBack.Client.Proxies
 			var response = GetResponse<UserPaymentPlan>(uri);
 			if (response.IsRequestSuccessfull)
 			{
-				proxyResult = new ProxyResponse<UserPaymentPlan>(response.RawResponse,response.DataObject,true,response.StatusCode,string.Empty);
+				proxyResult = new ProxyResponse<UserPaymentPlan>(response.RawResponse, response.DataObject, true, response.StatusCode, string.Empty);
 			}
 			else
 			{
-				proxyResult = new ProxyResponse<UserPaymentPlan>(response.RawResponse,null,false,response.StatusCode,response.ReasonCode);
+				proxyResult = new ProxyResponse<UserPaymentPlan>(response.RawResponse, null, false, response.StatusCode, response.ReasonCode);
 			}
 			return proxyResult;
 		}
-		
+
+		/// <summary>
+		/// Service uses the current access token to retrieve the user so we dont need to
+		/// pass it anything else like a user id
+		/// </summary>
+		/// <returns></returns>
+		public ProxyResponse<ApiResponse> RemoveDebtFromPaymentPlan(Guid debtId)
+		{
+			ProxyResponse<ApiResponse> proxyResult = null;
+
+			ContentType = RequestContentType.ApplicationJson;
+			OperationMethod = HttpMethod.Delete;
+			var uri = base.GetRequestUri(string.Format("?debtId={0}", debtId));
+			var response = GetResponse<ApiResponse>(uri);
+			proxyResult = new ProxyResponse<ApiResponse>(response.RawResponse, response.DataObject, response.IsRequestSuccessfull, response.StatusCode, string.Empty);
+			return proxyResult;
+		}
+
 		/// <summary>
 		/// Service uses the current access token to retrieve the user so we dont need to
 		/// pass it anything else like a user id
@@ -64,7 +81,7 @@ namespace Glav.PayMeBack.Client.Proxies
 			OperationMethod = HttpMethod.Post;
 
 			var uri = base.GetRequestUri(null);
-			var response = GetResponse<UserPaymentPlan,ApiResponse>(uri,paymentPlan);
+			var response = GetResponse<UserPaymentPlan, ApiResponse>(uri, paymentPlan);
 			if (response.IsRequestSuccessfull)
 			{
 				proxyResult = new ProxyResponse(response.RawResponse, true, response.StatusCode, string.Empty);
