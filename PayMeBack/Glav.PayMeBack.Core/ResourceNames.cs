@@ -11,5 +11,6 @@ namespace Glav.PayMeBack.Core
 		public const string SecurePing = "authorisation/ping";
 		public const string Debt = "api/debts";
 		public const string Help = "api/help";
+		public const string User = "api/users";
 	}
 }
