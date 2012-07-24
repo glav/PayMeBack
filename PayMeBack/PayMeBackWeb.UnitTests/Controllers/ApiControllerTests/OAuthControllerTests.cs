@@ -23,6 +23,7 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 		private IOAuthSecurityService _securityService;
 		private Mock<ICacheProvider> _cacheProvider;
 		private OAuthController _controller;
+		private Mock<IUserRepository> _userRepo;
 
 		[TestMethod]
 		[Ignore]  // This needs to be moved to integration tests
@@ -47,7 +48,8 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 
 			_cacheProvider = new Mock<ICacheProvider>();
 			_securityService = new OAuthSecurityService(_crudRepo.Object,_cacheProvider.Object);
-			_signupService = new SignupManager(new MockEmailService(), new UserEngine(_crudRepo.Object, _securityService), _securityService);
+			_userRepo = new Mock<IUserRepository>();
+			_signupService = new SignupManager(new MockEmailService(), new UserEngine(_crudRepo.Object, _securityService,_userRepo.Object), _securityService);
 			_controller = new OAuthController(_securityService, _signupService);
 		}
 

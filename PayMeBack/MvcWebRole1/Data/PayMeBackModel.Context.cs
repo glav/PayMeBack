@@ -12,6 +12,7 @@ namespace Glav.PayMeBack.Web.Data
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Objects;
     
     public partial class PayMeBackEntities : DbContext
     {
@@ -31,5 +32,43 @@ namespace Glav.PayMeBack.Web.Data
         public DbSet<UserPaymentPlanDetail> UserPaymentPlanDetails { get; set; }
         public DbSet<DebtPaymentInstallmentDetail> DebtPaymentInstallmentDetails { get; set; }
         public DbSet<UserDetail> UserDetails { get; set; }
+    
+        public virtual ObjectResult<UserDetail> SearchUsers(string searchCriteria, Nullable<int> pageNumber, Nullable<int> pageSize)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(UserDetail).Assembly);
+    
+            var searchCriteriaParameter = searchCriteria != null ?
+                new ObjectParameter("searchCriteria", searchCriteria) :
+                new ObjectParameter("searchCriteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("pageNumber", pageNumber) :
+                new ObjectParameter("pageNumber", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("pageSize", pageSize) :
+                new ObjectParameter("pageSize", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserDetail>("SearchUsers", searchCriteriaParameter, pageNumberParameter, pageSizeParameter);
+        }
+    
+        public virtual ObjectResult<UserDetail> SearchUsers(string searchCriteria, Nullable<int> pageNumber, Nullable<int> pageSize, MergeOption mergeOption)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(UserDetail).Assembly);
+    
+            var searchCriteriaParameter = searchCriteria != null ?
+                new ObjectParameter("searchCriteria", searchCriteria) :
+                new ObjectParameter("searchCriteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("pageNumber", pageNumber) :
+                new ObjectParameter("pageNumber", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("pageSize", pageSize) :
+                new ObjectParameter("pageSize", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserDetail>("SearchUsers", mergeOption, searchCriteriaParameter, pageNumberParameter, pageSizeParameter);
+        }
     }
 }

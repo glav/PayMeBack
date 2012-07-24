@@ -15,5 +15,6 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 		void DeleteUser(User user);
 		User GetUserByAccessToken(string token);
 		void SetUserToValidated(Guid userId);
+		IEnumerable<User> SearchUsers(RequestPagingFilter pagingFilter,string searchCriteria);
 	}
 }
