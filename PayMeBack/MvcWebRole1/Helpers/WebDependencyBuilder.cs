@@ -45,6 +45,7 @@ namespace Glav.PayMeBack.Web.Helpers
 			builder.Register(c => new SummaryController(c.Resolve<IPaymentPlanService>())).As<SummaryController>();
 			builder.Register(c => new HelpController(c.Resolve<IHelpEngine>())).As<HelpController>();
 			builder.Register(c => new DocumentationController(c.Resolve<IHelpEngine>())).As<DocumentationController>();
+			builder.Register(c => new UsersController(c.Resolve<IUserEngine>())).As<UsersController>();
 			return builder.Build();
 		}
 	}

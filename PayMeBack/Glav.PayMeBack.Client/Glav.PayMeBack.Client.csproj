@@ -53,6 +53,7 @@
     <Compile Include="Proxies\AuthorisationProxy.cs" />
     <Compile Include="Proxies\DebtProxy.cs" />
     <Compile Include="Proxies\HelpProxy.cs" />
+    <Compile Include="Proxies\UserProxy.cs" />
     <Compile Include="ProxyConfig.cs" />
     <Compile Include="ProxyResponse.cs" />
     <Compile Include="RequestContentType.cs" />
