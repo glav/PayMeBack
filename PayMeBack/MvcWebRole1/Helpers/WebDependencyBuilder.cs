@@ -24,8 +24,9 @@ namespace Glav.PayMeBack.Web.Helpers
 			builder.Register(c => new CrudRepository()).As<ICrudRepository>();
 			builder.Register(c => CacheBinder.ResolveCacheFromConfig(null)).As<ICacheProvider>().SingleInstance();
 
+			builder.Register(c => new UserRepository()).As<IUserRepository>();
 			builder.Register(c => new EmailEngine()).As<IEmailEngine>();
-			builder.Register(c => new UserEngine(c.Resolve<ICrudRepository>(), c.Resolve<IOAuthSecurityService>())).As<IUserEngine>();
+			builder.Register(c => new UserEngine(c.Resolve<ICrudRepository>(), c.Resolve<IOAuthSecurityService>(),c.Resolve<IUserRepository>())).As<IUserEngine>();
 			builder.Register(c => new OAuthSecurityService(c.Resolve<ICrudRepository>(), c.Resolve<ICacheProvider>())).As<IOAuthSecurityService>();
 			builder.Register(c => new SignupManager(c.Resolve<IEmailEngine>(), c.Resolve<IUserEngine>(), c.Resolve<IOAuthSecurityService>())).As<ISignupManager>();
 			builder.Register(c => new ApiUsageLoggerEngine(c.Resolve<ICrudRepository>())).As<IUsageLogger>();

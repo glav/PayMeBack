@@ -163,12 +163,14 @@
     <Compile Include="Data\DebtPaymentInstallmentDetail.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\IUserRepository.cs" />
     <Compile Include="Data\UsageLog.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\UserPaymentPlanDetail.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\UserRepository.cs" />
     <Compile Include="Domain\ApiDependencyResolver.cs" />
     <Compile Include="Domain\DetailModelDataExtensions.cs" />
     <Compile Include="Domain\Engines\HelpEngine.cs" />

@@ -149,6 +149,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_SearchUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="searchCriteria" Type="nvarchar" Mode="In" />
+          <Parameter Name="pageNumber" Type="int" Mode="In" />
+          <Parameter Name="pageSize" Type="int" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -176,6 +181,11 @@
             <End Role="UserDetail" EntitySet="UserDetails" />
             <End Role="UserPaymentPlanDetail" EntitySet="UserPaymentPlanDetails" />
           </AssociationSet>
+          <FunctionImport Name="SearchUsers" EntitySet="UserDetails" ReturnType="Collection(PayMeBackModel.UserDetail)">
+            <Parameter Name="searchCriteria" Mode="In" Type="String" />
+            <Parameter Name="pageNumber" Mode="In" Type="Int32" />
+            <Parameter Name="pageSize" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="OAuthToken">
           <Key>
@@ -385,6 +395,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SearchUsers" FunctionName="PayMeBackModel.Store.usp_SearchUsers" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

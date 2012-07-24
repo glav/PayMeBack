@@ -116,7 +116,7 @@ namespace Glav.PayMeBack.Web.Data
 
 				if (orderBy != null)
 				{
-					result = orderBy(result).Skip(pageNumber * pageSize);
+					result = orderBy(result).Skip((pageNumber > 0 ? pageNumber-1 : 0) * pageSize);
 				}
 
 				return result.Take(pageSize).ToList();
@@ -132,12 +132,10 @@ namespace Glav.PayMeBack.Web.Data
 			using (var context = new PayMeBackEntities())
 			{
 				var entityTable = context.Set<T>();
-				var result = entityTable.Where<T>(query).FirstOrDefault();
-				if (result != null)
-				{
-					entityTable.Remove(result);
-					context.SaveChanges();
-				}
+				var result = entityTable.Where<T>(query);
+
+				result.ToList().ForEach(e => entityTable.Remove(e));
+				context.SaveChanges();
 			}
 		}
 

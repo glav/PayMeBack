@@ -18,12 +18,14 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 	{
 		private ICrudRepository _crudRepository;
 		private IOAuthSecurityService _securityService;
+		private IUserRepository _userRepository;
 
-		public UserEngine(ICrudRepository crudRepository, IOAuthSecurityService securityService)
+		public UserEngine(ICrudRepository crudRepository, IOAuthSecurityService securityService, IUserRepository userRepository)
 		{
 			_crudRepository = crudRepository;
 			_securityService = securityService;
-		
+			_userRepository = userRepository;
+
 		}
 		public User GetUserByEmail(string emailAddress)
 		{
@@ -133,5 +135,27 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 			_crudRepository.Delete<UserDetail>(u => u.Id == user.Id);
 		}
 
+		public IEnumerable<User> SearchUsers(RequestPagingFilter pagingFilter, string searchCriteria)
+		{
+			var userList = new List<User>();
+
+			if (pagingFilter == null)
+			{
+				pagingFilter = new RequestPagingFilter();
+			}
+			if (string.IsNullOrWhiteSpace(searchCriteria))
+			{
+				var allUsers = _crudRepository.GetAll<UserDetail>(u => true, pagingFilter.Page, pagingFilter.PageSize, query => query.OrderBy(o => o.EmailAddress));
+			
+				allUsers.ToList().ForEach(u => userList.Add(u.ToModel()));
+				return userList;
+			}
+
+			var normalisedCriteria = searchCriteria.ToLowerInvariant();
+			var users = _userRepository.Search(pagingFilter,normalisedCriteria);
+			users.ToList().ForEach(u => userList.Add(u.ToModel()));
+			return userList;
+
+		}
 	}
 }
