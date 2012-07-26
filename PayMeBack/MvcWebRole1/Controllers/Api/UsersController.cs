@@ -22,6 +22,11 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			_userEngine = userEngine;
 		}
 
+		public User GetByEmail(string email)
+		{
+			return _userEngine.GetUserByEmail(email);
+		}
+
 		/// <summary>
 		/// Search for users via any text criteria with paging support.
 		/// </summary>

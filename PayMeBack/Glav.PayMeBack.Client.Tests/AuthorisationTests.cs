@@ -27,7 +27,7 @@ namespace Glav.PayMeBack.Client.Tests
 		public void ShouldBeAbleToPingAfterSignUp()
 		{
 			var proxy = new AuthorisationProxy();
-			var response = proxy.Signup(Guid.NewGuid().ToString(),"test","dude", "P@ssw0rd1");
+			var response = proxy.Signup(Guid.NewGuid().ToString()+"@blah.com","test","dude", "P@ssw0rd1");
 
 			Assert.IsNotNull(response);
 			Assert.IsTrue(response.IsRequestSuccessfull);
@@ -73,7 +73,7 @@ namespace Glav.PayMeBack.Client.Tests
 		public void ShouldBeAbleToRefreshTokenAfterSignup()
 		{
 			var proxy = new AuthorisationProxy();
-			var response = proxy.Signup(Guid.NewGuid().ToString(), "test", "refresh-dude", "P@ssw0rd1");
+			var response = proxy.Signup(Guid.NewGuid().ToString()+"@blah.com", "test", "refresh-dude", "P@ssw0rd1");
 			// Check that we signed up
 			Assert.IsNotNull(response);
 			Assert.IsTrue(response.IsRequestSuccessfull);

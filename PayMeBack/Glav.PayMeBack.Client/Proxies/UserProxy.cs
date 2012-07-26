@@ -25,7 +25,7 @@ namespace Glav.PayMeBack.Client.Proxies
 		{
 			get { return ResourceNames.User; }
 		}
-		
+
 		public ProxyResponse<IEnumerable<User>> Search(string searchCriteria, RequestPagingFilter pagingFilter)
 		{
 			ProxyResponse<IEnumerable<User>> proxyResult = null;
@@ -33,7 +33,7 @@ namespace Glav.PayMeBack.Client.Proxies
 			OperationMethod = HttpMethod.Get;
 			ContentType = RequestContentType.ApplicationJson;
 
-			var uri = base.GetRequestUri(string.Format("?searchCriteria={0}",searchCriteria),pagingFilter);
+			var uri = base.GetRequestUri(string.Format("?searchCriteria={0}", searchCriteria), pagingFilter);
 			var response = GetResponse<IEnumerable<User>>(uri);
 			if (response.IsRequestSuccessfull)
 			{
@@ -44,6 +44,27 @@ namespace Glav.PayMeBack.Client.Proxies
 				proxyResult = new ProxyResponse<IEnumerable<User>>(response.RawResponse, null, false, response.StatusCode, response.ReasonCode);
 			}
 			return proxyResult;
+		}
+
+		public ProxyResponse<User> GetByEmail(string email)
+		{
+			ProxyResponse<User> proxyResult = null;
+
+			OperationMethod = HttpMethod.Get;
+			ContentType = RequestContentType.ApplicationJson;
+
+			var uri = base.GetRequestUri(string.Format("?email={0}", email));
+			var response = GetResponse<User>(uri);
+			if (response.IsRequestSuccessfull)
+			{
+				proxyResult = new ProxyResponse<User>(response.RawResponse, response.DataObject, true, response.StatusCode, string.Empty);
+			}
+			else
+			{
+				proxyResult = new ProxyResponse<User>(response.RawResponse, null, false, response.StatusCode, response.ReasonCode);
+			}
+			return proxyResult;
+
 		}
 	}
 }
