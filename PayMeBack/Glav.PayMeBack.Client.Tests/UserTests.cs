@@ -25,7 +25,7 @@ namespace Glav.PayMeBack.Client.Tests
 			}
 
 			// Now sign up me -the searcher :-)
-			var token = SignUpUser(Guid.NewGuid().ToString(), "The", "Searcher");
+			var token = SignUpUser(Guid.NewGuid().ToString()+"@here.com", "The", "Searcher");
 			var userProxy = new UserProxy(token);
 
 			// Search for 1 user
@@ -43,7 +43,7 @@ namespace Glav.PayMeBack.Client.Tests
 			Assert.AreEqual<int>(10, searchResponse.DataObject.Count());
 
 			// Search for a few users with paging
-			searchResponse = userProxy.Search("test-srch-", new RequestPagingFilter { Page = 1, PageSize = 5 });
+			searchResponse = userProxy.Search("-test-srch", new RequestPagingFilter { Page = 1, PageSize = 5 });
 			Assert.IsNotNull(searchResponse);
 			Assert.IsTrue(searchResponse.IsRequestSuccessfull);
 			Assert.IsNotNull(searchResponse.DataObject);
@@ -55,6 +55,50 @@ namespace Glav.PayMeBack.Client.Tests
 			Assert.IsTrue(searchResponse.IsRequestSuccessfull);
 			Assert.IsNotNull(searchResponse.DataObject);
 			Assert.AreEqual<int>(0, searchResponse.DataObject.Count());
+		}
+
+		[TestMethod]
+		public void ShouldGetNullForNonExistentUser()
+		{
+			var token = SignUpUser(Guid.NewGuid().ToString()+"@something.com", "The", "UserFinder");
+			var userProxy = new UserProxy(token);
+
+			// Search for 1 user
+			var getResponse = userProxy.GetByEmail(Guid.NewGuid().ToString()+"@nowhere.com");
+			Assert.IsNotNull(getResponse);
+			Assert.IsTrue(getResponse.IsRequestSuccessfull);
+			Assert.IsNull(getResponse.DataObject);
+
+		}
+
+		[TestMethod]
+		public void ShouldGetUserByEmailForExistingUser()
+		{
+			var token = SignUpUser(Guid.NewGuid().ToString() + "@something.com", "The", "UserFinder");
+			var someOtherUserEmail = string.Format("{0}@exists.com", Guid.NewGuid());
+			SignUpUser(someOtherUserEmail, "I", "Exist");
+			
+			var userProxy = new UserProxy(token);
+
+			// Search for 1 user
+			var getResponse = userProxy.GetByEmail(someOtherUserEmail);
+			Assert.IsNotNull(getResponse);
+			Assert.IsTrue(getResponse.IsRequestSuccessfull);
+			Assert.IsNotNull(getResponse.DataObject);
+			Assert.AreEqual<string>("I",getResponse.DataObject.FirstNames);
+			Assert.AreEqual<string>("Exist",getResponse.DataObject.Surname);
+
+		}
+
+		[TestMethod]
+		public void ShouldNotBeAbleToSignUpWithInvalidEmail()
+		{
+			var authProxy = new AuthorisationProxy();
+			var response = authProxy.Signup("123", "should", "fail", "P@ssw0rd1");
+			Assert.IsNotNull(response);
+			Assert.IsTrue(response.IsRequestSuccessfull);
+			Assert.IsNotNull(response.DataObject);
+			Assert.IsFalse(response.DataObject.IsSuccessfull);
 		}
 
 		private string SignUpUser(string email, string firstName, string lastName)

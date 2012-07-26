@@ -76,7 +76,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ApiControllerTests\MockEmailService.cs" />
     <Compile Include="Controllers\ApiControllerTests\OAuthControllerTests.cs" />
     <Compile Include="Example-CacheAdapterUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

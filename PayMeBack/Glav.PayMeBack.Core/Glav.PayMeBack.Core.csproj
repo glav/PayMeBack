@@ -52,6 +52,7 @@
     <Compile Include="Domain\PaymentPeriod.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\UserPaymentPlan.cs" />
+    <Compile Include="Email.cs" />
     <Compile Include="OAuthAuthorisationGrantResponse.cs" />
     <Compile Include="OAuthErrorResponseCode.cs" />
     <Compile Include="OAuthTokenType.cs" />

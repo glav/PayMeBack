@@ -213,8 +213,6 @@
     <Compile Include="Domain\Engines\AuthenticationEngine.cs" />
     <Compile Include="Domain\Services\IOAuthSecurityService.cs" />
     <Compile Include="Domain\Services\OAuthSecurityService.cs" />
-    <Compile Include="Domain\Engines\EmailEngine.cs" />
-    <Compile Include="Domain\Engines\IEmailEngine.cs" />
     <Compile Include="Domain\Services\IPaymentPlanService.cs" />
     <Compile Include="Domain\Services\ISignupManager.cs" />
     <Compile Include="Domain\Engines\IUserEngine.cs" />

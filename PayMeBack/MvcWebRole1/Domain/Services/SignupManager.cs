@@ -12,13 +12,11 @@ namespace Glav.PayMeBack.Web.Domain.Services
 {
 	public class SignupManager : ISignupManager
 	{
-		private IEmailEngine _emailService;
 		private IUserEngine _userService;
 		private IOAuthSecurityService _securityService;
 
-		public SignupManager(IEmailEngine emailService,IUserEngine userService, IOAuthSecurityService securityService)
+		public SignupManager(IUserEngine userService, IOAuthSecurityService securityService)
 		{
-			_emailService = emailService;
 			_userService = userService;
 			_securityService = securityService;
 		}
@@ -59,7 +57,8 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 		private void IsEmailValid(string emailAddress)
 		{
-			if (!_emailService.IsValidEmail(emailAddress))
+			var validator = new EmailValidator();
+			if (!validator.IsValid(emailAddress))
 			{
 				throw new ArgumentException("Invalid Email Address",emailAddress);
 			}
