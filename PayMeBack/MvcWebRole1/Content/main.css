@@ -1,5 +1,43 @@
 ﻿/* File Created: July 23, 2012 */
 
+header {
+	margin: 10px 20px;	
+}
+	
+	header div {
+		float: left;
+	}
+	
+	header h1, header h3 {
+		float: left;
+	}
+	
+	header h3 {
+		padding: 14px 0;
+		margin-left: 120px;
+	}
+	
+		header div.header-menu {
+			float: right;
+		}
+		header div.header-menu ul {
+			list-style: none;
+			display: inline;
+		}
+			header div.header-menu ul li {
+				float: left;
+				margin: 0px 5px;
+			}
+
+#body {
+	
+}
+	#body section {
+		margin: 10px 100px;
+		clear: both;
+	}
+
+
 /* Documentation */
 ul li.api-method-header {
 	font-size: 1.2em;
