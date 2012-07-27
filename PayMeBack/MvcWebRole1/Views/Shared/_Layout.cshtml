@@ -1,3 +1,5 @@
+@model Glav.PayMeBack.Web.Models.BaseActionModel
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,14 +13,18 @@
         <meta name="viewport" content="width=device-width" />
     </head>
     <body>
-        <header>
-        </header>
+		<header>
+			@*Custom Header section if required*@
+			@RenderSection("header",false)
+
+			@Html.Partial("_HeaderTitle",Model)
+			@Html.Partial("_HeaderMenu",Model)
+		</header>
         <div id="body">
-            <section class="content-wrapper clear-fix">
-                @RenderBody()
-            </section>
+            @RenderBody()
         </div>
-        <footer>
-        </footer>
+		<footer>
+			@RenderSection("footer",false)
+		</footer>
     </body>
 </html>

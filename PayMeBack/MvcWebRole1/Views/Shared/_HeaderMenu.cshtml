@@ -1,0 +1,12 @@
+﻿@model Glav.PayMeBack.Web.Models.BaseActionModel
+
+<div class="header-menu">
+	<ul>
+		@if (!Model.IsAuthenticated)
+		{
+			<li><a href="#">Sign Up</a></li>
+		}
+		<li><a href="#">Menu Two</a></li>
+		<li><a href="#">Menu Three</a></li>
+	</ul>
+</div>
