@@ -154,6 +154,8 @@
     <Compile Include="Controllers\Api\DebtsController.cs" />
     <Compile Include="Controllers\Api\SummaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MembershipController.cs" />
+    <Compile Include="Controllers\SummaryController.cs" />
     <Compile Include="Data\CrudRepository.cs" />
     <Compile Include="Data\DataAccessResult.cs" />
     <Compile Include="Data\DataEntityExtensions.cs" />
@@ -177,6 +179,8 @@
     <Compile Include="Domain\Engines\IHelpEngine.cs" />
     <Compile Include="Domain\Engines\IUsageLogger.cs" />
     <Compile Include="Domain\Engines\UsageLogger.cs" />
+    <Compile Include="Domain\IWebMembershipManager.cs" />
+    <Compile Include="Domain\WebMembershipManager.cs" />
     <Compile Include="Framework\ApiUsageHandler.cs" />
     <Compile Include="Framework\PayMeBackModelBinderProvider.cs" />
     <Compile Include="Framework\UserFromAccessTokenModelBinder.cs" />
@@ -328,6 +332,8 @@
     <Content Include="Views\Documentation\Api.cshtml" />
     <Content Include="Views\Shared\_HeaderMenu.cshtml" />
     <Content Include="Views\Shared\_HeaderTitle.cshtml" />
+    <Content Include="Views\Membership\Index.cshtml" />
+    <Content Include="Views\Membership\_login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

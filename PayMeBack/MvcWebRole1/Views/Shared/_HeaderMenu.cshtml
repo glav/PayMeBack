@@ -2,9 +2,9 @@
 
 <div class="header-menu">
 	<ul>
-		@if (!Model.IsAuthenticated)
+		@if (Model == null || !Model.IsAuthenticated)
 		{
-			<li><a href="#">Sign Up</a></li>
+			<li><a href="~/Membership">Sign Up</a></li>
 		}
 		<li><a href="#">Menu Two</a></li>
 		<li><a href="#">Menu Three</a></li>
