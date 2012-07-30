@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.WebPages;
+using Autofac.Integration.Mvc;
 using Glav.CacheAdapter.Core.DependencyInjection;
 using Glav.PayMeBack.Core;
 using Autofac;
@@ -101,6 +102,8 @@ namespace Glav.PayMeBack.Web
 
 			var resolver = new ApiDependencyResolver(container);
 			GlobalConfiguration.Configuration.DependencyResolver = resolver;
+
+			DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
 		}
 

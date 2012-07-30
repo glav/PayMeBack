@@ -15,12 +15,12 @@ namespace Glav.PayMeBack.Web.Controllers.Api
     public class OAuthController : ApiController
     {
 		private IOAuthSecurityService _oAuthSecurityService;
-		private ISignupManager _signupService;
+		private ISignupManager _signupManager;
 
-		public OAuthController(IOAuthSecurityService oAuthSecurityService, ISignupManager signupService)
+		public OAuthController(IOAuthSecurityService oAuthSecurityService, ISignupManager signupManager)
 		{
 			_oAuthSecurityService = oAuthSecurityService;
-			_signupService = signupService;
+			_signupManager = signupManager;
 		}
         //
         // GET: /OAuth/
@@ -99,7 +99,7 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			var response = new OAuthAuthorisationGrantResponse();
 			try
 			{
-				response = _signupService.SignUpNewUser(signupData.emailAddress, signupData.firstNames, signupData.lastName, signupData.password);
+				response = _signupManager.SignUpNewUser(signupData.emailAddress, signupData.firstNames, signupData.lastName, signupData.password);
 				if (response.IsSuccessfull)
 				{
 					return response.AccessGrant;
