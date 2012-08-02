@@ -264,6 +264,9 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\membership.js" />
+    <Content Include="Scripts\landing-page.js" />
+    <Content Include="Scripts\payMeBack.Core.js" />
     <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
     <Content Include="Scripts\jquery-1.6.2.min.js" />
@@ -278,7 +281,15 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.0.0.debug.js" />
     <Content Include="Scripts\knockout-2.0.0.js" />
+    <Content Include="Scripts\Login.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
+    <Content Include="Scripts\nyroModal\img\ajaxLoader.gif" />
+    <Content Include="Scripts\nyroModal\img\close.gif" />
+    <Content Include="Scripts\nyroModal\img\next.gif" />
+    <Content Include="Scripts\nyroModal\img\prev.gif" />
+    <Content Include="Scripts\nyroModal\js\jquery.nyroModal.js" />
+    <Content Include="Scripts\nyroModal\styles\nyroModal.css" />
+    <Content Include="Scripts\nyroModal\styles\nyroModal.full.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -333,7 +344,7 @@
     <Content Include="Views\Shared\_HeaderMenu.cshtml" />
     <Content Include="Views\Shared\_HeaderTitle.cshtml" />
     <Content Include="Views\Membership\Index.cshtml" />
-    <Content Include="Views\Membership\_login.cshtml" />
+    <Content Include="Views\Shared\_login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

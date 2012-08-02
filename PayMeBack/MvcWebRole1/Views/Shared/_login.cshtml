@@ -1,0 +1,21 @@
+﻿<div id="credentials-dialog" class="hidden">  @*<-- Nyromodal will munge this element so cannot use it for styling*@
+	<div id="credentials-container" class="login-dialog hidden">
+		<h3 class="signup">
+			Sign up Details</h3>
+		<h3 class="login">
+			Login Details</h3>
+		<fieldset id="credentials-form">
+			<legend>User Credentials</legend>
+			<ul>
+				<li>
+					<label>
+						Email:</label><input id="credentials-userId" type="text" /></li>
+				<li>
+					<label>
+						Password:</label><input id="credentials-userPassword" type="password" /></li>
+			</ul>
+			<input type="button" value="Submit" id="credentials-submit" />
+			<input type="hidden" id="is-sign-up" value="false" />
+		</fieldset>
+	</div>
+</div>
