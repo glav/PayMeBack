@@ -12,27 +12,47 @@ if (typeof window.payMeBack.login === 'undefined') {
 
 window.payMeBack.login = (function() {
     var submitCredentials = function(email, password, isSignup) {
-            alert("email="+email+", password="+password+" isSignup="+isSignup);
         var url, httpMethod, payload;
         if (isSignup === true) {
-            httpMethod =  "GET";
-            payload = "";
-            url = window.payMeBack.core.makePathFromVirtual("~/api/authorisation?grant_type=password&username="+email+"&password="+password+"&scope=modify");
-        } else {
             httpMethod = "POST";
             payload = {
-                emailAddress: email,
+                email: email,
                 password: password
             };
-            url = window.payMeBack.core.makePathFromVirtual("~/api/authorisation");
+            url = window.payMeBack.core.makePathFromVirtual("~/membership/signup");
+        } else {
+            httpMethod =  "GET";
+            payload = "";
+            url = window.payMeBack.core.makePathFromVirtual("~/membership/login&username="+email+"&password="+password+"&scope=modify");
         }
-        alert(url);
+        var jsonPayload;
+        if (typeof JSON !== 'undefined' && typeof JSON.stringify !== 'undefined') {
+            jsonPayload = JSON.stringify(payload);
+        } else {
+            jsonPayload = "";
+        }
         $.ajax({
             url:url,
-            method:httpMethod,
+            type:httpMethod,
+            data:jsonPayload,
+            contentType: 'application/json',
+            dataType: "json",
             success: function(result){
-                debugger;
-                alert("worked!");
+                if (result && typeof result.error !== 'undefined') {
+                    alert("The request had an error: " + result.error)
+                } else {
+                    if (result && typeof result.success !== 'undefined' && result.success === true) {
+                        // This worked
+                        $.nyroModalRemove();
+                    } else {
+                        var msg = "";
+                        if (typeof result.error !== 'undefined') {
+                            msg = result.error;
+                        }
+                        alert("The request was not successful. " +msg);
+                    }
+
+                }
             },
             error: function() {
                 alert("failed");
@@ -62,7 +82,8 @@ window.payMeBack.login = (function() {
                   credsElement.hide();
                   $("li input",credsElement).val("");
                   if (redirectOnClose) {
-                      location.reload(window.payMeBack.core.makePathFromVirtual("~"));
+
+                      location.assign(window.payMeBack.core.makePathFromVirtual("~"));
                   }
 
               },

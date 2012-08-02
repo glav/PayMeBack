@@ -87,21 +87,20 @@ namespace Glav.PayMeBack.Web
 			BundleTable.Bundles.Add(cssBundle);
 
 			var nyroModalCssBundle = new Bundle("~/NyroModalCss");
-			var nyroModalJsBundle = new Bundle("~/NyroModalJs");
 			nyroModalCssBundle.AddFile("~/Scripts/nyroModal/styles/nyroModal.css");
-			nyroModalJsBundle.AddFile("~/Scripts/nyroModal/js/jquery.nyroModal.js");
 			BundleTable.Bundles.Add(nyroModalCssBundle);
-			BundleTable.Bundles.Add(nyroModalJsBundle);
+
+			var coreBundle = new Bundle("~/CoreJs");
+			coreBundle.AddFile("~/Scripts/nyroModal/js/jquery.nyroModal.js");
+			coreBundle.AddFile("~/Scripts/payMeBack.Core.js");
+			coreBundle.AddFile("~/Scripts/Login.js");
+			BundleTable.Bundles.Add(coreBundle);
 
 			var landingPageBundle = new Bundle("~/LandingPageJs");
-			landingPageBundle.AddFile("~/Scripts/payMeBack.Core.js");
-			landingPageBundle.AddFile("~/Scripts/Login.js");
 			landingPageBundle.AddFile("~/Scripts/landing-page.js");
 			BundleTable.Bundles.Add(landingPageBundle);
 
 			var membershipPageBundle = new Bundle("~/MembershipPageJs");
-			membershipPageBundle.AddFile("~/Scripts/payMeBack.Core.js");
-			membershipPageBundle.AddFile("~/Scripts/Login.js");
 			membershipPageBundle.AddFile("~/Scripts/membership.js");
 			BundleTable.Bundles.Add(membershipPageBundle);
 
