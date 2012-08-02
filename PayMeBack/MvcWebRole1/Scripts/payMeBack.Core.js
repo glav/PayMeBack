@@ -4,6 +4,7 @@ if (typeof window.payMeBack === 'undefined') {
 	window.payMeBack = { };
 }
 if (typeof window.payMeBack.core === 'undefined') {
+
 	window.payMeBack.core = {
         rootPath: "/",
         makePathFromVirtual: function(virtualPath) {
