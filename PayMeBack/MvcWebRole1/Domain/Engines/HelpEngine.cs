@@ -56,8 +56,9 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 		{
 			if (methodCall.Group.ToLowerInvariant() != "authorisation")
 			{
-				var returnDto = Activator.CreateInstance(apiMethod.ActionDescriptor.ReturnType);
-				methodCall.ReturnPayloadExample = Newtonsoft.Json.JsonConvert.SerializeObject(returnDto);
+				//NOTE: Blows up for interfaces
+				//var returnDto = Activator.CreateInstance(apiMethod.ActionDescriptor.ReturnType);
+				//methodCall.ReturnPayloadExample = Newtonsoft.Json.JsonConvert.SerializeObject(returnDto);
 			}
 			else
 			{

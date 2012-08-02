@@ -2,17 +2,23 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Pay Me Back</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/css")" rel="stylesheet" type="text/css" />
-        <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/MainCss")" rel="stylesheet" type="text/css" />
-        <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/themes/base/css")" rel="stylesheet" type="text/css" />
-        <script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js")"></script>
-        <meta name="viewport" content="width=device-width" />
-    </head>
-    <body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Pay Me Back</title>
+		<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/css")" rel="stylesheet" type="text/css" />
+		<link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/MainCss")" rel="stylesheet" type="text/css" />
+		<link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/themes/base/css")" rel="stylesheet" type="text/css" />
+		<link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/NyroModalCss")" rel="stylesheet" type="text/css" />
+		<script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js")" type="text/javascript"></script>
+		<script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/NyroModalJs")" type="text/javascript"></script>
+		<script type="text/javascript">
+			window.payMeBack.core.rootPath = "@Url.Content("~")";
+		</script>
+		@RenderSection("ScriptHead",false)
+		<meta name="viewport" content="width=device-width" />
+	</head>
+	<body>
 		<header>
 			@*Custom Header section if required*@
 			@RenderSection("header",false)
@@ -20,11 +26,11 @@
 			@Html.Partial("_HeaderTitle",Model)
 			@Html.Partial("_HeaderMenu",Model)
 		</header>
-        <div id="body">
-            @RenderBody()
-        </div>
+		<div id="body">
+			@RenderBody()
+		</div>
 		<footer>
 			@RenderSection("footer",false)
 		</footer>
-    </body>
+	</body>
 </html>

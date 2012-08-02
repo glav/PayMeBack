@@ -1,7 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
+@section ScriptHead {
+	<script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/MembershipPageJs")" type="text/javascript"></script>
+}
 <h2>Index</h2>
 
 @Html.Partial("_login")

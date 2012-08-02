@@ -77,9 +77,33 @@ namespace Glav.PayMeBack.Web
 			RegisterApis(GlobalConfiguration.Configuration);
 			RegisterRoutes(RouteTable.Routes);
 
+			SetCssAndJsBundles();
+		}
+
+		private static void SetCssAndJsBundles()
+		{
 			var cssBundle = new Bundle("~/MainCss");
 			cssBundle.AddFile("~/Content/main.css");
 			BundleTable.Bundles.Add(cssBundle);
+
+			var nyroModalCssBundle = new Bundle("~/NyroModalCss");
+			var nyroModalJsBundle = new Bundle("~/NyroModalJs");
+			nyroModalCssBundle.AddFile("~/Scripts/nyroModal/styles/nyroModal.css");
+			nyroModalJsBundle.AddFile("~/Scripts/nyroModal/js/jquery.nyroModal.js");
+			BundleTable.Bundles.Add(nyroModalCssBundle);
+			BundleTable.Bundles.Add(nyroModalJsBundle);
+
+			var landingPageBundle = new Bundle("~/LandingPageJs");
+			landingPageBundle.AddFile("~/Scripts/payMeBack.Core.js");
+			landingPageBundle.AddFile("~/Scripts/Login.js");
+			landingPageBundle.AddFile("~/Scripts/landing-page.js");
+			BundleTable.Bundles.Add(landingPageBundle);
+
+			var membershipPageBundle = new Bundle("~/MembershipPageJs");
+			membershipPageBundle.AddFile("~/Scripts/payMeBack.Core.js");
+			membershipPageBundle.AddFile("~/Scripts/Login.js");
+			membershipPageBundle.AddFile("~/Scripts/membership.js");
+			BundleTable.Bundles.Add(membershipPageBundle);
 
 			BundleTable.Bundles.RegisterTemplateBundles();
 		}

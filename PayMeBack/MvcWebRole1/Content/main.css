@@ -50,3 +50,8 @@ ul li.api-method-payload {
 	margin-left: 25px;
 	list-style-type: none;
 }
+
+/* Login and Signup Dialog */
+div.login-dialog .signup, div.signup-dialog .login {
+	display: none;
+}

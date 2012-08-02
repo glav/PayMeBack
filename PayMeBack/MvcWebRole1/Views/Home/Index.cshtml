@@ -1,7 +1,11 @@
 @model Glav.PayMeBack.Web.Models.HomeActionModel
 
 @{
-    ViewBag.Title = "Pay Me Back";
+	ViewBag.Title = "Pay Me Back";
+}
+
+@section ScriptHead {
+	<script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/LandingPageJs")" type="text/javascript"></script>
 }
 <section class="clear-fix">
 	
