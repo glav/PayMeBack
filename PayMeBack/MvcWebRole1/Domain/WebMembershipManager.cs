@@ -65,11 +65,11 @@ namespace Glav.PayMeBack.Web.Domain
 				{
 					var accessToken = userDataList[1];
 					var refreshToken = userDataList[3];
-					if (_oAuthSecurityService.IsAccessTokenValid(accessToken))
+					if (!_oAuthSecurityService.IsAccessTokenValid(accessToken))
 					{
 						accessToken = ReIssueAuthCookieWithRefreshedToken(cookie,authTicket, refreshToken);
-						return _userEngine.GetUserByAccessToken(accessToken);
 					}
+                    return _userEngine.GetUserByAccessToken(accessToken);
 				}
 			}
 			return user;

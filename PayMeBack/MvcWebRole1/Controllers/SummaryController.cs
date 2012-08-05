@@ -24,7 +24,7 @@ namespace Glav.PayMeBack.Web.Controllers
         {
         	var user = _webMembershipManager.GetUserFromRequestCookie();
         	var model = _paymentPlanService.GetPaymentPlan(user.Id);
-            return View();
+            return View(model);
         }
 
     }

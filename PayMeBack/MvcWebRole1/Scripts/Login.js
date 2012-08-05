@@ -14,7 +14,7 @@ window.payMeBack.login = (function () {
 
     var isUserSignedIn = function() {
         var state = $("#is-signed-in-state").val();
-        return (typeof state !== 'undefined' && state === true);
+        return (typeof state !== 'undefined' && state === "true");
     };
 
 	var updateDisplayBasedOnSignedInStatus = function (isSignedIn) {

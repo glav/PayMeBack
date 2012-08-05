@@ -1,0 +1,20 @@
+@model Glav.PayMeBack.Core.Domain.UserPaymentPlan
+
+@{
+	ViewBag.Title = "Pay Me Back - Summary";
+}
+
+@section ScriptHead {
+}
+
+<section class="clear-fix">
+	
+	<h2>Summary of Debts</h2>
+
+    <h3>Debts that are owed you</h3>
+    @Html.Partial("_DebtSummaryList", Model.DebtsOwedToMe)
+
+    <h3>Debts that you owe to others</h3>
+    @Html.Partial("_DebtSummaryList", Model.DebtsOwedToOthers)
+
+</section>
