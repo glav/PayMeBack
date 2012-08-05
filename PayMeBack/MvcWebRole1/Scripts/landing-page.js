@@ -9,4 +9,5 @@ $(document).ready(function() {
    }
 
     bindLoginSignUpAction();
+    window.payMeBack.login.updateDisplayBasedOnSignedInStatus();
 });

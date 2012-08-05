@@ -11,5 +11,6 @@ namespace Glav.PayMeBack.Web.Domain
 		bool SignupAndIssueCookie(string email, string password);
 		bool LoginAndIssueCookie(string email, string password);
 		User GetUserFromRequestCookie();
+		void Logout();
 	}
 }

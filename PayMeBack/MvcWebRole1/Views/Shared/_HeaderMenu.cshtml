@@ -2,17 +2,13 @@
 @{
 	var isSignedIn = Model != null && Model.IsAuthenticated;
 }
+<input type="hidden" id="is-signed-in-state" value="@isSignedIn" />
+
 <div class="header-menu">
 	<ul>
-		@if (!isSignedIn)
-		  {
-			<li><a href="#" class="credentials-link login">Login</a></li>
-			<li><a href="#" class="credentials-link sign-up">Sign Up</a></li>
-		  }
-		  else
-		  {
-			<li><a href="#">Sign Out</a></li>
-		  }
+			<li class="hide-if-signed-in"><a href="#" class="credentials-link login">Login</a></li>
+			<li class="hide-if-signed-in"><a href="#" class="credentials-link sign-up">Sign Up</a></li>
+			<li class="show-if-signed-in">@Html.ActionLink("Sign Out","Logout","Membership")</li>
 		<li><a href="#">Menu Two</a></li>
 		<li><a href="#">Menu Three</a></li>
 	</ul>
