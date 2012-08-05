@@ -10,7 +10,7 @@
 			<li class="hide-if-signed-in"><a href="#" class="credentials-link sign-up">Sign Up</a></li>
 			<li class="show-if-signed-in">@Html.ActionLink("Sign Out","Logout","Membership")</li>
 		<li><a href="#">Menu Two</a></li>
-		<li><a href="#">Menu Three</a></li>
+		<li>@Html.ActionLink("Contact Us","Index","Contact")</li>
 	</ul>
 </div>
 @if (!isSignedIn)
