@@ -140,3 +140,16 @@ window.payMeBack.login = (function () {
         updateDisplayBasedOnSignedInStatus: function(isSignedIn) { updateDisplayBasedOnSignedInStatus(isSignedIn);}
     };
 })();
+
+// This is the page load code which will determine whether login/sign in and sign out links are displayed or not
+$(document).ready(function () {
+    function bindLoginSignUpAction() {
+        $("div.header-menu li a.credentials-link").unbind().bind("click", function (e) {
+            var isSignUp = $(e.target).hasClass("sign-up");
+            window.payMeBack.login.showLoginDialog(false, isSignUp);
+        });
+    }
+
+    bindLoginSignUpAction();
+    window.payMeBack.login.updateDisplayBasedOnSignedInStatus();
+});
