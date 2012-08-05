@@ -89,5 +89,10 @@ namespace Glav.PayMeBack.Web.Domain
 
 			return refreshedAccess.AccessGrant.access_token;
 		}
+
+		public void Logout()
+		{
+			FormsAuthentication.SignOut();
+		}
 	}
 }

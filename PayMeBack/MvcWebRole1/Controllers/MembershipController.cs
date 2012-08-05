@@ -25,16 +25,17 @@ namespace Glav.PayMeBack.Web.Controllers
 			return View();
 		}
 
-		public ActionResult Login()
-		{
-			return View("Index");
-		}
-
 		[System.Web.Mvc.HttpPost]
 		public JsonResult Signup(string email, string password)
 		{
 			return Json(new {success = _membershipManager.SignupAndIssueCookie(email, password)});
 		}
+
+        public ActionResult Logout()
+        {
+            _membershipManager.Logout();
+            return Redirect("~");
+        }
 
 		[System.Web.Mvc.HttpPost]
 		public JsonResult Login(string email, string password)
