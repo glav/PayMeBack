@@ -1,8 +1,8 @@
 ﻿@model Glav.PayMeBack.Web.Models.BaseActionModel
 @{
-	var isSignedIn = Model != null && Model.IsAuthenticated;
+	var isSignedIn = (Model != null && Model.IsAuthenticated);
 }
-<input type="hidden" id="is-signed-in-state" value="@isSignedIn" />
+
 
 <div class="header-menu">
 	<ul>
@@ -15,5 +15,10 @@
 </div>
 @if (!isSignedIn)
 {
-	Html.RenderPartial("_login");
+    <input type="hidden" id="is-signed-in-state" value="false" />
+    Html.RenderPartial("_login");
+}
+else
+{
+    <input type="hidden" id="is-signed-in-state" value="true" />
 }

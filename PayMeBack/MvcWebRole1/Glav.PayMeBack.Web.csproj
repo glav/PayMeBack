@@ -355,6 +355,8 @@
     <Content Include="Views\Membership\Index.cshtml" />
     <Content Include="Views\Shared\_login.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Summary\Index.cshtml" />
+    <Content Include="Views\Summary\_DebtSummaryList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
