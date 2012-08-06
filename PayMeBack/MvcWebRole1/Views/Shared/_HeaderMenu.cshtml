@@ -1,6 +1,5 @@
-﻿@model Glav.PayMeBack.Web.Models.BaseActionModel
-@{
-	var isSignedIn = (Model != null && Model.IsAuthenticated);
+﻿@{
+    var isSignedIn = Request.IsAuthenticated;
 }
 
 

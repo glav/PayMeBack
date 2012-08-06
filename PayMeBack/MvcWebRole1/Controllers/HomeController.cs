@@ -18,9 +18,8 @@ namespace Glav.PayMeBack.Web.Controllers
 		{
 			var model = new HomeActionModel
 			            	{
-								IsAuthenticated = System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated
+								InformationalMessage = "Info Message Placeholder"
 			            	};
-			model.InformationalMessage = "info message";
 			return model;
 		}
 	}

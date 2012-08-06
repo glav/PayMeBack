@@ -237,7 +237,6 @@
     <Compile Include="Helpers\MobileViewHelper.cs" />
     <Compile Include="Helpers\WebDependencyBuilder.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\BaseActionModel.cs" />
     <Compile Include="Models\HomeActionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
@@ -273,6 +272,8 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\debt-manager.js" />
+    <Content Include="Scripts\summary-page.js" />
     <Content Include="Scripts\membership.js" />
     <Content Include="Scripts\landing-page.js" />
     <Content Include="Scripts\payMeBack.Core.js" />
@@ -357,6 +358,7 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Summary\Index.cshtml" />
     <Content Include="Views\Summary\_DebtSummaryList.cshtml" />
+    <Content Include="Views\Shared\_AddDebt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
