@@ -104,7 +104,12 @@ namespace Glav.PayMeBack.Web
 			membershipPageBundle.AddFile("~/Scripts/membership.js");
 			BundleTable.Bundles.Add(membershipPageBundle);
 
-			BundleTable.Bundles.RegisterTemplateBundles();
+            var summaryPageBundle = new Bundle("~/SummaryPageJs");
+            summaryPageBundle.AddFile("~/Scripts/debt-manager.js");
+            summaryPageBundle.AddFile("~/Scripts/summary-page.js");
+            BundleTable.Bundles.Add(summaryPageBundle);
+            
+            BundleTable.Bundles.RegisterTemplateBundles();
 		}
 
 		private void SetupDocumentationProvider()

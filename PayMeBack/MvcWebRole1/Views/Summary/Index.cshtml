@@ -5,7 +5,16 @@
 }
 
 @section ScriptHead {
+	<script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/SummaryPageJs")" type="text/javascript"></script>
 }
+
+<section class="clear-fix action-menu">
+    <ul>
+        <li><a href="#">Add Debt</a></li>
+        <li><a href="#">Remove Debt</a></li>
+        <li><a href="#">Set Notification options for a Debt</a></li>
+    </ul>
+</section>
 
 <section class="clear-fix">
 	
@@ -18,3 +27,5 @@
     @Html.Partial("_DebtSummaryList", Model.DebtsOwedToOthers)
 
 </section>
+
+@Html.Partial("_AddDebt")

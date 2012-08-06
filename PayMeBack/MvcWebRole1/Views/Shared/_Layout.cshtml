@@ -1,5 +1,3 @@
-@model Glav.PayMeBack.Web.Models.BaseActionModel
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -23,8 +21,8 @@
 			@*Custom Header section if required*@
 			@RenderSection("header",false)
 
-			@Html.Partial("_HeaderTitle",Model)
-			@Html.Partial("_HeaderMenu",Model)
+			@Html.Partial("_HeaderTitle")
+			@Html.Partial("_HeaderMenu")
 		</header>
 		<div id="body">
 			@RenderBody()

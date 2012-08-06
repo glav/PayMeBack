@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Glav.PayMeBack.Web.Models
 {
-	public class HomeActionModel: BaseActionModel
+	public class HomeActionModel
 	{
 		public string InformationalMessage { get; set; }
 	}
