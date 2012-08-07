@@ -1,5 +1,11 @@
-﻿/* File Created: July 31, 2012 */
+﻿/// <reference path="_references.js" />
 
-$(document).ready(function() {
+$(document).ready(function () {
+    function bindActionLinks() {
+        $("#add-debt-link").on("click", function () {
+            window.payMeBack.debtManager.showAddDebtDialog();
+        });
+    }
 
+    bindActionLinks();
 });

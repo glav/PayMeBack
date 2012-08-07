@@ -6,7 +6,7 @@ if (typeof window.payMeBack.debtManager === 'undefined') {
 
 window.payMeBack.debtManager = (function () {
 
-    var addDebt = function () {
+    var showAddDebtDialog = function () {
         $.nyroModalManual({
             url: '#add-debt-modal',
             minHeight: 300,
@@ -21,6 +21,6 @@ window.payMeBack.debtManager = (function () {
     };
 
     return {
-        addDebt: function () { addDebt(); }
+        showAddDebtDialog: function () { showAddDebtDialog(); }
     };
 })();
