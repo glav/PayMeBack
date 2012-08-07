@@ -1,5 +1,13 @@
 ﻿/* File Created: July 23, 2012 */
 
+/*** Standard Styles ****/
+input.action-button {
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    height:30px;
+}
+
 header {
 	margin: 10px 20px;	
 }
@@ -71,3 +79,35 @@ section.action-menu ul {
             text-decoration:none;
             color:Green;
         }
+
+/*** Login Dialog  ******/        
+#credentials-form {
+    margin: auto;
+    text-align:center;
+}
+
+    #credentials-form ul {
+        list-style:none;
+    }
+
+        #credentials-form ul li {
+            padding: 5px;
+            font-size: 1.3em;
+            width:270px;
+        }
+
+            #credentials-form ul li label {
+                margin-right: 10px;
+            }
+
+            #credentials-form ul li input {
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                -webskit-border-radius: 5px;
+                float: right;
+                width: 170px;
+            }
+
+#credentials-submit {
+    width:170px;
+}
