@@ -4,11 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Glav.PayMeBack.Web.Models;
+using Glav.PayMeBack.Web.Domain;
 
 namespace Glav.PayMeBack.Web.Controllers
 {
 	public class HomeController : Controller
 	{
+        private IWebMembershipManager _webMembershipManager;
+
+        public HomeController(IWebMembershipManager webMembershipManager)
+        {
+            _webMembershipManager = webMembershipManager;
+        }
 		public ActionResult Index()
 		{
 			return View(CreateModel());
@@ -20,7 +27,12 @@ namespace Glav.PayMeBack.Web.Controllers
 			            	{
 								InformationalMessage = "Info Message Placeholder"
 			            	};
-			return model;
+            var user = _webMembershipManager.GetUserFromRequestCookie();
+            if (user != null)
+            {
+                model.UserName = user.FirstNames;
+            }
+                return model;
 		}
 	}
 }

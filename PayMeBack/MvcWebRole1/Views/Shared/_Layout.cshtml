@@ -21,7 +21,9 @@
 			@*Custom Header section if required*@
 			@RenderSection("header",false)
 
-			@Html.Partial("_HeaderTitle")
+            <a href="@Url.Content("~")">
+			    @Html.Partial("_HeaderTitle")
+            </a>
 			@Html.Partial("_HeaderMenu")
 		</header>
 		<div id="body">
