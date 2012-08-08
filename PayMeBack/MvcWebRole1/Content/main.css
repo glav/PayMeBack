@@ -80,12 +80,27 @@ section.action-menu ul {
             color:Green;
         }
 
-/*** Login Dialog  ******/        
-#credentials-form {
-    margin: auto;
-    text-align:center;
+/*** Login Dialog  ******/ 
+
+#credentials-container h3 {
+    background-color: #ffff99;
+    padding: 7px 15px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
+#credentials-container img.login-progress-indicator {
+    margin-left:150px;
+    top:80px;
+}
+
+#credentials-form {
+    margin: auto;
+    border:none;
+    text-align:center;
+}
+    
     #credentials-form ul {
         list-style:none;
     }
@@ -93,7 +108,7 @@ section.action-menu ul {
         #credentials-form ul li {
             padding: 5px;
             font-size: 1.3em;
-            width:270px;
+            width:260px;
         }
 
             #credentials-form ul li label {

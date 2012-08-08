@@ -46,6 +46,11 @@ window.payMeBack.login = (function () {
         } else {
             jsonPayload = "";
         }
+
+        $("#credentials-form").fadeOut('normal', function () {
+            window.payMeBack.progressManager.showProgressIndicator("credentials-container");
+        });
+
         $.ajax({
             url: url,
             type: "POST",
@@ -53,8 +58,11 @@ window.payMeBack.login = (function () {
             contentType: 'application/json',
             dataType: "json",
             success: function (result) {
+                window.payMeBack.progressManager.hideProgressIndicator("credentials-container");
                 if (result && typeof result.error !== 'undefined') {
                     alert("The request had an error: " + result.error)
+                    $("#credentials-form").fadeIn();
+
                 } else {
                     if (result && typeof result.success !== 'undefined' && result.success === true) {
                         // This worked
@@ -71,14 +79,18 @@ window.payMeBack.login = (function () {
                         if (isSignup === true) {
                             msg = "Your request to signup was not successful. This user may already exist in the system or your credentials do not meet the minimum criteria";
                         } else {
-                            msg = "You could not be signed in asyour credentials are not correct";
+                            msg = "You could not be signed in as your credentials are not correct";
                         }
+                        $("#credentials-form").fadeIn();
+
                         alert(msg);
                     }
 
                 }
             },
             error: function () {
+                window.payMeBack.progressManager.hideProgressIndicator("credentials-container");
+                $("#credentials-form").fadeIn();
                 updateDisplayBasedOnSignedInStatus(false);
 
                 var msg = "There was a problem " + (isSignup ? "signing you up" : "logging you in") + " to the system. Please try again."
@@ -109,7 +121,7 @@ window.payMeBack.login = (function () {
               minHeight: 200,
               height: 200,
               minWidth: 350,
-              width:380,
+              width: 380,
               //modal: true,
               //closeButton: null,
               endRemove: function () {
@@ -142,6 +154,8 @@ window.payMeBack.login = (function () {
                           .removeClass("signup-dialog")
                           .fadeIn();
                   }
+                  $("#credentials-userId").focus();
+
               }
           });
     };
