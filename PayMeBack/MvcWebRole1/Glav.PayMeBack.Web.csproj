@@ -272,9 +272,11 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\progress.gif" />
     <Content Include="Scripts\debt-manager.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\progressManager.js" />
     <Content Include="Scripts\summary-page.js" />
     <Content Include="Scripts\membership.js" />
     <Content Include="Scripts\landing-page.js" />
@@ -310,18 +312,6 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\aspNetHome.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\facebook.png" />
-    <Content Include="Images\findHosting.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\NuGetGallery.png" />
-    <Content Include="Images\orderedListOne.png" />
-    <Content Include="Images\orderedListTwo.png" />
-    <Content Include="Images\orderedListThree.png" />
-    <Content Include="Images\twitter.png" />
-    <Content Include="Images\windowsLive.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />

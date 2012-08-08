@@ -93,6 +93,7 @@ namespace Glav.PayMeBack.Web
 			var coreBundle = new Bundle("~/CoreJs");
 			coreBundle.AddFile("~/Scripts/nyroModal/js/jquery.nyroModal.js");
 			coreBundle.AddFile("~/Scripts/payMeBack.Core.js");
+            coreBundle.AddFile("~/Scripts/progressManager.js");
 			coreBundle.AddFile("~/Scripts/Login.js");
 			BundleTable.Bundles.Add(coreBundle);
 
