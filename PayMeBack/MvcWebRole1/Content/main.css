@@ -83,7 +83,7 @@ section.action-menu ul {
 /*** Login Dialog  ******/ 
 
 #credentials-container h3 {
-    background-color: #ffff99;
+    background-color: #99FF9D;
     padding: 7px 15px;
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -126,3 +126,26 @@ section.action-menu ul {
 #credentials-submit {
     width:170px;
 }
+
+/**** Status Bar Message ******/
+div.status-message {
+    position:absolute;
+    margin:auto;
+    top: 0;
+    text-align:center;
+    width: 100%;
+}
+    div.status-message div {
+        margin: 0 20px;
+        border-radius: 0 0 10px 10px;
+        -moz-border-radius: 0 0 10px 10px;
+        -webkit-border-radius: 0 0 10px 10px;
+        padding: 7px 25px;
+        background-color: #ffff99;
+        border-bottom: 1px solid black;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        box-shadow: 5px 5px 5px #A2A2A2;
+        -moz-box-shadow: 5px 5px 5px #A2A2A2;
+        -webkit-box-shadow: 5px 5px 5px #A2A2A2;
+    }

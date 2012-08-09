@@ -276,6 +276,7 @@
     <Content Include="Scripts\debt-manager.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\notificationEngine.js" />
     <Content Include="Scripts\progressManager.js" />
     <Content Include="Scripts\summary-page.js" />
     <Content Include="Scripts\membership.js" />
