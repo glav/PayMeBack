@@ -1,4 +1,4 @@
-﻿/* File Created: July 31, 2012 */
+﻿/// <reference path="_references.js" />
 
 $(document).ready(function () {
     window.payMeBack.login.updateDisplayBasedOnSignedInStatus();

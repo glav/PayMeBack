@@ -1,10 +1,10 @@
 /**
- * Created with JetBrains WebStorm.
- * User: Glav
- * Date: 31/07/12
- * Time: 5:31 PM
- * To change this template use File | Settings | File Templates.
- */
+* Created with JetBrains WebStorm.
+* User: Glav
+* Date: 31/07/12
+* Time: 5:31 PM
+* To change this template use File | Settings | File Templates.
+*/
 
 if (typeof window.payMeBack.login === 'undefined') {
     window.payMeBack.login = {};
@@ -49,54 +49,56 @@ window.payMeBack.login = (function () {
 
         $("#credentials-form").fadeOut('normal', function () {
             window.payMeBack.progressManager.showProgressIndicator("credentials-container");
-        });
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: jsonPayload,
+                contentType: 'application/json',
+                dataType: "json",
+                success: function (result) {
+                    window.payMeBack.progressManager.hideProgressIndicator("credentials-container", function () {
+                        if (result && typeof result.error !== 'undefined') {
+                            window.payMeBack.notificationEngine.showStatusBarMessage("The request had an error: " + result.error, "#nyroModalContent", 5);
+                            $("#credentials-form").fadeIn();
 
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: jsonPayload,
-            contentType: 'application/json',
-            dataType: "json",
-            success: function (result) {
-                window.payMeBack.progressManager.hideProgressIndicator("credentials-container");
-                if (result && typeof result.error !== 'undefined') {
-                    alert("The request had an error: " + result.error)
-                    $("#credentials-form").fadeIn();
-
-                } else {
-                    if (result && typeof result.success !== 'undefined' && result.success === true) {
-                        // This worked
-                        updateDisplayBasedOnSignedInStatus(true);
-                        $.nyroModalRemove();
-                    } else {
-                        updateDisplayBasedOnSignedInStatus(false);
-                        var msg = "";
-                        if (typeof result.error !== 'undefined') {
-                            msg = result.error;
-                        }
-
-                        var msg;
-                        if (isSignup === true) {
-                            msg = "Your request to signup was not successful. This user may already exist in the system or your credentials do not meet the minimum criteria";
                         } else {
-                            msg = "You could not be signed in as your credentials are not correct";
+                            if (result && typeof result.success !== 'undefined' && result.success === true) {
+                                // This worked
+                                updateDisplayBasedOnSignedInStatus(true);
+                                $.nyroModalRemove();
+                            } else {
+                                updateDisplayBasedOnSignedInStatus(false);
+                                var msg = "";
+                                if (typeof result.error !== 'undefined') {
+                                    msg = result.error;
+                                }
+
+                                var msg;
+                                if (isSignup === true) {
+                                    msg = "Your request to signup was not successful. This user may already exist in the system or your credentials do not meet the minimum criteria";
+                                } else {
+                                    msg = "You could not be signed in as your credentials are not correct";
+                                }
+                                $("#credentials-form").fadeIn();
+
+                                window.payMeBack.notificationEngine.showStatusBarMessage(msg, "#nyroModalContent");
+                            }
+
                         }
+                    });
+                },
+                error: function () {
+                    window.payMeBack.progressManager.hideProgressIndicator("credentials-container", function () {
                         $("#credentials-form").fadeIn();
+                        updateDisplayBasedOnSignedInStatus(false);
 
-                        alert(msg);
-                    }
-
+                        var msg = "There was a problem " + (isSignup ? "signing you up" : "logging you in") + " to the system. Please try again."
+                        window.payMeBack.notificationEngine.showStatusBarMessage(msg, "#nyroModalContent", 5);
+                    });
                 }
-            },
-            error: function () {
-                window.payMeBack.progressManager.hideProgressIndicator("credentials-container");
-                $("#credentials-form").fadeIn();
-                updateDisplayBasedOnSignedInStatus(false);
-
-                var msg = "There was a problem " + (isSignup ? "signing you up" : "logging you in") + " to the system. Please try again."
-                alert(msg);
-            }
+            });
         });
+
     };
 
     var captureCredentialsAndSubmit = function (isSignupAction) {
@@ -122,6 +124,7 @@ window.payMeBack.login = (function () {
               height: 200,
               minWidth: 350,
               width: 380,
+              bgColor: "#A8A5A5",
               //modal: true,
               //closeButton: null,
               endRemove: function () {
@@ -154,6 +157,7 @@ window.payMeBack.login = (function () {
                           .removeClass("signup-dialog")
                           .fadeIn();
                   }
+
                   $("#credentials-userId").focus();
 
               }
@@ -177,4 +181,5 @@ $(document).ready(function () {
 
     bindLoginSignUpAction();
     window.payMeBack.login.updateDisplayBasedOnSignedInStatus();
+
 });
