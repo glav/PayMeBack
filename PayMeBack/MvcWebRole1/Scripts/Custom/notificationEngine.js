@@ -8,6 +8,9 @@ window.payMeBack.notificationEngine = (function () {
 
     var DELAY_IN_SECONDS = 5;  // how long the status bar remains visible before auto-retracting
 
+    var MESSAGE_TYPE_INFO = 1;
+    var MESSAGE_TYPE_ERROR = 2;
+
     var showPopupDialogMessage = function (message) {
         //TODO: make it a nyroModal or something sexier
         alert(message);
@@ -18,8 +21,21 @@ window.payMeBack.notificationEngine = (function () {
     // sorta like Stack overflow
     // If no container element is specified, we assume the entire browser/main window
     // is the container
-    var showStatusBarMessage = function (message, containerSelector, topPositionOffset) {
-        var htmlBlock = "<div class='status-message hidden'><div>" + message + "</div></div>";
+    var showStatusBarMessage = function (message, messageType, containerSelector, topPositionOffset) {
+        var typeOfMessage = MESSAGE_TYPE_INFO;
+        if (typeof messageType !== 'undefined') {
+            if (messageType === "error" || messageType === MESSAGE_TYPE_ERROR) {
+                typeOfMessage = MESSAGE_TYPE_ERROR;
+            }
+        }
+
+        var messageDivClass;
+        if (typeOfMessage === MESSAGE_TYPE_ERROR) {
+            messageDivClass = "error";
+        } else {
+            messageDivClass = "info";
+        }
+        var htmlBlock = "<div class='status-message hidden'><div class='" + messageDivClass + "'>" + message + "</div></div>";
         var messageArea = null;
         if (typeof containerSelector !== 'undefined') {
             var containerEl = $(containerSelector);
@@ -39,7 +55,7 @@ window.payMeBack.notificationEngine = (function () {
         htmlEl.slideDown('normal', function () {
             setTimeout(function () {
                 htmlEl.slideUp('fast', function () {
-                    htmlEl.remove();
+                  htmlEl.remove();
                 });
             }, DELAY_IN_SECONDS * 1000);
         });
@@ -47,6 +63,8 @@ window.payMeBack.notificationEngine = (function () {
 
     return {
         showPopupDialogMessage: function (message) { showPopupDialogMessage(message); },
-        showStatusBarMessage: function (message, containerEl, topPositionOffset) { showStatusBarMessage(message, containerEl, topPositionOffset); }
+        showStatusBarMessage: function (message, containerEl, topPositionOffset) { showStatusBarMessage(message, containerEl, topPositionOffset); },
+        MessageTypeInfo: MESSAGE_TYPE_INFO,
+        MessageTypeError: MESSAGE_TYPE_ERROR
     };
 })();
