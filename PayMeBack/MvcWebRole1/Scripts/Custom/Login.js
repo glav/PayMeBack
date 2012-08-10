@@ -124,7 +124,7 @@ window.payMeBack.login = (function () {
               height: 200,
               minWidth: 350,
               width: 380,
-              bgColor: "#A8A5A5",
+              bgColor: window.payMeBack.core.colours.nyroModalBackground,
               //modal: true,
               //closeButton: null,
               endRemove: function () {

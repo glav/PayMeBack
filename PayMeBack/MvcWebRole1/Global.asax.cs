@@ -92,23 +92,23 @@ namespace Glav.PayMeBack.Web
 
 			var coreBundle = new Bundle("~/CoreJs");
 			coreBundle.AddFile("~/Scripts/nyroModal/js/jquery.nyroModal.js");
-			coreBundle.AddFile("~/Scripts/payMeBack.Core.js");
-            coreBundle.AddFile("~/Scripts/progressManager.js");
-            coreBundle.AddFile("~/Scripts/notificationEngine.js");
-            coreBundle.AddFile("~/Scripts/Login.js");
+			coreBundle.AddFile("~/Scripts/custom/payMeBack.Core.js");
+            coreBundle.AddFile("~/Scripts/custom/progressManager.js");
+            coreBundle.AddFile("~/Scripts/custom/notificationEngine.js");
+            coreBundle.AddFile("~/Scripts/custom/Login.js");
 			BundleTable.Bundles.Add(coreBundle);
 
 			var landingPageBundle = new Bundle("~/LandingPageJs");
-			landingPageBundle.AddFile("~/Scripts/landing-page.js");
+            landingPageBundle.AddFile("~/Scripts/custom/landing-page.js");
 			BundleTable.Bundles.Add(landingPageBundle);
 
 			var membershipPageBundle = new Bundle("~/MembershipPageJs");
-			membershipPageBundle.AddFile("~/Scripts/membership.js");
+            membershipPageBundle.AddFile("~/Scripts/custom/membership.js");
 			BundleTable.Bundles.Add(membershipPageBundle);
 
             var summaryPageBundle = new Bundle("~/SummaryPageJs");
-            summaryPageBundle.AddFile("~/Scripts/debt-manager.js");
-            summaryPageBundle.AddFile("~/Scripts/summary-page.js");
+            summaryPageBundle.AddFile("~/Scripts/custom/debt-manager.js");
+            summaryPageBundle.AddFile("~/Scripts/custom/summary-page.js");
             BundleTable.Bundles.Add(summaryPageBundle);
             
             BundleTable.Bundles.RegisterTemplateBundles();

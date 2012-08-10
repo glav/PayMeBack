@@ -20,3 +20,11 @@ if (typeof window.payMeBack.core === 'undefined') {
         }
     };
 }
+
+if (typeof window.payMeBack.core.colours === 'undefined') {
+	window.payMeBack.core.colours = { };
+}
+
+/** Colour constants used in dynamic invocation and application ***/
+window.payMeBack.core.colours.nyroModalBackground = "#A8A5A5";
+/******************************************************************/
