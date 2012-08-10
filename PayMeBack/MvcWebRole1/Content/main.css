@@ -79,10 +79,9 @@ section.action-menu ul {
             text-decoration:none;
             color:Green;
         }
+/*** Dialog Common Styles *****/
 
-/*** Login Dialog  ******/ 
-
-#credentials-container h3 {
+div.dialog-container h3 {
     background-color: #99FF9D;
     padding: 7px 15px;
     border-radius: 5px;
@@ -90,37 +89,41 @@ section.action-menu ul {
     -webkit-border-radius: 5px;
 }
 
+    div.dialog-container fieldset.dialog-form, div.dialog-container div.dialog-form {
+        margin: auto;
+        border:none;
+    }
+
+    div.dialog-container fieldset.dialog-form ul, div.dialog-container div.dialog-form ul {
+        list-style:none;
+        padding-left: 20px;
+    }
+
+        div.dialog-container fieldset.dialog-form ul li, div.dialog-container div.dialog-form ul li {
+            padding: 5px;
+            font-size: 1.3em;
+            width:260px;
+        }
+        
+            div.dialog-container fieldset.dialog-form ul li input, div.dialog-container div.dialog-form ul li input {
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                -webskit-border-radius: 5px;
+                float: right;
+                width: 170px;
+            }
+/*** Login Dialog  ******/ 
+
 #credentials-container img.login-progress-indicator {
     margin-left:150px;
     top:80px;
 }
 
 #credentials-form {
-    margin: auto;
-    border:none;
     text-align:center;
 }
-    
-    #credentials-form ul {
-        list-style:none;
-    }
-
-        #credentials-form ul li {
-            padding: 5px;
-            font-size: 1.3em;
-            width:260px;
-        }
-
             #credentials-form ul li label {
                 margin-right: 10px;
-            }
-
-            #credentials-form ul li input {
-                border-radius: 5px;
-                -moz-border-radius: 5px;
-                -webskit-border-radius: 5px;
-                float: right;
-                width: 170px;
             }
 
 #credentials-submit {
@@ -154,3 +157,10 @@ div.status-message {
     div.status-message div.info {
         background-color: #ffff99;
     }
+
+/***************** Add Debt dialog  *******************/
+#add-debt-container img.login-progress-indicator {
+    margin-left:150px;
+    top:80px;
+}
+

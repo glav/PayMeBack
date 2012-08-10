@@ -10,7 +10,8 @@ window.payMeBack.debtManager = (function () {
         $.nyroModalManual({
             url: '#add-debt-modal',
             minHeight: 300,
-            height: 300,
+            height: 400,
+            width: 500,
             bgColor: window.payMeBack.core.colours.nyroModalBackground,
             //modal: true,
             //closeButton: null,
