@@ -1,6 +1,50 @@
 ﻿
 <div id="add-debt-modal" class="hidden">
-    <div id="add-debt-container">
-        <h2>_AddDebt</h2>
+    <div id="add-debt-container" class="dialog-container">
+        <h3>Add a debt that is owed to you</h3>
+        <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="add-debt-progress-indicator progress-indicator hidden" />
+
+        <fieldset class="dialog-form">
+            <ul>
+                <li>
+                    <label for="add-debt-user-email">Enter email address of person who owes you money:</label>
+                    <input type="text" id="add-debt-user-email" maxlength="50" />
+                </li>
+                <li>
+                    <label for="add-debt-amount">Enter amount owed to you:</label>
+                    <input type="number" id="add-debt-amount" maxlength="10" />
+                </li>
+                <li>
+                    <label for="add-debt-reason">What is the reason or nature of the debt?</label>
+                    <input type="text" id="add-debt-reason" maxlength="255" />
+                </li>
+                <li>
+                    <label for="add-debt-initial-amount">Enter an amount that has already been paid off, if any:</label>
+                    <input type="number" id="add-debt-initial-amount" maxlength="10" />
+                </li>
+                <li>
+                    <label for="add-debt-notes">Enter some general notes or detail related to this debt if desired:</label>
+                    <input type="number" id="add-debt-notes" maxlength="255" />
+                </li>
+                <li>
+                    <label for="add-debt-payment-period">How often do you expect payments to be made?</label>
+                    <select id="add-debt-payment-period">
+                        <option value="0" selected="selected">Ad-hoc / No set period</option>
+                        <option value="1">Daily</option>
+                        <option value="2">Weekly</option>
+                        <option value="3">Fortnightly</option>
+                        <option value="4">Monthly</option>
+                        <option value="5">Bi-Monthly</option>
+                        <option value="6">Quarterly</option>
+                        <option value="7">Half Yearly</option>
+                        <option value="8">Yearly</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="add-debt-end-date">Enter the expected or desired date this debt should be paid in full by:</label>
+                    <input type="date" id="add-debt-end-date" maxlength="10" />
+                </li>
+            </ul>
+        </fieldset>
     </div>
 </div>
