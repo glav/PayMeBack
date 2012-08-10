@@ -58,7 +58,7 @@ window.payMeBack.login = (function () {
                 success: function (result) {
                     window.payMeBack.progressManager.hideProgressIndicator("credentials-container", function () {
                         if (result && typeof result.error !== 'undefined') {
-                            window.payMeBack.notificationEngine.showStatusBarMessage("The request had an error: " + result.error, "#nyroModalContent", 5);
+                            window.payMeBack.notificationEngine.showStatusBarMessage("The request had an error: " + result.error, window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent", 5);
                             $("#credentials-form").fadeIn();
 
                         } else {
@@ -81,7 +81,7 @@ window.payMeBack.login = (function () {
                                 }
                                 $("#credentials-form").fadeIn();
 
-                                window.payMeBack.notificationEngine.showStatusBarMessage(msg, "#nyroModalContent");
+                                window.payMeBack.notificationEngine.showStatusBarMessage(msg,window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent");
                             }
 
                         }
@@ -93,7 +93,7 @@ window.payMeBack.login = (function () {
                         updateDisplayBasedOnSignedInStatus(false);
 
                         var msg = "There was a problem " + (isSignup ? "signing you up" : "logging you in") + " to the system. Please try again."
-                        window.payMeBack.notificationEngine.showStatusBarMessage(msg, "#nyroModalContent", 5);
+                        window.payMeBack.notificationEngine.showStatusBarMessage(msg,window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent", 5);
                     });
                 }
             });

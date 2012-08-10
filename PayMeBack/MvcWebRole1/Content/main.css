@@ -141,11 +141,16 @@ div.status-message {
         -moz-border-radius: 0 0 10px 10px;
         -webkit-border-radius: 0 0 10px 10px;
         padding: 7px 25px;
-        background-color: #ffff99;
         border-bottom: 1px solid black;
         border-left: 1px solid black;
         border-right: 1px solid black;
         box-shadow: 5px 5px 5px #A2A2A2;
         -moz-box-shadow: 5px 5px 5px #A2A2A2;
         -webkit-box-shadow: 5px 5px 5px #A2A2A2;
+    }
+    div.status-message div.error {
+        background-color: #ffaaaa;
+    }
+    div.status-message div.info {
+        background-color: #ffff99;
     }

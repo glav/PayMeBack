@@ -27,4 +27,6 @@ if (typeof window.payMeBack.core.colours === 'undefined') {
 
 /** Colour constants used in dynamic invocation and application ***/
 window.payMeBack.core.colours.nyroModalBackground = "#A8A5A5";
+window.payMeBack.core.colours.statusMessageInfoBackground = "#A8A5A5";
+window.payMeBack.core.colours.statusMessageErrorBackground = "#A8A5A5";
 /******************************************************************/
