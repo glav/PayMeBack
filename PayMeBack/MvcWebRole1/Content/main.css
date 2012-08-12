@@ -115,6 +115,18 @@ div.dialog-container h3 {
                 float: right;
                 width: 170px;
             }
+            div.dialog-container fieldset.dialog-form input.action-button,
+            div.dialog-container div.dialog-form input.action-button {
+                width: 100%;
+                background: #e3ffdd; /* Old browsers */
+                background: -moz-linear-gradient(top,  #e3ffdd 53%, #b6efb6 100%); /* FF3.6+ */
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(53%,#e3ffdd), color-stop(100%,#b6efb6)); /* Chrome,Safari4+ */
+                background: -webkit-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* Chrome10+,Safari5.1+ */
+                background: -o-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* Opera 11.10+ */
+                background: -ms-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* IE10+ */
+                background: linear-gradient(to bottom,  #e3ffdd 53%,#b6efb6 100%); /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3ffdd', endColorstr='#b6efb6',GradientType=0 ); /* IE6-9 */
+            }
 /*** Login Dialog  ******/ 
 
 #credentials-container img.login-progress-indicator {
@@ -128,10 +140,6 @@ div.dialog-container h3 {
             #credentials-form ul li label {
                 margin-right: 10px;
             }
-
-#credentials-submit {
-    width:170px;
-}
 
 /**** Status Bar Message ******/
 div.status-message {
