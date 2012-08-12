@@ -11,7 +11,7 @@ window.payMeBack.debtManager = (function () {
             url: '#add-debt-modal',
             minHeight: 300,
             height: 400,
-            width: 500,
+           minWwidth: 500,
             bgColor: window.payMeBack.core.colours.nyroModalBackground,
             //modal: true,
             //closeButton: null,

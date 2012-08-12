@@ -101,11 +101,14 @@ div.dialog-container h3 {
 
         div.dialog-container fieldset.dialog-form ul li, div.dialog-container div.dialog-form ul li {
             padding: 5px;
-            font-size: 1.3em;
+            font-size: 1.1em;
             width:260px;
         }
         
-            div.dialog-container fieldset.dialog-form ul li input, div.dialog-container div.dialog-form ul li input {
+            div.dialog-container fieldset.dialog-form ul li input, 
+            div.dialog-container div.dialog-form ul li input,
+            div.dialog-container fieldset.dialog-form ul li select, 
+            div.dialog-container div.dialog-form ul li select {
                 border-radius: 5px;
                 -moz-border-radius: 5px;
                 -webskit-border-radius: 5px;
@@ -159,8 +162,26 @@ div.status-message {
     }
 
 /***************** Add Debt dialog  *******************/
-#add-debt-container img.login-progress-indicator {
-    margin-left:150px;
-    top:80px;
+#add-debt-container {
+    width: 550px;
 }
+    #add-debt-container img.login-progress-indicator {
+        margin-left:150px;
+        top:80px;
+    }
+        #add-debt-container fieldset.dialog-form ul li {
+            width: 500px;
+            height: 25px;
+            margin: 4px 0;
+        }
+            #add-debt-container fieldset.dialog-form ul li label {
+                width: 300px;
+                float: left;
+                clear: left;
+                text-align: right;
+            }
 
+            #add-debt-container fieldset.dialog-form ul li input,
+            #add-debt-container fieldset.dialog-form ul li select {
+                width: 150px;
+            }

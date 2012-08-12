@@ -29,10 +29,10 @@ a#closeBut {
 	display: block;
 	top: -13px;
 	right: -13px;
-	width: 12px;
-	height: 12px;
+	width: 40px;
+	height: 40px;
 	text-indent: -9999em;
-	background:url(../scripts/nyroModal/img/close.gif) no-repeat;
+	background:url(../scripts/nyroModal/img/close.png) no-repeat;
 	outline: 0;
 }
 h1#nyroModalTitle {
