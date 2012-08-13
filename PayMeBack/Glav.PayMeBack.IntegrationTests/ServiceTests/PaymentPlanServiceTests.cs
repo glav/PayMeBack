@@ -66,7 +66,13 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 			Assert.AreEqual<int>(paymentPlan.DebtsOwedToMe.Count,planToCheck.DebtsOwedToMe.Count);
 			Assert.AreEqual<int>(paymentPlan.DebtsOwedToOthers.Count, planToCheck.DebtsOwedToOthers.Count);
 
-			Assert.AreEqual<string>(paymentPlan.DebtsOwedToMe[0].ReasonForDebt,planToCheck.DebtsOwedToMe[0].ReasonForDebt);
+            Assert.IsNotNull(planToCheck.DebtsOwedToMe[0].UserWhoOwesDebt);
+            Assert.AreNotEqual<Guid>(Guid.Empty,planToCheck.DebtsOwedToMe[0].UserWhoOwesDebt.Id);
+            Assert.AreEqual<string>(emailAddress, planToCheck.DebtsOwedToMe[0].UserWhoOwesDebt.EmailAddress);
+            Assert.AreEqual<string>("I", planToCheck.DebtsOwedToMe[0].UserWhoOwesDebt.FirstNames);
+            Assert.AreEqual<string>("owe", planToCheck.DebtsOwedToMe[0].UserWhoOwesDebt.Surname);
+            
+            Assert.AreEqual<string>(paymentPlan.DebtsOwedToMe[0].ReasonForDebt, planToCheck.DebtsOwedToMe[0].ReasonForDebt);
 			Assert.IsTrue(paymentPlan.DebtsOwedToMe[0].ExpectedEndDate == planToCheck.DebtsOwedToMe[0].ExpectedEndDate);
 			Assert.AreEqual<decimal>(paymentPlan.DebtsOwedToMe[0].InitialPayment, planToCheck.DebtsOwedToMe[0].InitialPayment);
 			Assert.AreEqual<bool>(paymentPlan.DebtsOwedToMe[0].IsOutstanding, planToCheck.DebtsOwedToMe[0].IsOutstanding);

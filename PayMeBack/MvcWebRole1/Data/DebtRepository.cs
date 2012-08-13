@@ -33,7 +33,7 @@ namespace Glav.PayMeBack.Web.Data
 				context.Configuration.ProxyCreationEnabled = false;
 				context.Configuration.LazyLoadingEnabled = false;
 
-				var paymentPlan = (from plan in context.UserPaymentPlanDetails.Include("UserDetail").Include("DebtDetails").Include("DebtDetails.DebtPaymentInstallmentDetails")
+				var paymentPlan = (from plan in context.UserPaymentPlanDetails.Include("UserDetail").Include("DebtDetails").Include("DebtDetails.UserDetail").Include("DebtDetails.DebtPaymentInstallmentDetails")
 								   where plan.UserId == userId
 								   select plan).FirstOrDefault();
 

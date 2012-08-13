@@ -173,6 +173,10 @@ div.status-message {
 #add-debt-container {
     width: 550px;
 }
+#add-debt-container img.add-debt-progress-indicator {
+    margin-left:250px;
+    padding-top:100px;
+}
     #add-debt-container img.login-progress-indicator {
         margin-left:150px;
         top:80px;
