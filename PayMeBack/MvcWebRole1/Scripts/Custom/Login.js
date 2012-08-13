@@ -75,13 +75,13 @@ window.payMeBack.login = (function () {
 
                                 var msg;
                                 if (isSignup === true) {
-                                    msg = "Your request to signup was not successful. This user may already exist in the system or your credentials do not meet the minimum criteria";
+                                    msg = "Your request to signup was not successful. This user may already exist in the system or your credentials do not meet the minimum criteria. " + msg;
                                 } else {
-                                    msg = "You could not be signed in as your credentials are not correct";
+                                    msg = "You could not be signed in as your credentials are not correct. " + msg;
                                 }
                                 $("#credentials-form").fadeIn();
 
-                                window.payMeBack.notificationEngine.showStatusBarMessage(msg,window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent");
+                                window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent");
                             }
 
                         }
@@ -92,8 +92,8 @@ window.payMeBack.login = (function () {
                         $("#credentials-form").fadeIn();
                         updateDisplayBasedOnSignedInStatus(false);
 
-                        var msg = "There was a problem " + (isSignup ? "signing you up" : "logging you in") + " to the system. Please try again."
-                        window.payMeBack.notificationEngine.showStatusBarMessage(msg,window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent", 5);
+                        var msg = "There was a problem " + (isSignup ? "signing you up" : "logging you in") + " to the system. Please try again.";
+                        window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent", 5);
                     });
                 }
             });

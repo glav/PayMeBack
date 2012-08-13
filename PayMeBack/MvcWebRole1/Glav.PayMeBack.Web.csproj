@@ -157,6 +157,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\DebtController.cs" />
     <Compile Include="Controllers\DocumentationController.cs" />
     <Compile Include="Controllers\Api\HelpController.cs" />
     <Compile Include="Controllers\Api\OAuthController.cs" />
@@ -349,6 +350,7 @@
     <Content Include="Views\Summary\Index.cshtml" />
     <Content Include="Views\Summary\_DebtSummaryList.cshtml" />
     <Content Include="Views\Shared\_AddDebt.cshtml" />
+    <Content Include="Views\Debt\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

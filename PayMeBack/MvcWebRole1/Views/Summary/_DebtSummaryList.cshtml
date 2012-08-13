@@ -1,9 +1,18 @@
 ﻿@model List<Glav.PayMeBack.Core.Domain.Debt>
 
+@using Glav.PayMeBack.Core.Domain;
+
 @if (Model == null || Model.Count == 0)
 {
     <h4>No Debts</h4>
 }
 else
 {
+    
+    <ul>
+    @foreach (var debtItem in Model)
+    {
+        <li>Amount Owed: @debtItem.TotalAmountOwed by @debtItem.UserWhoOwesDebt.EmailAddress</li>
+    }
+    </ul>
 }
