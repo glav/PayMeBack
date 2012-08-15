@@ -121,7 +121,7 @@ namespace Glav.PayMeBack.Web.Data
 						}
 						else
 						{
-							ctxt.DebtPaymentInstallmentDetails.Attach(installment);
+							//ctxt.DebtPaymentInstallmentDetails.Attach(installment);
 							ctxt.SetDataState<DebtPaymentInstallmentDetail>(installment, EntityState.Modified);
 						}
 					}
@@ -130,14 +130,15 @@ namespace Glav.PayMeBack.Web.Data
 				// Finally attach the parent to the context to prep for updating
 				if (d.Id == Guid.Empty)
 				{
-					d.Id = Guid.NewGuid();
+					//d.Id = Guid.NewGuid();
 					ctxt.DebtDetails.Add(d);
+				    d.Id = Guid.NewGuid();
 					d.IsOutstanding = true;
 				}
 				else
 				{
 					// do we have to attach?
-					ctxt.DebtDetails.Attach(d);
+					//ctxt.DebtDetails.Attach(d);
 					ctxt.SetDataState<DebtDetail>(d, EntityState.Modified);
 				}
 

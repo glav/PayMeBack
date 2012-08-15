@@ -79,7 +79,54 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 			Assert.AreEqual<decimal>(paymentPlan.DebtsOwedToMe[0].TotalAmountOwed, planToCheck.DebtsOwedToMe[0].TotalAmountOwed);
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void ShouldBeAbleToAddMultipleDebtsToUserPaymentPlan()
+        {
+            BuildServices();
+
+            var user = SignUpSignInAndGetNewPlan();
+            var paymentPlan = _paymentPlanService.GetPaymentPlan(user.Id);
+
+            var emailAddress1 = string.Format("owes-debt-{0}@integrationtests.com", Guid.NewGuid());
+            var emailAddress2 = string.Format("owes-debt-{0}@integrationtests.com", Guid.NewGuid());
+
+            paymentPlan.DebtsOwedToMe.Add(new Debt
+            {
+                ReasonForDebt = "test",
+                TotalAmountOwed = 100,
+                InitialPayment = 10,
+                PaymentPeriod = PaymentPeriod.Weekly,
+                StartDate = DateTime.Now,
+                UserWhoOwesDebt = new User { EmailAddress = emailAddress1}
+            });
+            var result = _paymentPlanService.UpdatePaymentPlan(paymentPlan);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.WasSuccessfull);
+
+            var updatedPlan = _paymentPlanService.GetPaymentPlan(user.Id);
+            updatedPlan.DebtsOwedToMe.Add(new Debt
+            {
+                ReasonForDebt = "test2",
+                TotalAmountOwed = 200,
+                InitialPayment = 0,
+                PaymentPeriod = PaymentPeriod.Weekly,
+                StartDate = DateTime.Now,
+                UserWhoOwesDebt = new User { EmailAddress = emailAddress2 }
+            });
+
+            result = _paymentPlanService.UpdatePaymentPlan(updatedPlan);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.WasSuccessfull);
+
+            var planToCheck = _paymentPlanService.GetPaymentPlan(user.Id);
+            Assert.IsNotNull(planToCheck);
+            Assert.IsNotNull(planToCheck.DebtsOwedToMe);
+            Assert.IsNotNull(planToCheck.DebtsOwedToOthers);
+
+            Assert.AreEqual<int>(2,planToCheck.DebtsOwedToMe.Count);
+        }
+        
+        [TestMethod]
 		public void ShouldBeAbleToAddPaymentInstallmentToDebt()
 		{
 			BuildServices();
