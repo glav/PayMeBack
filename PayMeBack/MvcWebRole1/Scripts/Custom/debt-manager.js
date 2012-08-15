@@ -38,6 +38,7 @@ window.payMeBack.debtManager = (function () {
                         } else {
                             if (result && typeof result.success !== 'undefined' && result.success === true) {
                                 // This worked
+                                getDebtsOwedToMeSummaryHtml();
                                 $.nyroModalRemove();
                             } else {
                                 var msg = "";
@@ -91,6 +92,29 @@ window.payMeBack.debtManager = (function () {
                 $("#add-debt-user-email").focus();
             }
         });
+    };
+
+    var getDebtsOwedToMeSummaryHtml = function () {
+        $.ajax({
+            url: window.payMeBack.core.makePathFromVirtual("~/summary/DebtsOwedToMe"),
+            type: "GET",
+            success: function (result) {
+                window.payMeBack.progressManager.hideProgressIndicator("debt-summary-section", function () {
+                    if (typeof result !== 'undefined') {
+                        $("#debts-owed-to-me").empty().html(result);
+                        // This worked
+                    }
+
+                });
+            },
+            error: function () {
+                window.payMeBack.progressManager.hideProgressIndicator("debt-summary-section", function () {
+                    var msg = "There was a problem adding the debt record to the system. Please try again.";
+                    window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError);
+                });
+            }
+        });
+
     };
 
     return {

@@ -19,12 +19,16 @@
 <section class="clear-fix" id="debt-summary-section">
 	
 	<h2>Summary of Debts</h2>
-
+    
     <h3>Debts that are owed you</h3>
-    @Html.Partial("_DebtSummaryList", Model.DebtsOwedToMe)
+    <div id="debts-owed-to-me">
+        @Html.Partial("_DebtSummaryList", Model.DebtsOwedToMe)
+    </div>
 
     <h3>Debts that you owe to others</h3>
-    @Html.Partial("_DebtSummaryList", Model.DebtsOwedToOthers)
+    <div id="debts-owed-to-others">
+        @Html.Partial("_DebtSummaryList", Model.DebtsOwedToOthers)
+    </div>
 
 </section>
 
