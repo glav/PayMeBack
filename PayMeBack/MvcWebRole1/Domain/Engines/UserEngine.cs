@@ -61,7 +61,11 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 				throw new SecurityException("Access token not valid");
 			}
 			var userDetail = _crudRepository.GetSingle<UserDetail>(u => u.Id == tokenRecord.AssociatedUserId);
-			return userDetail.ToModel();
+            if (userDetail != null)
+            {
+                return userDetail.ToModel();
+            }
+		    return null;
 		}
 
 		private UserDetail ValidateUserForSave(User user)

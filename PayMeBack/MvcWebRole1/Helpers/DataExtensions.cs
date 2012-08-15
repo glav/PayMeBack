@@ -19,8 +19,8 @@ namespace Glav.PayMeBack.Web.Helpers
 				Id = user.Id,
 				EmailAddress = user.EmailAddress,
 				FirstNames = user.FirstNames,
-				Surname = user.Surname,
-			};
+				Surname = user.Surname
+            };
 			return detail;
 		}
 
@@ -48,7 +48,12 @@ namespace Glav.PayMeBack.Web.Helpers
 			if (debt.PaymentInstallments != null && debt.PaymentInstallments.Count > 0)
 			{
 				detail.DebtPaymentInstallmentDetails = new List<DebtPaymentInstallmentDetail>();
-				debt.PaymentInstallments.ForEach(i=> detail.DebtPaymentInstallmentDetails.Add(i.ToDataRecord()));
+				debt.PaymentInstallments.ForEach(i=>
+				                                     {
+				                                         var dataRecord = i.ToDataRecord();
+				                                         dataRecord.DebtId = i.DebtId;
+				                                         detail.DebtPaymentInstallmentDetails.Add(dataRecord);
+				                                     });
 			}
 			return detail;
 		}
@@ -75,12 +80,25 @@ namespace Glav.PayMeBack.Web.Helpers
 
 								UserId = paymentPlan.User != null ? paymentPlan.User.Id : Guid.Empty
 			             	};
+            if (paymentPlan.User != null)
+            {
+                detail.UserDetail = paymentPlan.User.ToDataRecord();
+            }
 			detail.DebtDetails = new List<DebtDetail>();
 			// Only do the debts owed to the person. The user cannot change who they owe
 			// to and how much they owe, just who owes them
 			if (paymentPlan.DebtsOwedToMe != null)
 			{
-				paymentPlan.DebtsOwedToMe.ForEach(d => detail.DebtDetails.Add(d.ToDataRecord()));
+				paymentPlan.DebtsOwedToMe.ForEach(d =>
+				                                      {
+				                                          var dataRecord = d.ToDataRecord();
+                                                          if (paymentPlan.Id != Guid.Empty)
+                                                          {
+                                                              dataRecord.UserPaymentPlanId = paymentPlan.Id;
+                                                          }
+				                                          detail.DebtDetails.Add(dataRecord);
+
+				                                      });
 			}
 			return detail;
 		}
