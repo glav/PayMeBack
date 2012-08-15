@@ -19,12 +19,21 @@ namespace Glav.PayMeBack.Web.Controllers
 			_webMembershipManager = webMembershipManager;
 			_paymentPlanService = paymentPlanService;
 		}
-		[Authorize]
+		
+        [Authorize]
 		public ActionResult Index()
         {
         	var user = _webMembershipManager.GetUserFromRequestCookie();
         	var model = _paymentPlanService.GetPaymentPlan(user.Id);
             return View(model);
+        }
+
+        [Authorize]
+        public PartialViewResult DebtsOwedToMe()
+        {
+            var user = _webMembershipManager.GetUserFromRequestCookie();
+            var model = _paymentPlanService.GetPaymentPlan(user.Id);
+            return PartialView("_DebtSummaryList",model.DebtsOwedToMe);
         }
 
     }
