@@ -10,9 +10,9 @@ namespace Glav.PayMeBack.Web.Framework
 {
 	public class PayMeBackModelBinderProvider : ModelBinderProvider
 	{
-		public override IModelBinder GetBinder(System.Web.Http.Controllers.HttpActionContext actionContext, ModelBindingContext bindingContext)
+        public override IModelBinder GetBinder(HttpConfiguration configuration, Type modelType)
 		{
-			if (bindingContext.ModelType == typeof(User))
+			if (modelType == typeof(User))
 			{
 				var resolver = GlobalConfiguration.Configuration.DependencyResolver;
 				var binder = resolver.GetService(typeof (UserFromAccessTokenModelBinder));
@@ -20,5 +20,6 @@ namespace Glav.PayMeBack.Web.Framework
 			}
 			return null;
 		}
-	}
+
+    }
 }
