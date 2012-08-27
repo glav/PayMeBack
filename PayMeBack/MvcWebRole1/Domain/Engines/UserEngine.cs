@@ -74,11 +74,19 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 			{
 				throw new ArgumentException("No user data to save.");
 			}
+
 			if (string.IsNullOrWhiteSpace(user.EmailAddress))
 			{
 				throw new ArgumentException("Email cannot be empty");
 			}
-			UserDetail currentUser = null;
+
+            var emailValidator = new EmailValidator();
+            if (!emailValidator.IsValid(user.EmailAddress))
+            {
+                throw new ArgumentException("Invalid Email Address", user.EmailAddress);
+            }
+
+            UserDetail currentUser = null;
 			if (user.Id != Guid.Empty)
 			{
 				currentUser = _crudRepository.GetSingle<UserDetail>(u => u.Id == user.Id);
