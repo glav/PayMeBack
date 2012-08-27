@@ -69,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Glav.PayMeBack.Client\Glav.PayMeBack.Client.csproj">
-      <Project>{A8D252EC-E1E8-4BBF-AB9B-D829013FFA69}</Project>
+      <Project>{a8d252ec-e1e8-4bbf-ab9b-d829013ffa69}</Project>
       <Name>Glav.PayMeBack.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\Glav.PayMeBack.Core\Glav.PayMeBack.Core.csproj">

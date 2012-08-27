@@ -26,5 +26,6 @@ namespace Glav.PayMeBack.Core.Domain
 		public decimal AmountOwing { get; set; }
 		public DateTime? LastPaymentDate { get; set; }
 		public decimal LastAmountPaid { get; set; }
+        public User UserWhoOwesDebt { get; set; }
 	}
 }

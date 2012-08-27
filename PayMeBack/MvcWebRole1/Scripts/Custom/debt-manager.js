@@ -38,7 +38,7 @@ window.payMeBack.debtManager = (function () {
                         } else {
                             if (result && typeof result.success !== 'undefined' && result.success === true) {
                                 // This worked
-                                getDebtsOwedToMeSummaryHtml();
+                                getDebtSummaryHtml();
                                 $.nyroModalRemove();
                             } else {
                                 var msg = "";
@@ -55,11 +55,11 @@ window.payMeBack.debtManager = (function () {
                         }
                     });
                 },
-                error: function () {
+                error: function (e) {
                     window.payMeBack.progressManager.hideProgressIndicator("add-debt-container", function () {
                         $("#add-debt-container fieldset").fadeIn();
 
-                        var msg = "There was a problem addin the debt record to the system. Please try again.";
+                        var msg = "There was a problem adding the debt record to the system. Please try again.";
                         window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent", 5);
                     });
                 }
@@ -94,22 +94,23 @@ window.payMeBack.debtManager = (function () {
         });
     };
 
-    var getDebtsOwedToMeSummaryHtml = function () {
+    var getDebtSummaryHtml = function () {
         $.ajax({
             url: window.payMeBack.core.makePathFromVirtual("~/summary/DebtsOwedToMe"),
             type: "GET",
             success: function (result) {
                 window.payMeBack.progressManager.hideProgressIndicator("debt-summary-section", function () {
                     if (typeof result !== 'undefined') {
-                        $("#debts-owed-to-me").empty().html(result);
+                        $("#debt-summary-section").empty().html(result);
                         // This worked
                     }
 
                 });
             },
-            error: function () {
+            error: function (e) {
+                console.log(e);
                 window.payMeBack.progressManager.hideProgressIndicator("debt-summary-section", function () {
-                    var msg = "There was a problem adding the debt record to the system. Please try again.";
+                    var msg = "There was a problem retrieving the debt summary data. Please try again.";
                     window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError);
                 });
             }

@@ -23,17 +23,33 @@ namespace Glav.PayMeBack.Web.Controllers
         [Authorize]
 		public ActionResult Index()
         {
-        	var user = _webMembershipManager.GetUserFromRequestCookie();
-        	var model = _paymentPlanService.GetPaymentPlan(user.Id);
-            return View(model);
+            try
+            {
+                var user = _webMembershipManager.GetUserFromRequestCookie();
+                var model = _paymentPlanService.GetDebtSummaryForUser(user.Id);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Log it
+            }
+            return View();
         }
 
         [Authorize]
         public PartialViewResult DebtsOwedToMe()
         {
-            var user = _webMembershipManager.GetUserFromRequestCookie();
-            var model = _paymentPlanService.GetPaymentPlan(user.Id);
-            return PartialView("_DebtSummaryList",model.DebtsOwedToMe);
+            try
+            {
+                var user = _webMembershipManager.GetUserFromRequestCookie();
+                var model = _paymentPlanService.GetDebtSummaryForUser(user.Id);
+                return PartialView("_DebtSummaryList", model);
+            }
+            catch (Exception ex)
+            {
+                //TODO: log it
+            }
+            return PartialView("_DebtSummaryList");
         }
 
     }

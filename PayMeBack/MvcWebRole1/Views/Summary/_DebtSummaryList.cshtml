@@ -1,18 +1,45 @@
-﻿@model List<Glav.PayMeBack.Core.Domain.Debt>
+﻿@model Glav.PayMeBack.Core.Domain.DebtSummary
 
 @using Glav.PayMeBack.Core.Domain;
 
-@if (Model == null || Model.Count == 0)
-{
-    <h4>No Debts</h4>
-}
-else
-{
+	<h2>Summary of Debts</h2>
     
-    <ul>
-    @foreach (var debtItem in Model)
-    {
-        <li>Amount Owed: @debtItem.TotalAmountOwed by @debtItem.UserWhoOwesDebt.EmailAddress</li>
-    }
-    </ul>
-}
+    <h3>Debts that are owed to you</h3>
+    <div id="debts-owed-to-me">
+        <h4>Total Amount to you: @Model.TotalAmountOwedToYou</h4>
+
+        @if (Model.DebtsOwedToYou == null || Model.DebtsOwedToYou.Count == 0)
+        {
+            <h4>No Debts</h4>
+        }
+        else
+        {
+            <ul>
+            @foreach (var debtItem in Model.DebtsOwedToYou)
+            {
+                <li>Amount Owed: @debtItem.AmountOwing by @debtItem.UserWhoOwesDebt.EmailAddress</li>
+            }
+            </ul>
+        }
+
+    </div>
+
+    <h3>Debts that you owe to others</h3>
+    <div id="debts-owed-to-others">
+        <h4>Total Amount by you: @Model.TotalAmountYouOwe</h4>
+
+        @if (Model.DebtsYouOwe == null || Model.DebtsYouOwe.Count == 0)
+        {
+            <h4>No Debts</h4>
+        }
+        else
+        {
+            <ul>
+            @foreach (var debtItem in Model.DebtsYouOwe)
+            {
+                <li>Amount Owed: @debtItem.AmountOwing by @debtItem.UserWhoOwesDebt.EmailAddress</li>
+            }
+            </ul>
+        }
+    </div>
+

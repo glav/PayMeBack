@@ -134,12 +134,22 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		private void AddNewUsersIfRequired(UserPaymentPlan usersPaymentPlan)
 		{
 			usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
-													{
-														if (d.UserWhoOwesDebt.Id == Guid.Empty)
-														{
-															_userEngine.SaveOrUpdateUser(d.UserWhoOwesDebt);
-														}
-													});
+								{
+									if (d.UserWhoOwesDebt.Id == Guid.Empty)
+									{
+                                        // If an empty Id has been passed in, we still need to check
+                                        // if the user exists via their email address
+                                        var existingUser = _userEngine.GetUserByEmail(d.UserWhoOwesDebt.EmailAddress);
+                                        if (existingUser == null)
+                                        {
+                                            _userEngine.SaveOrUpdateUser(d.UserWhoOwesDebt);
+                                        }
+                                        else
+                                        {
+                                            d.UserWhoOwesDebt = existingUser;
+                                        }
+									}
+								});
 		}
 
 		private void AdjustDebtAggregateValues(UserPaymentPlan usersPaymentPlan)
@@ -231,7 +241,8 @@ namespace Glav.PayMeBack.Web.Domain.Services
 						AmountOwing = d.AmountLeftOwing(),
 						StartDate = d.StartDate,
 						LastAmountPaid = d.LastAmountPaid(),
-						LastPaymentDate = d.LastPaymentDate()
+						LastPaymentDate = d.LastPaymentDate(),
+                        UserWhoOwesDebt = d.UserWhoOwesDebt
 					});
 				}
 			});
@@ -245,7 +256,8 @@ namespace Glav.PayMeBack.Web.Domain.Services
 					                        		AmountOwing = d.AmountLeftOwing(),
 													StartDate = d.StartDate,
 													LastAmountPaid = d.LastAmountPaid(),
-													LastPaymentDate= d.LastPaymentDate()
+													LastPaymentDate= d.LastPaymentDate(),
+                                                    UserWhoOwesDebt = d.UserWhoOwesDebt
 					                        	});
 				}
 			});
