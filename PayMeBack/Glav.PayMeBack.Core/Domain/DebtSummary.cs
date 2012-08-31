@@ -16,7 +16,7 @@ namespace Glav.PayMeBack.Core.Domain
 		}
 		public decimal TotalAmountOwedToYou { get; set; }
 		public decimal TotalAmountYouOwe { get; set; }
-		public List<DebtSummaryItem> DebtsOwedToYou { get; set; }
+        public List<DebtSummaryItem> DebtsOwedToYou { get; set; }
 		public List<DebtSummaryItem> DebtsYouOwe { get; set; }
 	}
 

@@ -1,10 +1,5 @@
-/**
-* Created with JetBrains WebStorm.
-* User: Glav
-* Date: 31/07/12
-* Time: 5:31 PM
-* To change this template use File | Settings | File Templates.
-*/
+/// <reference path="../_references.js" />
+
 
 if (typeof window.payMeBack.login === 'undefined') {
     window.payMeBack.login = {};
@@ -17,24 +12,31 @@ window.payMeBack.login = (function () {
         return (typeof state !== 'undefined' && state === "true");
     };
 
-    var updateDisplayBasedOnSignedInStatus = function (isSignedIn) {
+    var updateDisplayBasedOnSignedInStatus = function (isSignedIn, firstname) {
         if (typeof isSignedIn === 'undefined') {
             isSignedIn = isUserSignedIn();
         }
         if (isSignedIn === true) {
             $(".hide-if-signed-in").hide();
             $(".show-if-signed-in").show();
+            if (typeof firstname !== 'undefined') {
+                // If a firstname supplied attempt to bind it to any elements
+                // that have a class of 'data-bind' and a {{firstname}} element in the text
+                // NOTE: Knockout could probably be used here
+                var textEl = $(".data-bind");
+                if (textEl.length > 0) {
+                    var replacedText = textEl.text().replace("{{firstname}}", firstname);
+                    textEl.text(replacedText);
+                }
+            }
         } else {
             $(".hide-if-signed-in").show();
             $(".show-if-signed-in").hide();
         }
     };
-    var submitCredentials = function (email, password, isSignup) {
-        var url, payload;
-        payload = {
-            email: email,
-            password: password
-        };
+    var submitCredentials = function (payload, isSignup) {
+        var url;
+
         if (isSignup === true) {
             url = window.payMeBack.core.makePathFromVirtual("~/membership/signup");
         } else {
@@ -64,7 +66,7 @@ window.payMeBack.login = (function () {
                         } else {
                             if (result && typeof result.success !== 'undefined' && result.success === true) {
                                 // This worked
-                                updateDisplayBasedOnSignedInStatus(true);
+                                updateDisplayBasedOnSignedInStatus(true, result.firstname);
                                 $.nyroModalRemove();
                             } else {
                                 updateDisplayBasedOnSignedInStatus(false);
@@ -102,9 +104,33 @@ window.payMeBack.login = (function () {
     };
 
     var captureCredentialsAndSubmit = function (isSignupAction) {
+        var payload = {};
         var email = $("#credentials-userId").val();
         var password = $("#credentials-userPassword").val();
-        submitCredentials(email, password, isSignupAction);
+
+        if (typeof email !== 'undefined' && typeof password !== 'undefined'
+                && email.trim() !== "" && password.trim() !== "") {
+            payload = {
+                email: email,
+                password: password
+            };
+
+            if (isSignupAction === true) {
+                var firstName = $("#signup-firstname").val();
+                var surname = $("#signup-surname").val();
+                if (typeof firstName !== 'undefined') {
+                    payload.firstname = firstName;
+                } else {
+                    payload.firstname = "";
+                }
+                if (typeof surname !== 'undefined') {
+                    payload.surname = surname;
+                } else {
+                    payload.surname = "";
+                }
+            }
+            submitCredentials(payload, isSignupAction);
+        }
     };
 
     var showLoginDialog = function (redirectToHomeOnClose, isSignUp) {
@@ -117,11 +143,16 @@ window.payMeBack.login = (function () {
             isSignupAction = isSignUp === true;
         }
 
+        var modalHeight = 200;
+        if (isSignupAction) {
+            modalHeight = 280;
+        }
+
         $.nyroModalManual(
           {
               url: '#credentials-dialog',
-              minHeight: 200,
-              height: 200,
+              minHeight: modalHeight,
+              height: modalHeight,
               minWidth: 350,
               width: 380,
               bgColor: window.payMeBack.core.colours.nyroModalBackground,

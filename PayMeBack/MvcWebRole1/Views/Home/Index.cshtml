@@ -20,7 +20,10 @@
     </section>
 
     <section id="intro-authenticated"  class="show-if-signed-in hidden">
-        <h3>Great to see you @Model.UserName</h3>
+        @{
+            var userName = !string.IsNullOrWhiteSpace(Model.UserName) ? Model.UserName : "{{firstname}}";
+        }
+        <h3 class="data-bind">Great to see you @userName</h3>
         
         <h4>What would you like to do?</h4>
         <ul>

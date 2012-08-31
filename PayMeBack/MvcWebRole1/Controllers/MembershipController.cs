@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Glav.PayMeBack.Web.Domain;
 using Glav.PayMeBack.Web.Domain.Services;
 using System.Web.Security;
+using Glav.PayMeBack.Core.Domain;
 
 namespace Glav.PayMeBack.Web.Controllers
 {
@@ -26,9 +27,10 @@ namespace Glav.PayMeBack.Web.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public JsonResult Signup(string email, string password)
+        public JsonResult Signup(string email, string password, string firstname, string surname)
         {
-            return Json(new { success = _membershipManager.SignupAndIssueCookie(email, password) });
+            var result =  _membershipManager.SignupAndIssueCookie(email, password,firstname,surname);
+            return FormJsonResult(result);
         }
 
         public ActionResult Logout()
@@ -40,7 +42,19 @@ namespace Glav.PayMeBack.Web.Controllers
         [System.Web.Mvc.HttpPost]
         public JsonResult Login(string email, string password)
         {
-            return Json(new { success = _membershipManager.LoginAndIssueCookie(email, password) });
+            var result = _membershipManager.LoginAndIssueCookie(email, password);
+            return FormJsonResult(result); 
+        }
+
+        private JsonResult FormJsonResult(MembershipResponseModel responseModel)
+        {
+            return Json(new
+            {
+                success = responseModel.IsSuccessfull,
+                firstname = responseModel.Firstname,
+                surname = responseModel.Surname,
+                email = responseModel.Email
+            });
         }
     }
 }

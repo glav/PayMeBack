@@ -19,14 +19,17 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		private Data.ICrudRepository _crudRepository;
 		private Data.IDebtRepository _debtRepository;
 		private ICacheProvider _cacheProvider;
+        private ICultureFormattingEngine _currencyEngine;
 		private const string UserPaymentPlanCacheKey = "UserPaymentPlan_{0}";
 
-		public PaymentPlanService(IUserEngine userEngine, Data.ICrudRepository crudRepository, Data.IDebtRepository debtRepository, ICacheProvider cacheProvider)
+		public PaymentPlanService(IUserEngine userEngine, Data.ICrudRepository crudRepository, Data.IDebtRepository debtRepository, 
+                            ICacheProvider cacheProvider, ICultureFormattingEngine currencyEngine)
 		{
 			_userEngine = userEngine;
 			_crudRepository = crudRepository;
 			_debtRepository = debtRepository;
 			_cacheProvider = cacheProvider;
+            _currencyEngine = currencyEngine;
 		}
 
 		public UserPaymentPlan GetPaymentPlan(Guid userId)
@@ -236,14 +239,17 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				if (d.IsOutstanding)
 				{
 					summary.TotalAmountOwedToYou += d.AmountLeftOwing();
-					summary.DebtsOwedToYou.Add(new DebtSummaryItem
-					{
-						AmountOwing = d.AmountLeftOwing(),
-						StartDate = d.StartDate,
-						LastAmountPaid = d.LastAmountPaid(),
-						LastPaymentDate = d.LastPaymentDate(),
+                    var amtOwing = d.AmountLeftOwing();
+                    var lastAmtPaid = d.LastAmountPaid();
+                    var debtItem = new DebtSummaryItem
+                    {
+                        AmountOwing = amtOwing,
+                        StartDate = d.StartDate,
+                        LastAmountPaid = lastAmtPaid,
+                        LastPaymentDate = d.LastPaymentDate(),
                         UserWhoOwesDebt = d.UserWhoOwesDebt
-					});
+                    };
+					summary.DebtsOwedToYou.Add(debtItem);
 				}
 			});
 			paymentPlan.DebtsOwedToOthers.ForEach(d =>
@@ -251,17 +257,20 @@ namespace Glav.PayMeBack.Web.Domain.Services
 				if (d.IsOutstanding)
 				{
 					summary.TotalAmountYouOwe += d.AmountLeftOwing();
-					summary.DebtsYouOwe.Add(new DebtSummaryItem
-					                        	{
-					                        		AmountOwing = d.AmountLeftOwing(),
-													StartDate = d.StartDate,
-													LastAmountPaid = d.LastAmountPaid(),
-													LastPaymentDate= d.LastPaymentDate(),
-                                                    UserWhoOwesDebt = d.UserWhoOwesDebt
-					                        	});
+                    var amtOwing = d.AmountLeftOwing();
+                    var lastAmtPaid = d.LastAmountPaid();
+                    var debtItem = new DebtSummaryItem
+                    {
+                        AmountOwing = amtOwing,
+                        StartDate = d.StartDate,
+                        LastAmountPaid = lastAmtPaid,
+                        LastPaymentDate = d.LastPaymentDate(),
+                        UserWhoOwesDebt = d.UserWhoOwesDebt
+                    };
+                    summary.DebtsYouOwe.Add(debtItem);
 				}
 			});
-			
+
 			return summary;
 		}
 
