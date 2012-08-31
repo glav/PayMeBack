@@ -49,7 +49,7 @@ namespace PayMeBackWeb.UnitTests.Controllers.ApiControllerTests
 			_cacheProvider = new Mock<ICacheProvider>();
 			_securityService = new OAuthSecurityService(_crudRepo.Object,_cacheProvider.Object);
 			_userRepo = new Mock<IUserRepository>();
-			_signupService = new SignupManager(new UserEngine(_crudRepo.Object, _securityService,_userRepo.Object), _securityService);
+			_signupService = new SignupManager(new UserEngine(_crudRepo.Object, _securityService,_userRepo.Object,new CacheProvider(new MemoryCacheAdapter(),null)), _securityService);
 			_controller = new OAuthController(_securityService, _signupService);
 		}
 

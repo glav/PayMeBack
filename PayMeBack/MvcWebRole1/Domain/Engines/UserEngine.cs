@@ -7,6 +7,7 @@ using Glav.PayMeBack.Core.Domain;
 using Glav.PayMeBack.Web.Data;
 using Glav.PayMeBack.Core;
 using Glav.PayMeBack.Web.Domain.Services;
+using Glav.CacheAdapter.Core;
 
 namespace Glav.PayMeBack.Web.Domain.Engines
 {
@@ -19,19 +20,22 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 		private ICrudRepository _crudRepository;
 		private IOAuthSecurityService _securityService;
 		private IUserRepository _userRepository;
+        private ICacheProvider _cacheProvider;
+        public const int CacheTimeInMinutes = 60;
 
-		public UserEngine(ICrudRepository crudRepository, IOAuthSecurityService securityService, IUserRepository userRepository)
+		public UserEngine(ICrudRepository crudRepository, IOAuthSecurityService securityService, IUserRepository userRepository, ICacheProvider cacheProvider)
 		{
 			_crudRepository = crudRepository;
 			_securityService = securityService;
 			_userRepository = userRepository;
-
+            _cacheProvider = cacheProvider;
 		}
 		public User GetUserByEmail(string emailAddress)
 		{
-			//TODO: Use cache
-
-			var userDetail = _crudRepository.GetSingle<UserDetail>(u => u.EmailAddress == emailAddress);
+            var userDetail = _cacheProvider.Get<UserDetail>(emailAddress, DateTime.Now.AddMinutes(CacheTimeInMinutes), () =>
+                {
+                    return _crudRepository.GetSingle<UserDetail>(u => u.EmailAddress == emailAddress);
+                });
 			if (userDetail == null)
 			{
 				return null;
@@ -41,16 +45,22 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 
 		public User GetUserById(Guid id)
 		{
-			//TODO: Use cache
-
-			var userDetail = _crudRepository.GetSingle<UserDetail>(u => u.Id == id);
+            var userDetail = GetUserRecordByIdUsingCache(id);
 			return userDetail.ToModel();
 		}
 
-		public User GetUserByAccessToken(string token)
-		{
-			//TODO: Use cache
+        private UserDetail GetUserRecordByIdUsingCache(Guid id)
+        {
+            var userDetail = _cacheProvider.Get<UserDetail>(id.ToString(), DateTime.Now.AddMinutes(CacheTimeInMinutes), () =>
+            {
+                return _crudRepository.GetSingle<UserDetail>(u => u.Id == id);
+            });
 
+            return userDetail;
+        }
+
+        public User GetUserByAccessToken(string token)
+		{
 			var tokenRecord = _crudRepository.GetSingle<OAuthToken>(t => t.AccessToken == token);
 			if (token == null)
 			{
@@ -60,7 +70,7 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 			{
 				throw new SecurityException("Access token not valid");
 			}
-			var userDetail = _crudRepository.GetSingle<UserDetail>(u => u.Id == tokenRecord.AssociatedUserId);
+            var userDetail = GetUserRecordByIdUsingCache(tokenRecord.AssociatedUserId);
             if (userDetail != null)
             {
                 return userDetail.ToModel();
@@ -89,7 +99,7 @@ namespace Glav.PayMeBack.Web.Domain.Engines
             UserDetail currentUser = null;
 			if (user.Id != Guid.Empty)
 			{
-				currentUser = _crudRepository.GetSingle<UserDetail>(u => u.Id == user.Id);
+                currentUser = GetUserRecordByIdUsingCache(user.Id);
 			}
 			else
 			{
@@ -107,6 +117,7 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 		}
 		public void SaveOrUpdateUser(User user, string password = null)
 		{
+
 			var currentUser = ValidateUserForSave(user);
 			if (currentUser == null)
 			{
@@ -119,7 +130,15 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 			}
 			MapUserToUserDetail(user,currentUser,password);
 			_crudRepository.Update<UserDetail>(currentUser);
+            InvalidateCacheForUser(user);
+
 		}
+
+        private void InvalidateCacheForUser(User user)
+        {
+            _cacheProvider.InvalidateCacheItem(user.EmailAddress);
+            _cacheProvider.InvalidateCacheItem(user.Id.ToString());
+        }
 
 		private void MapUserToUserDetail(User user, UserDetail userDetail, string password = null)
 		{
@@ -139,11 +158,13 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 			{
 				user.IsValidated = true;
 				_crudRepository.Update<UserDetail>(user);
+                InvalidateCacheForUser(user.ToModel());
 			}
 		}
 
 		public void DeleteUser(User user)
 		{
+            InvalidateCacheForUser(user);
 			_crudRepository.Delete<UserDetail>(u => u.Id == user.Id);
 		}
 

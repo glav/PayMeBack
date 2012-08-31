@@ -21,6 +21,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -191,13 +195,16 @@
     <Compile Include="Data\UserRepository.cs" />
     <Compile Include="Domain\ApiDependencyResolver.cs" />
     <Compile Include="Domain\DetailModelDataExtensions.cs" />
+    <Compile Include="Domain\Engines\CultureFormattingEngine.cs" />
     <Compile Include="Domain\Engines\HelpEngine.cs" />
+    <Compile Include="Domain\Engines\ICultureFormattingEngine.cs" />
     <Compile Include="Domain\Engines\IHelpEngine.cs" />
     <Compile Include="Domain\Engines\IUsageLogger.cs" />
     <Compile Include="Domain\Engines\UsageLogger.cs" />
     <Compile Include="Domain\IWebMembershipManager.cs" />
     <Compile Include="Domain\WebMembershipManager.cs" />
     <Compile Include="Framework\ApiUsageHandler.cs" />
+    <Compile Include="Framework\BundleManager.cs" />
     <Compile Include="Framework\PayMeBackModelBinderProvider.cs" />
     <Compile Include="Framework\UserFromAccessTokenModelBinder.cs" />
     <Compile Include="Framework\XmlCommentDocProvider.cs" />
@@ -241,6 +248,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlCurrencyHelper.cs" />
     <Compile Include="Helpers\MobileViewHelper.cs" />
     <Compile Include="Helpers\WebDependencyBuilder.cs" />
     <Compile Include="Models\AccountModels.cs" />

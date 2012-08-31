@@ -23,25 +23,33 @@ namespace Glav.PayMeBack.Web.Domain
 			_userEngine = userEngine;
 		}
 
-		public bool SignupAndIssueCookie(string email, string password)
+        public MembershipResponseModel SignupAndIssueCookie(string email, string password, string firstname, string surname)
 		{
-			var response = _signupManager.SignUpNewUser(email, null, null, password);
+            var serviceResponse = new MembershipResponseModel { Firstname = firstname, Surname = surname, Email = email };
+            var response = _signupManager.SignUpNewUser(email, firstname, surname, password);
+            serviceResponse.IsSuccessfull = response.IsSuccessfull;
 			if (response.IsSuccessfull)
 			{
 				CreateCookieWithAuthTokenAndSetResponse(email, response.AccessGrant.access_token, response.AccessGrant.refresh_token);
 			}
 
-			return response.IsSuccessfull;
+            return serviceResponse;
 		}
 
-		public bool LoginAndIssueCookie(string email, string password)
+		public MembershipResponseModel LoginAndIssueCookie(string email, string password)
 		{
+            var serviceResponse = new MembershipResponseModel { Email = email };
+
 			var response = _oAuthSecurityService.AuthorisePasswordCredentialsGrant(email, password, "modify");
-			if (response.IsSuccessfull)
+            serviceResponse.IsSuccessfull = response.IsSuccessfull;
+            if (response.IsSuccessfull)
 			{
 				CreateCookieWithAuthTokenAndSetResponse(email, response.AccessGrant.access_token, response.AccessGrant.refresh_token);
-			}
-			return response.IsSuccessfull;
+                var user = _userEngine.GetUserByEmail(email);
+                serviceResponse.Firstname = user.FirstNames;
+                serviceResponse.Surname = user.Surname;
+            }
+            return serviceResponse;
 		}
 
 		private void CreateCookieWithAuthTokenAndSetResponse(string email, string accessToken, string refreshToken)

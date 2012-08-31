@@ -8,8 +8,8 @@ namespace Glav.PayMeBack.Web.Domain
 {
 	public interface IWebMembershipManager
 	{
-		bool SignupAndIssueCookie(string email, string password);
-		bool LoginAndIssueCookie(string email, string password);
+        MembershipResponseModel SignupAndIssueCookie(string email, string password, string firstname, string surname);
+        MembershipResponseModel LoginAndIssueCookie(string email, string password);
 		User GetUserFromRequestCookie();
 		void Logout();
 	}

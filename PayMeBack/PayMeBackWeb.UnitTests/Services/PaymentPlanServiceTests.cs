@@ -23,6 +23,7 @@ namespace PayMeBackWeb.UnitTests.Services
 		private Mock<Data.ICrudRepository> _crudRepo;
 		private Mock<Data.IDebtRepository> _debtRepo;
 		private Mock<ICacheProvider> _cacheProvider;
+        private Mock<ICultureFormattingEngine> _currencyEngine;
 
 		[TestMethod]
 		public void ShouldBeAbleToCreateANewPaymentPlanForAUserIfNoPlanExists()
@@ -342,8 +343,9 @@ namespace PayMeBackWeb.UnitTests.Services
 			_userEngine = new Mock<IUserEngine>();
 			_debtRepo = new Mock<Data.IDebtRepository>();
 			_cacheProvider = new Mock<ICacheProvider>();
+            _currencyEngine = new Mock<ICultureFormattingEngine>();
 
-			_paymentPlanService = new PaymentPlanService(_userEngine.Object, _crudRepo.Object, _debtRepo.Object, _cacheProvider.Object);
+			_paymentPlanService = new PaymentPlanService(_userEngine.Object, _crudRepo.Object, _debtRepo.Object, _cacheProvider.Object, _currencyEngine.Object);
 		}
 	}
 }
