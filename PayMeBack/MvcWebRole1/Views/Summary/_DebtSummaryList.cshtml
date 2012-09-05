@@ -2,12 +2,16 @@
 @using Glav.PayMeBack.Web.Helpers;
 
 @using Glav.PayMeBack.Core.Domain;
+@{
+    int rowCount = 0;
+    string alternatingRowStyle = null;
+}
 
 	<h2>Summary of Debts</h2>
     
     <h3>Debts that are owed to you</h3>
     <div id="debts-owed-to-me">
-        <h4>Total Amount to you: @Html.ToCurrencyDisplay(Model.TotalAmountOwedToYou)</h4>
+        <h4>Total Amount owed to you: <span class="total-owed-amount">@Html.ToCurrencyDisplay(Model.TotalAmountOwedToYou)</span></h4>
 
         @if (Model.DebtsOwedToYou == null || Model.DebtsOwedToYou.Count == 0)
         {
@@ -15,25 +19,28 @@
         }
         else
         {
-            <table>
+            <table id="debt-summary-owed" class="debt-summary-table">
                 <thead>
                     <tr>
-                        <th>Who</th>
-                        <th>Amount</th>
-                        <th>Started</th>
-                        <th>Last Paid</th>
-                        <th>Last Date of Payment</th>
+                        <th class="col-hdr-who">Who</th>
+                        <th class="col-hdr-amt">Amount</th>
+                        <th class="col-hdr-started">Started</th>
+                        <th class="col-hdr-last-paid-amt">Last Paid</th>
+                        <th class="col-hdr-last-paid-date">Last Date of Payment</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @{rowCount = 0;}
                     @foreach (var debtItem in Model.DebtsOwedToYou)
                     {
-                        <tr>
-                            <td>@debtItem.UserWhoOwesDebt.EmailAddress</td>
-                            <td>@Html.ToCurrencyDisplay(debtItem.AmountOwing)</td>
-                            <td>@Html.ToDisplayDate(debtItem.StartDate)</td>
-                            <td>@Html.ToDisplayDate(debtItem.LastPaymentDate)</td>
-                            <td>@Html.ToCurrencyDisplay(debtItem.LastAmountPaid)</td>
+                        rowCount++;
+                        alternatingRowStyle = rowCount % 2 == 0 ? "odd" : "even";
+                        <tr class="@alternatingRowStyle">
+                            <td class="col-who">@debtItem.UserWhoOwesDebt.EmailAddress</td>
+                            <td class="col-amt">@Html.ToCurrencyDisplay(debtItem.AmountOwing)</td>
+                            <td class="col-started">@Html.ToDisplayDate(debtItem.StartDate)</td>
+                            <td class="col-last-paid-amt">@Html.ToCurrencyDisplay(debtItem.LastAmountPaid)</td>
+                            <td class="col-last-paid-date">@Html.ToDisplayDate(debtItem.LastPaymentDate)</td>
                         </tr>
                     }
                 </tbody>
@@ -44,7 +51,7 @@
 
     <h3>Debts that you owe to others</h3>
     <div id="debts-owed-to-others">
-        <h4>Total Amount by you: @Html.ToCurrencyDisplay(Model.TotalAmountYouOwe)</h4>
+        <h4>Total Amount owed by you: <span class="total-owed-amount">@Html.ToCurrencyDisplay(Model.TotalAmountYouOwe)</span></h4>
 
         @if (Model.DebtsYouOwe == null || Model.DebtsYouOwe.Count == 0)
         {
@@ -52,25 +59,28 @@
         }
         else
         {
-            <table>
+            <table id="debt-summary-owing" class="debt-summary-table">
                 <thead>
                     <tr>
-                        <th>Who</th>
-                        <th>Amount</th>
-                        <th>Started</th>
-                        <th>Last Paid</th>
-                        <th>Last Date of Payment</th>
+                        <th class="col-hdr-who">Who</th>
+                        <th class="col-hdr-amt">Amount</th>
+                        <th class="col-hdr-started">Started</th>
+                        <th class="col-hdr-last-paid-amt">Last Paid</th>
+                        <th class="col-hdr-last-paid-date">Last Date of Payment</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @{rowCount = 0;}
                     @foreach (var debtItem in Model.DebtsYouOwe)
                     {
-                        <tr>
-                            <td>@debtItem.UserWhoOwesDebt.EmailAddress</td>
-                            <td>@Html.ToCurrencyDisplay(debtItem.AmountOwing)</td>
-                            <td>@Html.ToDisplayDate(debtItem.StartDate)</td>
-                            <td>@Html.ToDisplayDate(debtItem.LastPaymentDate)</td>
-                            <td>@Html.ToCurrencyDisplay(debtItem.LastAmountPaid)</td>
+                        rowCount++;
+                        alternatingRowStyle = rowCount % 2 == 0 ? "odd" : "even";
+                        <tr class="@alternatingRowStyle">
+                            <td class="col-who">@debtItem.UserWhoOwesDebt.EmailAddress</td>
+                            <td class="col-amt">@Html.ToCurrencyDisplay(debtItem.AmountOwing)</td>
+                            <td class="col-started">@Html.ToDisplayDate(debtItem.StartDate)</td>
+                            <td class="col-last-paid-amt">@Html.ToCurrencyDisplay(debtItem.LastAmountPaid)</td>
+                            <td class="col-last-paid-date">@Html.ToDisplayDate(debtItem.LastPaymentDate)</td>
                         </tr>
                     }
                 </tbody>

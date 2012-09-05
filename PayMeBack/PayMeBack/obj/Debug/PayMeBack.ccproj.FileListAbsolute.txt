@@ -1,0 +1,1 @@
+D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack\bin\Debug\ServiceConfiguration.cscfg

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="PayMeBack">
+</Property><Property Name="Solution File" Value="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack.sln">
+</Property><Property Name="Date" Value="Sunday, 5 August 2012">
+</Property><Property Name="Time" Value="16:08 PM">
+</Property></Properties><Event ErrorLevel="0" Project="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack\PayMeBack.ccproj" Source="PayMeBack\ServiceDefinition.csdef" Description="Updated ServiceConfiguration element schemaVersion attribute to '2012-05.1.7'.">
+</Event><Event ErrorLevel="3" Project="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack\PayMeBack.ccproj" Source="PayMeBack\ServiceDefinition.csdef" Description="Converted">
+</Event><Event ErrorLevel="0" Project="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack\PayMeBack.ccproj" Source="PayMeBack\ServiceConfiguration.Local.cscfg" Description="Updated ServiceDefinition element schemaVersion attribute to '2012-05.1.7'.">
+</Event><Event ErrorLevel="3" Project="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack\PayMeBack.ccproj" Source="PayMeBack\ServiceConfiguration.Local.cscfg" Description="Converted">
+</Event><Event ErrorLevel="0" Project="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack\PayMeBack.ccproj" Source="PayMeBack\ServiceConfiguration.Cloud.cscfg" Description="Updated ServiceDefinition element schemaVersion attribute to '2012-05.1.7'.">
+</Event><Event ErrorLevel="3" Project="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack\PayMeBack.ccproj" Source="PayMeBack\ServiceConfiguration.Cloud.cscfg" Description="Converted">
+</Event><Event ErrorLevel="0" Project="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack\PayMeBack.ccproj" Source="PayMeBack\PayMeBack.ccproj" Description="Upgraded ProductVersion value to 1.7.">
+</Event><Event ErrorLevel="3" Project="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack\PayMeBack.ccproj" Source="PayMeBack\PayMeBack.ccproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack\PayMeBack.ccproj" Source="PayMeBack\PayMeBack.ccproj" Description="Added UseIISExpressByDefault value 'false'.">
+</Event><Event ErrorLevel="0" Project="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\PayMeBack\PayMeBack.ccproj" Source="PayMeBack\PayMeBack.ccproj" Description="Upgraded CloudExtensionsDir value to $(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Windows Azure Tools\1.7\.">
+</Event><Event ErrorLevel="0" Project="Glav.PayMeBack.Web" Source="MvcWebRole1\Glav.PayMeBack.Web.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Glav.PayMeBack.Web" Source="MvcWebRole1\Glav.PayMeBack.Web.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="PayMeBackWeb.UnitTests" Source="PayMeBackWeb.UnitTests\PayMeBackWeb.UnitTests.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="PayMeBackWeb.UnitTests" Source="PayMeBackWeb.UnitTests\PayMeBackWeb.UnitTests.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="Glav.PayMeBack.Client" Source="Glav.PayMeBack.Client\Glav.PayMeBack.Client.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Glav.PayMeBack.Client" Source="Glav.PayMeBack.Client\Glav.PayMeBack.Client.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="Glav.PayMeBack.Core" Source="Glav.PayMeBack.Core\Glav.PayMeBack.Core.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Glav.PayMeBack.Core" Source="Glav.PayMeBack.Core\Glav.PayMeBack.Core.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="Glav.PayMeBack.Client.Tests" Source="Glav.PayMeBack.Client.Tests\Glav.PayMeBack.Client.Tests.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Glav.PayMeBack.Client.Tests" Source="Glav.PayMeBack.Client.Tests\Glav.PayMeBack.Client.Tests.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="Glav.PayMeBack.IntegrationTests" Source="Glav.PayMeBack.IntegrationTests\Glav.PayMeBack.IntegrationTests.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Glav.PayMeBack.IntegrationTests" Source="Glav.PayMeBack.IntegrationTests\Glav.PayMeBack.IntegrationTests.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="" Source="PayMeBack.sln" Description="The solution file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="" Source="PayMeBack.sln" Description="No Conversion Required">
+</Event></UpgradeLog>

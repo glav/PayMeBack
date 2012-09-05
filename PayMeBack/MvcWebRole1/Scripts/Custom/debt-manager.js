@@ -6,6 +6,11 @@ if (typeof window.payMeBack.debtManager === 'undefined') {
 
 window.payMeBack.debtManager = (function () {
 
+    $.ajaxSetup({
+        // Disable caching of AJAX responses
+        cache: false
+    });
+
     var captureFormData = function () {
         return {
             emailAddress: $("#add-debt-user-email").val(),
@@ -29,6 +34,7 @@ window.payMeBack.debtManager = (function () {
                 data: JSON.stringify(debtData),
                 contentType: 'application/json',
                 dataType: "json",
+                cache:false,
                 success: function (result) {
                     window.payMeBack.progressManager.hideProgressIndicator("add-debt-container", function () {
                         if (result && typeof result.error !== 'undefined') {
@@ -90,6 +96,7 @@ window.payMeBack.debtManager = (function () {
                 });
 
                 $("#add-debt-user-email").focus();
+                window.payMeBack.inputManager.maskAllMoneyInputControls();
             }
         });
     };

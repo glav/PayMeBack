@@ -16,9 +16,13 @@ header {
 		float: left;
 	}
 	
-	header h1, header h3 {
+	header h1, header h4, header div img {
 		float: left;
 	}
+        header div h4 {
+            color:#419716;
+            padding-top: 5px;
+        }
 	
 	header h3 {
 		padding: 14px 0;
@@ -197,3 +201,56 @@ div.status-message {
             #add-debt-container fieldset.dialog-form ul li select {
                 width: 150px;
             }
+
+/************ Debt Summary Section */
+#debt-summary-section {
+    border-top: 3px solid #A2A2A2;
+    border-bottom: 1px solid #A2A2A2;
+}
+    #debt-summary-section h3 {
+        margin: 0 10px;
+        background-image:url(../images/SummaryHeadingBground.png);
+        border-radius: 8px;
+        -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;
+
+        color: #d4ff95;
+        height: 34px;
+        padding-left: 30px;
+        padding-top: 6px;
+        width: 360px;
+    }
+    #debt-summary-section div {
+        margin-bottom: 40px;
+        margin-left:60px;
+    }
+
+span.total-owed-amount {
+    color:#b23737;
+}
+
+/********* Debt Summary Tables *************/
+table.debt-summary-table {
+}
+    table.debt-summary-table tr.odd {
+    }
+    table.debt-summary-table tr.even {
+        background-color:#d7ffd9;
+    }
+    
+    table.debt-summary-table td {
+        padding:1px 8px;
+    }
+
+    table.debt-summary-table th.col-hdr-who, table.debt-summary-table td.col-who {
+        text-align:center;
+    }
+    table.debt-summary-table th.col-hdr-amt, table.debt-summary-table td.col-amt,
+    table.debt-summary-table th.col-hdr-last-paid-amt, table.debt-summary-table td.col-last-paid-amt  {
+        text-align:right;
+        width:100px;
+    }
+
+        table.debt-summary-table th.col-hdr-last-paid-date, table.debt-summary-table td.col-last-paid-date {
+            text-align:center;
+        }

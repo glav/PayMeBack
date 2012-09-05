@@ -1,0 +1,534 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="9f793e7c-1162-4907-8122-69f5b18c621e" name="Paul@GLAVTOP 2012-08-15 18:10:27" runUser="GLAVTOP\Paul" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="d23f8251-c841-4598-9abe-942041d14e8c">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment runDeploymentRoot="Paul_GLAVTOP 2012-08-15 18_10_27">
+      <DeploymentItem filename="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\Dependecies\Autofac-2.4.4.705-NET40\Autofac.dll" />
+      <DeploymentItem filename="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\Glav.PayMeBack.Core\bin\Debug\Glav.PayMeBack.Core.dll" />
+      <DeploymentItem filename="D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\MvcWebRole1\bin\Glav.PayMeBack.Web.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific>
+        <UnitTestRunConfig testTypeId="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b">
+          <AssemblyResolution>
+            <TestDirectory useLoadContext="true" />
+          </AssemblyResolution>
+        </UnitTestRunConfig>
+        <WebTestRunConfiguration testTypeId="4e7599fa-5ecb-43e9-a887-cd63cf72d207">
+          <Browser name="Internet Explorer 7.0">
+            <Headers>
+              <Header name="User-Agent" value="Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)" />
+              <Header name="Accept" value="*/*" />
+              <Header name="Accept-Language" value="{{$IEAcceptLanguage}}" />
+              <Header name="Accept-Encoding" value="GZIP" />
+            </Headers>
+          </Browser>
+        </WebTestRunConfiguration>
+      </TestTypeSpecific>
+      <AgentRule name="LocalMachineDefaultRole">
+        <DataCollectors>
+          <DataCollector uri="datacollector://microsoft/CodeCoverage/1.0" assemblyQualifiedName="Microsoft.VisualStudio.TestTools.CodeCoverage.CoveragePlugIn, Microsoft.VisualStudio.QualityTools.Plugins.CodeCoverage, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" friendlyName="Code Coverage">
+          </DataCollector>
+        </DataCollectors>
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-08-15T18:10:27.2904564+10:00" queuing="2012-08-15T18:10:28.5717419+10:00" start="2012-08-15T18:10:28.6498691+10:00" finish="2012-08-15T18:10:35.6043051+10:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="20" executed="20" passed="18" error="0" failed="2" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="CanRetrieveDebtsIOweToOthers" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="d348c1a1-5988-e632-ea7b-b77dc3143110">
+      <Execution id="9b32de85-1e05-46f1-8a64-9e3331060e2b" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="CanRetrieveDebtsIOweToOthers" />
+    </UnitTest>
+    <UnitTest name="ShouldBeAbleToSaveUnvalidatedUserWithOnlyEmailAddress" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="b808ccdc-95ed-da36-2492-84e3a0485a5e">
+      <Execution id="bf427e80-b476-4eba-9935-2f98258ab709" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.EngineTests.UserEngineTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldBeAbleToSaveUnvalidatedUserWithOnlyEmailAddress" />
+    </UnitTest>
+    <UnitTest name="EnsureValidUserCannotDeleteDebtNotBelongingToThem" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="50da6079-fcc9-3c27-2ff7-23ec27920291">
+      <Execution id="edf52dd7-c0dd-4350-918c-54ad299b0872" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="EnsureValidUserCannotDeleteDebtNotBelongingToThem" />
+    </UnitTest>
+    <UnitTest name="SHouldBeAbleToSignUpAndSignIn" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="bd75bfee-d75a-afac-7b4e-f8eeab7139e2">
+      <Execution id="c3c55e54-80c9-48ed-9f1f-16a06803cddb" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.SignupServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="SHouldBeAbleToSignUpAndSignIn" />
+    </UnitTest>
+    <UnitTest name="ShouldNotBeAbleToAddPaymentInstallmentToDebtIfNoMoreDebtOwed" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="e5a29dab-58d6-3bfa-be38-a0ba556c81c6">
+      <Execution id="58220275-61be-4792-95c4-d7495e58013c" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldNotBeAbleToAddPaymentInstallmentToDebtIfNoMoreDebtOwed" />
+    </UnitTest>
+    <UnitTest name="CanNotChangeDebtsOwedToOthers" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="edf32688-f572-5eae-c381-554d0bf15674">
+      <Execution id="9f87796e-b1ba-4aa9-9db6-46fcddff23f0" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="CanNotChangeDebtsOwedToOthers" />
+    </UnitTest>
+    <UnitTest name="ShouldBeAbleToAddPaymentInstallmentToDebt" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="5fd23d7e-4595-35fc-0d45-04ddfd00357d">
+      <Execution id="c54a8e75-12e9-4f14-8e40-79b4c0026343" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldBeAbleToAddPaymentInstallmentToDebt" />
+    </UnitTest>
+    <UnitTest name="ShouldBeAbleToAddDebtToUserPaymentPlan" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="3dd59a0e-4e4a-df53-9231-37a61ee1389c">
+      <Execution id="3a0645bb-0ae2-445d-8a69-a4e0b4acc37c" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldBeAbleToAddDebtToUserPaymentPlan" />
+    </UnitTest>
+    <UnitTest name="CanAddDebtOwedToMe" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="71cfd287-2959-021c-fc59-c0e9017df7ad">
+      <Execution id="01ee6c65-b072-4fdf-a95a-2d0ac41fafeb" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="CanAddDebtOwedToMe" />
+    </UnitTest>
+    <UnitTest name="ShouldNotBeAbleToSaveNewUnvalidatedUserWithSameEmailAsExistingUser" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="e9188809-41f6-48b4-7b33-bb563fe9b401">
+      <Execution id="dac33d2b-631c-4927-8067-f1bae416de36" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.EngineTests.UserEngineTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldNotBeAbleToSaveNewUnvalidatedUserWithSameEmailAsExistingUser" />
+    </UnitTest>
+    <UnitTest name="ShouldBeAbleToAddMultipleDebtsToUserPaymentPlan" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="e7df2b0d-2d99-7c60-2105-111c1a6281d9">
+      <Execution id="7730b1d6-9e79-453b-8a79-41418f3c76ec" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldBeAbleToAddMultipleDebtsToUserPaymentPlan" />
+    </UnitTest>
+    <UnitTest name="ShouldReturnAllUsers" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="2aa22940-96fb-27df-7452-07b4b151f94a">
+      <Execution id="dae233de-4341-48fd-8f1f-a37f92051317" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.EngineTests.UserEngineTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldReturnAllUsers" />
+    </UnitTest>
+    <UnitTest name="ShouldBeAbleToSignInAndGetUserPaymentPlan" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="44aa9cc8-6033-5338-2c45-cc41905f5ded">
+      <Execution id="b108af3a-753c-4ffe-b998-ad1b38617bae" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldBeAbleToSignInAndGetUserPaymentPlan" />
+    </UnitTest>
+    <UnitTest name="ShouldNotBeAbleToSignInWithEmptyPasswordEvenIfValidated" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="84a45382-ae95-43a9-6b01-8fd21d3e8048">
+      <Execution id="a1101b0e-5a31-45aa-9dc2-8166003ef127" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.SignupServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldNotBeAbleToSignInWithEmptyPasswordEvenIfValidated" />
+    </UnitTest>
+    <UnitTest name="ShouldNotBeAbleToSignInWhenUserNotValidated" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="17c7ec79-6552-46be-8f36-803c891feba8">
+      <Execution id="13075938-1814-4f4d-8622-6bd5fc6f3973" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.SignupServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldNotBeAbleToSignInWhenUserNotValidated" />
+    </UnitTest>
+    <UnitTest name="CannotSaveUserWithoutEmail" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="85e231ee-64a4-7645-8905-c8a7a23597ed">
+      <Execution id="a1eec0d5-bc3b-40e1-a8c6-bb73e19c833b" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.EngineTests.UserEngineTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="CannotSaveUserWithoutEmail" />
+    </UnitTest>
+    <UnitTest name="EnsureValidUserCanDeleteDebtBelongingToThem" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="92773650-8826-3e75-eae2-0e28a1cca5ae">
+      <Execution id="88fd7893-a737-49de-a146-e9f51e66e17e" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="EnsureValidUserCanDeleteDebtBelongingToThem" />
+    </UnitTest>
+    <UnitTest name="ShouldReturnOnlyUsersMatchingSearchByCriteria" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="e66999b4-76df-6f8e-320f-b513663fb5dd">
+      <Execution id="3581180d-363a-472b-b283-e5c4c273f1a3" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.EngineTests.UserEngineTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldReturnOnlyUsersMatchingSearchByCriteria" />
+    </UnitTest>
+    <UnitTest name="CanProvideSummaryOfDebtOwedToMe" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="dcdb223f-53ea-6ec4-c18b-1149cc9d0f08">
+      <Execution id="796624fc-00fe-4679-b251-f7c1439d0d60" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="CanProvideSummaryOfDebtOwedToMe" />
+    </UnitTest>
+    <UnitTest name="ShouldReturnOnlyUsersMatchingSearchByCriteriaUsingPaging" storage="d:\data\development\dev projects\paymeback\paymeback\glav.paymeback.integrationtests\bin\debug\glav.paymeback.integrationtests.dll" id="8710e914-fbad-7734-a8f3-b91a572260e9">
+      <Execution id="36d2fbb5-68e8-43f1-8b36-a41a687312ce" />
+      <TestMethod codeBase="D:/Data/Development/Dev Projects/PayMeBack/PayMeBack/Glav.PayMeBack.IntegrationTests/bin/Debug/Glav.PayMeBack.IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Glav.PayMeBack.IntegrationTests.EngineTests.UserEngineTests, Glav.PayMeBack.IntegrationTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ShouldReturnOnlyUsersMatchingSearchByCriteriaUsingPaging" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="44aa9cc8-6033-5338-2c45-cc41905f5ded" executionId="b108af3a-753c-4ffe-b998-ad1b38617bae" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3dd59a0e-4e4a-df53-9231-37a61ee1389c" executionId="3a0645bb-0ae2-445d-8a69-a4e0b4acc37c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7df2b0d-2d99-7c60-2105-111c1a6281d9" executionId="7730b1d6-9e79-453b-8a79-41418f3c76ec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5fd23d7e-4595-35fc-0d45-04ddfd00357d" executionId="c54a8e75-12e9-4f14-8e40-79b4c0026343" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e5a29dab-58d6-3bfa-be38-a0ba556c81c6" executionId="58220275-61be-4792-95c4-d7495e58013c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="71cfd287-2959-021c-fc59-c0e9017df7ad" executionId="01ee6c65-b072-4fdf-a95a-2d0ac41fafeb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dcdb223f-53ea-6ec4-c18b-1149cc9d0f08" executionId="796624fc-00fe-4679-b251-f7c1439d0d60" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="edf32688-f572-5eae-c381-554d0bf15674" executionId="9f87796e-b1ba-4aa9-9db6-46fcddff23f0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d348c1a1-5988-e632-ea7b-b77dc3143110" executionId="9b32de85-1e05-46f1-8a64-9e3331060e2b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="50da6079-fcc9-3c27-2ff7-23ec27920291" executionId="edf52dd7-c0dd-4350-918c-54ad299b0872" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="92773650-8826-3e75-eae2-0e28a1cca5ae" executionId="88fd7893-a737-49de-a146-e9f51e66e17e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bd75bfee-d75a-afac-7b4e-f8eeab7139e2" executionId="c3c55e54-80c9-48ed-9f1f-16a06803cddb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="17c7ec79-6552-46be-8f36-803c891feba8" executionId="13075938-1814-4f4d-8622-6bd5fc6f3973" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="84a45382-ae95-43a9-6b01-8fd21d3e8048" executionId="a1101b0e-5a31-45aa-9dc2-8166003ef127" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="85e231ee-64a4-7645-8905-c8a7a23597ed" executionId="a1eec0d5-bc3b-40e1-a8c6-bb73e19c833b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b808ccdc-95ed-da36-2492-84e3a0485a5e" executionId="bf427e80-b476-4eba-9935-2f98258ab709" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e9188809-41f6-48b4-7b33-bb563fe9b401" executionId="dac33d2b-631c-4927-8067-f1bae416de36" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2aa22940-96fb-27df-7452-07b4b151f94a" executionId="dae233de-4341-48fd-8f1f-a37f92051317" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e66999b4-76df-6f8e-320f-b513663fb5dd" executionId="3581180d-363a-472b-b283-e5c4c273f1a3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8710e914-fbad-7734-a8f3-b91a572260e9" executionId="36d2fbb5-68e8-43f1-8b36-a41a687312ce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="b108af3a-753c-4ffe-b998-ad1b38617bae" testId="44aa9cc8-6033-5338-2c45-cc41905f5ded" testName="ShouldBeAbleToSignInAndGetUserPaymentPlan" computerName="GLAVTOP" duration="00:00:01.8569651" startTime="2012-08-15T18:10:29.3852926+10:00" endTime="2012-08-15T18:10:31.6353765+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b108af3a-753c-4ffe-b998-ad1b38617bae">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:30: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:30: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding data to cache with cache key: OAuthTokenEntry_uIykdkCS2VG1iMLaI3rxUoMeh0ScsuoBAbdFwoW7eVo1, expiry date 2012/08/15 09:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding data to cache with cache key: UserPaymentPlan_b4c5f895-e98a-4b5f-9a62-28cd40fca4f7, expiry date 2012/08/15 07:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding item [UserPaymentPlan_b4c5f895-e98a-4b5f-9a62-28cd40fca4f7] to cache with expiry date/time of [15/08/2012 07:10:31].
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3a0645bb-0ae2-445d-8a69-a4e0b4acc37c" testId="3dd59a0e-4e4a-df53-9231-37a61ee1389c" testName="ShouldBeAbleToAddDebtToUserPaymentPlan" computerName="GLAVTOP" duration="00:00:00.2617867" startTime="2012-08-15T18:10:31.6510029+10:00" endTime="2012-08-15T18:10:31.9166377+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3a0645bb-0ae2-445d-8a69-a4e0b4acc37c">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding data to cache with cache key: OAuthTokenEntry_PVOepaUHJpERjJh5D3o7auzzWVol4UdrUjQCmm96jx41, expiry date 2012/08/15 09:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding data to cache with cache key: UserPaymentPlan_9208fa41-0ed4-4153-b1bf-70bb90ddc68f, expiry date 2012/08/15 07:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding item [UserPaymentPlan_9208fa41-0ed4-4153-b1bf-70bb90ddc68f] to cache with expiry date/time of [15/08/2012 07:10:31].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Retrieving item [UserPaymentPlan_9208fa41-0ed4-4153-b1bf-70bb90ddc68f] from cache.
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding data to cache with cache key: UserPaymentPlan_9208fa41-0ed4-4153-b1bf-70bb90ddc68f, expiry date 2012/08/15 07:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding item [UserPaymentPlan_9208fa41-0ed4-4153-b1bf-70bb90ddc68f] to cache with expiry date/time of [15/08/2012 07:10:31].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding data to cache with cache key: OAuthTokenEntry_FjX7-iiRQpLMgPFwWnxp1zwxEYb2tNSqGq9W5Bsu1hA1, expiry date 2012/08/15 09:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding data to cache with cache key: UserPaymentPlan_9208fa41-0ed4-4153-b1bf-70bb90ddc68f, expiry date 2012/08/15 07:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding item [UserPaymentPlan_9208fa41-0ed4-4153-b1bf-70bb90ddc68f] to cache with expiry date/time of [15/08/2012 07:10:31].
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7730b1d6-9e79-453b-8a79-41418f3c76ec" testId="e7df2b0d-2d99-7c60-2105-111c1a6281d9" testName="ShouldBeAbleToAddMultipleDebtsToUserPaymentPlan" computerName="GLAVTOP" duration="00:00:00.0781037" startTime="2012-08-15T18:10:31.9166377+10:00" endTime="2012-08-15T18:10:32.0103905+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7730b1d6-9e79-453b-8a79-41418f3c76ec">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding data to cache with cache key: OAuthTokenEntry_OoVzrbijlAp5_joPxpP-Pzt57KhKtslVS6c_1j7B-wU1, expiry date 2012/08/15 09:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding data to cache with cache key: UserPaymentPlan_c2415a13-e36d-4237-9bce-be178d74a337, expiry date 2012/08/15 07:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding item [UserPaymentPlan_c2415a13-e36d-4237-9bce-be178d74a337] to cache with expiry date/time of [15/08/2012 07:10:31].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Retrieving item [UserPaymentPlan_c2415a13-e36d-4237-9bce-be178d74a337] from cache.
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding data to cache with cache key: UserPaymentPlan_c2415a13-e36d-4237-9bce-be178d74a337, expiry date 2012/08/15 07:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding item [UserPaymentPlan_c2415a13-e36d-4237-9bce-be178d74a337] to cache with expiry date/time of [15/08/2012 07:10:31].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding data to cache with cache key: UserPaymentPlan_c2415a13-e36d-4237-9bce-be178d74a337, expiry date 2012/08/15 07:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:31: Adding item [UserPaymentPlan_c2415a13-e36d-4237-9bce-be178d74a337] to cache with expiry date/time of [15/08/2012 07:10:31].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_c2415a13-e36d-4237-9bce-be178d74a337, expiry date 2012/08/15 07:10:31
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_c2415a13-e36d-4237-9bce-be178d74a337] to cache with expiry date/time of [15/08/2012 07:10:31].
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c54a8e75-12e9-4f14-8e40-79b4c0026343" testId="5fd23d7e-4595-35fc-0d45-04ddfd00357d" testName="ShouldBeAbleToAddPaymentInstallmentToDebt" computerName="GLAVTOP" duration="00:00:00.1546711" startTime="2012-08-15T18:10:32.0103905+10:00" endTime="2012-08-15T18:10:32.1666731+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c54a8e75-12e9-4f14-8e40-79b4c0026343">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_nlPLvwZsIifiGk62NSdflJUMegDVtU1-sfnuQpOUf3Y1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_dacf14b4-0a37-4686-853f-a5a44e2fefa7, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_dacf14b4-0a37-4686-853f-a5a44e2fefa7] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Retrieving item [UserPaymentPlan_dacf14b4-0a37-4686-853f-a5a44e2fefa7] from cache.
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_dacf14b4-0a37-4686-853f-a5a44e2fefa7, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_dacf14b4-0a37-4686-853f-a5a44e2fefa7] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_c4VJ2hNdWJ_wag4Ixdcq9ojsvSr4SipY5kOu5M_hq-s1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_dacf14b4-0a37-4686-853f-a5a44e2fefa7, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_dacf14b4-0a37-4686-853f-a5a44e2fefa7] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Assert.IsTrue failed. </Message>
+          <StackTrace>   at Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests.ShouldBeAbleToAddPaymentInstallmentToDebt() in D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\Glav.PayMeBack.IntegrationTests\ServiceTests\PaymentPlanServiceTests.cs:line 166
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="58220275-61be-4792-95c4-d7495e58013c" testId="e5a29dab-58d6-3bfa-be38-a0ba556c81c6" testName="ShouldNotBeAbleToAddPaymentInstallmentToDebtIfNoMoreDebtOwed" computerName="GLAVTOP" duration="00:00:00.1004946" startTime="2012-08-15T18:10:32.1822725+10:00" endTime="2012-08-15T18:10:32.2760261+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="58220275-61be-4792-95c4-d7495e58013c">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_uPuCFcXein1MoX8kvPZiygc2iYdhVDol0EZjs1ElvVs1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_43a18413-3219-4669-872d-4f5a75277938, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_43a18413-3219-4669-872d-4f5a75277938] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Retrieving item [UserPaymentPlan_43a18413-3219-4669-872d-4f5a75277938] from cache.
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_43a18413-3219-4669-872d-4f5a75277938, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_43a18413-3219-4669-872d-4f5a75277938] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_3TT2_E4b2afCa6C-Mxx_Caa2gvOY_eqF5_KiYJ6WrHQ1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_43a18413-3219-4669-872d-4f5a75277938, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_43a18413-3219-4669-872d-4f5a75277938] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Assert.IsTrue failed. </Message>
+          <StackTrace>   at Glav.PayMeBack.IntegrationTests.ServiceTests.PaymentPlanServiceTests.ShouldNotBeAbleToAddPaymentInstallmentToDebtIfNoMoreDebtOwed() in D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\Glav.PayMeBack.IntegrationTests\ServiceTests\PaymentPlanServiceTests.cs:line 221
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="01ee6c65-b072-4fdf-a95a-2d0ac41fafeb" testId="71cfd287-2959-021c-fc59-c0e9017df7ad" testName="CanAddDebtOwedToMe" computerName="GLAVTOP" duration="00:00:00.0849210" startTime="2012-08-15T18:10:32.2916521+10:00" endTime="2012-08-15T18:10:32.3698067+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="01ee6c65-b072-4fdf-a95a-2d0ac41fafeb">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_XMv1nrWUxzcCd3yio-J9uiu_5DHG6kav6bMYHQSS1Ik1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_5497c9f0-8474-410e-804b-a4cad44f6def, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_5497c9f0-8474-410e-804b-a4cad44f6def] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_tjI8SKRaFvo8JsDgOL9F4jAVMATkIFgjLTv9UXEEGyE1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Retrieving item [UserPaymentPlan_5497c9f0-8474-410e-804b-a4cad44f6def] from cache.
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_5497c9f0-8474-410e-804b-a4cad44f6def, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_5497c9f0-8474-410e-804b-a4cad44f6def] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_5497c9f0-8474-410e-804b-a4cad44f6def, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_5497c9f0-8474-410e-804b-a4cad44f6def] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="796624fc-00fe-4679-b251-f7c1439d0d60" testId="dcdb223f-53ea-6ec4-c18b-1149cc9d0f08" testName="CanProvideSummaryOfDebtOwedToMe" computerName="GLAVTOP" duration="00:00:00.0885539" startTime="2012-08-15T18:10:32.3854054+10:00" endTime="2012-08-15T18:10:32.4791590+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="796624fc-00fe-4679-b251-f7c1439d0d60">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_z2JRg1ct6dz3WAnsZ8mNfprF9G36eF2zHrQYan8QVeg1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_90d60278-a34c-464b-995b-ea00b53734f4, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_90d60278-a34c-464b-995b-ea00b53734f4] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_73_bWag2Vt0sFPc8WyBj6Inr6_znKbC-3dXTYI7Llxo1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Retrieving item [UserPaymentPlan_90d60278-a34c-464b-995b-ea00b53734f4] from cache.
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_90d60278-a34c-464b-995b-ea00b53734f4, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_90d60278-a34c-464b-995b-ea00b53734f4] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_90d60278-a34c-464b-995b-ea00b53734f4, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_90d60278-a34c-464b-995b-ea00b53734f4] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9f87796e-b1ba-4aa9-9db6-46fcddff23f0" testId="edf32688-f572-5eae-c381-554d0bf15674" testName="CanNotChangeDebtsOwedToOthers" computerName="GLAVTOP" duration="00:00:00.0663154" startTime="2012-08-15T18:10:32.4791590+10:00" endTime="2012-08-15T18:10:32.5416629+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f87796e-b1ba-4aa9-9db6-46fcddff23f0">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_RPvrE_rIFJkga2sLWCZWb756bQ3uC9ByLD00GRDYDhg1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_9b91c621-9a78-4b6b-a9df-e9013cd7840c, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_9b91c621-9a78-4b6b-a9df-e9013cd7840c] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Retrieving item [UserPaymentPlan_9b91c621-9a78-4b6b-a9df-e9013cd7840c] from cache.
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_9b91c621-9a78-4b6b-a9df-e9013cd7840c, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_9b91c621-9a78-4b6b-a9df-e9013cd7840c] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_9b91c621-9a78-4b6b-a9df-e9013cd7840c, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_9b91c621-9a78-4b6b-a9df-e9013cd7840c] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9b32de85-1e05-46f1-8a64-9e3331060e2b" testId="d348c1a1-5988-e632-ea7b-b77dc3143110" testName="CanRetrieveDebtsIOweToOthers" computerName="GLAVTOP" duration="00:00:00.0689739" startTime="2012-08-15T18:10:32.5573012+10:00" endTime="2012-08-15T18:10:32.6198175+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b32de85-1e05-46f1-8a64-9e3331060e2b">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_Zn9lQAiQSTOD2N9zd5fCke0WmkwF3WvFWWzOxzHmGhI1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_Bivt50gfNzrkDU8vEVGE-I2hT4iyBiMqJPEPKHCzvGM1, expiry date 2012/08/15 09:10:32
+
+User who owes debt = 9569f6af-c441-4eb4-8c0c-949fb14541b4
+User who is owed the debt = 5840ed10-e71c-4128-8f12-57b9a4ba7dc9
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_5840ed10-e71c-4128-8f12-57b9a4ba7dc9, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_5840ed10-e71c-4128-8f12-57b9a4ba7dc9] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_9569f6af-c441-4eb4-8c0c-949fb14541b4, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_9569f6af-c441-4eb4-8c0c-949fb14541b4] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="edf52dd7-c0dd-4350-918c-54ad299b0872" testId="50da6079-fcc9-3c27-2ff7-23ec27920291" testName="EnsureValidUserCannotDeleteDebtNotBelongingToThem" computerName="GLAVTOP" duration="00:00:00.1076222" startTime="2012-08-15T18:10:32.6198175+10:00" endTime="2012-08-15T18:10:32.7447973+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="edf52dd7-c0dd-4350-918c-54ad299b0872">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry__QkQM4QY137set3ZTzz0-DQAZlgPhBUhQJ7kfHWLUAs1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_bcf6a546-836a-40cf-b383-fed4d2cd74a2, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_bcf6a546-836a-40cf-b383-fed4d2cd74a2] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_nZ_sETGZ2FIhikmcq3Hs6_g5BivRkVjnv1oLOv-Cyx01, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_Xzwj-Q3wkRF77_EnKmM9hMeQ-0pfUiC3mgyQ9zBEfnY1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Retrieving item [UserPaymentPlan_bcf6a546-836a-40cf-b383-fed4d2cd74a2] from cache.
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_bcf6a546-836a-40cf-b383-fed4d2cd74a2, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_bcf6a546-836a-40cf-b383-fed4d2cd74a2] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_bcf6a546-836a-40cf-b383-fed4d2cd74a2, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_bcf6a546-836a-40cf-b383-fed4d2cd74a2] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_2abed957-1363-47dc-a79d-2842169039c7, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_2abed957-1363-47dc-a79d-2842169039c7] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="88fd7893-a737-49de-a146-e9f51e66e17e" testId="92773650-8826-3e75-eae2-0e28a1cca5ae" testName="EnsureValidUserCanDeleteDebtBelongingToThem" computerName="GLAVTOP" duration="00:00:00.1525777" startTime="2012-08-15T18:10:32.7447973+10:00" endTime="2012-08-15T18:10:32.9010756+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="88fd7893-a737-49de-a146-e9f51e66e17e">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_kE10j2LDDhsRMCCqpXjGOMSH4DLFqa1_9P0p6aj0EjE1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_VQQtc_PdWFPBeg3TjA4RvkABUkkk58XlOQ9WqkhbNhE1, expiry date 2012/08/15 09:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Retrieving item [UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd] from cache.
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Retrieving item [UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd] from cache.
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd, expiry date 2012/08/15 07:10:32
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding item [UserPaymentPlan_80379abc-c3ba-4faa-a591-5af35ee1bddd] to cache with expiry date/time of [15/08/2012 07:10:32].
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c3c55e54-80c9-48ed-9f1f-16a06803cddb" testId="bd75bfee-d75a-afac-7b4e-f8eeab7139e2" testName="SHouldBeAbleToSignUpAndSignIn" computerName="GLAVTOP" duration="00:00:00.0273068" startTime="2012-08-15T18:10:32.9010756+10:00" endTime="2012-08-15T18:10:32.9323180+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3c55e54-80c9-48ed-9f1f-16a06803cddb">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: Adding data to cache with cache key: OAuthTokenEntry_WTlVn9xXygyg68j1udBhzYxOCpPTeyYj_H8KJsRgWyU1, expiry date 2012/08/15 09:10:32
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="13075938-1814-4f4d-8622-6bd5fc6f3973" testId="17c7ec79-6552-46be-8f36-803c891feba8" testName="ShouldNotBeAbleToSignInWhenUserNotValidated" computerName="GLAVTOP" duration="00:00:00.0140257" startTime="2012-08-15T18:10:32.9323180+10:00" endTime="2012-08-15T18:10:32.9635580+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="13075938-1814-4f4d-8622-6bd5fc6f3973">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a1101b0e-5a31-45aa-9dc2-8166003ef127" testId="84a45382-ae95-43a9-6b01-8fd21d3e8048" testName="ShouldNotBeAbleToSignInWithEmptyPasswordEvenIfValidated" computerName="GLAVTOP" duration="00:00:00.0233321" startTime="2012-08-15T18:10:32.9635580+10:00" endTime="2012-08-15T18:10:32.9948061+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a1101b0e-5a31-45aa-9dc2-8166003ef127">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a1eec0d5-bc3b-40e1-a8c6-bb73e19c833b" testId="85e231ee-64a4-7645-8905-c8a7a23597ed" testName="CannotSaveUserWithoutEmail" computerName="GLAVTOP" duration="00:00:00.0021469" startTime="2012-08-15T18:10:32.9948061+10:00" endTime="2012-08-15T18:10:32.9948061+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a1eec0d5-bc3b-40e1-a8c6-bb73e19c833b">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:32: CacheProvider initialised with memory cache engine
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bf427e80-b476-4eba-9935-2f98258ab709" testId="b808ccdc-95ed-da36-2492-84e3a0485a5e" testName="ShouldBeAbleToSaveUnvalidatedUserWithOnlyEmailAddress" computerName="GLAVTOP" duration="00:00:00.0091971" startTime="2012-08-15T18:10:32.9948061+10:00" endTime="2012-08-15T18:10:33.0104329+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf427e80-b476-4eba-9935-2f98258ab709">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:33: CacheProvider initialised with memory cache engine
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dac33d2b-631c-4927-8067-f1bae416de36" testId="e9188809-41f6-48b4-7b33-bb563fe9b401" testName="ShouldNotBeAbleToSaveNewUnvalidatedUserWithSameEmailAsExistingUser" computerName="GLAVTOP" duration="00:00:00.0113540" startTime="2012-08-15T18:10:33.0260577+10:00" endTime="2012-08-15T18:10:33.0416837+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dac33d2b-631c-4927-8067-f1bae416de36">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:33: CacheProvider initialised with memory cache engine
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dae233de-4341-48fd-8f1f-a37f92051317" testId="2aa22940-96fb-27df-7452-07b4b151f94a" testName="ShouldReturnAllUsers" computerName="GLAVTOP" duration="00:00:00.3182583" startTime="2012-08-15T18:10:33.0416837+10:00" endTime="2012-08-15T18:10:33.3541961+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dae233de-4341-48fd-8f1f-a37f92051317">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:33: CacheProvider initialised with memory cache engine
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3581180d-363a-472b-b283-e5c4c273f1a3" testId="e66999b4-76df-6f8e-320f-b513663fb5dd" testName="ShouldReturnOnlyUsersMatchingSearchByCriteria" computerName="GLAVTOP" duration="00:00:00.2769292" startTime="2012-08-15T18:10:33.3698202+10:00" endTime="2012-08-15T18:10:33.6511045+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3581180d-363a-472b-b283-e5c4c273f1a3">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:33: CacheProvider initialised with memory cache engine
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="36d2fbb5-68e8-43f1-8b36-a41a687312ce" testId="8710e914-fbad-7734-a8f3-b91a572260e9" testName="ShouldReturnOnlyUsersMatchingSearchByCriteriaUsingPaging" computerName="GLAVTOP" duration="00:00:00.2716845" startTime="2012-08-15T18:10:33.6511045+10:00" endTime="2012-08-15T18:10:33.9323557+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="36d2fbb5-68e8-43f1-8b36-a41a687312ce">
+      <Output>
+        <DebugTrace>QTAgent32.exe Information: 0 : 15/08/2012 06:10:33: CacheProvider initialised with memory cache engine
+
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

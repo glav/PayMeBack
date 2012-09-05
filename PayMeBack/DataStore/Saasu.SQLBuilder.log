@@ -1,0 +1,405 @@
+[17/07/2012 05:11:11] 
+[17/07/2012 05:11:11] Starting Saasu SQLBuilder.
+[17/07/2012 05:11:11] Build Mode: Normal
+[17/07/2012 05:11:11] >> Establishing Transaction Scope
+[17/07/2012 05:11:11] >> Starting build step 'PreBuild Script Execution'
+[17/07/2012 05:11:11] Connecting to Database [.]
+[17/07/2012 05:11:11] >> Completed build step 'PreBuild Script Execution' successfully.
+[17/07/2012 05:11:11] >> Starting build step 'Database Creation'
+[17/07/2012 05:11:12] Database PayMeBack already exists. No need to create.
+[17/07/2012 05:11:12] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[17/07/2012 05:11:12] All database were created successfully.
+[17/07/2012 05:11:12] >> Completed build step 'Database Creation' successfully.
+[17/07/2012 05:11:12] >> Starting build step 'Version Table Check'
+[17/07/2012 05:11:12] Version Table [DBVersion] already exists, no need to create.
+[17/07/2012 05:11:12] >> Completed build step 'Version Table Check' successfully.
+[17/07/2012 05:11:12] >> Starting build step 'Schema Scripts Execution'
+[17/07/2012 05:11:12] Current Schema Version in database: [0]
+[17/07/2012 05:11:12] Schema scripts will database from old version [0] to new version: [4]
+[17/07/2012 05:11:12] In Normal mode, performing no script substitution.
+[17/07/2012 05:11:12] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[17/07/2012 05:11:12] Changed database context to 'master'.
+[17/07/2012 05:11:12] >>>! Build step 'Schema Scripts Execution' was not successfull. Reason: '1: An exception occurred while executing a Transact-SQL statement or batch.. 2: CREATE DATABASE statement not allowed within multi-statement transaction.'.
+[17/07/2012 05:11:12] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[17/07/2012 05:11:12] Completed Saasu SQLBuilder with Exit Code of [1]
+[17/07/2012 05:11:20] 
+[17/07/2012 05:11:20] Starting Saasu SQLBuilder.
+[17/07/2012 05:11:20] Build Mode: Normal
+[17/07/2012 05:11:20] >> Establishing Transaction Scope
+[17/07/2012 05:11:20] >> Starting build step 'PreBuild Script Execution'
+[17/07/2012 05:11:20] Connecting to Database [.]
+[17/07/2012 05:11:20] >> Completed build step 'PreBuild Script Execution' successfully.
+[17/07/2012 05:11:20] >> Starting build step 'Database Creation'
+[17/07/2012 05:11:21] Droped database PayMeBack successfuly.
+[17/07/2012 05:11:21] Database PayMeBack not found. Attempting to create.
+[17/07/2012 05:11:22] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[17/07/2012 05:11:22] All database were created successfully.
+[17/07/2012 05:11:22] >> Completed build step 'Database Creation' successfully.
+[17/07/2012 05:11:22] >> Starting build step 'Version Table Check'
+[17/07/2012 05:11:22] Version Table [DBVersion] created successfully.
+[17/07/2012 05:11:22] >> Completed build step 'Version Table Check' successfully.
+[17/07/2012 05:11:22] >> Starting build step 'Schema Scripts Execution'
+[17/07/2012 05:11:22] Current Schema Version in database: [0]
+[17/07/2012 05:11:22] Schema scripts will database from old version [0] to new version: [4]
+[17/07/2012 05:11:22] In Normal mode, performing no script substitution.
+[17/07/2012 05:11:22] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[17/07/2012 05:11:22] Changed database context to 'master'.
+[17/07/2012 05:11:22] >>>! Build step 'Schema Scripts Execution' was not successfull. Reason: '1: An exception occurred while executing a Transact-SQL statement or batch.. 2: CREATE DATABASE statement not allowed within multi-statement transaction.'.
+[17/07/2012 05:11:22] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[17/07/2012 05:11:22] Completed Saasu SQLBuilder with Exit Code of [1]
+[17/07/2012 05:12:38] 
+[17/07/2012 05:12:38] Starting Saasu SQLBuilder.
+[17/07/2012 05:12:39] Build Mode: Normal
+[17/07/2012 05:12:39] >> Establishing Transaction Scope
+[17/07/2012 05:12:39] >> Starting build step 'PreBuild Script Execution'
+[17/07/2012 05:12:39] Connecting to Database [.]
+[17/07/2012 05:12:39] >> Completed build step 'PreBuild Script Execution' successfully.
+[17/07/2012 05:12:39] >> Starting build step 'Database Creation'
+[17/07/2012 05:12:39] Droped database PayMeBack successfuly.
+[17/07/2012 05:12:39] Database PayMeBack not found. Attempting to create.
+[17/07/2012 05:12:40] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[17/07/2012 05:12:40] All database were created successfully.
+[17/07/2012 05:12:40] >> Completed build step 'Database Creation' successfully.
+[17/07/2012 05:12:40] >> Starting build step 'Version Table Check'
+[17/07/2012 05:12:40] Version Table [DBVersion] created successfully.
+[17/07/2012 05:12:40] >> Completed build step 'Version Table Check' successfully.
+[17/07/2012 05:12:40] >> Starting build step 'Schema Scripts Execution'
+[17/07/2012 05:12:40] Current Schema Version in database: [0]
+[17/07/2012 05:12:40] Schema scripts will database from old version [0] to new version: [4]
+[17/07/2012 05:12:40] In Normal mode, performing no script substitution.
+[17/07/2012 05:12:40] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[17/07/2012 05:12:40] Changed database context to 'PayMeBack'.
+[17/07/2012 05:12:40] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql' executed. -4 items affected.
+[17/07/2012 05:12:40] In Normal mode, performing no script substitution.
+[17/07/2012 05:12:40] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql'
+[17/07/2012 05:12:40] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql' executed. -10 items affected.
+[17/07/2012 05:12:40] In Normal mode, performing no script substitution.
+[17/07/2012 05:12:40] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql'
+[17/07/2012 05:12:40] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql' executed. -24 items affected.
+[17/07/2012 05:12:40] In Normal mode, performing no script substitution.
+[17/07/2012 05:12:40] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql'
+[17/07/2012 05:12:40] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql' executed. -8 items affected.
+[17/07/2012 05:12:40] >> Completed build step 'Schema Scripts Execution' successfully.
+[17/07/2012 05:12:40] >> Starting build step 'Data Scripts Execution'
+[17/07/2012 05:12:40] Current Data Version in database: [0]
+[17/07/2012 05:12:40] No Data scripts were found in D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore. No schema updates performed.
+[17/07/2012 05:12:40] >> Completed build step 'Data Scripts Execution' successfully.
+[17/07/2012 05:12:40] >> Starting build step 'PostBuild Script Execution'
+[17/07/2012 05:12:40] >> Completed build step 'PostBuild Script Execution' successfully.
+[17/07/2012 05:12:40] >> Starting build step 'PostBuildReleaseSpecific Script Execution'
+[17/07/2012 05:12:40] >> Completed build step 'PostBuildReleaseSpecific Script Execution' successfully.
+[17/07/2012 05:12:40] >> Build steps completed successfully. Completing Transaction.
+[17/07/2012 05:12:40] Completed Saasu SQLBuilder with Exit Code of [0]
+[17/07/2012 05:19:39] 
+[17/07/2012 05:19:39] Starting Saasu SQLBuilder.
+[17/07/2012 05:19:40] Build Mode: Normal
+[17/07/2012 05:19:40] >> Establishing Transaction Scope
+[17/07/2012 05:19:40] >> Starting build step 'PreBuild Script Execution'
+[17/07/2012 05:19:40] Connecting to Database [.]
+[17/07/2012 05:19:40] >> Completed build step 'PreBuild Script Execution' successfully.
+[17/07/2012 05:19:40] >> Starting build step 'Database Creation'
+[17/07/2012 05:19:40] Droped database PayMeBack successfuly.
+[17/07/2012 05:19:40] Database PayMeBack not found. Attempting to create.
+[17/07/2012 05:19:41] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[17/07/2012 05:19:41] All database were created successfully.
+[17/07/2012 05:19:41] >> Completed build step 'Database Creation' successfully.
+[17/07/2012 05:19:41] >> Starting build step 'Version Table Check'
+[17/07/2012 05:19:41] Version Table [DBVersion] created successfully.
+[17/07/2012 05:19:41] >> Completed build step 'Version Table Check' successfully.
+[17/07/2012 05:19:41] >> Starting build step 'Schema Scripts Execution'
+[17/07/2012 05:19:41] Current Schema Version in database: [0]
+[17/07/2012 05:19:41] Schema scripts will database from old version [0] to new version: [4]
+[17/07/2012 05:19:41] In Normal mode, performing no script substitution.
+[17/07/2012 05:19:41] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[17/07/2012 05:19:41] Changed database context to 'PayMeBack'.
+[17/07/2012 05:19:41] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql' executed. -4 items affected.
+[17/07/2012 05:19:41] In Normal mode, performing no script substitution.
+[17/07/2012 05:19:41] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql'
+[17/07/2012 05:19:41] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql' executed. -10 items affected.
+[17/07/2012 05:19:41] In Normal mode, performing no script substitution.
+[17/07/2012 05:19:41] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql'
+[17/07/2012 05:19:41] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql' executed. -24 items affected.
+[17/07/2012 05:19:41] In Normal mode, performing no script substitution.
+[17/07/2012 05:19:41] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql'
+[17/07/2012 05:19:41] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql' executed. -8 items affected.
+[17/07/2012 05:19:41] >> Completed build step 'Schema Scripts Execution' successfully.
+[17/07/2012 05:19:41] >> Starting build step 'Data Scripts Execution'
+[17/07/2012 05:19:41] Current Data Version in database: [0]
+[17/07/2012 05:19:41] No Data scripts were found in D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore. No schema updates performed.
+[17/07/2012 05:19:41] >> Completed build step 'Data Scripts Execution' successfully.
+[17/07/2012 05:19:41] >> Starting build step 'PostBuild Script Execution'
+[17/07/2012 05:19:41] >> Completed build step 'PostBuild Script Execution' successfully.
+[17/07/2012 05:19:41] >> Starting build step 'PostBuildReleaseSpecific Script Execution'
+[17/07/2012 05:19:41] >> Completed build step 'PostBuildReleaseSpecific Script Execution' successfully.
+[17/07/2012 05:19:41] >> Build steps completed successfully. Completing Transaction.
+[17/07/2012 05:19:41] Completed Saasu SQLBuilder with Exit Code of [0]
+[17/07/2012 05:21:09] 
+[17/07/2012 05:21:09] Starting Saasu SQLBuilder.
+[17/07/2012 05:21:09] Build Mode: Normal
+[17/07/2012 05:21:09] >> Establishing Transaction Scope
+[17/07/2012 05:21:09] >> Starting build step 'PreBuild Script Execution'
+[17/07/2012 05:21:09] Connecting to Database [.]
+[17/07/2012 05:21:09] >> Completed build step 'PreBuild Script Execution' successfully.
+[17/07/2012 05:21:09] >> Starting build step 'Database Creation'
+[17/07/2012 05:21:10] Droped database PayMeBack successfuly.
+[17/07/2012 05:21:10] Database PayMeBack not found. Attempting to create.
+[17/07/2012 05:21:10] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[17/07/2012 05:21:10] All database were created successfully.
+[17/07/2012 05:21:10] >> Completed build step 'Database Creation' successfully.
+[17/07/2012 05:21:10] >> Starting build step 'Version Table Check'
+[17/07/2012 05:21:11] Version Table [DBVersion] created successfully.
+[17/07/2012 05:21:11] >> Completed build step 'Version Table Check' successfully.
+[17/07/2012 05:21:11] >> Starting build step 'Schema Scripts Execution'
+[17/07/2012 05:21:11] Current Schema Version in database: [0]
+[17/07/2012 05:21:11] Schema scripts will database from old version [0] to new version: [4]
+[17/07/2012 05:21:11] In Normal mode, performing no script substitution.
+[17/07/2012 05:21:11] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[17/07/2012 05:21:11] Changed database context to 'PayMeBack'.
+[17/07/2012 05:21:11] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql' executed. -4 items affected.
+[17/07/2012 05:21:11] In Normal mode, performing no script substitution.
+[17/07/2012 05:21:11] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql'
+[17/07/2012 05:21:11] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql' executed. -10 items affected.
+[17/07/2012 05:21:11] In Normal mode, performing no script substitution.
+[17/07/2012 05:21:11] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql'
+[17/07/2012 05:21:11] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql' executed. -24 items affected.
+[17/07/2012 05:21:11] In Normal mode, performing no script substitution.
+[17/07/2012 05:21:11] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql'
+[17/07/2012 05:21:11] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql' executed. -8 items affected.
+[17/07/2012 05:21:11] >> Completed build step 'Schema Scripts Execution' successfully.
+[17/07/2012 05:21:11] >> Starting build step 'Data Scripts Execution'
+[17/07/2012 05:21:11] Current Data Version in database: [0]
+[17/07/2012 05:21:11] No Data scripts were found in D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore. No schema updates performed.
+[17/07/2012 05:21:11] >> Completed build step 'Data Scripts Execution' successfully.
+[17/07/2012 05:21:11] >> Starting build step 'PostBuild Script Execution'
+[17/07/2012 05:21:11] >> Completed build step 'PostBuild Script Execution' successfully.
+[17/07/2012 05:21:11] >> Starting build step 'PostBuildReleaseSpecific Script Execution'
+[17/07/2012 05:21:11] >> Completed build step 'PostBuildReleaseSpecific Script Execution' successfully.
+[17/07/2012 05:21:11] >> Build steps completed successfully. Completing Transaction.
+[17/07/2012 05:21:11] Completed Saasu SQLBuilder with Exit Code of [0]
+[17/07/2012 05:23:34] 
+[17/07/2012 05:23:34] Starting Saasu SQLBuilder.
+[17/07/2012 05:23:34] Build Mode: Normal
+[17/07/2012 05:23:34] >> Establishing Transaction Scope
+[17/07/2012 05:23:34] >> Starting build step 'PreBuild Script Execution'
+[17/07/2012 05:23:34] Connecting to Database [.]
+[17/07/2012 05:23:34] >> Completed build step 'PreBuild Script Execution' successfully.
+[17/07/2012 05:23:34] >> Starting build step 'Database Creation'
+[17/07/2012 05:23:35] Droped database PayMeBack successfuly.
+[17/07/2012 05:23:35] Database PayMeBack not found. Attempting to create.
+[17/07/2012 05:23:35] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[17/07/2012 05:23:35] All database were created successfully.
+[17/07/2012 05:23:35] >> Completed build step 'Database Creation' successfully.
+[17/07/2012 05:23:35] >> Starting build step 'Version Table Check'
+[17/07/2012 05:23:36] Version Table [DBVersion] created successfully.
+[17/07/2012 05:23:36] >> Completed build step 'Version Table Check' successfully.
+[17/07/2012 05:23:36] >> Starting build step 'Schema Scripts Execution'
+[17/07/2012 05:23:36] Current Schema Version in database: [0]
+[17/07/2012 05:23:36] Schema scripts will database from old version [0] to new version: [4]
+[17/07/2012 05:23:36] In Normal mode, performing no script substitution.
+[17/07/2012 05:23:36] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[17/07/2012 05:23:36] Changed database context to 'PayMeBack'.
+[17/07/2012 05:23:36] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql' executed. -4 items affected.
+[17/07/2012 05:23:36] In Normal mode, performing no script substitution.
+[17/07/2012 05:23:36] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql'
+[17/07/2012 05:23:36] >>>! Build step 'Schema Scripts Execution' was not successfull. Reason: '1: An exception occurred while executing a Transact-SQL statement or batch.. 2: Column, parameter, or variable #7: Cannot find data type nvarchar(20) NULL,
+ CONSTRAINT [PK_UserDetail.'.
+[17/07/2012 05:23:36] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[17/07/2012 05:23:36] Completed Saasu SQLBuilder with Exit Code of [1]
+[17/07/2012 05:23:59] 
+[17/07/2012 05:23:59] Starting Saasu SQLBuilder.
+[17/07/2012 05:24:00] Build Mode: Normal
+[17/07/2012 05:24:00] >> Establishing Transaction Scope
+[17/07/2012 05:24:00] >> Starting build step 'PreBuild Script Execution'
+[17/07/2012 05:24:00] Connecting to Database [.]
+[17/07/2012 05:24:00] >> Completed build step 'PreBuild Script Execution' successfully.
+[17/07/2012 05:24:00] >> Starting build step 'Database Creation'
+[17/07/2012 05:24:00] Droped database PayMeBack successfuly.
+[17/07/2012 05:24:00] Database PayMeBack not found. Attempting to create.
+[17/07/2012 05:24:01] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[17/07/2012 05:24:01] All database were created successfully.
+[17/07/2012 05:24:01] >> Completed build step 'Database Creation' successfully.
+[17/07/2012 05:24:01] >> Starting build step 'Version Table Check'
+[17/07/2012 05:24:01] Version Table [DBVersion] created successfully.
+[17/07/2012 05:24:01] >> Completed build step 'Version Table Check' successfully.
+[17/07/2012 05:24:01] >> Starting build step 'Schema Scripts Execution'
+[17/07/2012 05:24:01] Current Schema Version in database: [0]
+[17/07/2012 05:24:01] Schema scripts will database from old version [0] to new version: [4]
+[17/07/2012 05:24:01] In Normal mode, performing no script substitution.
+[17/07/2012 05:24:01] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[17/07/2012 05:24:01] Changed database context to 'PayMeBack'.
+[17/07/2012 05:24:01] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql' executed. -4 items affected.
+[17/07/2012 05:24:01] In Normal mode, performing no script substitution.
+[17/07/2012 05:24:01] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql'
+[17/07/2012 05:24:01] >>>! Build step 'Schema Scripts Execution' was not successfull. Reason: '1: An exception occurred while executing a Transact-SQL statement or batch.. 2: Column, parameter, or variable #7: Cannot find data type nvarchar(20).'.
+[17/07/2012 05:24:01] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[17/07/2012 05:24:01] Completed Saasu SQLBuilder with Exit Code of [1]
+[17/07/2012 05:24:24] 
+[17/07/2012 05:24:24] Starting Saasu SQLBuilder.
+[17/07/2012 05:24:25] Build Mode: Normal
+[17/07/2012 05:24:25] >> Establishing Transaction Scope
+[17/07/2012 05:24:25] >> Starting build step 'PreBuild Script Execution'
+[17/07/2012 05:24:25] Connecting to Database [.]
+[17/07/2012 05:24:25] >> Completed build step 'PreBuild Script Execution' successfully.
+[17/07/2012 05:24:25] >> Starting build step 'Database Creation'
+[17/07/2012 05:24:25] Droped database PayMeBack successfuly.
+[17/07/2012 05:24:25] Database PayMeBack not found. Attempting to create.
+[17/07/2012 05:24:26] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[17/07/2012 05:24:26] All database were created successfully.
+[17/07/2012 05:24:26] >> Completed build step 'Database Creation' successfully.
+[17/07/2012 05:24:26] >> Starting build step 'Version Table Check'
+[17/07/2012 05:24:26] Version Table [DBVersion] created successfully.
+[17/07/2012 05:24:26] >> Completed build step 'Version Table Check' successfully.
+[17/07/2012 05:24:26] >> Starting build step 'Schema Scripts Execution'
+[17/07/2012 05:24:26] Current Schema Version in database: [0]
+[17/07/2012 05:24:26] Schema scripts will database from old version [0] to new version: [4]
+[17/07/2012 05:24:26] In Normal mode, performing no script substitution.
+[17/07/2012 05:24:26] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[17/07/2012 05:24:26] Changed database context to 'PayMeBack'.
+[17/07/2012 05:24:26] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql' executed. -4 items affected.
+[17/07/2012 05:24:26] In Normal mode, performing no script substitution.
+[17/07/2012 05:24:26] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql'
+[17/07/2012 05:24:26] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql' executed. -10 items affected.
+[17/07/2012 05:24:26] In Normal mode, performing no script substitution.
+[17/07/2012 05:24:26] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql'
+[17/07/2012 05:24:26] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql' executed. -24 items affected.
+[17/07/2012 05:24:26] In Normal mode, performing no script substitution.
+[17/07/2012 05:24:26] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql'
+[17/07/2012 05:24:26] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql' executed. -8 items affected.
+[17/07/2012 05:24:26] >> Completed build step 'Schema Scripts Execution' successfully.
+[17/07/2012 05:24:26] >> Starting build step 'Data Scripts Execution'
+[17/07/2012 05:24:26] Current Data Version in database: [0]
+[17/07/2012 05:24:26] No Data scripts were found in D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore. No schema updates performed.
+[17/07/2012 05:24:26] >> Completed build step 'Data Scripts Execution' successfully.
+[17/07/2012 05:24:26] >> Starting build step 'PostBuild Script Execution'
+[17/07/2012 05:24:26] >> Completed build step 'PostBuild Script Execution' successfully.
+[17/07/2012 05:24:26] >> Starting build step 'PostBuildReleaseSpecific Script Execution'
+[17/07/2012 05:24:26] >> Completed build step 'PostBuildReleaseSpecific Script Execution' successfully.
+[17/07/2012 05:24:26] >> Build steps completed successfully. Completing Transaction.
+[17/07/2012 05:24:26] Completed Saasu SQLBuilder with Exit Code of [0]
+[19/07/2012 05:47:33] 
+[19/07/2012 05:47:34] Starting Saasu SQLBuilder.
+[19/07/2012 05:47:34] Build Mode: Normal
+[19/07/2012 05:47:34] >> Establishing Transaction Scope
+[19/07/2012 05:47:34] >> Starting build step 'PreBuild Script Execution'
+[19/07/2012 05:47:34] Connecting to Database [.]
+[19/07/2012 05:47:34] >> Completed build step 'PreBuild Script Execution' successfully.
+[19/07/2012 05:47:34] >> Starting build step 'Database Creation'
+[19/07/2012 05:47:35] Droped database PayMeBack successfuly.
+[19/07/2012 05:47:35] Database PayMeBack not found. Attempting to create.
+[19/07/2012 05:47:35] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[19/07/2012 05:47:35] All database were created successfully.
+[19/07/2012 05:47:35] >> Completed build step 'Database Creation' successfully.
+[19/07/2012 05:47:35] >> Starting build step 'Version Table Check'
+[19/07/2012 05:47:35] Version Table [DBVersion] created successfully.
+[19/07/2012 05:47:35] >> Completed build step 'Version Table Check' successfully.
+[19/07/2012 05:47:35] >> Starting build step 'Schema Scripts Execution'
+[19/07/2012 05:47:35] Current Schema Version in database: [0]
+[19/07/2012 05:47:35] Schema scripts will database from old version [0] to new version: [4]
+[19/07/2012 05:47:35] In Normal mode, performing no script substitution.
+[19/07/2012 05:47:35] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[19/07/2012 05:47:35] Changed database context to 'PayMeBack'.
+[19/07/2012 05:47:35] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql' executed. -7 items affected.
+[19/07/2012 05:47:35] In Normal mode, performing no script substitution.
+[19/07/2012 05:47:35] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql'
+[19/07/2012 05:47:35] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql' executed. -10 items affected.
+[19/07/2012 05:47:35] In Normal mode, performing no script substitution.
+[19/07/2012 05:47:35] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql'
+[19/07/2012 05:47:35] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql' executed. -24 items affected.
+[19/07/2012 05:47:35] In Normal mode, performing no script substitution.
+[19/07/2012 05:47:35] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql'
+[19/07/2012 05:47:35] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql' executed. -8 items affected.
+[19/07/2012 05:47:35] >> Completed build step 'Schema Scripts Execution' successfully.
+[19/07/2012 05:47:35] >> Starting build step 'Data Scripts Execution'
+[19/07/2012 05:47:35] Current Data Version in database: [0]
+[19/07/2012 05:47:35] No Data scripts were found in D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore. No schema updates performed.
+[19/07/2012 05:47:35] >> Completed build step 'Data Scripts Execution' successfully.
+[19/07/2012 05:47:35] >> Starting build step 'PostBuild Script Execution'
+[19/07/2012 05:47:35] >> Completed build step 'PostBuild Script Execution' successfully.
+[19/07/2012 05:47:35] >> Starting build step 'PostBuildReleaseSpecific Script Execution'
+[19/07/2012 05:47:35] >> Completed build step 'PostBuildReleaseSpecific Script Execution' successfully.
+[19/07/2012 05:47:35] >> Build steps completed successfully. Completing Transaction.
+[19/07/2012 05:47:35] Completed Saasu SQLBuilder with Exit Code of [0]
+[05/08/2012 04:19:56] 
+[05/08/2012 04:19:56] Starting Saasu SQLBuilder.
+[05/08/2012 04:19:56] Build Mode: Normal
+[05/08/2012 04:19:56] >> Establishing Transaction Scope
+[05/08/2012 04:19:56] >> Starting build step 'PreBuild Script Execution'
+[05/08/2012 04:19:56] Connecting to Database [.]
+[05/08/2012 04:19:56] >> Completed build step 'PreBuild Script Execution' successfully.
+[05/08/2012 04:19:56] >> Starting build step 'Database Creation'
+[05/08/2012 04:19:56] Database PayMeBack not found. Attempting to create.
+[05/08/2012 04:19:58] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[05/08/2012 04:19:58] All database were created successfully.
+[05/08/2012 04:19:58] >> Completed build step 'Database Creation' successfully.
+[05/08/2012 04:19:58] >> Starting build step 'Version Table Check'
+[05/08/2012 04:19:58] Version Table [DBVersion] created successfully.
+[05/08/2012 04:19:58] >> Completed build step 'Version Table Check' successfully.
+[05/08/2012 04:19:58] >> Starting build step 'Schema Scripts Execution'
+[05/08/2012 04:19:58] Current Schema Version in database: [0]
+[05/08/2012 04:19:58] Schema scripts will database from old version [0] to new version: [4]
+[05/08/2012 04:19:58] In Normal mode, performing no script substitution.
+[05/08/2012 04:19:58] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[05/08/2012 04:19:58] Changed database context to 'PayMeBack'.
+[05/08/2012 04:19:58] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql' executed. -7 items affected.
+[05/08/2012 04:19:58] In Normal mode, performing no script substitution.
+[05/08/2012 04:19:58] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql'
+[05/08/2012 04:19:58] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql' executed. -20 items affected.
+[05/08/2012 04:19:58] In Normal mode, performing no script substitution.
+[05/08/2012 04:19:58] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql'
+[05/08/2012 04:19:59] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql' executed. -24 items affected.
+[05/08/2012 04:19:59] In Normal mode, performing no script substitution.
+[05/08/2012 04:19:59] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql'
+[05/08/2012 04:19:59] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql' executed. -8 items affected.
+[05/08/2012 04:19:59] >> Completed build step 'Schema Scripts Execution' successfully.
+[05/08/2012 04:19:59] >> Starting build step 'Data Scripts Execution'
+[05/08/2012 04:19:59] Current Data Version in database: [0]
+[05/08/2012 04:19:59] No Data scripts were found in D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore. No schema updates performed.
+[05/08/2012 04:19:59] >> Completed build step 'Data Scripts Execution' successfully.
+[05/08/2012 04:19:59] >> Starting build step 'PostBuild Script Execution'
+[05/08/2012 04:19:59] >> Completed build step 'PostBuild Script Execution' successfully.
+[05/08/2012 04:19:59] >> Starting build step 'PostBuildReleaseSpecific Script Execution'
+[05/08/2012 04:19:59] >> Completed build step 'PostBuildReleaseSpecific Script Execution' successfully.
+[05/08/2012 04:19:59] >> Build steps completed successfully. Completing Transaction.
+[05/08/2012 04:19:59] Completed Saasu SQLBuilder with Exit Code of [0]
+[27/08/2012 06:01:18] 
+[27/08/2012 06:01:18] Starting Saasu SQLBuilder.
+[27/08/2012 06:01:19] Build Mode: Normal
+[27/08/2012 06:01:19] >> Establishing Transaction Scope
+[27/08/2012 06:01:19] >> Starting build step 'PreBuild Script Execution'
+[27/08/2012 06:01:19] Connecting to Database [.]
+[27/08/2012 06:01:19] >> Completed build step 'PreBuild Script Execution' successfully.
+[27/08/2012 06:01:19] >> Starting build step 'Database Creation'
+[27/08/2012 06:01:20] Database PayMeBack not found. Attempting to create.
+[27/08/2012 06:01:22] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[27/08/2012 06:01:22] All database were created successfully.
+[27/08/2012 06:01:22] >> Completed build step 'Database Creation' successfully.
+[27/08/2012 06:01:22] >> Starting build step 'Version Table Check'
+[27/08/2012 06:01:23] Version Table [DBVersion] created successfully.
+[27/08/2012 06:01:23] >> Completed build step 'Version Table Check' successfully.
+[27/08/2012 06:01:23] >> Starting build step 'Schema Scripts Execution'
+[27/08/2012 06:01:23] Current Schema Version in database: [0]
+[27/08/2012 06:01:24] Schema scripts will database from old version [0] to new version: [4]
+[27/08/2012 06:01:24] In Normal mode, performing no script substitution.
+[27/08/2012 06:01:24] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[27/08/2012 06:01:24] Changed database context to 'PayMeBack'.
+[27/08/2012 06:01:24] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql' executed. -7 items affected.
+[27/08/2012 06:01:24] In Normal mode, performing no script substitution.
+[27/08/2012 06:01:24] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql'
+[27/08/2012 06:01:24] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql' executed. -20 items affected.
+[27/08/2012 06:01:24] In Normal mode, performing no script substitution.
+[27/08/2012 06:01:24] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql'
+[27/08/2012 06:01:24] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql' executed. -24 items affected.
+[27/08/2012 06:01:24] In Normal mode, performing no script substitution.
+[27/08/2012 06:01:24] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql'
+[27/08/2012 06:01:24] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql' executed. -8 items affected.
+[27/08/2012 06:01:24] >> Completed build step 'Schema Scripts Execution' successfully.
+[27/08/2012 06:01:24] >> Starting build step 'Data Scripts Execution'
+[27/08/2012 06:01:24] Current Data Version in database: [0]
+[27/08/2012 06:01:24] No Data scripts were found in D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore. No schema updates performed.
+[27/08/2012 06:01:24] >> Completed build step 'Data Scripts Execution' successfully.
+[27/08/2012 06:01:24] >> Starting build step 'PostBuild Script Execution'
+[27/08/2012 06:01:24] >> Completed build step 'PostBuild Script Execution' successfully.
+[27/08/2012 06:01:24] >> Starting build step 'PostBuildReleaseSpecific Script Execution'
+[27/08/2012 06:01:24] >> Completed build step 'PostBuildReleaseSpecific Script Execution' successfully.
+[27/08/2012 06:01:24] >> Build steps completed successfully. Completing Transaction.
+[27/08/2012 06:01:24] Completed Saasu SQLBuilder with Exit Code of [0]
