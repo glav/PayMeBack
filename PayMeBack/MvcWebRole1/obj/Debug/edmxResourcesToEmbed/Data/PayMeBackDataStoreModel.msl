@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PayMeBackModelStoreContainer" CdmEntityContainer="PayMeBackEntities">
+    <EntitySetMapping Name="OAuthTokens">
+      <EntityTypeMapping TypeName="PayMeBackModel.OAuthToken">
+        <MappingFragment StoreEntitySet="OAuthToken">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AccessToken" ColumnName="AccessToken" />
+          <ScalarProperty Name="AccessTokenExpiry" ColumnName="AccessTokenExpiry" />
+          <ScalarProperty Name="RefreshToken" ColumnName="RefreshToken" />
+          <ScalarProperty Name="RefreshTokenExpiry" ColumnName="RefreshTokenExpiry" />
+          <ScalarProperty Name="AssociatedUserId" ColumnName="AssociatedUserId" />
+          <ScalarProperty Name="Scope" ColumnName="Scope" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsageLogs">
+      <EntityTypeMapping TypeName="PayMeBackModel.UsageLog">
+        <MappingFragment StoreEntitySet="UsageLog">
+          <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="Uri" ColumnName="Uri" />
+          <ScalarProperty Name="ClientIdentifier" ColumnName="ClientIdentifier" />
+          <ScalarProperty Name="HttpMethod" ColumnName="HttpMethod" />
+          <ScalarProperty Name="TimeOfOperation" ColumnName="TimeOfOperation" />
+          <ScalarProperty Name="IsRequest" ColumnName="IsRequest" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DebtDetails">
+      <EntityTypeMapping TypeName="PayMeBackModel.DebtDetail">
+        <MappingFragment StoreEntitySet="DebtDetail">
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="ReasonForDebt" ColumnName="ReasonForDebt" />
+          <ScalarProperty Name="TotalAmountOwed" ColumnName="TotalAmountOwed" />
+          <ScalarProperty Name="IsOutstanding" ColumnName="IsOutstanding" />
+          <ScalarProperty Name="InitialPayment" ColumnName="InitialPayment" />
+          <ScalarProperty Name="ExpectedEndDate" ColumnName="ExpectedEndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="PaymentPeriod" ColumnName="PaymentPeriod" />
+          <ScalarProperty Name="UserIdWhoOwesDebt" ColumnName="UserIdWhoOwesDebt" />
+          <ScalarProperty Name="UserPaymentPlanId" ColumnName="UserPaymentPlanId" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPaymentPlanDetails">
+      <EntityTypeMapping TypeName="PayMeBackModel.UserPaymentPlanDetail">
+        <MappingFragment StoreEntitySet="UserPaymentPlanDetail">
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DebtPaymentInstallmentDetails">
+      <EntityTypeMapping TypeName="PayMeBackModel.DebtPaymentInstallmentDetail">
+        <MappingFragment StoreEntitySet="DebtPaymentInstallmentDetail">
+          <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+          <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="DebtId" ColumnName="DebtId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDetails">
+      <EntityTypeMapping TypeName="PayMeBackModel.UserDetail">
+        <MappingFragment StoreEntitySet="UserDetail">
+          <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+          <ScalarProperty Name="IsValidated" ColumnName="IsValidated" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="FirstNames" ColumnName="FirstNames" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SearchUsers" FunctionName="PayMeBackModel.Store.usp_SearchUsers" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PayMeBackModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="PayMeBackModelStoreContainer">
+    <EntitySet Name="UsageLog" EntityType="PayMeBackModel.Store.UsageLog" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DebtDetail" EntityType="PayMeBackModel.Store.DebtDetail" store:Type="Tables" Schema="Payment" />
+    <EntitySet Name="DebtPaymentInstallmentDetail" EntityType="PayMeBackModel.Store.DebtPaymentInstallmentDetail" store:Type="Tables" Schema="Payment" />
+    <EntitySet Name="UserPaymentPlanDetail" EntityType="PayMeBackModel.Store.UserPaymentPlanDetail" store:Type="Tables" Schema="Payment" />
+    <EntitySet Name="OAuthToken" EntityType="PayMeBackModel.Store.OAuthToken" store:Type="Tables" Schema="Security" />
+    <EntitySet Name="UserDetail" EntityType="PayMeBackModel.Store.UserDetail" store:Type="Tables" Schema="Security" />
+    <AssociationSet Name="FK_Debt_UserDetail" Association="PayMeBackModel.Store.FK_Debt_UserDetail">
+      <End Role="UserDetail" EntitySet="UserDetail" />
+      <End Role="DebtDetail" EntitySet="DebtDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Debt_UserPaymentPlanDetail" Association="PayMeBackModel.Store.FK_Debt_UserPaymentPlanDetail">
+      <End Role="UserPaymentPlanDetail" EntitySet="UserPaymentPlanDetail" />
+      <End Role="DebtDetail" EntitySet="DebtDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DebtPaymentInstallmentDetail_Debt" Association="PayMeBackModel.Store.FK_DebtPaymentInstallmentDetail_Debt">
+      <End Role="DebtDetail" EntitySet="DebtDetail" />
+      <End Role="DebtPaymentInstallmentDetail" EntitySet="DebtPaymentInstallmentDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPaymentPlanDetail_UserDetail" Association="PayMeBackModel.Store.FK_UserPaymentPlanDetail_UserDetail">
+      <End Role="UserDetail" EntitySet="UserDetail" />
+      <End Role="UserPaymentPlanDetail" EntitySet="UserPaymentPlanDetail" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UsageLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IsRequest" Type="bit" Nullable="false" />
+    <Property Name="TimeOfOperation" Type="datetime" Nullable="false" />
+    <Property Name="HttpMethod" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="ClientIdentifier" Type="nvarchar" MaxLength="128" />
+    <Property Name="Uri" Type="nvarchar" Nullable="false" MaxLength="1024" />
+    <Property Name="Body" Type="nvarchar(max)" />
+    <Property Name="StatusCode" Type="int" />
+  </EntityType>
+  <EntityType Name="DebtDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="UserPaymentPlanId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserIdWhoOwesDebt" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PaymentPeriod" Type="int" Nullable="false" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="ExpectedEndDate" Type="date" />
+    <Property Name="InitialPayment" Type="money" />
+    <Property Name="IsOutstanding" Type="bit" />
+    <Property Name="TotalAmountOwed" Type="money" Nullable="false" />
+    <Property Name="ReasonForDebt" Type="nvarchar" MaxLength="250" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="1024" />
+  </EntityType>
+  <EntityType Name="DebtPaymentInstallmentDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DebtId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PaymentDate" Type="date" Nullable="false" />
+    <Property Name="AmountPaid" Type="money" Nullable="false" />
+    <Property Name="PaymentMethod" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserPaymentPlanDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OAuthToken">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="AccessToken" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="AccessTokenExpiry" Type="datetime" Nullable="false" />
+    <Property Name="RefreshToken" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="RefreshTokenExpiry" Type="datetime" Nullable="false" />
+    <Property Name="AssociatedUserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Scope" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="UserDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="EmailAddress" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="FirstNames" Type="nvarchar" MaxLength="128" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="128" />
+    <Property Name="Password" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsValidated" Type="bit" Nullable="false" />
+    <Property Name="MobilePhone" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK_Debt_UserDetail">
+    <End Role="UserDetail" Type="PayMeBackModel.Store.UserDetail" Multiplicity="1" />
+    <End Role="DebtDetail" Type="PayMeBackModel.Store.DebtDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DebtDetail">
+        <PropertyRef Name="UserIdWhoOwesDebt" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Debt_UserPaymentPlanDetail">
+    <End Role="UserPaymentPlanDetail" Type="PayMeBackModel.Store.UserPaymentPlanDetail" Multiplicity="1" />
+    <End Role="DebtDetail" Type="PayMeBackModel.Store.DebtDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserPaymentPlanDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DebtDetail">
+        <PropertyRef Name="UserPaymentPlanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DebtPaymentInstallmentDetail_Debt">
+    <End Role="DebtDetail" Type="PayMeBackModel.Store.DebtDetail" Multiplicity="1" />
+    <End Role="DebtPaymentInstallmentDetail" Type="PayMeBackModel.Store.DebtPaymentInstallmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DebtDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DebtPaymentInstallmentDetail">
+        <PropertyRef Name="DebtId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPaymentPlanDetail_UserDetail">
+    <End Role="UserDetail" Type="PayMeBackModel.Store.UserDetail" Multiplicity="1" />
+    <End Role="UserPaymentPlanDetail" Type="PayMeBackModel.Store.UserPaymentPlanDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserPaymentPlanDetail">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="usp_SearchUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="searchCriteria" Type="nvarchar" Mode="In" />
+    <Parameter Name="pageNumber" Type="int" Mode="In" />
+    <Parameter Name="pageSize" Type="int" Mode="In" />
+  </Function>
+</Schema>

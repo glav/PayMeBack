@@ -1,0 +1,5 @@
+D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\Glav.PayMeBack.Core\bin\Debug\Glav.PayMeBack.Core.dll
+D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\Glav.PayMeBack.Core\bin\Debug\Glav.PayMeBack.Core.pdb
+D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\Glav.PayMeBack.Core\obj\Debug\Glav.PayMeBack.Core.dll
+D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\Glav.PayMeBack.Core\obj\Debug\Glav.PayMeBack.Core.pdb
+D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\Glav.PayMeBack.Core\obj\Debug\Glav.PayMeBack.Core.csprojResolveAssemblyReference.cache

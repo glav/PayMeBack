@@ -36,9 +36,14 @@ namespace Glav.PayMeBack.Web.Helpers
             if (cultureService != null && webMembershipManager != null)
             {
                 var user = webMembershipManager.GetUserFromRequestCookie();
-                return cultureService.ConvertDateToUserPreferenceFormatForDisplay(user, date);
+                var displayDate = cultureService.ConvertDateToUserPreferenceFormatForDisplay(user, date);
+                if (string.IsNullOrWhiteSpace(displayDate))
+                {
+                    displayDate = "Never";
+                }
+                return displayDate;
             }
-            return date.HasValue ? date.Value.Date.ToShortDateString() : string.Empty;
+            return date.HasValue ? date.Value.Date.ToShortDateString() : "Never";
         }
         public static string ToDisplayTime(this HtmlHelper helper, DateTime? time)
         {

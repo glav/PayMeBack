@@ -287,8 +287,12 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Borrow-PayBack-small.png" />
+    <Content Include="Images\PayMeBackTitle.png" />
     <Content Include="Images\progress.gif" />
+    <Content Include="Images\SummaryHeadingBground.png" />
     <Content Include="Scripts\Custom\debt-manager.js" />
+    <Content Include="Scripts\Custom\InputManager.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\Custom\notificationEngine.js" />

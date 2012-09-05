@@ -14,6 +14,7 @@ namespace Glav.PayMeBack.Web.Framework
 			coreBundle.AddFile("~/Scripts/nyroModal/js/jquery.nyroModal.js");
             coreBundle.AddFile("~/Scripts/knockout-2.0.0.js");
             coreBundle.AddFile("~/Scripts/custom/payMeBack.Core.js");
+            coreBundle.AddFile("~/Scripts/custom/InputManager.js");
             coreBundle.AddFile("~/Scripts/custom/progressManager.js");
             coreBundle.AddFile("~/Scripts/custom/notificationEngine.js");
             coreBundle.AddFile("~/Scripts/custom/Login.js");
