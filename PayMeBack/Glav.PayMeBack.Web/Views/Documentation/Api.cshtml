@@ -1,0 +1,39 @@
+﻿@model Glav.PayMeBack.Core.ApiHelp
+
+@{
+    ViewBag.Title = "Api";
+}
+
+<h2>Api Documentation</h2>
+
+<table>
+    <tr>
+        <th>Method</th>
+    </tr>
+
+	@{
+		string lastGroup = null;
+	}
+	 @foreach (var item in Model.Api) {
+	  if (lastGroup != item.Group)
+	  {
+	  	<tr><td colspan="3"><h3>@item.Group</h3></td></tr>
+	  	lastGroup = item.Group;
+	  }
+	 	<tr>
+			<td>
+				<ul>
+					<li class="api-method-header">@item.HttpMethod @item.Uri</li>
+					@foreach (var parm in item.Parameters)
+					{
+						<li class="api-method-content">Paramter: [@parm.MethodType] @parm.Name</li>
+					}
+					<li class="api-method-content">Description: @item.Description</li>
+					<li class="api-method-content">Return Example:</li>
+					<li class="api-method-payload">@item.ReturnPayloadExample</li>
+				</ul> 
+			</td>
+		</tr>
+}
+
+</table>
