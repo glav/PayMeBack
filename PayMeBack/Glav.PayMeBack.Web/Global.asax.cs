@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Autofac.Integration.Mvc;
+using Glav.PayMeBack.Web.App_Start;
+using Glav.PayMeBack.Web.Domain;
+using Glav.PayMeBack.Web.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,12 +21,15 @@ namespace Glav.PayMeBack.Web
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
+            DependencyInjectionConfig.Register(GlobalConfiguration.Configuration);
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            BundleManager.RegisterCssBundles(BundleTable.Bundles);
+            BundleManager.RegisterJsBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            MobileConfig.Register();
         }
     }
 }

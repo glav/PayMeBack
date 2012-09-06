@@ -1,0 +1,28 @@
+@model Glav.PayMeBack.Core.Domain.DebtSummary
+
+@{
+	ViewBag.Title = "Pay Me Back - Summary";
+}
+
+@section ScriptHead {
+	@Scripts.Render("~/SummaryPageJs")
+}
+
+<section class="clear-fix action-menu">
+    <ul>
+        <li><a href="#" id="add-debt-link">Add Debt</a></li>
+        <li><a href="#" id="remove-debt-link">Remove Debt</a></li>
+        <li><a href="#" id="set-notification-link">Set Notification options for a Debt</a></li>
+    </ul>
+</section>
+
+<section class="clear-fix" id="debt-summary-section">
+	
+    @if (Model != null)
+    {
+        @Html.Partial("_DebtSummaryList", Model)
+    }
+
+</section>
+
+@Html.Partial("_AddDebt")
