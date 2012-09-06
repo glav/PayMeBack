@@ -1,0 +1,284 @@
+﻿/* File Created: July 23, 2012 */
+
+/*** Standard Styles ****/
+input.action-button {
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    height:30px;
+}
+
+header {
+	margin: 10px 20px;	
+}
+	
+	header div {
+		float: left;
+	}
+	
+	header h1, header h4, header div img {
+		float: left;
+	}
+        header div h4 {
+            color:#419716;
+            padding-top: 5px;
+        }
+	
+	header h3 {
+		padding: 14px 0;
+		margin-left: 120px;
+	}
+	
+		header div.header-menu {
+			float: right;
+		}
+		header div.header-menu ul {
+			list-style: none;
+			display: inline;
+		}
+			header div.header-menu ul li {
+				float: left;
+				margin: 0px 5px;
+			}
+
+#body {
+	
+}
+	#body section {
+		margin: 10px 50px;
+		clear: both;
+	}
+
+/**************** Header Menu Nav Buttons ***********/
+div.header-menu ul {
+    float:right;
+}
+
+div.header-menu ul li,div.header-menu ul li a {
+    width: 100px;
+    height:24px;
+    overflow:hidden;
+}
+    div.header-menu ul li a {
+        display:block;
+        color:transparent;
+    }
+
+
+    div.header-menu ul li.login {
+        background: url(../Images/NavButtonsSprite.png) no-repeat 0px 0px;
+    }
+    div.header-menu ul li.sign-up {
+        background: url(../Images/NavButtonsSprite.png) no-repeat 0px -25px;
+    }
+    div.header-menu ul li.sign-out {
+        background: url(../Images/NavButtonsSprite.png) no-repeat 0px -50px;
+    }
+    div.header-menu ul li.contact-us {
+        background: url(../Images/NavButtonsSprite.png) no-repeat 0px -75px;
+    }
+
+/* Documentation */
+ul li.api-method-header {
+	font-size: 1.2em;
+}
+ul li.api-method-content {
+	margin-left: 20px;
+	list-style-type: circle;
+}
+ul li.api-method-payload {
+	margin-left: 25px;
+	list-style-type: none;
+}
+
+/* Login and Signup Dialog */
+div.login-dialog .signup, div.signup-dialog .login {
+	display: none;
+}
+
+/*** Summary Page Action Menu *******/
+section.action-menu ul {
+    list-style:none;
+}
+
+    section.action-menu ul li {
+        float:left;
+        margin-left:10px;
+        padding:3px 5px;
+        font-size:1.2em;
+    }
+        section.action-menu ul li a, section.action-menu ul li a:hover, section.action-menu ul li a:visited {
+            text-decoration:none;
+            color:Green;
+        }
+/*** Dialog Common Styles *****/
+
+div.dialog-container h3 {
+    background-color: #99FF9D;
+    padding: 7px 15px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+    div.dialog-container fieldset.dialog-form, div.dialog-container div.dialog-form {
+        margin: auto;
+        border:none;
+    }
+
+    div.dialog-container fieldset.dialog-form ul, div.dialog-container div.dialog-form ul {
+        list-style:none;
+        padding-left: 20px;
+    }
+
+        div.dialog-container fieldset.dialog-form ul li, div.dialog-container div.dialog-form ul li {
+            padding: 5px;
+            font-size: 1.1em;
+            width:260px;
+        }
+        
+            div.dialog-container fieldset.dialog-form ul li input, 
+            div.dialog-container div.dialog-form ul li input,
+            div.dialog-container fieldset.dialog-form ul li select, 
+            div.dialog-container div.dialog-form ul li select {
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                -webskit-border-radius: 5px;
+                float: right;
+                width: 170px;
+            }
+            div.dialog-container fieldset.dialog-form input.action-button,
+            div.dialog-container div.dialog-form input.action-button {
+                width: 100%;
+                background: #e3ffdd; /* Old browsers */
+                background: -moz-linear-gradient(top,  #e3ffdd 53%, #b6efb6 100%); /* FF3.6+ */
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(53%,#e3ffdd), color-stop(100%,#b6efb6)); /* Chrome,Safari4+ */
+                background: -webkit-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* Chrome10+,Safari5.1+ */
+                background: -o-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* Opera 11.10+ */
+                background: -ms-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* IE10+ */
+                background: linear-gradient(to bottom,  #e3ffdd 53%,#b6efb6 100%); /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3ffdd', endColorstr='#b6efb6',GradientType=0 ); /* IE6-9 */
+            }
+/*** Login Dialog  ******/ 
+
+#credentials-container img.login-progress-indicator {
+    margin-left:150px;
+    top:80px;
+}
+
+#credentials-form {
+    text-align:center;
+}
+            #credentials-form ul li label {
+                margin-right: 10px;
+            }
+
+/**** Status Bar Message ******/
+div.status-message {
+    position:absolute;
+    margin:auto;
+    top: 0;
+    text-align:center;
+    width: 100%;
+}
+    div.status-message div {
+        margin: 0 40px;
+        border-radius: 0 0 10px 10px;
+        -moz-border-radius: 0 0 10px 10px;
+        -webkit-border-radius: 0 0 10px 10px;
+        padding: 7px 25px;
+        border-bottom: 1px solid black;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        box-shadow: 5px 5px 5px #A2A2A2;
+        -moz-box-shadow: 5px 5px 5px #A2A2A2;
+        -webkit-box-shadow: 5px 5px 5px #A2A2A2;
+    }
+    div.status-message div.error {
+        background-color: #ffaaaa;
+    }
+    div.status-message div.info {
+        background-color: #ffff99;
+    }
+
+/***************** Add Debt dialog  *******************/
+#add-debt-container {
+    width: 550px;
+}
+#add-debt-container img.add-debt-progress-indicator {
+    margin-left:250px;
+    padding-top:100px;
+}
+    #add-debt-container img.login-progress-indicator {
+        margin-left:150px;
+        top:80px;
+    }
+        #add-debt-container fieldset.dialog-form ul li {
+            width: 500px;
+            height: 25px;
+            margin: 4px 0;
+        }
+            #add-debt-container fieldset.dialog-form ul li label {
+                width: 300px;
+                float: left;
+                clear: left;
+                text-align: right;
+            }
+
+            #add-debt-container fieldset.dialog-form ul li input,
+            #add-debt-container fieldset.dialog-form ul li select {
+                width: 150px;
+            }
+
+/************ Debt Summary Section */
+#debt-summary-section {
+    border-top: 3px solid #A2A2A2;
+    border-bottom: 1px solid #A2A2A2;
+}
+    #debt-summary-section h3 {
+        margin: 0 10px;
+        background-image:url(../images/SummaryHeadingBground.png);
+        border-radius: 8px;
+        -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;
+
+        color: #d4ff95;
+        height: 34px;
+        padding-left: 30px;
+        padding-top: 6px;
+        width: 360px;
+    }
+    #debt-summary-section div {
+        margin-bottom: 40px;
+        margin-left:60px;
+    }
+
+span.total-owed-amount {
+    color:#b23737;
+}
+
+/********* Debt Summary Tables *************/
+table.debt-summary-table {
+}
+    table.debt-summary-table tr.odd {
+    }
+    table.debt-summary-table tr.even {
+        background-color:#d7ffd9;
+    }
+    
+    table.debt-summary-table td {
+        padding:1px 8px;
+    }
+
+    table.debt-summary-table th.col-hdr-who, table.debt-summary-table td.col-who {
+        text-align:center;
+    }
+    table.debt-summary-table th.col-hdr-amt, table.debt-summary-table td.col-amt,
+    table.debt-summary-table th.col-hdr-last-paid-amt, table.debt-summary-table td.col-last-paid-amt  {
+        text-align:right;
+        width:100px;
+    }
+
+        table.debt-summary-table th.col-hdr-last-paid-date, table.debt-summary-table td.col-last-paid-date {
+            text-align:center;
+        }

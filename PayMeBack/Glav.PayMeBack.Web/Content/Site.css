@@ -1,0 +1,27 @@
+﻿html {
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    border-top: solid 10px #2F7532;
+    color: #333;
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+.clear-fix:after {
+    content: ".";
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.hidden {
+	display: none;
+}
