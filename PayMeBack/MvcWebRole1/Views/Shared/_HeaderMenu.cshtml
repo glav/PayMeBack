@@ -5,11 +5,10 @@
 
 <div class="header-menu">
 	<ul>
-			<li class="hide-if-signed-in"><a href="#" class="credentials-link login">Login</a></li>
-			<li class="hide-if-signed-in"><a href="#" class="credentials-link sign-up">Sign Up</a></li>
-			<li class="show-if-signed-in">@Html.ActionLink("Sign Out","Logout","Membership")</li>
-		<li><a href="#">Menu Two</a></li>
-		<li>@Html.ActionLink("Contact Us","Index","Contact")</li>
+			<li class="hide-if-signed-in login"><a href="#" title="Sign In" class="credentials-link login">Sign In</a></li>
+			<li class="hide-if-signed-in sign-up"><a href="#" title="Sign Up" class="credentials-link sign-up">Sign Up</a></li>
+			<li class="show-if-signed-in sign-out"><a title="Sign Out" href="~/Membership/Logout">Sign Out</a></li>
+		    <li class="contact-us">@Html.ActionLink("Contact Us","Index","Contact",new {title="Contact Us"})</li>
 	</ul>
 </div>
 @if (!isSignedIn)

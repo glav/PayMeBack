@@ -45,10 +45,38 @@ header {
 	
 }
 	#body section {
-		margin: 10px 100px;
+		margin: 10px 50px;
 		clear: both;
 	}
 
+/**************** Header Menu Nav Buttons ***********/
+div.header-menu ul {
+    float:right;
+}
+
+div.header-menu ul li,div.header-menu ul li a {
+    width: 100px;
+    height:24px;
+    overflow:hidden;
+}
+    div.header-menu ul li a {
+        display:block;
+        color:transparent;
+    }
+
+
+    div.header-menu ul li.login {
+        background: url(../Images/NavButtonsSprite.png) no-repeat 0px 0px;
+    }
+    div.header-menu ul li.sign-up {
+        background: url(../Images/NavButtonsSprite.png) no-repeat 0px -25px;
+    }
+    div.header-menu ul li.sign-out {
+        background: url(../Images/NavButtonsSprite.png) no-repeat 0px -50px;
+    }
+    div.header-menu ul li.contact-us {
+        background: url(../Images/NavButtonsSprite.png) no-repeat 0px -75px;
+    }
 
 /* Documentation */
 ul li.api-method-header {
