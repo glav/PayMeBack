@@ -363,6 +363,7 @@
     </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\Borrow-PayBack-small.png" />
+    <Content Include="Images\delete-icon.png" />
     <Content Include="Images\NavButtonsSprite.png" />
     <Content Include="Images\PayMeBackTitle.png" />
     <Content Include="Images\progress.gif" />
