@@ -15,6 +15,7 @@ using Glav.CacheAdapter.Core;
 using Glav.PayMeBack.Web.Framework;
 using System.Web.Http.ModelBinding;
 using Glav.PayMeBack.Web.Domain;
+using Api = Glav.PayMeBack.Web.Controllers.Api;
 
 namespace Glav.PayMeBack.Web.Helpers
 {
@@ -46,11 +47,12 @@ namespace Glav.PayMeBack.Web.Helpers
 			builder.Register(c => new WebMembershipManager(c.Resolve<IOAuthSecurityService>(), c.Resolve<ISignupManager>(),c.Resolve<IUserEngine>())).As<IWebMembershipManager>();
 			
 			// Register our controllers
-			builder.Register(c => new OAuthController(c.Resolve<IOAuthSecurityService>(), c.Resolve<ISignupManager>())).As<OAuthController>();
-			builder.Register(c => new DebtsController(c.Resolve<IPaymentPlanService>())).As<DebtsController>();
-			builder.Register(c => new HelpController(c.Resolve<IHelpEngine>())).As<HelpController>();
+			builder.Register(c => new Api.OAuthController(c.Resolve<IOAuthSecurityService>(), c.Resolve<ISignupManager>())).As<OAuthController>();
+			builder.Register(c => new Api.DebtsController(c.Resolve<IPaymentPlanService>())).As<DebtsController>();
+			builder.Register(c => new Api.HelpController(c.Resolve<IHelpEngine>())).As<HelpController>();
 			builder.Register(c => new DocumentationController(c.Resolve<IHelpEngine>())).As<DocumentationController>();
-			builder.Register(c => new UsersController(c.Resolve<IUserEngine>())).As<UsersController>();
+			builder.Register(c => new Api.UsersController(c.Resolve<IUserEngine>())).As<UsersController>();
+            builder.Register(c => new Api.SummaryController(c.Resolve<IPaymentPlanService>())).As<Api.SummaryController>();
 
 			builder.RegisterControllers(Assembly.GetExecutingAssembly());
 
