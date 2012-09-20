@@ -368,6 +368,7 @@
     <Content Include="Images\PayMeBackTitle.png" />
     <Content Include="Images\progress.gif" />
     <Content Include="Images\SummaryHeadingBground.png" />
+    <Content Include="Scripts\Custom\ajaxManager.js" />
     <Content Include="Scripts\Custom\debt-manager.js" />
     <Content Include="Scripts\Custom\InputManager.js" />
     <Content Include="Scripts\Custom\landing-page.js" />

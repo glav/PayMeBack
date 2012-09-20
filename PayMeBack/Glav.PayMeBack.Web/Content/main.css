@@ -179,7 +179,7 @@ div.status-message {
     margin:auto;
     top: 0;
     text-align:center;
-    width: 100%;
+    width: 90%;
 }
     div.status-message div {
         margin: 0 40px;
@@ -200,7 +200,24 @@ div.status-message {
     div.status-message div.info {
         background-color: #ffff99;
     }
-
+    div.confirm-container {
+        padding-top: 20px;
+    }
+    div.status-message div.confirm {
+        background-color: #ffff99;
+        display:inline;
+        color: red;
+        font-weight:bold;
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+        div.status-message div.confirm span {
+            padding: 0 4px;
+        }
+        div.status-message div.confirm span a {
+            padding: 0 3px;
+            color: green;
+        }
 /***************** Add Debt dialog  *******************/
 #add-debt-container {
     width: 550px;
@@ -248,7 +265,7 @@ div.status-message {
         padding-top: 6px;
         width: 360px;
     }
-    #debt-summary-section div {
+    #debt-summary-section div.debt-section {
         margin-bottom: 40px;
         margin-left:60px;
     }
@@ -267,7 +284,7 @@ table.debt-summary-table {
     }
     
     table.debt-summary-table td {
-        padding:1px 8px;
+        padding:4px 8px;
     }
 
     table.debt-summary-table th.col-hdr-who, table.debt-summary-table td.col-who {
@@ -278,7 +295,17 @@ table.debt-summary-table {
         text-align:right;
         width:100px;
     }
+        table.debt-summary-table tr.debt-item-row:hover {
+            background-color:#e6f19f;
+        }
 
         table.debt-summary-table th.col-hdr-last-paid-date, table.debt-summary-table td.col-last-paid-date {
             text-align:center;
+        }
+
+        table.debt-summary-table td.action-icon, table.debt-summary-table td.action-icon a {
+            color:transparent;
+        }
+        table.debt-summary-table td.action-delete {
+            background: url(../images/delete-icon.png) no-repeat 10px 2px;
         }

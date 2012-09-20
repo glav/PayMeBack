@@ -243,6 +243,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
                     var lastAmtPaid = d.LastAmountPaid();
                     var debtItem = new DebtSummaryItem
                     {
+                        Id = d.Id,
                         AmountOwing = amtOwing,
                         StartDate = d.StartDate,
                         LastAmountPaid = lastAmtPaid,
@@ -261,6 +262,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
                     var lastAmtPaid = d.LastAmountPaid();
                     var debtItem = new DebtSummaryItem
                     {
+                        Id = d.Id,
                         AmountOwing = amtOwing,
                         StartDate = d.StartDate,
                         LastAmountPaid = lastAmtPaid,

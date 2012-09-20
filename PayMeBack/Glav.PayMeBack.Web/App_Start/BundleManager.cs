@@ -17,6 +17,7 @@ namespace Glav.PayMeBack.Web
                 .Include("~/Scripts/custom/InputManager.js")
                 .Include("~/Scripts/custom/progressManager.js")
                 .Include("~/Scripts/custom/notificationEngine.js")
+                .Include("~/Scripts/custom/ajaxManager.js")
                 .Include("~/Scripts/custom/Login.js");
 			bundles.Add(coreBundle);
 
