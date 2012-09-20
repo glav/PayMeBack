@@ -1,0 +1,92 @@
+﻿@model Glav.PayMeBack.Core.Domain.DebtSummary
+@using Glav.PayMeBack.Web.Helpers;
+
+@using Glav.PayMeBack.Core.Domain;
+@{
+    int rowCount = 0;
+    string alternatingRowStyle = null;
+}
+
+	<h2>Summary of Debts</h2>
+    
+    <h3>Debts that are owed to you</h3>
+    <div id="debts-owed-to-me" class="debt-section">
+        <h4>Total Amount owed to you: <span class="total-owed-amount">@Html.ToCurrencyDisplay(Model.TotalAmountOwedToYou)</span></h4>
+
+        @if (Model.DebtsOwedToYou == null || Model.DebtsOwedToYou.Count == 0)
+        {
+            <h4>No Debts</h4>
+        }
+        else
+        {
+            <table id="debt-summary-owed" class="debt-summary-table">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <th class="col-hdr-who">Who</th>
+                        <th class="col-hdr-amt">Amount</th>
+                        <th class="col-hdr-started">Started</th>
+                        <th class="col-hdr-last-paid-amt">Last Paid</th>
+                        <th class="col-hdr-last-paid-date">Last Date of Payment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{rowCount = 0;}
+                    @foreach (var debtItem in Model.DebtsOwedToYou)
+                    {
+                        rowCount++;
+                        alternatingRowStyle = rowCount % 2 == 0 ? "odd" : "even";
+                        <tr data-debt-id="@debtItem.Id" class="@alternatingRowStyle debt-item-row">
+                            <td class="action-icon action-delete"><a href="#" title="Delete">Delete</a></td>
+                            <td class="col-who">@debtItem.UserWhoOwesDebt.EmailAddress</td>
+                            <td class="col-amt">@Html.ToCurrencyDisplay(debtItem.AmountOwing)</td>
+                            <td class="col-started">@Html.ToDisplayDate(debtItem.StartDate)</td>
+                            <td class="col-last-paid-amt">@Html.ToCurrencyDisplay(debtItem.LastAmountPaid)</td>
+                            <td class="col-last-paid-date">@Html.ToDisplayDate(debtItem.LastPaymentDate)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+
+    <h3>Debts that you owe to others</h3>
+    <div id="debts-owed-to-others" class="debt-section">
+        <h4>Total Amount owed by you: <span class="total-owed-amount">@Html.ToCurrencyDisplay(Model.TotalAmountYouOwe)</span></h4>
+
+        @if (Model.DebtsYouOwe == null || Model.DebtsYouOwe.Count == 0)
+        {
+            <h4>No Debts</h4>
+        }
+        else
+        {
+            <table id="debt-summary-owing" class="debt-summary-table">
+                <thead>
+                    <tr>
+                        <th class="col-hdr-who">Who</th>
+                        <th class="col-hdr-amt">Amount</th>
+                        <th class="col-hdr-started">Started</th>
+                        <th class="col-hdr-last-paid-amt">Last Paid</th>
+                        <th class="col-hdr-last-paid-date">Last Date of Payment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{rowCount = 0;}
+                    @foreach (var debtItem in Model.DebtsYouOwe)
+                    {
+                        rowCount++;
+                        alternatingRowStyle = rowCount % 2 == 0 ? "odd" : "even";
+                        <tr class="@alternatingRowStyle">
+                            <td class="col-who">@debtItem.UserWhoOwesDebt.EmailAddress</td>
+                            <td class="col-amt">@Html.ToCurrencyDisplay(debtItem.AmountOwing)</td>
+                            <td class="col-started">@Html.ToDisplayDate(debtItem.StartDate)</td>
+                            <td class="col-last-paid-amt">@Html.ToCurrencyDisplay(debtItem.LastAmountPaid)</td>
+                            <td class="col-last-paid-date">@Html.ToDisplayDate(debtItem.LastPaymentDate)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
