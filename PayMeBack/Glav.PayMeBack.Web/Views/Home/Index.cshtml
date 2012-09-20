@@ -1,0 +1,44 @@
+@model Glav.PayMeBack.Web.Models.HomeActionModel
+
+@{
+	ViewBag.Title = "Pay Me Back";
+}
+
+@section ScriptHead {
+	@Scripts.Render("~/LandingPageJs")
+}
+<section class="clear-fix">
+	
+    <section id="intro-not-authenticated" class="hide-if-signed-in hidden">
+	    <h2>So you helped someone out by lending them some money?</h2>
+
+	    <p>People often lend family or friends money when required, but at some point of time, you probably want to be paid back.
+	    Otherwise you would not be lending them money, you would be giving them money.</p>
+	    <p>With that in mind, this online application allows you to easily track what money is owed to you, record payments and optionally
+		    have notifications sent to relevent parties to remind them they should probably pay
+		    a little bit back on the debts they owe.</p>
+    </section>
+
+    <section id="intro-authenticated"  class="show-if-signed-in hidden">
+        @{
+            var userName = !string.IsNullOrWhiteSpace(Model.UserName) ? Model.UserName : "{{firstname}}";
+        }
+        <h3 class="data-bind">Great to see you @userName</h3>
+        
+        <h4>What would you like to do?</h4>
+        <ul>
+            <li><a href="@Url.Content("~/Summary")">See your Debt Summary and manage your debts</a></li>
+            <li>Manage your account profile</li>
+        </ul>
+    </section>
+
+
+
+	@if (!string.IsNullOrWhiteSpace(Model.InformationalMessage))
+ {
+		<section class="info-message">
+			<p>@Model.InformationalMessage</p>
+		</section>
+	}
+
+</section>

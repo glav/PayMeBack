@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Pay Me Back</title>
+		<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		@Styles.Render("~/Content/css")
+		@Styles.Render("~/MainCss")
+		@Styles.Render("~/Content/themes/base/css")
+		@Styles.Render("~/NyroModalCss")
+		@Scripts.Render("~/bundles/jquery")
+		@Scripts.Render("~/CoreJs")
+		<script type="text/javascript">
+			window.payMeBack.core.rootPath = "@Url.Content("~")";
+		</script>
+		@RenderSection("ScriptHead",false)
+		<meta name="viewport" content="width=device-width" />
+	</head>
+	<body>
+		<header>
+			@*Custom Header section if required*@
+			@RenderSection("header",false)
+
+            <a href="@Url.Content("~")">
+			    @Html.Partial("_HeaderTitle")
+            </a>
+			@Html.Partial("_HeaderMenu")
+		</header>
+		<div id="body">
+			@RenderBody()
+		</div>
+		<footer>
+			@RenderSection("footer",false)
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+﻿@{
+    var isSignedIn = Request.IsAuthenticated;
+}
+
+
+<div class="header-menu">
+	<ul>
+			<li class="hide-if-signed-in login"><a href="#" title="Sign In" class="credentials-link login">Sign In</a></li>
+			<li class="hide-if-signed-in sign-up"><a href="#" title="Sign Up" class="credentials-link sign-up">Sign Up</a></li>
+			<li class="show-if-signed-in sign-out"><a title="Sign Out" href="~/Membership/Logout">Sign Out</a></li>
+		    <li class="contact-us">@Html.ActionLink("Contact Us","Index","Contact",new {title="Contact Us"})</li>
+	</ul>
+</div>
+@if (!isSignedIn)
+{
+    <input type="hidden" id="is-signed-in-state" value="false" />
+    Html.RenderPartial("_login");
+}
+else
+{
+    <input type="hidden" id="is-signed-in-state" value="true" />
+}

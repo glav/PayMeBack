@@ -22,6 +22,7 @@ namespace Glav.PayMeBack.Core.Domain
 
 	public class DebtSummaryItem
 	{
+        public Guid Id { get; set; }
 		public DateTime StartDate { get; set; }
 		public decimal AmountOwing { get; set; }
 		public DateTime? LastPaymentDate { get; set; }
