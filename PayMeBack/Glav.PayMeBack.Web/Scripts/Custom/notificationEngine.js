@@ -16,6 +16,41 @@ window.payMeBack.notificationEngine = (function () {
         alert(message);
     };
 
+    // This function will present a smallnon intrusive confirmation action to the user
+    // but not modally and typically attached to an element for context. If the user
+    // cofirms the action then the confirmation callback is executed
+    var showConfirmationContextMessage = function (triggerElement, message, confirmCallback) {
+        var htmlBlock = "<div id='status-message' class='status-message confirm-container hidden'><div class='confirm'>" + message + " - Are you sure?<span class='confirm-action'><a href='#yes'>Yes</a><a href='#no'>No</a></span></div></div>";
+
+        if (typeof triggerElement === 'undefined' || triggerElement === '' || triggerElement === null) {
+            triggerElement = $("body");
+        }
+        var htmlEl = $(htmlBlock);
+        triggerElement.append(htmlEl);
+        $("a", htmlEl).click('on', function () {
+            var aEl = $(this);
+            var triggerCallback = false;
+            if (aEl.attr('href') === "#yes") {
+                triggerCallback = true;
+            }
+            htmlEl.slideUp('normal', function () {
+                htmlEl.remove();
+                if (triggerCallback === true && typeof confirmCallback !== 'undefined') {
+                    confirmCallback();
+                }
+            });
+
+        });
+
+        $("body").on("click", function () {
+            var msgEl = $("#status-message");
+            msgEl.slideUp('normal', function () {
+                msgEl.remove();
+            });
+        });
+        htmlEl.slideDown('normal');
+    };
+
 
     // This will show a simple message that slides down, then disappears after a bit
     // sorta like Stack overflow
@@ -64,6 +99,7 @@ window.payMeBack.notificationEngine = (function () {
     return {
         showPopupDialogMessage: function (message) { showPopupDialogMessage(message); },
         showStatusBarMessage: function (message, containerEl, topPositionOffset) { showStatusBarMessage(message, containerEl, topPositionOffset); },
+        showConfirmationContextMessage: function (triggerElement, message, confirmationCallback) { showConfirmationContextMessage(triggerElement, message, confirmationCallback); },
         MessageTypeInfo: MESSAGE_TYPE_INFO,
         MessageTypeError: MESSAGE_TYPE_ERROR
     };

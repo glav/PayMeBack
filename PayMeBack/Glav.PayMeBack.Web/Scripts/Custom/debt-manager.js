@@ -11,6 +11,10 @@ window.payMeBack.debtManager = (function () {
         cache: false
     });
 
+    var clearFormData = function () {
+        $("#add-debt-container fieldset input").val("");
+    }
+
     var captureFormData = function () {
         return {
             emailAddress: $("#add-debt-user-email").val(),
@@ -27,53 +31,19 @@ window.payMeBack.debtManager = (function () {
         var debtData = captureFormData();
 
         $("#add-debt-container fieldset").fadeOut('normal', function () {
-            window.payMeBack.progressManager.showProgressIndicator("add-debt-container");
-            $.ajax({
-                url: window.payMeBack.core.makePathFromVirtual("~/debt/Add"),
-                type: "POST",
-                data: JSON.stringify(debtData),
-                contentType: 'application/json',
-                dataType: "json",
-                cache:false,
-                success: function (result) {
-                    window.payMeBack.progressManager.hideProgressIndicator("add-debt-container", function () {
-                        if (result && typeof result.error !== 'undefined') {
-                            window.payMeBack.notificationEngine.showStatusBarMessage("The request had an error: " + result.error, window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent", 5);
-                            $("#add-debt-container fieldset").fadeIn();
-
-                        } else {
-                            if (result && typeof result.success !== 'undefined' && result.success === true) {
-                                // This worked
-                                getDebtSummaryHtml();
-                                $.nyroModalRemove();
-                            } else {
-                                var msg = "";
-                                if (typeof result.error !== 'undefined') {
-                                    msg = result.error;
-                                }
-
-                                msg = "Sorry, there was an error adding the debt to the system. " + msg;
-                                $("#add-debt-container fieldset").fadeIn();
-
-                                window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent");
-                            }
-
-                        }
-                    });
+            window.payMeBack.ajaxManager.ajaxRequest("~/debt/Add", "POST", debtData, "add-debt-container", "#nyroModalContent",
+                function () {
+                    getDebtSummaryHtml();
+                    $.nyroModalRemove();
                 },
-                error: function (e) {
-                    window.payMeBack.progressManager.hideProgressIndicator("add-debt-container", function () {
-                        $("#add-debt-container fieldset").fadeIn();
-
-                        var msg = "There was a problem adding the debt record to the system. Please try again.";
-                        window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent", 5);
-                    });
-                }
-            });
+                function () {
+                    $("#add-debt-container fieldset").fadeIn();
+                });
         });
     };
 
     var showAddDebtDialog = function () {
+        clearFormData();
         $.nyroModalManual({
             url: '#add-debt-modal',
             minHeight: 300,
@@ -115,7 +85,6 @@ window.payMeBack.debtManager = (function () {
                 });
             },
             error: function (e) {
-                console.log(e);
                 window.payMeBack.progressManager.hideProgressIndicator("debt-summary-section", function () {
                     var msg = "There was a problem retrieving the debt summary data. Please try again.";
                     window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError);
@@ -125,7 +94,23 @@ window.payMeBack.debtManager = (function () {
 
     };
 
+    var deleteDebt = function (debtId) {
+        window.payMeBack.ajaxManager.ajaxRequest("~/debt/Delete?debtId="+debtId, "DELETE", "", "debt-summary-owed", null,
+            function () {
+                $('#debt-summary-owed tr[data-debt-id="' + debtId + '"]').remove();
+            },
+            function () {
+                // error - dont do anything
+            });
+    };
+
+    var editDebt = function (debtId) {
+        alert('not implemented - edit debt Id: ' + debtId);
+    };
+
     return {
-        showAddDebtDialog: function () { showAddDebtDialog(); }
+        showAddDebtDialog: function () { showAddDebtDialog(); },
+        deleteDebt: function (debtId) { deleteDebt(debtId); },
+        editDebt: function (debtId) { editDebt(debtId); }
     };
 })();

@@ -47,5 +47,25 @@ namespace Glav.PayMeBack.Web.Controllers
             return Json(new { success = false,errorMessage = addResult.Errors.Count > 0 ? addResult.Errors[0] : string.Empty });
         }
 
+        [HttpDelete]
+        public JsonResult Delete(string debtId)
+        {
+            if (!string.IsNullOrWhiteSpace(debtId))
+            {
+                try
+                {
+                    var user = _webMembershipManager.GetUserFromRequestCookie();
+                    var id = new Guid(debtId);
+                    var result = _paymentPlanService.RemoveDebt(user.Id,id);
+                    return Json(new { success = result.WasSuccessfull, errorMessage = result.Errors.Count > 0 ? result.Errors[0] : string.Empty });
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, errorMessage = "There was error processing your delete request. Please retry" });
+                }
+            }
+            return Json(new { success = true, errorMessage = string.Empty });
+        }
+
     }
 }
