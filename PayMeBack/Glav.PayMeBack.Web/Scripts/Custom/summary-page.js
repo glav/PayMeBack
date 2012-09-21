@@ -1,14 +1,9 @@
 ﻿/// <reference path="_references.js" />
 
 $(document).ready(function () {
-    function bindActionLinks() {
-        $("#add-debt-link").on("click", function () {
-            window.payMeBack.debtManager.showAddDebtDialog();
-        });
-    }
 
     function bindGridActions() {
-        $("table tr td.action-delete a").on('click', function (evt) {
+        $("table tr td.action-delete a").unbind().on('click', function (evt) {
             // get id from data-debt-id attr on TR element which is parent
             var el = $(this);
             evt.preventDefault();
@@ -17,6 +12,12 @@ $(document).ready(function () {
             window.payMeBack.notificationEngine.showConfirmationContextMessage(null, "Deleting this debt will remove it entirely", function () {
                 window.payMeBack.debtManager.deleteDebt(debtId);
             });
+        });
+    }
+
+    function bindActionLinks() {
+        $("#add-debt-link").on("click", function () {
+            window.payMeBack.debtManager.showAddDebtDialog(bindGridActions);
         });
     }
 
