@@ -55,7 +55,6 @@ window.payMeBack.debtManager = (function () {
             endRemove: function () {
                 $("#add-debt-container fieldset").show();
                 $("#add-debt-container .progress-indicator").hide();
-                console.log('=' + completionCallback);
                 if (typeof completionCallback !== 'undefined') {
                     completionCallback();
                 }
