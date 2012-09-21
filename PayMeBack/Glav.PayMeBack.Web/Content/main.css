@@ -297,6 +297,7 @@ table.debt-summary-table {
     }
         table.debt-summary-table tr.debt-item-row:hover {
             background-color:#e6f19f;
+            cursor:pointer;
         }
 
         table.debt-summary-table th.col-hdr-last-paid-date, table.debt-summary-table td.col-last-paid-date {

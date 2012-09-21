@@ -104,7 +104,9 @@ window.payMeBack.debtManager = (function () {
     var deleteDebt = function (debtId) {
         window.payMeBack.ajaxManager.ajaxRequest("~/debt/Delete?debtId="+debtId, "DELETE", "", null, null,
             function (result) {
-                $('#debt-summary-owed tr[data-debt-id="' + debtId + '"]').remove();
+                $('#debt-summary-owed tr[data-debt-id="' + debtId + '"]').fadeOut('normal', function () {
+                    $(this).remove();
+                });
                 if (result && result.total) {
                     $("#debts-owed-to-me span.total-owed-amount").text(result.total);
                 }
