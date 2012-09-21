@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Glav.PayMeBack.Web.Domain;
 using Glav.PayMeBack.Web.Domain.Services;
 using Glav.PayMeBack.Core.Domain;
+using Glav.PayMeBack.Web.Domain.Engines;
 
 namespace Glav.PayMeBack.Web.Controllers
 {
@@ -13,11 +14,13 @@ namespace Glav.PayMeBack.Web.Controllers
     {
         private IPaymentPlanService _paymentPlanService;
         private IWebMembershipManager _webMembershipManager;
+        private ICultureFormattingEngine _cultureEngine;
 
-        public DebtController(IPaymentPlanService paymentPlanService, IWebMembershipManager webMembershipManager)
+        public DebtController(IPaymentPlanService paymentPlanService, IWebMembershipManager webMembershipManager, ICultureFormattingEngine cultureEngine)
         {
             _paymentPlanService = paymentPlanService;
             _webMembershipManager = webMembershipManager;
+            _cultureEngine = cultureEngine;
         }
         public ActionResult Index()
         {
@@ -57,7 +60,13 @@ namespace Glav.PayMeBack.Web.Controllers
                     var user = _webMembershipManager.GetUserFromRequestCookie();
                     var id = new Guid(debtId);
                     var result = _paymentPlanService.RemoveDebt(user.Id,id);
-                    return Json(new { success = result.WasSuccessfull, errorMessage = result.Errors.Count > 0 ? result.Errors[0] : string.Empty });
+                    string total = null;
+                    if (result.WasSuccessfull)
+                    {
+                        var summary = _paymentPlanService.GetDebtSummaryForUser(user.Id);
+                        total = _cultureEngine.ConvertAmountToCurrencyForDisplay(user, summary.TotalAmountOwedToYou);
+                    }
+                    return Json(new { success = result.WasSuccessfull, errorMessage = result.Errors.Count > 0 ? result.Errors[0] : string.Empty, total = total });
                 }
                 catch (Exception ex)
                 {

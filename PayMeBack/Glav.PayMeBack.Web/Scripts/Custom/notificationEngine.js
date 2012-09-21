@@ -48,7 +48,9 @@ window.payMeBack.notificationEngine = (function () {
                 msgEl.remove();
             });
         });
+        $(window).scrollTop(0);
         htmlEl.slideDown('normal');
+
     };
 
 

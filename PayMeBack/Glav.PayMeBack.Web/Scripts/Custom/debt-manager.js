@@ -42,7 +42,7 @@ window.payMeBack.debtManager = (function () {
         });
     };
 
-    var showAddDebtDialog = function () {
+    var showAddDebtDialog = function (completionCallback) {
         clearFormData();
         $.nyroModalManual({
             url: '#add-debt-modal',
@@ -54,9 +54,17 @@ window.payMeBack.debtManager = (function () {
             //closeButton: null,
             endRemove: function () {
                 $("#add-debt-container fieldset").show();
+                $("#add-debt-container .progress-indicator").hide();
+                console.log('=' + completionCallback);
+                if (typeof completionCallback !== 'undefined') {
+                    completionCallback();
+                }
+
             },
             endShowContent: function () {
-                $("#add-debt-container fieldset ul li input").unbind().on("keypress", function (e) {
+                var debtContainer = $("#add-debt-container");
+                $(".progress-indicator",debtContainer).hide();
+                $("fieldset ul li input",debtContainer).unbind().on("keypress", function (e) {
                     if (e.which === 13) {
                         captureDebtFormAndSubmit();
                     }
@@ -95,9 +103,12 @@ window.payMeBack.debtManager = (function () {
     };
 
     var deleteDebt = function (debtId) {
-        window.payMeBack.ajaxManager.ajaxRequest("~/debt/Delete?debtId="+debtId, "DELETE", "", "debt-summary-owed", null,
-            function () {
+        window.payMeBack.ajaxManager.ajaxRequest("~/debt/Delete?debtId="+debtId, "DELETE", "", null, null,
+            function (result) {
                 $('#debt-summary-owed tr[data-debt-id="' + debtId + '"]').remove();
+                if (result && result.total) {
+                    $("#debts-owed-to-me span.total-owed-amount").text(result.total);
+                }
             },
             function () {
                 // error - dont do anything
@@ -109,7 +120,7 @@ window.payMeBack.debtManager = (function () {
     };
 
     return {
-        showAddDebtDialog: function () { showAddDebtDialog(); },
+        showAddDebtDialog: function (completionCallback) { showAddDebtDialog(completionCallback); },
         deleteDebt: function (debtId) { deleteDebt(debtId); },
         editDebt: function (debtId) { editDebt(debtId); }
     };
