@@ -22,12 +22,13 @@
             <table id="debt-summary-owed" class="debt-summary-table">
                 <thead>
                     <tr>
-                        <td></td>
+                        <th colspan="2"></th>
+                        <th></th> @*Dummy column to bind dialogs to*@
                         <th class="col-hdr-who">Who</th>
                         <th class="col-hdr-amt">Amount</th>
                         <th class="col-hdr-started">Started</th>
                         <th class="col-hdr-last-paid-amt">Last Paid</th>
-                        <th class="col-hdr-last-paid-date">Last Date of Payment</th>
+                        <th class="col-hdr-last-paid-date" colspan="2">Last Date of Payment</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +38,9 @@
                         rowCount++;
                         alternatingRowStyle = rowCount % 2 == 0 ? "odd" : "even";
                         <tr data-debt-id="@debtItem.Id" class="@alternatingRowStyle debt-item-row">
-                            <td class="action-icon action-delete"><a href="#" title="Delete">Delete</a></td>
+                            <td class="action-icon action-delete" title="Delete"></td>
+                            <td class="action-icon action-add-payment" title="Add Payment"></td>
+                            <td class="action-dialog"></td>  @*Dummy column to contain action dialogs*@
                             <td class="col-who">@debtItem.UserWhoOwesDebt.EmailAddress</td>
                             <td class="col-amt">@Html.ToCurrencyDisplay(debtItem.AmountOwing)</td>
                             <td class="col-started">@Html.ToDisplayDate(debtItem.StartDate)</td>

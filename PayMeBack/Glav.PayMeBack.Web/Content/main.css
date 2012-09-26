@@ -276,6 +276,7 @@ span.total-owed-amount {
 
 /********* Debt Summary Tables *************/
 table.debt-summary-table {
+    border-spacing: 0;
 }
     table.debt-summary-table tr.odd {
     }
@@ -293,20 +294,81 @@ table.debt-summary-table {
     table.debt-summary-table th.col-hdr-amt, table.debt-summary-table td.col-amt,
     table.debt-summary-table th.col-hdr-last-paid-amt, table.debt-summary-table td.col-last-paid-amt  {
         text-align:right;
-        width:100px;
+        padding: 0 15px;
+    }
+    table.debt-summary-table th.col-hdr-last-paid-date, table.debt-summary-table td.col-hdr-last-paid-date {
+        padding: 0 25px;
     }
         table.debt-summary-table tr.debt-item-row:hover {
             background-color:#e6f19f;
             cursor:pointer;
+        }
+        table.debt-summary-table tr.debt-item-row td.action-dialog:hover {
+            background-color:#e6f19f;
+            cursor:default;
         }
 
         table.debt-summary-table th.col-hdr-last-paid-date, table.debt-summary-table td.col-last-paid-date {
             text-align:center;
         }
 
-        table.debt-summary-table td.action-icon, table.debt-summary-table td.action-icon a {
+        table.debt-summary-table td.action-icon {
+            padding-left:5px;
+            width:25px;
             color:transparent;
         }
         table.debt-summary-table td.action-delete {
-            background: url(../images/delete-icon.png) no-repeat 10px 2px;
+            background: url(../images/delete-icon.png) no-repeat 6px 2px;
         }
+        table.debt-summary-table td.action-add-payment {
+            background: url(../images/add.png) no-repeat 2px 2px;
+            border-right:1px dotted #CFCFCF;
+        }
+
+/******* Add Payment Dialog *************************/
+
+#add-debt-payment-container {
+	border: 1px solid #fff;
+    width: 200px;
+    height: 150px;
+	z-index: 9;
+	border-radius: 3px;
+	box-shadow: 0px 0px 15px 5px #A2A2A2;
+	-moz-box-shadow:0px 0px 15px 5px #A2A2A2;
+	-webkit-box-shadow: 0px 0px 15px 5px #A2A2A2;
+	position: absolute;
+	left: 50px;
+	background-color: white;
+	color: black;
+}
+	#add-debt-payment-close {
+		background: url('../images/delete-icon.png') no-repeat;
+        left: 185px;
+        top: -10px;
+        position: absolute;
+        color: transparent;
+        height: 25px;
+	}
+	#add-debt-payment-container fieldset {
+		border: 0;
+	}
+		#add-debt-payment-container fieldset  ul{
+			list-style: none;
+			padding-left: 0;
+		}
+			#add-debt-payment-container fieldset  ul li{
+				clear: both;
+				width: 170px;
+			}
+			#add-debt-payment-container fieldset  ul li input, #add-debt-payment-container fieldset  ul li select{
+				float:right;
+			}
+			#add-debt-payment-container fieldset  ul li label{
+				float:left;
+			}
+			#add-debt-payment-container fieldset  ul li.amount input, #add-debt-payment-container fieldset  ul li.date input{
+				width:100px;
+			}
+			#add-debt-payment-container fieldset  ul li select {
+				width: 105px;
+			}

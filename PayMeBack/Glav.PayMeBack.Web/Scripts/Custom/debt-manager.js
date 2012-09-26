@@ -6,13 +6,21 @@ if (typeof window.payMeBack.debtManager === 'undefined') {
 
 window.payMeBack.debtManager = (function () {
 
+    var paymentTypes = {
+        Unknown: 0,
+        Cash: 1,
+        BankTransfer: 2,
+        Services: 3,
+        Goods: 4
+    };
+
     $.ajaxSetup({
         // Disable caching of AJAX responses
         cache: false
     });
 
     var clearFormData = function () {
-        $("#add-debt-container fieldset input").val("");
+        $("#add-debt-container fieldset input[type!='button']").val("");
     }
 
     var captureFormData = function () {
@@ -62,8 +70,8 @@ window.payMeBack.debtManager = (function () {
             },
             endShowContent: function () {
                 var debtContainer = $("#add-debt-container");
-                $(".progress-indicator",debtContainer).hide();
-                $("fieldset ul li input",debtContainer).unbind().on("keypress", function (e) {
+                $(".progress-indicator", debtContainer).hide();
+                $("fieldset ul li input", debtContainer).unbind().on("keypress", function (e) {
                     if (e.which === 13) {
                         captureDebtFormAndSubmit();
                     }
@@ -101,8 +109,33 @@ window.payMeBack.debtManager = (function () {
 
     };
 
+    var showAddPaymentToDebtDialog = function (debtId, xPos, yPos, completionCallback) {
+        // position and show the dialog
+        $("#add-debt-payment-container")
+                .css('left', xPos + 'px')
+                .css('top', yPos + 'px')
+                .fadeIn();
+        // If the user clicks outside the dialog on the body somewhere, the close the dialog
+        $("body, #add-debt-payment-close").on('click', function (e) {
+            $("#add-debt-payment-container").fadeOut('normal', function () {
+                $(this).fadeOut();
+                if (typeof completionCallback !== 'undefined') {
+                    completionCallback();
+                }
+            });
+        });
+        // If the user click *inside* the dialog, which is still part of the body, dont let the
+        // event propagate otherwise the previous handler will close the dialog
+        $("#add-debt-payment-container").on('click', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        });
+        $("#payment-amount").focus();
+        //alert('adding to debtId:' + debtId + ' - Amount:' + amount + ' - date: ' + dateOfPayment + '  [NOT COMPLETE]');
+    };
+
     var deleteDebt = function (debtId) {
-        window.payMeBack.ajaxManager.ajaxRequest("~/debt/Delete?debtId="+debtId, "DELETE", "", null, null,
+        window.payMeBack.ajaxManager.ajaxRequest("~/debt/Delete?debtId=" + debtId, "DELETE", "", null, null,
             function (result) {
                 $('#debt-summary-owed tr[data-debt-id="' + debtId + '"]').fadeOut('normal', function () {
                     $(this).remove();
@@ -123,6 +156,7 @@ window.payMeBack.debtManager = (function () {
     return {
         showAddDebtDialog: function (completionCallback) { showAddDebtDialog(completionCallback); },
         deleteDebt: function (debtId) { deleteDebt(debtId); },
-        editDebt: function (debtId) { editDebt(debtId); }
+        editDebt: function (debtId) { editDebt(debtId); },
+        showAddPaymentToDebtDialog: function (debtId, xPos, yPos, completionCallback) { showAddPaymentToDebtDialog(debtId, xPos, yPos, completionCallback); }
     };
 })();

@@ -362,6 +362,7 @@
       <LastGenOutput>PayMeBackModel.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Images\Add.png" />
     <Content Include="Images\Borrow-PayBack-small.png" />
     <Content Include="Images\delete-icon.png" />
     <Content Include="Images\NavButtonsSprite.png" />
@@ -425,6 +426,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_login.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Summary\_AddDebtPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
