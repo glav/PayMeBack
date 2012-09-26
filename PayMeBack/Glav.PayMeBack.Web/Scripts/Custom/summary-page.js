@@ -3,15 +3,30 @@
 $(document).ready(function () {
 
     function bindGridActions() {
-        $("table tr td.action-delete a").unbind().on('click', function (evt) {
+        $("#debt-summary-owed tr td.action-icon").on('click', function (evt) {
             // get id from data-debt-id attr on TR element which is parent
             var el = $(this);
             evt.preventDefault();
             evt.stopImmediatePropagation();
             var debtId = el.parents("tr").attr("data-debt-id");
-            window.payMeBack.notificationEngine.showConfirmationContextMessage(null, "Deleting this debt will remove it entirely", function () {
-                window.payMeBack.debtManager.deleteDebt(debtId);
-            });
+
+            if (el.hasClass("action-delete")) {
+                window.payMeBack.notificationEngine.showConfirmationContextMessage(null, "Deleting this debt will remove it entirely", function () {
+                    window.payMeBack.debtManager.deleteDebt(debtId);
+                });
+            }
+            if (el.hasClass("action-add-payment")) {
+                // unbind existing table events otherwise they will interfer with the dialog
+                // that is shown
+                $("#debt-summary-owed tbody td").unbind();
+                // Get the position of the clicked element and pass it to the showAddPayment method
+                var xPos = evt.clientX;
+                var yPos = evt.clientY;
+                window.payMeBack.debtManager.showAddPaymentToDebtDialog(debtId, xPos, yPos, function () {
+                    bindGridActions();
+                    bindDebtRowSelectBehaviour();
+                });
+            }
         });
     }
 

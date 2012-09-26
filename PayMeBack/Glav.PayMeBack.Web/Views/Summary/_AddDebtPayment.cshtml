@@ -1,0 +1,29 @@
+﻿
+@*<div id="add-debt-payment-placeholder">*@
+    <div id="add-debt-payment-container" class="hidden">
+        <a href="#close" id="add-debt-payment-close">Close</a>
+        <fieldset>
+            <legend>Add Payment</legend>
+            <ul>
+                <li class="amount">
+                    <label for="payment-amount">Amount</label>
+                    <input id="payment-amount" type="number" />
+                </li>
+                <li class="date">
+                    <label>Date</label>
+                    <input id="payment-date" type="date" />
+                </li>
+                <li class="type">
+                    <label>Type</label>
+                    <select>
+                        <option value="1" selected="selected">Cash</option>
+                        <option value="2">Bank Transfer</option>
+                        <option value="3">Services</option>
+                        <option value="4">Goods</option>
+                    </select>
+                </li>
+            </ul>
+        </fieldset>
+        <input id="add-payment-action" type="button" value="Add" />
+    </div>
+@*</div>*@
