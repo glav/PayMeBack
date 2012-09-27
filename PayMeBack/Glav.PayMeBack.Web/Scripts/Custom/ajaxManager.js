@@ -6,8 +6,16 @@ if (typeof window.payMeBack.ajaxManager === 'undefined') {
 
 window.payMeBack.ajaxManager = (function () {
 
-    var ajaxRequest = function (relativeUrl, httpMethod, dataPayload, progressContainerIdOrClassName, statusMsgContainerSelector, successCallback, errorCallback) {
+    var ajaxRequest = function (relativeUrl, httpMethod, dataPayload, progressContainerIdOrClassName, statusMsgContainerSelector, successCallback, errorCallback, errorMessage, typeOfError) {
         window.payMeBack.progressManager.showProgressIndicator(progressContainerIdOrClassName);
+        var genericErrorMessage = "There was a problem performing your request.";
+        if (typeof errorMessage !== 'undefined') {
+            genericErrorMessage = errorMessage;
+        }
+        var errorType = window.payMeBack.notificationEngine.MessageTypeError;
+        if (typeof typeOfError !== 'undefined') {
+            errorType = typeOfError;
+        }
         $.ajax({
             url: window.payMeBack.core.makePathFromVirtual(relativeUrl),
             type: httpMethod,
@@ -18,7 +26,7 @@ window.payMeBack.ajaxManager = (function () {
             success: function (result) {
                 window.payMeBack.progressManager.hideProgressIndicator(progressContainerIdOrClassName, function () {
                     if (result && typeof result.error !== 'undefined') {
-                        window.payMeBack.notificationEngine.showStatusBarMessage("The request had an error: " + result.error, window.payMeBack.notificationEngine.MessageTypeError, statusMsgContainerSelector, 5);
+                        window.payMeBack.notificationEngine.showStatusBarMessage("The request had an error: " + result.error, errorType, statusMsgContainerSelector, 5);
                         if (typeof errorCallback !== 'undefined') {
                             errorCallback(result);
                         }
@@ -35,7 +43,7 @@ window.payMeBack.ajaxManager = (function () {
                             }
 
                             msg = "Sorry, there was an error performing your request. " + msg;
-                            window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError, statusMsgContainerSelector);
+                            window.payMeBack.notificationEngine.showStatusBarMessage(msg, errorType, statusMsgContainerSelector);
                             if (typeof errorCallback !== 'undefined') {
                                 errorCallback(result);
                             }
@@ -44,11 +52,14 @@ window.payMeBack.ajaxManager = (function () {
                 });
             },
             error: function (e) {
-                window.payMeBack.progressManager.hideProgressIndicator(progressContainerIdOrClassName, function () {
-                    var msg = "There was a problem adding the debt record to the system. Please try again.";
-                    window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError, statusMsgContainerSelector, 5);
+                window.payMeBack.progressManager.hideProgressIndicator(progressContainerIdOrClassName, function (e) {
+                    window.payMeBack.notificationEngine.showStatusBarMessage(genericErrorMessage, errorType, statusMsgContainerSelector, 5);
                     if (typeof errorCallback !== 'undefined') {
-                        errorCallback(result);
+                        if (typeof result !== 'undefined') {
+                            errorCallback(result);
+                        } else {
+                            errorCallback();
+                        }
                     }
                 });
             }
@@ -56,7 +67,7 @@ window.payMeBack.ajaxManager = (function () {
     }
 
     return {
-        ajaxRequest: function (relativeUrl, httpMethod, dataPayload, progressContainerIdOrClassName, statusMsgContainerSelector, successCallback, errorCallback) { ajaxRequest(relativeUrl, httpMethod, dataPayload, progressContainerIdOrClassName, statusMsgContainerSelector, successCallback, errorCallback); }
+        ajaxRequest: function (relativeUrl, httpMethod, dataPayload, progressContainerIdOrClassName, statusMsgContainerSelector, successCallback, errorCallback, errorMessage, typeOfError) { ajaxRequest(relativeUrl, httpMethod, dataPayload, progressContainerIdOrClassName, statusMsgContainerSelector, successCallback, errorCallback, errorMessage, typeOfError); }
     };
 
 })();
