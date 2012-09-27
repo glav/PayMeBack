@@ -21,7 +21,7 @@ $(document).ready(function () {
                 $("#debt-summary-owed tbody td").unbind();
                 // Get the position of the clicked element and pass it to the showAddPayment method
                 var xPos = evt.clientX;
-                var yPos = evt.clientY;
+                var yPos = evt.clientY + $(window).scrollTop();
                 window.payMeBack.debtManager.showAddPaymentToDebtDialog(debtId, xPos, yPos, function () {
                     bindGridActions();
                     bindDebtRowSelectBehaviour();

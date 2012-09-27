@@ -1,9 +1,11 @@
-﻿
-@*<div id="add-debt-payment-placeholder">*@
-    <div id="add-debt-payment-container" class="hidden">
-        <a href="#close" id="add-debt-payment-close">Close</a>
+﻿@*<div id="add-debt-payment-placeholder">*@
+<div id="add-debt-payment-container" class="hidden">
+    <a href="#close" id="add-debt-payment-close">Close</a>
+    <h3>Add Payment</h3>
+    <div id="add-debt-payment-section">
+        <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="add-debt-payment-progress-indicator progress-indicator hidden" />
         <fieldset>
-            <legend>Add Payment</legend>
+
             <ul>
                 <li class="amount">
                     <label for="payment-amount">Amount</label>
@@ -15,7 +17,7 @@
                 </li>
                 <li class="type">
                     <label>Type</label>
-                    <select>
+                    <select id="payment-type">
                         <option value="1" selected="selected">Cash</option>
                         <option value="2">Bank Transfer</option>
                         <option value="3">Services</option>
@@ -23,7 +25,10 @@
                     </select>
                 </li>
             </ul>
+            <div class="action-container">
+                <input id="add-payment-action" type="button" value="Add" class="action-button" />
+            </div>
         </fieldset>
-        <input id="add-payment-action" type="button" value="Add" />
     </div>
+</div>
 @*</div>*@

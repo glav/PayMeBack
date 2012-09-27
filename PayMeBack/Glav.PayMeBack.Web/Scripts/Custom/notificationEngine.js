@@ -10,6 +10,7 @@ window.payMeBack.notificationEngine = (function () {
 
     var MESSAGE_TYPE_INFO = 1;
     var MESSAGE_TYPE_ERROR = 2;
+    var MESSAGE_TYPE_SMALL_ERROR = 3;
 
     var showPopupDialogMessage = function (message) {
         //TODO: make it a nyroModal or something sexier
@@ -63,12 +64,16 @@ window.payMeBack.notificationEngine = (function () {
         if (typeof messageType !== 'undefined') {
             if (messageType === "error" || messageType === MESSAGE_TYPE_ERROR) {
                 typeOfMessage = MESSAGE_TYPE_ERROR;
+            } else if (messageType === MESSAGE_TYPE_SMALL_ERROR) {
+                typeOfMessage = MESSAGE_TYPE_SMALL_ERROR;
             }
         }
 
         var messageDivClass;
         if (typeOfMessage === MESSAGE_TYPE_ERROR) {
             messageDivClass = "error";
+        } else if (typeOfMessage === MESSAGE_TYPE_SMALL_ERROR) {
+            messageDivClass = "small-error";
         } else {
             messageDivClass = "info";
         }
@@ -103,6 +108,7 @@ window.payMeBack.notificationEngine = (function () {
         showStatusBarMessage: function (message, containerEl, topPositionOffset) { showStatusBarMessage(message, containerEl, topPositionOffset); },
         showConfirmationContextMessage: function (triggerElement, message, confirmationCallback) { showConfirmationContextMessage(triggerElement, message, confirmationCallback); },
         MessageTypeInfo: MESSAGE_TYPE_INFO,
-        MessageTypeError: MESSAGE_TYPE_ERROR
+        MessageTypeError: MESSAGE_TYPE_ERROR,
+        MessageTypeSmallError: MESSAGE_TYPE_SMALL_ERROR
     };
 })();

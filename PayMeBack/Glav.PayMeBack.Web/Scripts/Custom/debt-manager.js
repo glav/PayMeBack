@@ -46,7 +46,7 @@ window.payMeBack.debtManager = (function () {
                 },
                 function () {
                     $("#add-debt-container fieldset").fadeIn();
-                });
+                }, "There was a problem adding the debt record to the system. Please try again.");
         });
     };
 
@@ -109,28 +109,69 @@ window.payMeBack.debtManager = (function () {
 
     };
 
+    var invokeCallback = function (callback) {
+        if (typeof callback !== 'undefined') {
+            callback();
+        }
+    }
+
+    var captureAddPaymentFormAndSubmit = function (debtId,completionCallback) {
+        var payment = {
+            amount: 0,
+            date: '',
+            paymentType: 1
+        };
+        payment.amount = $("#payment-amount").val();
+        payment.date = $("#payment-date").val();
+        payment.paymentType = $("#payment-type").val();
+
+        $("#add-debt-payment-container fieldset").fadeOut('normal', function () {
+            window.payMeBack.ajaxManager.ajaxRequest("~/debt/AddPayment", "POST", payment, "add-debt-payment-section", "#add-debt-payment-section",
+                function (result) {
+                    $("#add-debt-payment-container fieldset").fadeOut();
+                    getDebtSummaryHtml();
+                    invokeCallback(completionCallback);
+                },
+                function () {
+                    $("#add-debt-payment-container fieldset").fadeIn();
+                }, "There was a problem adding a payment", window.payMeBack.notificationEngine.MessageTypeSmallError);
+        });
+    }
+
     var showAddPaymentToDebtDialog = function (debtId, xPos, yPos, completionCallback) {
         // position and show the dialog
-        $("#add-debt-payment-container")
-                .css('left', xPos + 'px')
+        var container = $("#add-debt-payment-container");
+        container.css('left', xPos + 'px')
                 .css('top', yPos + 'px')
                 .fadeIn();
         // If the user clicks outside the dialog on the body somewhere, the close the dialog
         $("body, #add-debt-payment-close").on('click', function (e) {
-            $("#add-debt-payment-container").fadeOut('normal', function () {
+            container.fadeOut('normal', function () {
                 $(this).fadeOut();
-                if (typeof completionCallback !== 'undefined') {
-                    completionCallback();
-                }
+                invokeCallback(completionCallback);
             });
         });
         // If the user click *inside* the dialog, which is still part of the body, dont let the
         // event propagate otherwise the previous handler will close the dialog
-        $("#add-debt-payment-container").on('click', function (e) {
+        container.unbind().on('click', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+        });;
+
+        $("fieldset ul li input, fieldset ul li select", container).unbind().on("keydown", function (e) {
+            if (e.which === 13) {
+                captureAddPaymentFormAndSubmit(debtId,completionCallback);
+            }
+            if (e.which === 27) {
+                container.fadeOut();
+                invokeCallback(completionCallback);
+            }
         });
+
         $("#payment-amount").focus();
+        $("#add-payment-action").unbind().on("click", function () {
+            captureAddPaymentFormAndSubmit(debtId,completionCallback);
+        });
         //alert('adding to debtId:' + debtId + ' - Amount:' + amount + ' - date: ' + dateOfPayment + '  [NOT COMPLETE]');
     };
 

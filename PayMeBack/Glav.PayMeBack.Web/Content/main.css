@@ -112,6 +112,17 @@ section.action-menu ul {
             color:Green;
         }
 /*** Dialog Common Styles *****/
+input.action-button {
+    width: 100%;
+    background: #e3ffdd; /* Old browsers */
+    background: -moz-linear-gradient(top,  #e3ffdd 53%, #b6efb6 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(53%,#e3ffdd), color-stop(100%,#b6efb6)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #e3ffdd 53%,#b6efb6 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3ffdd', endColorstr='#b6efb6',GradientType=0 ); /* IE6-9 */
+}
 
 div.dialog-container h3 {
     background-color: #99FF9D;
@@ -146,18 +157,6 @@ div.dialog-container h3 {
                 -webskit-border-radius: 5px;
                 float: right;
                 width: 170px;
-            }
-            div.dialog-container fieldset.dialog-form input.action-button,
-            div.dialog-container div.dialog-form input.action-button {
-                width: 100%;
-                background: #e3ffdd; /* Old browsers */
-                background: -moz-linear-gradient(top,  #e3ffdd 53%, #b6efb6 100%); /* FF3.6+ */
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(53%,#e3ffdd), color-stop(100%,#b6efb6)); /* Chrome,Safari4+ */
-                background: -webkit-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* Chrome10+,Safari5.1+ */
-                background: -o-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* Opera 11.10+ */
-                background: -ms-linear-gradient(top,  #e3ffdd 53%,#b6efb6 100%); /* IE10+ */
-                background: linear-gradient(to bottom,  #e3ffdd 53%,#b6efb6 100%); /* W3C */
-                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3ffdd', endColorstr='#b6efb6',GradientType=0 ); /* IE6-9 */
             }
 /*** Login Dialog  ******/ 
 
@@ -196,6 +195,10 @@ div.status-message {
     }
     div.status-message div.error {
         background-color: #ffaaaa;
+    }
+    div.status-message div.small-error {
+        background-color: #ffaaaa;
+        font-size:0.8em;
     }
     div.status-message div.info {
         background-color: #ffff99;
@@ -328,7 +331,7 @@ table.debt-summary-table {
 /******* Add Payment Dialog *************************/
 
 #add-debt-payment-container {
-	border: 1px solid #fff;
+	border: 2px solid #15B198;
     width: 200px;
     height: 150px;
 	z-index: 9;
@@ -341,6 +344,16 @@ table.debt-summary-table {
 	background-color: white;
 	color: black;
 }
+    #add-debt-payment-container .progress-indicator {
+        margin: 30px 0 0 80px;
+    }
+    
+    #add-debt-payment-container div.action-container {
+        width: 90%;
+        margin:auto;
+        position: relative;
+    }
+
 	#add-debt-payment-close {
 		background: url('../images/delete-icon.png') no-repeat;
         left: 185px;
@@ -348,13 +361,25 @@ table.debt-summary-table {
         position: absolute;
         color: transparent;
         height: 25px;
+        z-index: 9;
 	}
 	#add-debt-payment-container fieldset {
 		border: 0;
+        margin:0;
+        padding: 0;
 	}
+	    #add-debt-payment-container h3 {
+            background-color: #60B825;
+            color: #ECF0C5;
+            font-weight: bold;
+            width: 192px;
+            padding: 2px 4px;
+            position: relative;
+            margin:0;
+	    }
 		#add-debt-payment-container fieldset  ul{
 			list-style: none;
-			padding-left: 0;
+			padding: 2px 5px;
 		}
 			#add-debt-payment-container fieldset  ul li{
 				clear: both;
