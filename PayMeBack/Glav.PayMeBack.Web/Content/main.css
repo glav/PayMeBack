@@ -181,7 +181,7 @@ div.status-message {
     width: 90%;
 }
     div.status-message div {
-        margin: 0 40px;
+        margin: 0 20px;
         border-radius: 0 0 10px 10px;
         -moz-border-radius: 0 0 10px 10px;
         -webkit-border-radius: 0 0 10px 10px;
@@ -198,7 +198,7 @@ div.status-message {
     }
     div.status-message div.small-error {
         background-color: #ffaaaa;
-        font-size:0.8em;
+        font-size:0.83em;
     }
     div.status-message div.info {
         background-color: #ffff99;

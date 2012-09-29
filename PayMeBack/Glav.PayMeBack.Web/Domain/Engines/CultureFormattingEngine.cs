@@ -39,5 +39,17 @@ namespace Glav.PayMeBack.Web.Domain.Engines
 
             return displayTime;
         }
+
+
+        public DateTime? ConvertTextFromCultureFormatToDateTime(Core.Domain.User user, string dateText)
+        {
+            var culture = System.Threading.Thread.CurrentThread.CurrentCulture;
+            DateTime parsed;
+            if (DateTime.TryParse(dateText, culture.DateTimeFormat, System.Globalization.DateTimeStyles.AdjustToUniversal, out parsed))
+            {
+                return parsed;
+            }
+            return null;
+        }
     }
 }

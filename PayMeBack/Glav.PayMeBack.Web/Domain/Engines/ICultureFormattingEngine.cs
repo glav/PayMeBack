@@ -11,5 +11,6 @@ namespace Glav.PayMeBack.Web.Domain.Engines
         string ConvertAmountToCurrencyForDisplay(User user, decimal amount);
         string ConvertDateToUserPreferenceFormatForDisplay(Core.Domain.User user, DateTime? date);
         string ConvertTimeToUserPreferenceFormatForDisplay(Core.Domain.User user, DateTime? time);
+        DateTime? ConvertTextFromCultureFormatToDateTime(Core.Domain.User user, string dateText);
     }
 }

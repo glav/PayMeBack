@@ -89,6 +89,17 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			return UpdatePaymentPlan(userPaymentPlan);
 		}
 
+        public DataAccessResult AddPaymentInstallmentToPlan(Guid userId, DebtPaymentInstallment installment)
+        {
+            var paymentPlan = GetPaymentPlan(userId);
+            var debt = paymentPlan.DebtsOwedToMe.Where(d => d.Id == installment.DebtId).FirstOrDefault();
+            if (debt != null)
+            {
+                debt.PaymentInstallments.Add(installment);
+            }
+            return UpdatePaymentPlan(paymentPlan);
+        }
+
 		public DataAccessResult UpdatePaymentPlan(UserPaymentPlan usersPaymentPlan)
 		{
 			var result = new DataAccessResult();

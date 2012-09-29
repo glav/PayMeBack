@@ -7,6 +7,7 @@ using Glav.PayMeBack.Web.Domain;
 using Glav.PayMeBack.Web.Domain.Services;
 using Glav.PayMeBack.Core.Domain;
 using Glav.PayMeBack.Web.Domain.Engines;
+using Glav.PayMeBack.Web.Resources;
 
 namespace Glav.PayMeBack.Web.Controllers
 {
@@ -48,6 +49,51 @@ namespace Glav.PayMeBack.Web.Controllers
                 return Json(new { success = true });    
             }
             return Json(new { success = false,errorMessage = addResult.Errors.Count > 0 ? addResult.Errors[0] : string.Empty });
+        }
+
+        [HttpPost]
+        public JsonResult AddPayment(string debtId, decimal? amount, string date, int? paymentType )
+        {
+            var user = _webMembershipManager.GetUserFromRequestCookie();
+            if (string.IsNullOrWhiteSpace(debtId) || !amount.HasValue || string.IsNullOrWhiteSpace(date) || !paymentType.HasValue)
+            {
+                return Json(new { success = false, errorMessage = ErrorMessages.AddPaymentInstallment_BadData });
+            }
+
+            Guid id;
+            if (!Guid.TryParse(debtId, out id))
+            {
+                return Json(new { success = false, errorMessage = ErrorMessages.BadDebtId });
+            }
+            var debtPayment = new DebtPaymentInstallment { DebtId = id };
+            debtPayment.AmountPaid = amount.Value;
+            var paymentDate = _cultureEngine.ConvertTextFromCultureFormatToDateTime(user,date);
+            if ( paymentType == null)
+            {
+                return Json(new { success = false, errorMessage = ErrorMessages.BadDateFormat });
+            }
+
+            debtPayment.PaymentDate = paymentDate.Value;
+            debtPayment.TypeOfPayment = PaymentMethodType.Unknown;
+
+            try
+            {
+                if (paymentType.HasValue)
+                {
+                    debtPayment.TypeOfPayment = (PaymentMethodType)paymentType.Value;
+                }
+            }
+            catch
+            {
+                return Json(new { success = false, errorMessage = ErrorMessages.PaymentTypeNotSupported });
+            }
+
+            var addResult = _paymentPlanService.AddPaymentInstallmentToPlan(user.Id, debtPayment);
+            if (addResult.WasSuccessfull)
+            {
+                return Json(new { success = true });
+            }
+            return Json(new { success = false, errorMessage = addResult.Errors.Count > 0 ? addResult.Errors[0] : string.Empty });
         }
 
         [HttpDelete]

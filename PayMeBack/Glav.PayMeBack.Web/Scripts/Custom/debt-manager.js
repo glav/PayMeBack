@@ -115,8 +115,9 @@ window.payMeBack.debtManager = (function () {
         }
     }
 
-    var captureAddPaymentFormAndSubmit = function (debtId,completionCallback) {
+    var captureAddPaymentFormAndSubmit = function (debtId, completionCallback) {
         var payment = {
+            debtId: debtId,
             amount: 0,
             date: '',
             paymentType: 1
@@ -128,9 +129,10 @@ window.payMeBack.debtManager = (function () {
         $("#add-debt-payment-container fieldset").fadeOut('normal', function () {
             window.payMeBack.ajaxManager.ajaxRequest("~/debt/AddPayment", "POST", payment, "add-debt-payment-section", "#add-debt-payment-section",
                 function (result) {
-                    $("#add-debt-payment-container fieldset").fadeOut();
+                    $("#add-debt-payment-container").fadeOut('normal', function () {
+                        invokeCallback(completionCallback);
+                    });
                     getDebtSummaryHtml();
-                    invokeCallback(completionCallback);
                 },
                 function () {
                     $("#add-debt-payment-container fieldset").fadeIn();
@@ -141,6 +143,7 @@ window.payMeBack.debtManager = (function () {
     var showAddPaymentToDebtDialog = function (debtId, xPos, yPos, completionCallback) {
         // position and show the dialog
         var container = $("#add-debt-payment-container");
+        $("fieldset", container).show();
         container.css('left', xPos + 'px')
                 .css('top', yPos + 'px')
                 .fadeIn();
@@ -154,13 +157,12 @@ window.payMeBack.debtManager = (function () {
         // If the user click *inside* the dialog, which is still part of the body, dont let the
         // event propagate otherwise the previous handler will close the dialog
         container.unbind().on('click', function (e) {
-            e.preventDefault();
             e.stopImmediatePropagation();
         });;
 
         $("fieldset ul li input, fieldset ul li select", container).unbind().on("keydown", function (e) {
             if (e.which === 13) {
-                captureAddPaymentFormAndSubmit(debtId,completionCallback);
+                captureAddPaymentFormAndSubmit(debtId, completionCallback);
             }
             if (e.which === 27) {
                 container.fadeOut();
@@ -170,7 +172,7 @@ window.payMeBack.debtManager = (function () {
 
         $("#payment-amount").focus();
         $("#add-payment-action").unbind().on("click", function () {
-            captureAddPaymentFormAndSubmit(debtId,completionCallback);
+            captureAddPaymentFormAndSubmit(debtId, completionCallback);
         });
         //alert('adding to debtId:' + debtId + ' - Amount:' + amount + ' - date: ' + dateOfPayment + '  [NOT COMPLETE]');
     };

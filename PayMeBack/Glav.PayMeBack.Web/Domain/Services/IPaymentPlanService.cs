@@ -14,5 +14,6 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		DataAccessResult UpdatePaymentPlan(UserPaymentPlan usersPaymentPlan);
 		DataAccessResult RemoveDebt(Guid userId, Guid debtId);
 		DebtSummary GetDebtSummaryForUser(Guid userId);
+        DataAccessResult AddPaymentInstallmentToPlan(Guid userId, DebtPaymentInstallment installment);
 	}
 }
