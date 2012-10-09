@@ -403,3 +403,76 @@
 [27/08/2012 06:01:24] >> Completed build step 'PostBuildReleaseSpecific Script Execution' successfully.
 [27/08/2012 06:01:24] >> Build steps completed successfully. Completing Transaction.
 [27/08/2012 06:01:24] Completed Saasu SQLBuilder with Exit Code of [0]
+[07/10/2012 05:08:30] 
+[07/10/2012 05:08:30] Starting Saasu SQLBuilder.
+[07/10/2012 05:08:30] Build Mode: Normal
+[07/10/2012 05:08:30] >> Establishing Transaction Scope
+[07/10/2012 05:08:30] >> Starting build step 'PreBuild Script Execution'
+[07/10/2012 05:08:30] Connecting to Database [vwa5w5unch.database.windows.net]
+[07/10/2012 05:08:30] >> Completed build step 'PreBuild Script Execution' successfully.
+[07/10/2012 05:08:30] >> Starting build step 'Database Creation'
+[07/10/2012 05:08:38] Database PayMeBack already exists. No need to create.
+[07/10/2012 05:08:38] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[07/10/2012 05:08:38] All database were created successfully.
+[07/10/2012 05:08:38] >> Completed build step 'Database Creation' successfully.
+[07/10/2012 05:08:38] >> Starting build step 'Version Table Check'
+[07/10/2012 05:08:42] >>>! Build step 'Version Table Check' was not successfull. Reason: '1: An exception occurred while executing a Transact-SQL statement or batch.. 2: Reference to database and/or server name in 'PayMeBack.dbo.DBVersion' is not supported in this version of SQL Server.'.
+[07/10/2012 05:08:42] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[07/10/2012 05:08:42] Completed Saasu SQLBuilder with Exit Code of [1]
+[07/10/2012 05:09:31] 
+[07/10/2012 05:09:31] Starting Saasu SQLBuilder.
+[07/10/2012 05:09:31] Build Mode: Normal
+[07/10/2012 05:09:31] >> Establishing Transaction Scope
+[07/10/2012 05:09:31] >> Starting build step 'PreBuild Script Execution'
+[07/10/2012 05:09:31] Connecting to Database [vwa5w5unch.database.windows.net]
+[07/10/2012 05:09:31] >> Completed build step 'PreBuild Script Execution' successfully.
+[07/10/2012 05:09:31] >> Starting build step 'Database Creation'
+[07/10/2012 05:09:38] Database PayMeBack already exists. No need to create.
+[07/10/2012 05:09:38] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[07/10/2012 05:09:38] All database were created successfully.
+[07/10/2012 05:09:38] >> Completed build step 'Database Creation' successfully.
+[07/10/2012 05:09:38] >> Starting build step 'Version Table Check'
+[07/10/2012 05:09:40] Version Table [DBVersion] already exists, no need to create.
+[07/10/2012 05:09:40] >> Completed build step 'Version Table Check' successfully.
+[07/10/2012 05:09:40] >> Starting build step 'Schema Scripts Execution'
+[07/10/2012 05:09:41] >>>! Build step 'Schema Scripts Execution' was not successfull. Reason: '1: An exception occurred while executing a Transact-SQL statement or batch.. 2: Reference to database and/or server name in 'PayMeBack.dbo.DBVersion' is not supported in this version of SQL Server.'.
+[07/10/2012 05:09:41] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[07/10/2012 05:09:41] Completed Saasu SQLBuilder with Exit Code of [1]
+[07/10/2012 05:18:22] 
+[07/10/2012 05:18:22] Starting Saasu SQLBuilder.
+[07/10/2012 05:18:22] Build Mode: Normal
+[07/10/2012 05:18:22] >> Establishing Transaction Scope
+[07/10/2012 05:18:22] >> Starting build step 'PreBuild Script Execution'
+[07/10/2012 05:18:23] Connecting to Database [vwa5w5unch.database.windows.net]
+[07/10/2012 05:18:23] >> Completed build step 'PreBuild Script Execution' successfully.
+[07/10/2012 05:18:23] >> Starting build step 'Database Creation'
+[07/10/2012 05:18:29] Database PayMeBack already exists. No need to create.
+[07/10/2012 05:18:29] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[07/10/2012 05:18:29] All database were created successfully.
+[07/10/2012 05:18:29] >> Completed build step 'Database Creation' successfully.
+[07/10/2012 05:18:29] >> Starting build step 'Version Table Check'
+[07/10/2012 05:18:31] Version Table [DBVersion] already exists, no need to create.
+[07/10/2012 05:18:32] >> Completed build step 'Version Table Check' successfully.
+[07/10/2012 05:18:32] >> Starting build step 'Schema Scripts Execution'
+[07/10/2012 05:18:32] >>>! Build step 'Schema Scripts Execution' was not successfull. Reason: '1: An exception occurred while executing a Transact-SQL statement or batch.. 2: Reference to database and/or server name in 'PayMeBack.dbo.DBVersion' is not supported in this version of SQL Server.'.
+[07/10/2012 05:18:32] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[07/10/2012 05:18:32] Completed Saasu SQLBuilder with Exit Code of [1]
+[07/10/2012 05:18:58] 
+[07/10/2012 05:18:58] Starting Saasu SQLBuilder.
+[07/10/2012 05:18:58] Build Mode: Normal
+[07/10/2012 05:18:58] >> Establishing Transaction Scope
+[07/10/2012 05:18:58] >> Starting build step 'PreBuild Script Execution'
+[07/10/2012 05:18:58] Connecting to Database [vwa5w5unch.database.windows.net]
+[07/10/2012 05:18:58] >> Completed build step 'PreBuild Script Execution' successfully.
+[07/10/2012 05:18:58] >> Starting build step 'Database Creation'
+[07/10/2012 05:19:06] Database PayMeBack already exists. No need to create.
+[07/10/2012 05:19:06] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[07/10/2012 05:19:06] All database were created successfully.
+[07/10/2012 05:19:06] >> Completed build step 'Database Creation' successfully.
+[07/10/2012 05:19:06] >> Starting build step 'Version Table Check'
+[07/10/2012 05:19:07] Version Table [DBVersion] already exists, no need to create.
+[07/10/2012 05:19:08] >> Completed build step 'Version Table Check' successfully.
+[07/10/2012 05:19:08] >> Starting build step 'Schema Scripts Execution'
+[07/10/2012 05:19:09] >>>! Build step 'Schema Scripts Execution' was not successfull. Reason: '1: An exception occurred while executing a Transact-SQL statement or batch.. 2: Reference to database and/or server name in 'PayMeBack.dbo.DBVersion' is not supported in this version of SQL Server.'.
+[07/10/2012 05:19:09] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[07/10/2012 05:19:09] Completed Saasu SQLBuilder with Exit Code of [1]

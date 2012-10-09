@@ -23,7 +23,6 @@ $(document).ready(function () {
                 var xPos = evt.clientX;
                 var yPos = evt.clientY + $(window).scrollTop();
                 window.payMeBack.debtManager.showAddPaymentToDebtDialog(debtId, xPos, yPos, function () {
-                    bindGridActions();
                     bindDebtRowSelectBehaviour();
                 });
             }
@@ -39,7 +38,7 @@ $(document).ready(function () {
     function bindDebtRowSelectBehaviour() {
         $("table.debt-summary-table tr.debt-item-row td").each(function () {
             var row = $(this);
-            row.on('click', function () {
+            row.unbind().on('click', function () {
                 var el = $(this);
                 if (!el.hasClass('action-icon')) {
                     var debtId = el.parents("tr").attr("data-debt-id");
@@ -47,9 +46,9 @@ $(document).ready(function () {
                 }
             });
         });
+        bindActionLinks();
+        bindGridActions();
     }
 
-    bindActionLinks();
-    bindGridActions();
     bindDebtRowSelectBehaviour();
 });

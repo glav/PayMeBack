@@ -464,6 +464,76 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
 			Assert.AreEqual<int>(1,deleteResponse.Errors.Count);
 		}
 
+        [TestMethod]
+        public void PaymentSummaryShouldShowLatestInstallmentPaidCorrectly()
+        {
+            BuildServices();
+
+            var user = SignUpSignInAndGetNewPlan();
+            var paymentPlan = _paymentPlanService.GetPaymentPlan(user.Id);
+
+            var emailAddress = string.Format("owes-debt-{0}@integrationtests.com", Guid.NewGuid());
+            _signupMgr.SignUpNewUser(emailAddress, "I", "owe", "password");
+            var userWhoOwesDebt = _securityService.SignIn(emailAddress, "password");
+
+            paymentPlan.DebtsOwedToMe.Add(new Debt
+            {
+                ReasonForDebt = "test",
+                TotalAmountOwed = 100,
+                InitialPayment = 10,
+                PaymentPeriod = PaymentPeriod.Weekly,
+                StartDate = DateTime.Now,
+                UserWhoOwesDebt = userWhoOwesDebt,
+            });
+            var result = _paymentPlanService.UpdatePaymentPlan(paymentPlan);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.WasSuccessfull);
+
+            var savedPaymentPlan = _paymentPlanService.GetPaymentPlan(user.Id);
+            Assert.IsNotNull(savedPaymentPlan.DebtsOwedToMe);
+            Assert.IsTrue(savedPaymentPlan.DebtsOwedToMe.Count > 0);
+
+            var installment = new DebtPaymentInstallment();
+            installment.TypeOfPayment = PaymentMethodType.Cash;
+            var installmentDate = DateTime.Now.AddDays(-5);
+            installment.PaymentDate = installmentDate;
+            installment.AmountPaid = 20;
+            savedPaymentPlan.DebtsOwedToMe[0].PaymentInstallments.Add(installment);
+
+            result = _paymentPlanService.UpdatePaymentPlan(savedPaymentPlan);
+            Assert.IsTrue(result.WasSuccessfull);
+
+            var summary = _paymentPlanService.GetDebtSummaryForUser(user.Id);
+            Assert.IsNotNull(summary);
+            Assert.IsNotNull(summary.DebtsOwedToYou);
+            Assert.AreEqual<int>(1, summary.DebtsOwedToYou.Count);
+            Assert.IsNotNull(summary.DebtsOwedToYou[0].LastPaymentDate);
+            Assert.IsTrue(installmentDate.Day == summary.DebtsOwedToYou[0].LastPaymentDate.Value.Day);
+            Assert.IsTrue(installmentDate.Month == summary.DebtsOwedToYou[0].LastPaymentDate.Value.Month);
+            Assert.IsTrue(installmentDate.Year == summary.DebtsOwedToYou[0].LastPaymentDate.Value.Year);
+
+            var updatedPlan = _paymentPlanService.GetPaymentPlan(user.Id);
+            Assert.IsNotNull(updatedPlan);
+            installment = new DebtPaymentInstallment();
+            installment.TypeOfPayment = PaymentMethodType.Cash;
+            installmentDate = DateTime.Now.AddDays(-1);
+            installment.PaymentDate = installmentDate;
+            installment.AmountPaid = 15;
+            updatedPlan.DebtsOwedToMe[0].PaymentInstallments.Add(installment);
+            result = _paymentPlanService.UpdatePaymentPlan(updatedPlan);
+            Assert.IsTrue(result.WasSuccessfull);
+
+            summary = _paymentPlanService.GetDebtSummaryForUser(user.Id);
+            Assert.IsNotNull(summary);
+            Assert.IsNotNull(summary.DebtsOwedToYou[0].LastPaymentDate);
+            Assert.AreEqual<int>(1, summary.DebtsOwedToYou.Count);
+            Assert.IsTrue(installmentDate.Day == summary.DebtsOwedToYou[0].LastPaymentDate.Value.Day);
+            Assert.IsTrue(installmentDate.Month == summary.DebtsOwedToYou[0].LastPaymentDate.Value.Month);
+            Assert.IsTrue(installmentDate.Year == summary.DebtsOwedToYou[0].LastPaymentDate.Value.Year);
+            Assert.AreEqual<decimal>(15, summary.DebtsOwedToYou[0].LastAmountPaid);
+        }
+
+
 		[TestMethod]
 		public void EnsureValidUserCanDeleteDebtBelongingToThem()
 		{
