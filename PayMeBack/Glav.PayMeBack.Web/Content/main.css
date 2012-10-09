@@ -99,12 +99,13 @@ div.login-dialog .signup, div.signup-dialog .login {
 /*** Summary Page Action Menu *******/
 #body section.summary-action-menu {
     float:right;
-    width:170px;
+    width:130px;
     clear:right;
 }
 
 section.summary-action-menu ul {
     list-style:none;
+    padding:0;
 }
 
     section.summary-action-menu ul li {
