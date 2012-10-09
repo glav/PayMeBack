@@ -43,7 +43,7 @@ namespace Glav.PayMeBack.Core.Domain
 		{
 			if (PaymentInstallments != null && PaymentInstallments.Count > 0)
 			{
-				return PaymentInstallments[PaymentInstallments.Count - 1].AmountPaid;
+                return PaymentInstallments.OrderByDescending(i => i.PaymentDate).First().AmountPaid;
 			}
 			return InitialPayment;
 		}
@@ -51,7 +51,7 @@ namespace Glav.PayMeBack.Core.Domain
 		{
 			if (PaymentInstallments != null && PaymentInstallments.Count > 0)
 			{
-				return PaymentInstallments[PaymentInstallments.Count - 1].PaymentDate;
+                return PaymentInstallments.OrderByDescending(i => i.PaymentDate).First().PaymentDate;
 			}
 			return null;
 		}
