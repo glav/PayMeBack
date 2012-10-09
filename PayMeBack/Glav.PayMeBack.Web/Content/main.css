@@ -97,20 +97,31 @@ div.login-dialog .signup, div.signup-dialog .login {
 }
 
 /*** Summary Page Action Menu *******/
-section.action-menu ul {
+#body section.summary-action-menu {
+    float:right;
+    width:170px;
+    clear:right;
+}
+
+section.summary-action-menu ul {
     list-style:none;
 }
 
-    section.action-menu ul li {
+    section.summary-action-menu ul li {
         float:left;
-        margin-left:10px;
-        padding:3px 5px;
-        font-size:1.2em;
     }
-        section.action-menu ul li a, section.action-menu ul li a:hover, section.action-menu ul li a:visited {
+        section.summary-action-menu ul li a, section.summary-action-menu ul li a:hover, section.summary-action-menu ul li a:visited {
             text-decoration:none;
             color:Green;
         }
+
+            section.summary-action-menu ul li a span {
+                display:block;
+                text-align:center;
+            }
+        
+
+
 /*** Dialog Common Styles *****/
 input.action-button {
     width: 100%;
@@ -251,9 +262,14 @@ div.status-message {
             }
 
 /************ Debt Summary Section */
+#body section.debt-summary-section {
+    clear:left;
+}
+
 #debt-summary-section {
     border-top: 3px solid #A2A2A2;
     border-bottom: 1px solid #A2A2A2;
+    float:left;
 }
     #debt-summary-section h3 {
         margin: 0 10px;

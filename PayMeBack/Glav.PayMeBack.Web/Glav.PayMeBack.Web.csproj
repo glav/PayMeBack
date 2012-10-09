@@ -368,12 +368,14 @@
     </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\Add.png" />
+    <Content Include="Images\NotificationAlert.png" />
     <Content Include="Images\Borrow-PayBack-small.png" />
     <Content Include="Images\delete-icon.png" />
     <Content Include="Images\NavButtonsSprite.png" />
     <Content Include="Images\PayMeBackTitle.png" />
     <Content Include="Images\progress.gif" />
     <Content Include="Images\SummaryHeadingBground.png" />
+    <Content Include="Images\AddDebt.png" />
     <Content Include="Scripts\Custom\ajaxManager.js" />
     <Content Include="Scripts\Custom\debt-manager.js" />
     <Content Include="Scripts\Custom\InputManager.js" />

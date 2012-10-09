@@ -8,15 +8,15 @@
 	@Scripts.Render("~/SummaryPageJs")
 }
 
-<section class="clear-fix action-menu">
+<section class="clear-fix summary-action-menu" id="summary-action-menu">
     <ul>
-        <li><a href="#" id="add-debt-link">Add Debt</a></li>
-        <li><a href="#" id="set-notification-link">Set Notification options for a Debt</a></li>
+        <li><a href="#" id="add-debt-link"><img src="~/Images/AddDebt.png" border="0" alt="Add Debt" title="Add Debt" /><span>Add Debt</span></a></li>
+        <li><a href="#" id="set-notification-link"><img src="~/Images/NotificationAlert.png" border="0" alt="Notification Options" title="Notification Options" /><span>Notification Options</span></a></li>
     </ul>
 </section>
 
-<section class="clear-fix" id="debt-summary-section">
-	
+<section class="clear-fix debt-summary-section" id="debt-summary-section">
+
     @if (Model != null)
     {
         @Html.Partial("_DebtSummaryList", Model)
