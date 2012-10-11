@@ -103,7 +103,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		public DataAccessResult UpdatePaymentPlan(UserPaymentPlan usersPaymentPlan)
 		{
 			var result = new DataAccessResult();
-			_cacheProvider.InvalidateCacheItem(GetCacheKeyForUserPaymentPlan(usersPaymentPlan.User.Id));
+            InvalidateCacheForUserAndAlRelatedUsers(usersPaymentPlan);
 
 			using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted }))
 			{
@@ -130,6 +130,22 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			}
 			return result;
 		}
+
+        /// <summary>
+        /// We invalidate the cache for the user making the change but also for all
+        /// users related to this user who owe this user money so that their plan
+        /// is not in cache and they get an updated copy when it is requested
+        /// </summary>
+        /// <param name="usersPaymentPlan"></param>
+        private void InvalidateCacheForUserAndAlRelatedUsers(UserPaymentPlan usersPaymentPlan)
+        {
+            _cacheProvider.InvalidateCacheItem(GetCacheKeyForUserPaymentPlan(usersPaymentPlan.User.Id));
+            usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
+            {
+                _cacheProvider.InvalidateCacheItem(GetCacheKeyForUserPaymentPlan(d.UserWhoOwesDebt.Id);)
+            });
+
+        }
 
 		/// <summary>
 		/// If there are users (with email, first/last name) defined in the debt

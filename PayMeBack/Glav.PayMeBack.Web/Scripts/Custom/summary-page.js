@@ -36,6 +36,9 @@ $(document).ready(function () {
         $("#set-notification-link").on("click", function () {
             alert('sorry, not complete');
         });
+        $("#manage-profile-link").on("click", function () {
+            alert('sorry, not complete');
+        });
     }
 
     function bindDebtRowSelectBehaviour() {

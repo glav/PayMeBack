@@ -368,6 +368,7 @@
     </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\Add.png" />
+    <Content Include="Images\AccountProfile.png" />
     <Content Include="Images\NotificationAlert.png" />
     <Content Include="Images\Borrow-PayBack-small.png" />
     <Content Include="Images\delete-icon.png" />
