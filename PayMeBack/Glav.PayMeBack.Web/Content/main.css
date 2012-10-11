@@ -110,6 +110,7 @@ section.summary-action-menu ul {
 
     section.summary-action-menu ul li {
         float:left;
+        margin-bottom: 20px;
     }
         section.summary-action-menu ul li a, section.summary-action-menu ul li a:hover, section.summary-action-menu ul li a:visited {
             text-decoration:none;

@@ -42,6 +42,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBDeployer", "DBDeployer", 
 		DataStore\Microsoft.SqlServer.Smo.dll = DataStore\Microsoft.SqlServer.Smo.dll
 		DataStore\SQLBuilder.exe = DataStore\SQLBuilder.exe
 		DataStore\SQLBuilder.exe.config = DataStore\SQLBuilder.exe.config
+		DataStore\SQLBuilder.exe.debug.config = DataStore\SQLBuilder.exe.debug.config
+		DataStore\SQLBuilder.exe.release.config = DataStore\SQLBuilder.exe.release.config
 	EndProjectSection
 EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "PayMeBack", "PayMeBack\PayMeBack.ccproj", "{88C13424-4625-4A77-95D0-4B7BDDA689C8}"
