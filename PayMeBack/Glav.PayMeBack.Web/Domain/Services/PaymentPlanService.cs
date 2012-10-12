@@ -142,7 +142,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
             _cacheProvider.InvalidateCacheItem(GetCacheKeyForUserPaymentPlan(usersPaymentPlan.User.Id));
             usersPaymentPlan.DebtsOwedToMe.ForEach(d =>
             {
-                _cacheProvider.InvalidateCacheItem(GetCacheKeyForUserPaymentPlan(d.UserWhoOwesDebt.Id);)
+                if (d.UserWhoOwesDebt != null)
+                {
+                    _cacheProvider.InvalidateCacheItem(GetCacheKeyForUserPaymentPlan(d.UserWhoOwesDebt.Id));
+                }
             });
 
         }
@@ -256,10 +259,6 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		{
 			var summary = new DebtSummary();
 			var paymentPlan = GetPaymentPlan(userId);
-			if (paymentPlan.Id == Guid.Empty)
-			{
-				return summary;
-			}
 
 			paymentPlan.DebtsOwedToMe.ForEach(d =>
 			{

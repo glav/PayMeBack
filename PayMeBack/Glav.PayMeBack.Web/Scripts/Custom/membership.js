@@ -2,6 +2,8 @@
 
 $(document).ready(function() {
 
-    window.payMeBack.login.showLoginDialog(true,false);
+    window.payMeBack.login.showLoginDialog(true, false, function () {
+        location.assign(window.payMeBack.core.makePathFromVirtual("~/summary"));
+    });
 
 });

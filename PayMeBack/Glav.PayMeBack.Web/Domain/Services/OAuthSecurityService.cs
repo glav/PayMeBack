@@ -188,7 +188,22 @@ namespace Glav.PayMeBack.Web.Domain.Services
 			return false;
 		}
 
-		private string GetCacheKeyForTokenRecord(string token)
+        public bool IsRefreshTokenValid(string token)
+        {
+            var tokenEntry = _cacheProvider.Get<OAuthToken>(GetCacheKeyForTokenRecord(token), DateTime.Now.AddMinutes(OAuthConfig.AccessTokenExpiryInMinutes), () =>
+            {
+                return _crudRepository.GetSingle<OAuthToken>(t => t.RefreshToken == token);
+            });
+
+            if (tokenEntry != null && tokenEntry.RefreshTokenExpiry > DateTime.UtcNow)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
+        private string GetCacheKeyForTokenRecord(string token)
 		{
 			return string.Format(CacheKeyTokenEntry, token);
 		}

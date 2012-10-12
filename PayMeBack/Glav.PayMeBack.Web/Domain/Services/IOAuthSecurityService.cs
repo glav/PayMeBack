@@ -13,6 +13,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		string CreateNewHashedToken();
 		string CreateHashedTokenFromInput(string input);
 		bool IsAccessTokenValid(string token);
+        bool IsRefreshTokenValid(string token);
 		OAuthAuthorisationGrantResponse RefreshAccessToken(string refreshToken, string scope);
 		User SignIn(string email, string password);
 	}
