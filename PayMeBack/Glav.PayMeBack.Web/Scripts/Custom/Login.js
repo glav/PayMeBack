@@ -34,7 +34,7 @@ window.payMeBack.login = (function () {
             $(".show-if-signed-in").hide();
         }
     };
-    var submitCredentials = function (payload, isSignup) {
+    var submitCredentials = function (payload, isSignup, onSuccessCallback) {
         var url;
 
         if (isSignup === true) {
@@ -68,6 +68,9 @@ window.payMeBack.login = (function () {
                                 // This worked
                                 updateDisplayBasedOnSignedInStatus(true, result.firstname);
                                 $.nyroModalRemove();
+                                if (typeof onSuccessCallback !== 'undefined') {
+                                    onSuccessCallback();
+                                }
                             } else {
                                 updateDisplayBasedOnSignedInStatus(false);
                                 var msg = "";
@@ -103,7 +106,7 @@ window.payMeBack.login = (function () {
 
     };
 
-    var captureCredentialsAndSubmit = function (isSignupAction) {
+    var captureCredentialsAndSubmit = function (isSignupAction, onSuccessCallback) {
         var payload = {};
         var email = $("#credentials-userId").val();
         var password = $("#credentials-userPassword").val();
@@ -129,11 +132,11 @@ window.payMeBack.login = (function () {
                     payload.surname = "";
                 }
             }
-            submitCredentials(payload, isSignupAction);
+            submitCredentials(payload, isSignupAction, onSuccessCallback);
         }
     };
 
-    var showLoginDialog = function (redirectToHomeOnClose, isSignUp) {
+    var showLoginDialog = function (redirectToHomeOnClose, isSignUp, onSuccessCallback) {
         var redirectOnClose = false;
         var isSignupAction = false;
         if (typeof redirectToHomeOnClose !== 'undefined') {
@@ -171,11 +174,11 @@ window.payMeBack.login = (function () {
               endShowContent: function () {
                   $("#credentials-form input").unbind().on("keypress", function (e) {
                       if (e.which === 13) {
-                          captureCredentialsAndSubmit(isSignupAction);
+                          captureCredentialsAndSubmit(isSignupAction, onSuccessCallback);
                       }
                   });
                   $("#credentials-submit").unbind().bind("click", function () {
-                      captureCredentialsAndSubmit(isSignupAction);
+                      captureCredentialsAndSubmit(isSignupAction, onSuccessCallback);
                   });
                   if (isSignupAction) {
                       $("#credentials-container")
@@ -196,7 +199,8 @@ window.payMeBack.login = (function () {
     };
 
     return {
-        showLoginDialog: function (redirectToHomeOnClose, isSignUp) { showLoginDialog(redirectToHomeOnClose, isSignUp) },
+        isUserSignedIn: function() { return isUserSignedIn(); },
+        showLoginDialog: function (redirectToHomeOnClose, isSignUp, onSuccessCallback) { showLoginDialog(redirectToHomeOnClose, isSignUp, onSuccessCallback) },
         updateDisplayBasedOnSignedInStatus: function (isSignedIn) { updateDisplayBasedOnSignedInStatus(isSignedIn); }
     };
 })();
@@ -206,7 +210,9 @@ $(document).ready(function () {
     function bindLoginSignUpAction() {
         $("div.header-menu li a.credentials-link").unbind().bind("click", function (e) {
             var isSignUp = $(e.target).hasClass("sign-up");
-            window.payMeBack.login.showLoginDialog(false, isSignUp);
+            window.payMeBack.login.showLoginDialog(false, isSignUp, function () {
+                location.assign(window.payMeBack.core.makePathFromVirtual("~/summary"));
+            });
         });
     }
 

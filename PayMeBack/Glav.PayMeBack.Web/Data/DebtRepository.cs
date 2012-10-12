@@ -33,12 +33,15 @@ namespace Glav.PayMeBack.Web.Data
 				context.Configuration.ProxyCreationEnabled = false;
 				context.Configuration.LazyLoadingEnabled = false;
 
+                var user = context.UserDetails.First(u => u.Id == userId);
+
 				var paymentPlan = (from plan in context.UserPaymentPlanDetails.Include("UserDetail").Include("DebtDetails").Include("DebtDetails.UserDetail").Include("DebtDetails.DebtPaymentInstallmentDetails")
 								   where plan.UserId == userId
 								   select plan).FirstOrDefault();
 
 				var debtsOwed = (from d in context.DebtDetails.Include("UserDetail").Include("DebtPaymentInstallmentDetails")
 								 where d.UserIdWhoOwesDebt == userId
+                                 || d.UserDetail.EmailAddress == user.EmailAddress
 								 select d).ToList();
 
 				if (paymentPlan == null)
