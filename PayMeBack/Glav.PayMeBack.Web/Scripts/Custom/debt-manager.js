@@ -192,14 +192,47 @@ window.payMeBack.debtManager = (function () {
             });
     };
 
-    var editDebt = function (debtId) {
-        alert('not implemented - edit debt Id: ' + debtId);
+    var getDebtDetails = function () {
+        alert('access paymentplan and populate fields');
+    }
+
+    var editDebt = function (debtId, completionCallback) {
+        $.nyroModalManual({
+            url: '#edit-debt-modal',
+            minHeight: 300,
+            height: 400,
+            minWwidth: 500,
+            bgColor: window.payMeBack.core.colours.nyroModalBackground,
+            endRemove: function () {
+                $("#edit-debt-container fieldset").show();
+                $("#edit-debt-container .progress-indicator").hide();
+                if (typeof completionCallback !== 'undefined') {
+                    completionCallback();
+                }
+
+            },
+            endShowContent: function () {
+                var debtContainer = $("#edit-debt-container");
+                getDebtDetails();
+                $(".progress-indicator", debtContainer).hide();
+                $("fieldset ul li input", debtContainer).unbind().on("keypress", function (e) {
+                    if (e.which === 13) {
+                        alert('not done');
+                    }
+                });
+                $("#edit-debt-submit").unbind().on("click", function (e) {
+                    alert('not done');
+                });
+
+                window.payMeBack.inputManager.maskAllMoneyInputControls();
+            }
+        });
     };
 
     return {
         showAddDebtDialog: function (completionCallback) { showAddDebtDialog(completionCallback); },
         deleteDebt: function (debtId) { deleteDebt(debtId); },
-        editDebt: function (debtId) { editDebt(debtId); },
+        editDebt: function (debtId, completionCallback) { editDebt(debtId, completionCallback); },
         showAddPaymentToDebtDialog: function (debtId, xPos, yPos, completionCallback) { showAddPaymentToDebtDialog(debtId, xPos, yPos, completionCallback); }
     };
 })();
