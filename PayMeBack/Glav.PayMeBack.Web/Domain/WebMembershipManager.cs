@@ -44,6 +44,8 @@ namespace Glav.PayMeBack.Web.Domain
             serviceResponse.IsSuccessfull = response.IsSuccessfull;
             if (response.IsSuccessfull)
 			{
+                serviceResponse.AccessToken = response.AccessGrant.access_token;
+                serviceResponse.RefreshToken = response.AccessGrant.refresh_token;
 				CreateCookieWithAuthTokenAndSetResponse(email, response.AccessGrant.access_token, response.AccessGrant.refresh_token);
                 var user = _userEngine.GetUserByEmail(email);
                 serviceResponse.Firstname = user.FirstNames;
@@ -59,7 +61,20 @@ namespace Glav.PayMeBack.Web.Domain
 			var ticket = new FormsAuthenticationTicket(1, FormsAuthentication.FormsCookieName, DateTime.Now, DateTime.Now.AddSeconds(FormsAuthentication.Timeout.TotalSeconds), false, userData);
 			authCookie.Value = FormsAuthentication.Encrypt(ticket);
 			HttpContext.Current.Response.Cookies.Add(authCookie);
+            SetAccessTokenInResponseHeader(accessToken);
 		}
+
+        private void SetAccessTokenInResponseHeader(string accessToken)
+        {
+            if (HttpContext.Current.Response.Headers.AllKeys.Contains("Bearer"))
+            {
+                HttpContext.Current.Response.Headers["Bearer"] = accessToken;
+            }
+            else
+            {
+                HttpContext.Current.Response.Headers.Add("Bearer", accessToken);
+            }
+        }
 
 		public User GetUserFromRequestCookie()
 		{
@@ -77,6 +92,7 @@ namespace Glav.PayMeBack.Web.Domain
 					{
 						accessToken = ReIssueAuthCookieWithRefreshedToken(cookie,authTicket, refreshToken);
 					}
+                    SetAccessTokenInResponseHeader(accessToken);
                     return _userEngine.GetUserByAccessToken(accessToken);
 				}
 			}

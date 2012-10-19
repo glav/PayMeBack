@@ -194,14 +194,29 @@ table.debt-summary-table {
         #edit-debt-container fieldset.dialog-form ul li {
             height: 25px;
             margin: 4px 0;
+            width:500px;
         }
             #edit-debt-container fieldset.dialog-form ul li label {
                 float: left;
-                clear: left;
                 text-align: right;
+                margin: 0 10px;
             }
 
             #edit-debt-container fieldset.dialog-form ul li input,
             #edit-debt-container fieldset.dialog-form ul li select {
-                width: 150px;
+                width: 110px;
+                float:left;
             }
+            #edit-debt-container fieldset.dialog-form ul li.reason-notes {
+                height: 85px;
+            }
+                #edit-debt-container fieldset.dialog-form ul li.reason-notes textarea {
+                    width:150px;
+                    height: 50px;
+                    margin-right: 5px;
+                }
+                #edit-debt-container fieldset.dialog-form ul li.reason-notes label {
+                    margin: 0 10px 0 0;
+                    float:none;
+                    vertical-align:top;
+                }

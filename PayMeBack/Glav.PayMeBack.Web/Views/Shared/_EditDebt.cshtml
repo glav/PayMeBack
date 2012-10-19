@@ -10,18 +10,14 @@
                     <input type="text" id="edit-debt-user-email" maxlength="50" />
                     <label for="edit-debt-amount">Owes you:</label>
                     <input type="number" id="edit-debt-amount" maxlength="10" class="input-money" />
-                </li>
-                <li>
-                    <label for="edit-debt-reason">Reason/Nature of the debt?</label>
-                    <input type="text" id="edit-debt-reason" maxlength="255" />
-                </li>
-                <li>
-                    <label for="edit-debt-notes">General notes:</label>
-                    <input type="text" id="edit-debt-notes" maxlength="255" />
-                </li>
-                <li>
-                    <label for="edit-debt-end-date">Expected/desired "paid off by" date:</label>
+                    <label>by</label>
                     <input type="date" id="edit-debt-end-date" maxlength="10" />
+                </li>
+                <li class="reason-notes">
+                    <label for="edit-debt-reason">Reason?</label>
+                    <textarea type="text" id="edit-debt-reason" maxlength="255"></textarea>
+                    <label for="edit-debt-notes">Notes:</label>
+                    <textarea type="text" id="edit-debt-notes" maxlength="255"></textarea>
                 </li>
             </ul>
 			<input type="button" value="Submit" id="edit-debt-submit" class="action-button" />

@@ -11,7 +11,13 @@
 		@Scripts.Render("~/bundles/jquery")
 		@Scripts.Render("~/CoreJs")
 		<script type="text/javascript">
-			window.payMeBack.core.rootPath = "@Url.Content("~")";
+		    window.payMeBack.core.rootPath = "@Url.Content("~")";
+		    @{if (HttpContext.Current.Response.Headers.AllKeys.Contains("Bearer"))
+		    {
+                <text>window.payMeBack.auth.accessToken = '@HttpContext.Current.Response.Headers["Bearer"]';</text>
+            }
+            }
+		    
 		</script>
 		@RenderSection("ScriptHead",false)
 		<meta name="viewport" content="width=device-width" />

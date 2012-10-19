@@ -28,6 +28,14 @@ namespace Glav.PayMeBack.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public JsonResult GetDebt()
+        {
+            var user = _webMembershipManager.GetUserFromRequestCookie();
+            var plan = _paymentPlanService.GetDebtSummaryForUser(user.Id);
+            return Json(plan,JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult Add(string emailAddress, string amountOwed, string debtReason, string initialAmountPaid, string notes, string paymentPeriod, string expectedEndDate )
         {

@@ -559,3 +559,77 @@
 [12/10/2012 07:15:57] >> Completed build step 'PostBuildReleaseSpecific Script Execution' successfully.
 [12/10/2012 07:15:57] >> Build steps completed successfully. Completing Transaction.
 [12/10/2012 07:15:57] Completed Saasu SQLBuilder with Exit Code of [0]
+[14/10/2012 02:03:49] 
+[14/10/2012 02:03:49] Starting Saasu SQLBuilder.
+[14/10/2012 02:03:49] Build Mode: Normal
+[14/10/2012 02:03:49] >> Establishing Transaction Scope
+[14/10/2012 02:03:49] >> Starting build step 'PreBuild Script Execution'
+[14/10/2012 02:03:49] Connecting to Database [vwa5w5unch.database.windows.net]
+[14/10/2012 02:03:49] >> Completed build step 'PreBuild Script Execution' successfully.
+[14/10/2012 02:03:49] >> Starting build step 'Database Creation'
+[14/10/2012 02:03:55] >>>! Build step 'Database Creation' was not successfull. Reason: '1: Failed to connect to server .. 2: Cannot open database "PAYMEBACK" requested by the login. The login failed.
+Login failed for user 'MoneyLender'.
+This session has been assigned a tracing ID of '2558947f-d837-4c6e-a43a-b749a7f9d4cd'.  Provide this tracing ID to customer support when you need assistance.'.
+[14/10/2012 02:03:55] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[14/10/2012 02:03:55] Completed Saasu SQLBuilder with Exit Code of [1]
+[14/10/2012 02:05:02] 
+[14/10/2012 02:05:02] Starting Saasu SQLBuilder.
+[14/10/2012 02:05:02] Build Mode: Normal
+[14/10/2012 02:05:02] >> Establishing Transaction Scope
+[14/10/2012 02:05:02] >> Starting build step 'PreBuild Script Execution'
+[14/10/2012 02:05:02] Connecting to Database [vwa5w5unch.database.windows.net]
+[14/10/2012 02:05:03] >> Completed build step 'PreBuild Script Execution' successfully.
+[14/10/2012 02:05:03] >> Starting build step 'Database Creation'
+[14/10/2012 02:05:08] >>>! Build step 'Database Creation' was not successfull. Reason: '1: Failed to connect to server .. 2: Cannot open database "PAYMEBACK" requested by the login. The login failed.
+Login failed for user 'MoneyLender'.
+This session has been assigned a tracing ID of '186bfb00-8157-43cb-8d6a-867ea8b731c2'.  Provide this tracing ID to customer support when you need assistance.'.
+[14/10/2012 02:05:08] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[14/10/2012 02:05:08] Completed Saasu SQLBuilder with Exit Code of [1]
+[14/10/2012 02:05:34] 
+[14/10/2012 02:05:34] Starting Saasu SQLBuilder.
+[14/10/2012 02:05:34] Build Mode: Normal
+[14/10/2012 02:05:34] >> Establishing Transaction Scope
+[14/10/2012 02:05:34] >> Starting build step 'PreBuild Script Execution'
+[14/10/2012 02:05:34] Connecting to Database [vwa5w5unch.database.windows.net]
+[14/10/2012 02:05:34] >> Completed build step 'PreBuild Script Execution' successfully.
+[14/10/2012 02:05:35] >> Starting build step 'Database Creation'
+[14/10/2012 02:05:40] >>>! Build step 'Database Creation' was not successfull. Reason: '1: Failed to connect to server .. 2: Cannot open database "PAYMEBACK" requested by the login. The login failed.
+Login failed for user 'MoneyLender'.
+This session has been assigned a tracing ID of 'be6d89c2-2e82-488a-a3de-76dadd2355cb'.  Provide this tracing ID to customer support when you need assistance.'.
+[14/10/2012 02:05:40] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[14/10/2012 02:05:40] Completed Saasu SQLBuilder with Exit Code of [1]
+[14/10/2012 02:07:27] 
+[14/10/2012 02:07:27] Starting Saasu SQLBuilder.
+[14/10/2012 02:07:28] Build Mode: Normal
+[14/10/2012 02:07:28] >> Establishing Transaction Scope
+[14/10/2012 02:07:28] >> Starting build step 'PreBuild Script Execution'
+[14/10/2012 02:07:28] Connecting to Database [vwa5w5unch.database.windows.net]
+[14/10/2012 02:07:28] >> Completed build step 'PreBuild Script Execution' successfully.
+[14/10/2012 02:07:28] >> Starting build step 'Database Creation'
+[14/10/2012 02:07:36] Database PayMeBack already exists. No need to create.
+[14/10/2012 02:07:36] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[14/10/2012 02:07:36] All database were created successfully.
+[14/10/2012 02:07:36] >> Completed build step 'Database Creation' successfully.
+[14/10/2012 02:07:36] >> Starting build step 'Version Table Check'
+[14/10/2012 02:07:40] >>>! Build step 'Version Table Check' was not successfull. Reason: '1: An exception occurred while executing a Transact-SQL statement or batch.. 2: Reference to database and/or server name in 'PayMeBack.dbo.DBVersion' is not supported in this version of SQL Server.'.
+[14/10/2012 02:07:40] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[14/10/2012 02:07:40] Completed Saasu SQLBuilder with Exit Code of [1]
+[14/10/2012 02:09:48] 
+[14/10/2012 02:09:48] Starting Saasu SQLBuilder.
+[14/10/2012 02:09:48] Build Mode: Normal
+[14/10/2012 02:09:48] >> Establishing Transaction Scope
+[14/10/2012 02:09:48] >> Starting build step 'PreBuild Script Execution'
+[14/10/2012 02:09:48] Connecting to Database [vwa5w5unch.database.windows.net]
+[14/10/2012 02:09:48] >> Completed build step 'PreBuild Script Execution' successfully.
+[14/10/2012 02:09:48] >> Starting build step 'Database Creation'
+[14/10/2012 02:09:55] Database PayMeBack already exists. No need to create.
+[14/10/2012 02:09:55] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[14/10/2012 02:09:55] All database were created successfully.
+[14/10/2012 02:09:55] >> Completed build step 'Database Creation' successfully.
+[14/10/2012 02:09:55] >> Starting build step 'Version Table Check'
+[14/10/2012 02:09:57] Version Table [DBVersion] already exists, no need to create.
+[14/10/2012 02:09:58] >> Completed build step 'Version Table Check' successfully.
+[14/10/2012 02:09:58] >> Starting build step 'Schema Scripts Execution'
+[14/10/2012 02:09:58] >>>! Build step 'Schema Scripts Execution' was not successfull. Reason: '1: An exception occurred while executing a Transact-SQL statement or batch.. 2: Reference to database and/or server name in 'PayMeBack.dbo.DBVersion' is not supported in this version of SQL Server.'.
+[14/10/2012 02:09:58] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[14/10/2012 02:09:58] Completed Saasu SQLBuilder with Exit Code of [1]

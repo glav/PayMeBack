@@ -30,3 +30,10 @@ window.payMeBack.core.colours.nyroModalBackground = "#A8A5A5";
 window.payMeBack.core.colours.statusMessageInfoBackground = "#A8A5A5";
 window.payMeBack.core.colours.statusMessageErrorBackground = "#A8A5A5";
 /******************************************************************/
+
+/***************** Authentcation and authorisation *********************/
+if (typeof window.payMeBack.auth === 'undefined') {
+    window.payMeBack.auth = {};
+}
+
+window.payMeBack.auth.accessToken = "";
