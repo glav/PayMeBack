@@ -208,7 +208,7 @@ table.debt-summary-table {
                 float:left;
             }
             #edit-debt-container fieldset.dialog-form ul li.reason-notes {
-                height: 85px;
+                height: 60px;
             }
                 #edit-debt-container fieldset.dialog-form ul li.reason-notes textarea {
                     width:150px;
@@ -220,3 +220,14 @@ table.debt-summary-table {
                     float:none;
                     vertical-align:top;
                 }
+
+    #edit-debt-payments-container {
+        height:100px;
+        overflow-y: auto;
+        border: solid 1px #e8e2e2;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        margin: 3px 0 5px 0;
+    }
+    

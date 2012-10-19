@@ -134,6 +134,10 @@ window.payMeBack.debtManager = (function () {
         var debtByDateInput = $("#edit-debt-end-date");
         var debtReasonText = $("#edit-debt-reason");
         var debtNotesText = $("#edit-debt-notes");
+        
+        if (currentDebt.InitialPayment !== 0) {
+            $("#edit-debt-initial-payment").text(currentDebt.InitialPayment);
+        }
 
         emailInput.val(currentDebt.UserWhoOwesDebt.EmailAddress);
         emailInput.attr("title", currentDebt.UserWhoOwesDebt.FirstNames + " " + currentDebt.UserWhoOwesDebt.Surname);
@@ -232,22 +236,20 @@ window.payMeBack.debtManager = (function () {
                 populateEditDebtForm(result, debtId);
             },
             error: function (e) {
-                alert('failed');
+                $.nyroModalRemove();
                 window.payMeBack.progressManager.hideProgressIndicator("debt-summary-section", function () {
                     var msg = "There was a problem retrieving the debt summary data. Please try again.";
                     window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError);
                 });
             }
         });
-
-        alert('access paymentplan and populate fields');
     }
 
     var editDebt = function (debtId, completionCallback) {
         $.nyroModalManual({
             url: '#edit-debt-modal',
             minHeight: 300,
-            height: 400,
+            height: 450,
             minWwidth: 500,
             bgColor: window.payMeBack.core.colours.nyroModalBackground,
             endRemove: function () {
