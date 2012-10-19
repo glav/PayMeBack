@@ -139,6 +139,7 @@ input.action-button {
 
 div.dialog-container h3 {
     background-color: #99FF9D;
+    margin-bottom: 0;
     padding: 7px 15px;
     border-radius: 5px;
     -moz-border-radius: 5px;

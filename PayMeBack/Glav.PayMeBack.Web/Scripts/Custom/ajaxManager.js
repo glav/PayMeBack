@@ -6,6 +6,13 @@ if (typeof window.payMeBack.ajaxManager === 'undefined') {
 
 window.payMeBack.ajaxManager = (function () {
 
+    // Sets up common ajax parameters such as OAuth accesstokens
+    var ajaxSetup = function () {
+        var opts = $.ajaxSettings;
+        opts.headers = { "Authorization": "Bearer "+window.payMeBack.auth.accessToken };
+        $.ajaxSetup(opts);
+    }
+
     var ajaxRequest = function (relativeUrl, httpMethod, dataPayload, progressContainerIdOrClassName, statusMsgContainerSelector, successCallback, errorCallback, errorMessage, typeOfError) {
         window.payMeBack.progressManager.showProgressIndicator(progressContainerIdOrClassName);
         var genericErrorMessage = "There was a problem performing your request.";
@@ -16,6 +23,8 @@ window.payMeBack.ajaxManager = (function () {
         if (typeof typeOfError !== 'undefined') {
             errorType = typeOfError;
         }
+
+        ajaxSetup();
         $.ajax({
             url: window.payMeBack.core.makePathFromVirtual(relativeUrl),
             type: httpMethod,
@@ -67,7 +76,8 @@ window.payMeBack.ajaxManager = (function () {
     }
 
     return {
-        ajaxRequest: function (relativeUrl, httpMethod, dataPayload, progressContainerIdOrClassName, statusMsgContainerSelector, successCallback, errorCallback, errorMessage, typeOfError) { ajaxRequest(relativeUrl, httpMethod, dataPayload, progressContainerIdOrClassName, statusMsgContainerSelector, successCallback, errorCallback, errorMessage, typeOfError); }
+        ajaxRequest: function (relativeUrl, httpMethod, dataPayload, progressContainerIdOrClassName, statusMsgContainerSelector, successCallback, errorCallback, errorMessage, typeOfError) { ajaxRequest(relativeUrl, httpMethod, dataPayload, progressContainerIdOrClassName, statusMsgContainerSelector, successCallback, errorCallback, errorMessage, typeOfError); },
+        ajaxSetup: function () { ajaxSetup(); }
     };
 
 })();

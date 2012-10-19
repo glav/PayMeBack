@@ -115,6 +115,36 @@ window.payMeBack.debtManager = (function () {
         }
     }
 
+    var populateEditDebtForm = function (paymentPlan, selectedDebtId) {
+        var numTotalDebt = paymentPlan.DebtsOwedToMe.length;
+        var currentDebt = null;
+        for (var cnt = 0; cnt < numTotalDebt; cnt++) {
+            currentDebt = paymentPlan.DebtsOwedToMe[cnt];
+            if (currentDebt.Id === selectedDebtId) {
+                break;
+            }
+        }
+
+        if (currentDebt === null) {
+            return;
+        }
+
+        var emailInput = $("#edit-debt-user-email");
+        var debtAmountInput = $("#edit-debt-amount");
+        var debtByDateInput = $("#edit-debt-end-date");
+        var debtReasonText = $("#edit-debt-reason");
+        var debtNotesText = $("#edit-debt-notes");
+
+        emailInput.val(currentDebt.UserWhoOwesDebt.EmailAddress);
+        emailInput.attr("title", currentDebt.UserWhoOwesDebt.FirstNames + " " + currentDebt.UserWhoOwesDebt.Surname);
+        debtAmountInput.val(currentDebt.TotalAmountOwed);
+        if (currentDebt.ExpectedEndDate && currentDebt.ExpectedEndDate !== null) {
+            debtByDateInput.val(currentDebt.ExpectedEndDate);
+        }
+        debtReasonText.val(currentDebt.ReasonForDebt);
+        debtNotesText.val(currentDebt.Notes);
+    }
+
     var captureAddPaymentFormAndSubmit = function (debtId, completionCallback) {
         var payment = {
             debtId: debtId,
@@ -192,7 +222,24 @@ window.payMeBack.debtManager = (function () {
             });
     };
 
-    var getDebtDetails = function () {
+    var getDebtDetails = function (debtId) {
+        window.payMeBack.ajaxManager.ajaxSetup();
+        $.ajax({
+            url: window.payMeBack.core.makePathFromVirtual("~/api/debts"),
+            type: "GET",
+            cache: false,
+            success: function (result) {
+                populateEditDebtForm(result, debtId);
+            },
+            error: function (e) {
+                alert('failed');
+                window.payMeBack.progressManager.hideProgressIndicator("debt-summary-section", function () {
+                    var msg = "There was a problem retrieving the debt summary data. Please try again.";
+                    window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError);
+                });
+            }
+        });
+
         alert('access paymentplan and populate fields');
     }
 
@@ -213,7 +260,6 @@ window.payMeBack.debtManager = (function () {
             },
             endShowContent: function () {
                 var debtContainer = $("#edit-debt-container");
-                getDebtDetails();
                 $(".progress-indicator", debtContainer).hide();
                 $("fieldset ul li input", debtContainer).unbind().on("keypress", function (e) {
                     if (e.which === 13) {
@@ -223,6 +269,8 @@ window.payMeBack.debtManager = (function () {
                 $("#edit-debt-submit").unbind().on("click", function (e) {
                     alert('not done');
                 });
+                getDebtDetails(debtId);
+
 
                 window.payMeBack.inputManager.maskAllMoneyInputControls();
             }
