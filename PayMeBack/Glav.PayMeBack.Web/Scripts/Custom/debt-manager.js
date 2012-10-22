@@ -1,4 +1,6 @@
 ﻿/// <reference path="_references.js" />
+/// <reference path="ajaxManager.js" />
+/// <reference path="notificationEngine.js" />
 
 if (typeof window.payMeBack.debtManager === 'undefined') {
     window.payMeBack.debtManager = {};
@@ -13,11 +15,6 @@ window.payMeBack.debtManager = (function () {
         Services: 3,
         Goods: 4
     };
-
-    $.ajaxSetup({
-        // Disable caching of AJAX responses
-        cache: false
-    });
 
     var clearFormData = function () {
         $("#add-debt-container fieldset input[type!='button']").val("");
@@ -39,14 +36,23 @@ window.payMeBack.debtManager = (function () {
         var debtData = captureFormData();
 
         $("#add-debt-container fieldset").fadeOut('normal', function () {
-            window.payMeBack.ajaxManager.ajaxRequest("~/debt/Add", "POST", debtData, "add-debt-container", "#nyroModalContent",
-                function () {
+            var options = {
+                relatveUrl: "~/debt/Add",
+                httpMethod: "POST",
+                dataPayload: debtData,
+                progressContainerIdOrClassName: "add-debt-container",
+                successCallback: function () {
                     getDebtSummaryHtml();
                     $.nyroModalRemove();
                 },
-                function () {
+                errorCallback: function () {
                     $("#add-debt-container fieldset").fadeIn();
-                }, "There was a problem adding the debt record to the system. Please try again.");
+                },
+                errorMessage: "There was a problem adding the debt record to the system. Please try again.",
+                typeOfError: window.payMeBack.notificationEngine.MESSAGE_TYPE_ERROR,
+                ignoreResultStatus: false
+            };
+            window.payMeBack.ajaxManager.ajaxRequest(options);
         });
     };
 
@@ -90,6 +96,7 @@ window.payMeBack.debtManager = (function () {
         $.ajax({
             url: window.payMeBack.core.makePathFromVirtual("~/summary/DebtsOwedToMe"),
             type: "GET",
+            cache: false,
             success: function (result) {
                 window.payMeBack.progressManager.hideProgressIndicator("debt-summary-section", function () {
                     if (typeof result !== 'undefined') {
@@ -134,7 +141,7 @@ window.payMeBack.debtManager = (function () {
         var debtByDateInput = $("#edit-debt-end-date");
         var debtReasonText = $("#edit-debt-reason");
         var debtNotesText = $("#edit-debt-notes");
-        
+
         if (currentDebt.InitialPayment !== 0) {
             $("#edit-debt-initial-payment").text(currentDebt.InitialPayment);
         }
@@ -161,16 +168,26 @@ window.payMeBack.debtManager = (function () {
         payment.paymentType = $("#payment-type").val();
 
         $("#add-debt-payment-container fieldset").fadeOut('normal', function () {
-            window.payMeBack.ajaxManager.ajaxRequest("~/debt/AddPayment", "POST", payment, "add-debt-payment-section", "#add-debt-payment-section",
-                function (result) {
+            var options = {
+                relatveUrl: "~/debt/AddPayment",
+                httpMethod: "POST",
+                dataPayload: payment,
+                progressContainerIdOrClassName: "add-debt-payment-section",
+                statusMsgContainerSelector: "#add-debt-payment-section",
+                successCallback: function (result) {
                     $("#add-debt-payment-container").fadeOut('normal', function () {
                         invokeCallback(completionCallback);
                     });
                     getDebtSummaryHtml();
                 },
-                function () {
+                errorCallback: function () {
                     $("#add-debt-payment-container fieldset").fadeIn();
-                }, "There was a problem adding a payment", window.payMeBack.notificationEngine.MessageTypeSmallError);
+                },
+                errorMessage: "There was a problem adding a payment",
+                typeOfError: window.payMeBack.notificationEngine.MESSAGE_TYPE_ERROR,
+                ignoreResultStatus: false
+            };
+            window.payMeBack.ajaxManager.ajaxRequest(options);
         });
     }
 
@@ -208,12 +225,16 @@ window.payMeBack.debtManager = (function () {
         $("#add-payment-action").unbind().on("click", function () {
             captureAddPaymentFormAndSubmit(debtId, completionCallback);
         });
-        //alert('adding to debtId:' + debtId + ' - Amount:' + amount + ' - date: ' + dateOfPayment + '  [NOT COMPLETE]');
     };
 
     var deleteDebt = function (debtId) {
-        window.payMeBack.ajaxManager.ajaxRequest("~/debt/Delete?debtId=" + debtId, "DELETE", "", null, null,
-            function (result) {
+        var options = {
+            relatveUrl: "~/debt/Delete?debtId=" + debtId,
+            httpMethod: "DELETE",
+            dataPayload: null,
+            progressContainerIdOrClassName: null,
+            statusMsgContainerSelector: null,
+            successCallback: function (result) {
                 $('#debt-summary-owed tr[data-debt-id="' + debtId + '"]').fadeOut('normal', function () {
                     $(this).remove();
                 });
@@ -221,39 +242,48 @@ window.payMeBack.debtManager = (function () {
                     $("#debts-owed-to-me span.total-owed-amount").text(result.total);
                 }
             },
-            function () {
-                // error - dont do anything
-            });
+            errorCallback: _undefined,
+            errorMessage: "An error has occurred",
+            typeOfError: window.payMeBack.notificationEngine.MESSAGE_TYPE_ERROR,
+            ignoreResultStatus: false
+        };
+
+        window.payMeBack.ajaxManager.ajaxRequest(options);
     };
 
     var getDebtDetails = function (debtId) {
-        window.payMeBack.ajaxManager.ajaxSetup();
-        $.ajax({
-            url: window.payMeBack.core.makePathFromVirtual("~/api/debts"),
-            type: "GET",
-            cache: false,
-            success: function (result) {
+        var options = {
+            relatveUrl: "~/api/debts",
+            progressContainerIdOrClassName: "edit-debt-container",
+            successCallback: function (result) {
+                $("#edit-debt-container fieldset").fadeIn();
                 populateEditDebtForm(result, debtId);
             },
-            error: function (e) {
-                $.nyroModalRemove();
-                window.payMeBack.progressManager.hideProgressIndicator("debt-summary-section", function () {
-                    var msg = "There was a problem retrieving the debt summary data. Please try again.";
-                    window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError);
-                });
-            }
-        });
+            errorCallback: function () {
+                $("#edit-debt-container fieldset").fadeIn();
+            },
+            errorMessage: "There was a problem retrieving the debt details. Please try again.",
+            typeOfError: window.payMeBack.notificationEngine.MESSAGE_TYPE_SMALL_ERROR,
+            ignoreResultStatus: true
+        };
+        window.payMeBack.ajaxManager.ajaxRequest(options);
+
     }
 
     var editDebt = function (debtId, completionCallback) {
         $.nyroModalManual({
             url: '#edit-debt-modal',
-            minHeight: 300,
-            height: 450,
+            minHeight: 320,
+            height: 470,
             minWwidth: 500,
             bgColor: window.payMeBack.core.colours.nyroModalBackground,
             endRemove: function () {
-                $("#edit-debt-container fieldset").show();
+                var fieldForm = $("#edit-debt-container fieldset");
+                $("input[type='text']", fieldForm).val("");
+                $("input[type='date']", fieldForm).val("");
+                $("input[type='number']", fieldForm).val("");
+                $("textarea", fieldForm).val("");
+                fieldForm.hide();
                 $("#edit-debt-container .progress-indicator").hide();
                 if (typeof completionCallback !== 'undefined') {
                     completionCallback();
