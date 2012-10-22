@@ -183,7 +183,7 @@ table.debt-summary-table {
 #edit-debt-container {
     width: 550px;
 }
-#edit-debt-container img.add-debt-progress-indicator {
+#edit-debt-container img.edit-debt-progress-indicator {
     margin-left:250px;
     padding-top:100px;
 }
@@ -222,7 +222,7 @@ table.debt-summary-table {
                 }
 
     #edit-debt-payments-container {
-        height:100px;
+        height:90px;
         overflow-y: auto;
         border: solid 1px #e8e2e2;
         border-radius: 3px;
