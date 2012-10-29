@@ -16,9 +16,32 @@ window.payMeBack.debtManager = (function () {
         Goods: 4
     };
 
-    var clearFormData = function () {
+    var getPaymentTypeDescrption =  function(paymentTypeValue) {
+        switch (paymentTypeValue) {
+            case paymentTypes.Unknown:
+                return "Unknown";
+                break;
+            case paymentTypes.Cash:
+                return "Cash";
+                break;
+            case paymentTypes.BankTransfer:
+                return "Bank Transfer";
+                break;
+            case paymentTypes.Services:
+                return "Services";
+                break;
+            case paymentTypes.Goods:
+                return "Goods";
+                break;
+            default:
+                return "Unknown";
+                break;
+        }
+    };
+    
+    var clearFormData = function() {
         $("#add-debt-container fieldset input[type!='button']").val("");
-    }
+    };
 
     var captureFormData = function () {
         return {
@@ -116,13 +139,13 @@ window.payMeBack.debtManager = (function () {
 
     };
 
-    var invokeCallback = function (callback) {
+    var invokeCallback = function(callback) {
         if (typeof callback !== 'undefined') {
             callback();
         }
-    }
+    };
 
-    var populateEditDebtForm = function (paymentPlan, selectedDebtId) {
+    var populateEditDebtForm = function(paymentPlan, selectedDebtId) {
         var numTotalDebt = paymentPlan.DebtsOwedToMe.length;
         var currentDebt = null;
         for (var cnt = 0; cnt < numTotalDebt; cnt++) {
@@ -143,7 +166,7 @@ window.payMeBack.debtManager = (function () {
         var debtNotesText = $("#edit-debt-notes");
 
         if (currentDebt.InitialPayment !== 0) {
-            $("#edit-debt-initial-payment").text(currentDebt.InitialPayment);
+            $("#edit-debt-initial-payment").text(window.payMeBack.core.formatCurrency(currentDebt.InitialPayment));
         }
 
         emailInput.val(currentDebt.UserWhoOwesDebt.EmailAddress);
@@ -154,7 +177,23 @@ window.payMeBack.debtManager = (function () {
         }
         debtReasonText.val(currentDebt.ReasonForDebt);
         debtNotesText.val(currentDebt.Notes);
-    }
+
+        var tableRowArea = $("#edit-debt-payments-container table tbody");
+        tableRowArea.empty();
+
+        if (currentDebt.PaymentInstallments && currentDebt.PaymentInstallments.length > 0) {
+            var length = currentDebt.PaymentInstallments.length;
+            var rowTemplate = $("#installment-row-template");
+            for (var rowCnt = 0; rowCnt < length; rowCnt++) {
+                var installment = currentDebt.PaymentInstallments[rowCnt];
+                var html = rowTemplate.html();
+                var row = html.replace("{{date}}", window.payMeBack.core.formatDate(installment.PaymentDate,"ddd d/m/y"))
+                            .replace("{{amount}}", window.payMeBack.core.formatCurrency(installment.AmountPaid))
+                            .replace("{{type}}", getPaymentTypeDescrption(installment.TypeOfPayment));
+                tableRowArea.append(row);
+            }
+        }
+    };
 
     var captureAddPaymentFormAndSubmit = function (debtId, completionCallback) {
         var payment = {

@@ -72,7 +72,7 @@ namespace Glav.PayMeBack.Web.Domain
 			debt.PaymentInstallments = new List<DebtPaymentInstallment>();
 			if (detail.DebtPaymentInstallmentDetails != null)
 			{
-				detail.DebtPaymentInstallmentDetails.ToList().ForEach(d => debt.PaymentInstallments.Add(d.ToModel()));
+				detail.DebtPaymentInstallmentDetails.OrderBy(i => i.PaymentDate).ToList().ForEach(d => debt.PaymentInstallments.Add(d.ToModel()));
 			}
 			debt.DateCreated = detail.DateCreated;
 

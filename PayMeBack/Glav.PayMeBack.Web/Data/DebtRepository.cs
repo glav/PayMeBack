@@ -49,6 +49,7 @@ namespace Glav.PayMeBack.Web.Data
 					paymentPlan = new UserPaymentPlanDetail() { UserId = userId };
 					paymentPlan.DebtDetails = new List<DebtDetail>();
 				}
+
 				debtsOwed.ForEach(d => paymentPlan.DebtDetails.Add(d));
 				return paymentPlan;
 			}

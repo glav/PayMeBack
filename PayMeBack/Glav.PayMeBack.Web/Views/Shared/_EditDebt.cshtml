@@ -21,9 +21,36 @@
                 </li>
             </ul>
             <div id="edit-debt-payments-container">
-                <label>Initial Payment:</label><span id="edit-debt-initial-payment">0</span>
+                <div class="initial-payment">
+                    <label>Initial Payment:</label><span id="edit-debt-initial-payment">0</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="date">Date Paid</th>
+                            <th class="amount">Installment Amount</th>
+                            <th class="type">Type of Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="date">1/1/2000</td>
+                            <td class="amount">100</td>
+                            <td class="type">Cash</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-			<input type="button" value="Submit" id="edit-debt-submit" class="action-button" />
+            <input type="button" value="Submit" id="edit-debt-submit" class="action-button" />
         </fieldset>
     </div>
 </div>
+
+<<script type="template" id="installment-row-template">
+    
+    <tr>
+        <td class="date">{{date}}</td>
+        <td class="amount">{{amount}}</td>
+        <td class="type">{{type}}</td>
+    </tr>
+</script>

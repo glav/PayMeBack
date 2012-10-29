@@ -230,4 +230,37 @@ table.debt-summary-table {
         -webkit-border-radius: 3px;
         margin: 3px 0 5px 0;
     }
+
+        #edit-debt-payments-container .initial-payment {
+            text-align: center;
+            padding: 2px 0 10px 5px;
+        }
+
+        #edit-debt-payments-container .initial-payment label {
+            margin-right: 5px;
+        }
+            #edit-debt-initial-payment {
+                font-weight: bold;
+            }
+
+        #edit-debt-payments-container table {
+            width: 70%;
+            padding: 5px 10px;
+            margin: auto;
+        }
+            #edit-debt-payments-container table thead tr {
+                background-color: #e2e1e1;
+                border-bottom: 2px solid #A2A2A2;
+            }
+
+            #edit-debt-payments-container .date {
+                text-align: center;
+            }
+            #edit-debt-payments-container .amount {
+                text-align: right;
+            }
+            #edit-debt-payments-container .type {
+                text-align: center;
+            }
+    
     

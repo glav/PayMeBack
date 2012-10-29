@@ -17,6 +17,46 @@ if (typeof window.payMeBack.core === 'undefined') {
 
             var actualPath = virtualPath.replace("~",window.payMeBack.core.rootPath).replace("//","/");
             return actualPath;
+        },
+        
+        formatDate: function (textDate, format) {
+            var createDateString = function (dateObj, cultureFormat) {
+                var days = ["Sunday", "Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday"];
+                var shortDayDesc = days[dateObj.getDay()].substr(0, 3);
+                var day = dateObj.getDate() ;
+                var month = dateObj.getMonth()+1;
+                var year = dateObj.getFullYear();
+
+                var formattedDate = cultureFormat.replace("ddd", shortDayDesc)
+                    .replace("d", day)
+                    .replace("m", month)
+                    .replace("y", year);
+                return formattedDate;
+            };
+            try {
+                var dateFormat = "d/m/y";
+                if (typeof format !== 'undefined') {
+                    dateFormat = format;
+                }
+
+                var d = new Date(textDate);
+                return createDateString(d, dateFormat);
+            } catch (e) {
+                return createDateString(new Date(), "d/m/y");
+            }
+        },
+        
+        formatCurrency: function(amount) {
+            try {
+                var amt = parseFloat(amount);
+                var text = "$" + amt;
+                if (text.indexOf(".") === -1) {
+                    text += ".00";
+                }
+                return text;
+            } catch (e) {
+                return "$0.00";
+            }
         }
     };
 }
