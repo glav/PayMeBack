@@ -381,6 +381,7 @@
     <Content Include="Images\SummaryHeadingBground.png" />
     <Content Include="Images\AddDebt.png" />
     <Content Include="Scripts\Custom\ajaxManager.js" />
+    <Content Include="Scripts\Custom\notification-manager.js" />
     <Content Include="Scripts\Custom\debt-manager.js" />
     <Content Include="Scripts\Custom\InputManager.js" />
     <Content Include="Scripts\Custom\landing-page.js" />

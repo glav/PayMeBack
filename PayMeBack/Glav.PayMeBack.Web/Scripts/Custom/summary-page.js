@@ -1,4 +1,5 @@
-﻿/// <reference path="_references.js" />
+﻿/// <reference path="notification-manager.js" />
+/// <reference path="_references.js" />
 
 $(document).ready(function () {
 
@@ -34,7 +35,7 @@ $(document).ready(function () {
             window.payMeBack.debtManager.showAddDebtDialog(bindGridActions);
         });
         $("#set-notification-link").unbind().on("click", function () {
-            alert('sorry, not complete');
+            window.payMeBack.notificationManager.showNotificationOptionsForDebt(bindGridActions);
         });
         $("#manage-profile-link").unbind().on("click", function () {
             alert('sorry, not complete');
