@@ -40,7 +40,8 @@ window.payMeBack.progressManager = (function () {
     };
 
     var hideProgressIndicator = function (containerElement, completionCallback) {
-        /// This function will try and hide the element first with id matching idOrClassName var
+        /// This function will find the progress indicator element within the supplied container
+        /// and try and hide the element first with id matching idOrClassName var
         /// then if it does not find it, try and display the element with that className
         /// It will use a container element as the root of the search if it is provided
 
@@ -51,7 +52,9 @@ window.payMeBack.progressManager = (function () {
     };
 
     var showProgressIndicator = function (containerElement, completionCallback) {
-        /// This function will try and display the element first with id matching idOrClassName var
+        console.log("showProgressINdicator: " + containerElement);
+        /// This function will find the progress indicator element within the supplied container
+        /// and try and display the element first with id matching idOrClassName var
         /// then if it does not find it, try and display the element with that className
         /// It will use a container element as the root of the search if it is provided
 

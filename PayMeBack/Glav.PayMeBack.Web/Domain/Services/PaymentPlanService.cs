@@ -57,7 +57,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
 
 			paymentPlan.DebtsOwedToMe = GetDebtsRelatedToUser(userId, paymentPlanDetail, true);
 			paymentPlan.DebtsOwedToOthers = GetDebtsRelatedToUser(userId, paymentPlanDetail, false);
-			return paymentPlan;
+            return paymentPlan;
 		}
 
 		private string GetCacheKeyForUserPaymentPlan(Guid userId)

@@ -367,6 +367,8 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PayMeBackModel.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\PayMeBack - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\PayMeBack - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\Add.png" />
     <Content Include="Images\AccountProfile.png" />
@@ -412,6 +414,7 @@
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>

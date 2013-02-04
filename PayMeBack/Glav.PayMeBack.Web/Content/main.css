@@ -45,7 +45,7 @@ header {
 	
 }
 	#body section {
-		margin: 10px 50px;
+		margin: 1% 2%;
 		clear: both;
 	}
 
@@ -97,11 +97,35 @@ div.login-dialog .signup, div.signup-dialog .login {
 }
 
 /*** Summary Page Action Menu *******/
-#body section.summary-action-menu {
-    float:right;
-    width:130px;
-    clear:right;
+@media (max-width: 849px) {
+    #body section.summary-action-menu {
+        width:100%;
+    }
+    #body section.summary-action-menu ul li {
+        height: 40%;
+        margin-bottom: 0;
+        width: 7%;
+        margin-right: 10%;
+    }
+    #body section.summary-action-menu ul li a img {
+        height: 40%;
+    }
 }
+
+@media (min-width: 850px) {
+    section.summary-action-menu ul li {
+        margin-bottom: 5%;
+    }
+
+    #body section.summary-action-menu {
+        float:right;
+        width:7%;
+        clear:right;
+        margin-right: 2%;
+        margin-left: 1%;
+    }
+}
+
 
 section.summary-action-menu ul {
     list-style:none;
@@ -110,7 +134,6 @@ section.summary-action-menu ul {
 
     section.summary-action-menu ul li {
         float:left;
-        margin-bottom: 20px;
     }
         section.summary-action-menu ul li a, section.summary-action-menu ul li a:hover, section.summary-action-menu ul li a:visited {
             text-decoration:none;
@@ -120,6 +143,9 @@ section.summary-action-menu ul {
             section.summary-action-menu ul li a span {
                 display:block;
                 text-align:center;
+            }
+            section.summary-action-menu ul li a img {
+                width: 100%;
             }
         
 

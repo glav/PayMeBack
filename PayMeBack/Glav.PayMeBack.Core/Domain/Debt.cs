@@ -25,6 +25,7 @@ namespace Glav.PayMeBack.Core.Domain
 		public decimal TotalAmountOwed { get; set; }
 		public string ReasonForDebt { get; set; }
 		public string Notes { get; set; }
+        public decimal AmountRemaining { get; set; }  // this property is more convenience so we can pass it to the UI/consumer
 
 		public decimal AmountLeftOwing()
 		{

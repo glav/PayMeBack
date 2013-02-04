@@ -74,6 +74,7 @@ namespace Glav.PayMeBack.Web.Domain
 			{
 				detail.DebtPaymentInstallmentDetails.OrderBy(i => i.PaymentDate).ToList().ForEach(d => debt.PaymentInstallments.Add(d.ToModel()));
 			}
+		    debt.AmountRemaining = debt.AmountLeftOwing();
 			debt.DateCreated = detail.DateCreated;
 
 			return debt;
