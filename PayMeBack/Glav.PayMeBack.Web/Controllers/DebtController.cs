@@ -51,6 +51,9 @@ namespace Glav.PayMeBack.Web.Controllers
             {
                 debt.InitialPayment = amt;
             }
+
+            var expectedPaymentDate = _cultureEngine.ConvertTextFromCultureFormatToDateTime(user, expectedEndDate);
+            debt.ExpectedEndDate = expectedPaymentDate;
             var addResult = _paymentPlanService.AddDebtOwed(user.Id, debt);
             if (addResult.WasSuccessfull)
             {
@@ -76,7 +79,7 @@ namespace Glav.PayMeBack.Web.Controllers
             var debtPayment = new DebtPaymentInstallment { DebtId = id };
             debtPayment.AmountPaid = amount.Value;
             var paymentDate = _cultureEngine.ConvertTextFromCultureFormatToDateTime(user,date);
-            if ( paymentType == null)
+            if (paymentDate == null)
             {
                 return Json(new { success = false, errorMessage = ErrorMessages.BadDateFormat });
             }

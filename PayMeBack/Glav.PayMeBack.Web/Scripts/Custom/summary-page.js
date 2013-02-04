@@ -30,13 +30,13 @@ $(document).ready(function () {
     }
 
     function bindActionLinks() {
-        $("#add-debt-link").on("click", function () {
+        $("#add-debt-link").unbind().on("click", function () {
             window.payMeBack.debtManager.showAddDebtDialog(bindGridActions);
         });
-        $("#set-notification-link").on("click", function () {
+        $("#set-notification-link").unbind().on("click", function () {
             alert('sorry, not complete');
         });
-        $("#manage-profile-link").on("click", function () {
+        $("#manage-profile-link").unbind().on("click", function () {
             alert('sorry, not complete');
         });
     }
