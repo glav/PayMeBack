@@ -203,6 +203,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\DebtsController.cs" />
     <Compile Include="Controllers\Api\HelpController.cs" />
+    <Compile Include="Controllers\Api\NotificationController.cs" />
     <Compile Include="Controllers\Api\OAuthController.cs" />
     <Compile Include="Controllers\Api\SummaryController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
@@ -268,9 +269,11 @@
     <Compile Include="Domain\Engines\UserEngine.cs" />
     <Compile Include="Domain\IWebMembershipManager.cs" />
     <Compile Include="Domain\OAuthConfig.cs" />
+    <Compile Include="Domain\Services\INotificationService.cs" />
     <Compile Include="Domain\Services\IOAuthSecurityService.cs" />
     <Compile Include="Domain\Services\IPaymentPlanService.cs" />
     <Compile Include="Domain\Services\ISignupManager.cs" />
+    <Compile Include="Domain\Services\NotificationService.cs" />
     <Compile Include="Domain\Services\OAuthSecurityService.cs" />
     <Compile Include="Domain\Services\PaymentPlanService.cs" />
     <Compile Include="Domain\Services\SignupManager.cs" />

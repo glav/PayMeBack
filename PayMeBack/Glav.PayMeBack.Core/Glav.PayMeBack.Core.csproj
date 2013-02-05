@@ -66,8 +66,11 @@
     <Compile Include="Domain\DebtPaymentInstallment.cs" />
     <Compile Include="Domain\DebtSummary.cs" />
     <Compile Include="Domain\MembershipResponseModel.cs" />
+    <Compile Include="Domain\NotificationOptions.cs" />
+    <Compile Include="Domain\NotificationType.cs" />
     <Compile Include="Domain\PaymentMethodType.cs" />
     <Compile Include="Domain\PaymentPeriod.cs" />
+    <Compile Include="Domain\ReminderInterval.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\UserPaymentPlan.cs" />
     <Compile Include="Email.cs" />

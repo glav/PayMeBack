@@ -42,7 +42,7 @@ namespace Glav.PayMeBack.Web.Helpers
 			builder.Register(c => new HelpEngine()).As<IHelpEngine>();
 			builder.Register(c => new PayMeBackModelBinderProvider()).As<System.Web.Http.ModelBinding.ModelBinderProvider>();
 			builder.Register(c => new UserFromAccessTokenModelBinder(c.Resolve<IUserEngine>())).As<UserFromAccessTokenModelBinder>();
-
+            builder.Register(c => new NotificationService()).As<INotificationService>();
 			// Register Web specific Managers
 			builder.Register(c => new WebMembershipManager(c.Resolve<IOAuthSecurityService>(), c.Resolve<ISignupManager>(),c.Resolve<IUserEngine>())).As<IWebMembershipManager>();
 			
