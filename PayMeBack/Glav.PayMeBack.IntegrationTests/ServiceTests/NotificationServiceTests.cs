@@ -23,39 +23,68 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
         private INotificationService _notificationService;
         private IPaymentPlanService _paymentPlanService;
 
+        private bool _isDataInitialised = false;
+        private Guid _userId = Guid.Empty;
+        private Guid _debtId = Guid.Empty;
+
+        private void InitialiseTestData()
+        {
+            if (!_isDataInitialised)
+            {
+                BuildServices();
+                var signInTests = new SignupServiceTests();
+                var user = signInTests.SignUpThenSignIn();
+
+                // Add debt
+                var paymentPlan = _paymentPlanService.GetPaymentPlan(user.Id);
+
+                var emailAddress1 = string.Format("owes-debt-{0}@integrationtests.com", Guid.NewGuid());
+
+                paymentPlan.DebtsOwedToMe.Add(new Debt
+                {
+                    ReasonForDebt = "test",
+                    TotalAmountOwed = 100,
+                    InitialPayment = 10,
+                    PaymentPeriod = PaymentPeriod.Weekly,
+                    StartDate = DateTime.Now,
+                    UserWhoOwesDebt = new User { EmailAddress = emailAddress1 }
+                });
+                var result = _paymentPlanService.UpdatePaymentPlan(paymentPlan);
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.WasSuccessfull);
+                var updatedPlan = _paymentPlanService.GetPaymentPlan(user.Id);
+                _debtId = updatedPlan.DebtsOwedToMe[0].Id;
+                _userId = user.Id;
+
+                _isDataInitialised = true;
+            }
+        }
+
         [TestMethod]
         public void ShouldBeAbleToGetNotificationOptionsForValidUser()
         {
-            BuildServices();
-            var signInTests = new SignupServiceTests();
-            var user = signInTests.SignUpThenSignIn();
-
-            // Add debt
-            var paymentPlan = _paymentPlanService.GetPaymentPlan(user.Id);
-
-            var emailAddress1 = string.Format("owes-debt-{0}@integrationtests.com", Guid.NewGuid());
-
-            paymentPlan.DebtsOwedToMe.Add(new Debt
-            {
-                ReasonForDebt = "test",
-                TotalAmountOwed = 100,
-                InitialPayment = 10,
-                PaymentPeriod = PaymentPeriod.Weekly,
-                StartDate = DateTime.Now,
-                UserWhoOwesDebt = new User { EmailAddress = emailAddress1 }
-            });
-            var result = _paymentPlanService.UpdatePaymentPlan(paymentPlan);
-            Assert.IsNotNull(result);
-            Assert.IsTrue(result.WasSuccessfull);
-            var updatedPlan = _paymentPlanService.GetPaymentPlan(user.Id);
-            var debtId = updatedPlan.DebtsOwedToMe[0].Id;
-
-            var options = _notificationService.GetNotificationOptionsForUserDebt(user.Id, debtId);
+            InitialiseTestData();
+            var options = _notificationService.GetNotificationOptionsForUserDebt(_userId, _debtId);
 
             Assert.IsNotNull(options);
-            Assert.AreEqual<Guid>(user.Id, options.UserId);
-            Assert.AreEqual<Guid>(debtId, options.DebtId);
+            Assert.AreEqual<Guid>(_userId, options.UserId);
+            Assert.AreEqual<Guid>(_debtId, options.DebtId);
         }
+
+        [TestMethod]
+        public void ShouldBeAbleToUpdateNotificationOptionsForValidUser()
+        {
+            InitialiseTestData();
+            var options = _notificationService.GetNotificationOptionsForUserDebt(_userId, _debtId);
+
+            Assert.IsNotNull(options);
+
+            options.NotificationEmailAddress = string.Format("test{0}@tests.com", DateTime.Now.Millisecond);
+            var result = _notificationService.UpdateNotificationOptionsForUserDebt(options);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.WasSuccessfull);
+        }
+
         private void BuildServices()
         {
             var builder = new WebDependencyBuilder();
