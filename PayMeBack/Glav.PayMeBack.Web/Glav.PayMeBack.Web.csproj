@@ -381,6 +381,7 @@
     <Content Include="Images\SummaryHeadingBground.png" />
     <Content Include="Images\AddDebt.png" />
     <Content Include="Scripts\Custom\ajaxManager.js" />
+    <Content Include="Scripts\Custom\accountSettingsManager.js" />
     <Content Include="Scripts\Custom\notification-manager.js" />
     <Content Include="Scripts\Custom\debt-manager.js" />
     <Content Include="Scripts\Custom\InputManager.js" />
@@ -442,6 +443,7 @@
     <Content Include="Views\Summary\_AddDebtPayment.cshtml" />
     <Content Include="Views\Shared\_EditDebt.cshtml" />
     <Content Include="Views\Summary\_NotificationOptions.cshtml" />
+    <Content Include="Views\Summary\_AccountSettings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

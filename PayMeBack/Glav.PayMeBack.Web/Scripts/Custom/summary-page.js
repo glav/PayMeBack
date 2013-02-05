@@ -1,4 +1,5 @@
 ﻿/// <reference path="notification-manager.js" />
+/// <reference path="accountSettingsManager.js" />
 /// <reference path="_references.js" />
 
 $(document).ready(function () {
@@ -38,7 +39,7 @@ $(document).ready(function () {
             window.payMeBack.notificationManager.showNotificationOptionsForDebt(bindGridActions);
         });
         $("#manage-profile-link").unbind().on("click", function () {
-            alert('sorry, not complete');
+            window.payMeBack.accountSettingsManager.showAccountSettingsForUser(bindGridActions);
         });
     }
 
