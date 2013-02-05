@@ -2,15 +2,15 @@
 /// <reference path="ajaxManager.js" />
 /// <reference path="notificationEngine.js" />
 
-if (typeof window.payMeBack.debtManager === 'undefined') {
-    window.payMeBack.notificationManager = {};
+if (typeof window.payMeBack.accountSettingsManager === 'undefined') {
+    window.payMeBack.accountSettingsManager = {};
 }
 
-window.payMeBack.notificationManager = (function () {
+window.payMeBack.accountSettingsManager = (function () {
 
-    var showNotificationOptionsForDebt = function(competedCallback) {
+    var showAccountSettingsForUser = function(competedCallback) {
         $.nyroModalManual({
-            url: '#notification-options-modal',
+            url: '#account-settings-modal',
             minHeight: 300,
             height: 400,
             minWwidth: 500,
@@ -18,31 +18,30 @@ window.payMeBack.notificationManager = (function () {
             //modal: true,
             //closeButton: null,
             endRemove: function () {
-                $("#notification-options-container fieldset").show();
-                $("#notification-options-container .progress-indicator").hide();
+                $("#account-settings-container fieldset").show();
+                $("#account-settings-container .progress-indicator").hide();
                 if (typeof completionCallback !== 'undefined') {
                     completionCallback();
                 }
 
             },
             endShowContent: function () {
-                var debtContainer = $("#notification-options-container");
+                var debtContainer = $("#account-settings-container");
                 $(".progress-indicator", debtContainer).hide();
                 $("fieldset ul li input", debtContainer).unbind().on("keypress", function (e) {
                     if (e.which === 13) {
-                        captureNotificationFormAndSubmit();
+                        captureAccountSettingsFormAndSubmit();
                     }
                 });
-                $("#notification-options-submit").unbind().on("click", function (e) {
-                    captureNotificationFormAndSubmit();
+                $("#account-settings-submit").unbind().on("click", function (e) {
+                    captureAccountSettingsFormAndSubmit();
                 });
 
-                $("#add-debt-user-email").focus();
             }
         });
     };
     
     return {
-        showNotificationOptionsForDebt: showNotificationOptionsForDebt
+        showAccountSettingsForUser: showAccountSettingsForUser
     };
 })();
