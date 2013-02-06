@@ -633,3 +633,62 @@ This session has been assigned a tracing ID of 'be6d89c2-2e82-488a-a3de-76dadd23
 [14/10/2012 02:09:58] >>>! Build step 'Schema Scripts Execution' was not successfull. Reason: '1: An exception occurred while executing a Transact-SQL statement or batch.. 2: Reference to database and/or server name in 'PayMeBack.dbo.DBVersion' is not supported in this version of SQL Server.'.
 [14/10/2012 02:09:58] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
 [14/10/2012 02:09:58] Completed Saasu SQLBuilder with Exit Code of [1]
+[06/02/2013 07:27:24] 
+[06/02/2013 07:27:24] Starting Saasu SQLBuilder.
+[06/02/2013 07:27:25] Build Mode: Normal
+[06/02/2013 07:27:25] >> Establishing Transaction Scope
+[06/02/2013 07:27:25] >> Starting build step 'PreBuild Script Execution'
+[06/02/2013 07:27:25] Connecting to Database [vwa5w5unch.database.windows.net]
+[06/02/2013 07:27:25] >> Completed build step 'PreBuild Script Execution' successfully.
+[06/02/2013 07:27:25] >> Starting build step 'Database Creation'
+[06/02/2013 07:27:40] >>>! Build step 'Database Creation' was not successfull. Reason: '1: Failed to connect to server vwa5w5unch.database.windows.net.. 2: A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server). 3: The network path was not found'.
+[06/02/2013 07:27:40] >>! Build steps DID NOT complete successfully. Transaction disposed/not commpleted.
+[06/02/2013 07:27:40] Completed Saasu SQLBuilder with Exit Code of [1]
+[06/02/2013 07:28:19] 
+[06/02/2013 07:28:19] Starting Saasu SQLBuilder.
+[06/02/2013 07:28:20] Build Mode: Normal
+[06/02/2013 07:28:20] >> Establishing Transaction Scope
+[06/02/2013 07:28:20] >> Starting build step 'PreBuild Script Execution'
+[06/02/2013 07:28:20] Connecting to Database [.]
+[06/02/2013 07:28:20] >> Completed build step 'PreBuild Script Execution' successfully.
+[06/02/2013 07:28:20] >> Starting build step 'Database Creation'
+[06/02/2013 07:28:25] Droped database PayMeBack successfuly.
+[06/02/2013 07:28:25] Database PayMeBack not found. Attempting to create.
+[06/02/2013 07:28:27] Main Database PayMeBack created successfully. Attempting to create supporting databases (if any specified)
+[06/02/2013 07:28:27] All database were created successfully.
+[06/02/2013 07:28:27] >> Completed build step 'Database Creation' successfully.
+[06/02/2013 07:28:27] >> Starting build step 'Version Table Check'
+[06/02/2013 07:28:28] Version Table [DBVersion] created successfully.
+[06/02/2013 07:28:28] >> Completed build step 'Version Table Check' successfully.
+[06/02/2013 07:28:28] >> Starting build step 'Schema Scripts Execution'
+[06/02/2013 07:28:28] Current Schema Version in database: [0]
+[06/02/2013 07:28:28] Schema scripts will database from old version [0] to new version: [5]
+[06/02/2013 07:28:28] In Normal mode, performing no script substitution.
+[06/02/2013 07:28:28] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql'
+[06/02/2013 07:28:28] Changed database context to 'PayMeBack'.
+[06/02/2013 07:28:28] Changed database context to 'master'.
+[06/02/2013 07:28:28] Changed database context to 'PayMeBack'.
+[06/02/2013 07:28:28] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_001.sql' executed. -13 items affected.
+[06/02/2013 07:28:28] In Normal mode, performing no script substitution.
+[06/02/2013 07:28:28] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql'
+[06/02/2013 07:28:28] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_002.sql' executed. -20 items affected.
+[06/02/2013 07:28:28] In Normal mode, performing no script substitution.
+[06/02/2013 07:28:28] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql'
+[06/02/2013 07:28:29] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_003.sql' executed. -24 items affected.
+[06/02/2013 07:28:29] In Normal mode, performing no script substitution.
+[06/02/2013 07:28:29] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql'
+[06/02/2013 07:28:29] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_004.sql' executed. -8 items affected.
+[06/02/2013 07:28:29] In Normal mode, performing no script substitution.
+[06/02/2013 07:28:29] About to execute Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_005.sql'
+[06/02/2013 07:28:29] Schema script 'D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore\DeploymentScripts\Schema_005.sql' executed. -13 items affected.
+[06/02/2013 07:28:29] >> Completed build step 'Schema Scripts Execution' successfully.
+[06/02/2013 07:28:29] >> Starting build step 'Data Scripts Execution'
+[06/02/2013 07:28:29] Current Data Version in database: [0]
+[06/02/2013 07:28:29] No Data scripts were found in D:\Data\Development\Dev Projects\PayMeBack\PayMeBack\DataStore. No schema updates performed.
+[06/02/2013 07:28:29] >> Completed build step 'Data Scripts Execution' successfully.
+[06/02/2013 07:28:29] >> Starting build step 'PostBuild Script Execution'
+[06/02/2013 07:28:29] >> Completed build step 'PostBuild Script Execution' successfully.
+[06/02/2013 07:28:29] >> Starting build step 'PostBuildReleaseSpecific Script Execution'
+[06/02/2013 07:28:29] >> Completed build step 'PostBuildReleaseSpecific Script Execution' successfully.
+[06/02/2013 07:28:29] >> Build steps completed successfully. Completing Transaction.
+[06/02/2013 07:28:29] Completed Saasu SQLBuilder with Exit Code of [0]

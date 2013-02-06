@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DeploymentScripts", "Deploy
 		DataStore\DeploymentScripts\Schema_002.sql = DataStore\DeploymentScripts\Schema_002.sql
 		DataStore\DeploymentScripts\Schema_003.sql = DataStore\DeploymentScripts\Schema_003.sql
 		DataStore\DeploymentScripts\Schema_004.sql = DataStore\DeploymentScripts\Schema_004.sql
+		DataStore\DeploymentScripts\Schema_005.sql = DataStore\DeploymentScripts\Schema_005.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Snippets", "Snippets", "{6B6D3099-73F3-4E23-A464-97CEEEFE7B55}"
