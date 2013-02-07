@@ -12,5 +12,7 @@ namespace Glav.PayMeBack.Core
 		public const string Debt = "api/debts";
 		public const string Help = "api/help";
 		public const string User = "api/users";
+        public const string Notification = "api/notification";
+
 	}
 }

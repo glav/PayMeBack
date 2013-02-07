@@ -24,6 +24,8 @@ namespace PayMeBackWeb.UnitTests.Services
 		private Mock<Data.IDebtRepository> _debtRepo;
 		private Mock<ICacheProvider> _cacheProvider;
         private Mock<ICultureFormattingEngine> _currencyEngine;
+        private Mock<IAuthorisationEngine> _authEngine;
+        private Mock<IPaymentPlanEngine> _planEngine;
 
 		[TestMethod]
 		public void ShouldBeAbleToCreateANewPaymentPlanForAUserIfNoPlanExists()
@@ -32,7 +34,16 @@ namespace PayMeBackWeb.UnitTests.Services
 			var testUser = testDetailUser.ToModel();
 			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
 			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail,bool>>>())).Returns(testDetailUser);
-			var plan = _paymentPlanService.GetPaymentPlan(testUser.Id);
+            var paymentPlan = new UserPaymentPlan
+            {
+                User = testUser,
+                Id = Guid.NewGuid(),
+                DateCreated = DateTime.Now,
+                DebtsOwedToMe = new List<Debt>(),
+                DebtsOwedToOthers = new List<Debt>()
+            };
+            _planEngine.Setup<UserPaymentPlan>(p => p.GetPaymentPlan(It.IsAny<Guid>())).Returns(paymentPlan);
+            var plan = _paymentPlanService.GetPaymentPlan(testUser.Id);
 
 			Assert.IsNotNull(plan);
 			Assert.IsNotNull(plan.User);
@@ -51,8 +62,20 @@ namespace PayMeBackWeb.UnitTests.Services
 			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
 			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
 
-			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(new Data.UserPaymentPlanDetail { UserDetail= testDetailUser, UserId = testUser.Id });
-			_debtRepo.Setup(m => m.UpdateUserPaymentPlan(It.IsAny<Data.UserPaymentPlanDetail>()));
+            
+            var paymentPlan =new UserPaymentPlan
+            {
+                User = testUser,
+                Id = Guid.NewGuid(),
+                DateCreated=DateTime.Now,
+                DebtsOwedToMe = new List<Debt>(),
+                DebtsOwedToOthers = new List<Debt>()
+            };
+            _planEngine.Setup<UserPaymentPlan>(p => p.GetPaymentPlan(It.IsAny<Guid>())).Returns(paymentPlan);
+			
+            
+            _debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(new Data.UserPaymentPlanDetail { UserDetail= testDetailUser, UserId = testUser.Id });
+            _debtRepo.Setup(m => m.UpdateUserPaymentPlan(It.IsAny<Data.UserPaymentPlanDetail>()));
 
 			var debt = new Debt { Id = Guid.Empty, Notes = "test debt", ReasonForDebt = "drugs", TotalAmountOwed = 100};
 			debt.UserWhoOwesDebt = new User {EmailAddress = "whatever@test.com"};
@@ -70,8 +93,14 @@ namespace PayMeBackWeb.UnitTests.Services
 			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
 			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
 
-			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(new Data.UserPaymentPlanDetail { UserDetail = testDetailUser, UserId = testUser.Id });
+
+            var planDetail = new Data.UserPaymentPlanDetail { UserDetail = testDetailUser, UserId = testUser.Id };
+            var planModel = planDetail.ToModel();
+            planModel.DebtsOwedToMe = new List<Debt>();
+            planModel.DebtsOwedToOthers = new List<Debt>();
+            _debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(planDetail);
 			_debtRepo.Setup(m => m.UpdateUserPaymentPlan(It.IsAny<Data.UserPaymentPlanDetail>()));
+            _planEngine.Setup<UserPaymentPlan>(p => p.GetPaymentPlan(It.IsAny<Guid>())).Returns(planModel);
 
 			var debt = new Debt { Id = Guid.Empty, Notes = "test debt", ReasonForDebt = "drugs", TotalAmountOwed = 100 };
 			var result = _paymentPlanService.AddDebtOwed(testUser.Id, debt);
@@ -90,8 +119,9 @@ namespace PayMeBackWeb.UnitTests.Services
 
 			_userEngine.Setup<User>(m => m.GetUserById(testDetailUser.Id)).Returns(testUser);
 			_userEngine.Setup<User>(m => m.GetUserById(userDetailWhoOwesDebt.Id)).Returns(userWhoOwesDebt);
-			
-			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(u => u.Id == testDetailUser.Id)).Returns(testDetailUser);
+
+            
+            _crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(u => u.Id == testDetailUser.Id)).Returns(testDetailUser);
 			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(u => u.Id == userDetailWhoOwesDebt.Id)).Returns(userDetailWhoOwesDebt);
 
 			var cacheKey = string.Format("UserPaymentPlan_{0}",testDetailUser.Id);
@@ -108,7 +138,8 @@ namespace PayMeBackWeb.UnitTests.Services
 					IsOutstanding = true,
 					UserIdWhoOwesDebt= userDetailWhoOwesDebt.Id
 				});
-			_cacheProvider.Setup<Data.UserPaymentPlanDetail>(m => m.Get<Data.UserPaymentPlanDetail>(cacheKey, It.IsAny<DateTime>(), It.IsAny<Func<Data.UserPaymentPlanDetail>>())).Returns(paymentPlanInDb);
+            
+            _cacheProvider.Setup<Data.UserPaymentPlanDetail>(m => m.Get<Data.UserPaymentPlanDetail>(cacheKey, It.IsAny<DateTime>(), It.IsAny<Func<Data.UserPaymentPlanDetail>>())).Returns(paymentPlanInDb);
 			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(paymentPlanInDb);
 			_debtRepo.Setup(m => m.UpdateUserPaymentPlan(It.IsAny<Data.UserPaymentPlanDetail>()));
 
@@ -134,6 +165,16 @@ namespace PayMeBackWeb.UnitTests.Services
 			var testUser = testDetailUser.ToModel();
 			_userEngine.Setup<User>(m => m.GetUserById(It.IsAny<Guid>())).Returns(testUser);
 			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
+
+            var mockPlan = new UserPaymentPlan
+            {
+                User = testUser,
+                Id = Guid.NewGuid(),
+                DateCreated = DateTime.Now,
+                DebtsOwedToMe = new List<Debt>(),
+                DebtsOwedToOthers = new List<Debt>()
+            };
+            _planEngine.Setup<UserPaymentPlan>(p => p.GetPaymentPlan(It.IsAny<Guid>())).Returns(mockPlan);
 
 			var paymentPlan = new Data.UserPaymentPlanDetail { Id = Guid.NewGuid(), UserDetail = testDetailUser, UserId = testUser.Id };
 			var debts = new List<Data.DebtDetail>();
@@ -168,8 +209,12 @@ namespace PayMeBackWeb.UnitTests.Services
 			_crudRepo.Setup<Data.UserDetail>(m => m.GetSingle<Data.UserDetail>(It.IsAny<Expression<Func<Data.UserDetail, bool>>>())).Returns(testDetailUser);
 
 			var paymentPlan = new Data.UserPaymentPlanDetail { UserDetail = testDetailUser, UserId = testUser.Id };
+            var planModel = paymentPlan.ToModel();
+            planModel.DebtsOwedToMe = new List<Debt>();
+            planModel.DebtsOwedToOthers = new List<Debt>();
 
 			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(paymentPlan);
+            _planEngine.Setup<UserPaymentPlan>(p => p.GetPaymentPlan(It.IsAny<Guid>())).Returns(planModel);
 			var result = _paymentPlanService.GetDebtSummaryForUser(testUser.Id);
 
 			Assert.IsNotNull(result);
@@ -245,6 +290,10 @@ namespace PayMeBackWeb.UnitTests.Services
 
 			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(paymentPlan);
 			_cacheProvider.Setup(m => m.Get<UserPaymentPlanDetail>(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<Func<UserPaymentPlanDetail>>())).Returns(paymentPlan);
+
+            var planModel = paymentPlan.ToModel();
+            _planEngine.Setup<UserPaymentPlan>(p => p.GetPaymentPlan(It.IsAny<Guid>())).Returns(planModel);
+
 
 			var result = _paymentPlanService.GetDebtSummaryForUser(testUser.Id);
 
@@ -344,8 +393,12 @@ namespace PayMeBackWeb.UnitTests.Services
 			_debtRepo = new Mock<Data.IDebtRepository>();
 			_cacheProvider = new Mock<ICacheProvider>();
             _currencyEngine = new Mock<ICultureFormattingEngine>();
+            _authEngine = new Mock<IAuthorisationEngine>();
+            _planEngine = new Mock<IPaymentPlanEngine>();
 
-			_paymentPlanService = new PaymentPlanService(_userEngine.Object, _crudRepo.Object, _debtRepo.Object, _cacheProvider.Object, _currencyEngine.Object);
+
+			_paymentPlanService = new PaymentPlanService(_userEngine.Object, _crudRepo.Object, _debtRepo.Object,
+                        _cacheProvider.Object, _currencyEngine.Object,_authEngine.Object,_planEngine.Object);
 		}
 	}
 }

@@ -32,17 +32,21 @@ namespace Glav.PayMeBack.Web.Helpers
             builder.Register(c => new CultureFormattingEngine()).As<ICultureFormattingEngine>();
 			builder.Register(c => new UserEngine(c.Resolve<ICrudRepository>(), c.Resolve<IOAuthSecurityService>(),c.Resolve<IUserRepository>(),c.Resolve<ICacheProvider>())).As<IUserEngine>();
 			builder.Register(c => new OAuthSecurityService(c.Resolve<ICrudRepository>(), c.Resolve<ICacheProvider>())).As<IOAuthSecurityService>();
-			builder.Register(c => new SignupManager(c.Resolve<IUserEngine>(), c.Resolve<IOAuthSecurityService>())).As<ISignupManager>();
+            builder.Register(c => new AuthorisationEngine()).As<IAuthorisationEngine>();
+            builder.Register(c => new SignupManager(c.Resolve<IUserEngine>(), c.Resolve<IOAuthSecurityService>())).As<ISignupManager>();
 			builder.Register(c => new ApiUsageLoggerEngine(c.Resolve<ICrudRepository>())).As<IUsageLogger>();
 			builder.Register(c => new DebtRepository()).As<IDebtRepository>();
-			builder.Register(c => new PaymentPlanService(c.Resolve<IUserEngine>(), c.Resolve<ICrudRepository>(), c.Resolve<Data.IDebtRepository>(), c.Resolve<ICacheProvider>(),c.Resolve<ICultureFormattingEngine>())).As<IPaymentPlanService>();
+			builder.Register(c => new PaymentPlanService(c.Resolve<IUserEngine>(), c.Resolve<ICrudRepository>(), 
+                                    c.Resolve<Data.IDebtRepository>(), c.Resolve<ICacheProvider>(),
+                                    c.Resolve<ICultureFormattingEngine>(),c.Resolve<IAuthorisationEngine>(),c.Resolve<IPaymentPlanEngine>())).As<IPaymentPlanService>();
 			builder.Register(c => new AuthenticationEngine(c.Resolve<IOAuthSecurityService>(), c.Resolve<IUsageLogger>())).As<AuthenticationEngine>();
 			builder.Register(c => new ApiUsageLoggerEngine(c.Resolve<ICrudRepository>())).As<IUsageLogger>();
 			builder.Register(c => new ApiUsageHandler(c.Resolve<IUsageLogger>())).As<ApiUsageHandler>();
+            builder.Register(c => new PaymentPlanEngine(c.Resolve<ICacheProvider>(), c.Resolve<IDebtRepository>(),c.Resolve<ICrudRepository>())).As<IPaymentPlanEngine>();
 			builder.Register(c => new HelpEngine()).As<IHelpEngine>();
 			builder.Register(c => new PayMeBackModelBinderProvider()).As<System.Web.Http.ModelBinding.ModelBinderProvider>();
 			builder.Register(c => new UserFromAccessTokenModelBinder(c.Resolve<IUserEngine>())).As<UserFromAccessTokenModelBinder>();
-            builder.Register(c => new NotificationService()).As<INotificationService>();
+            builder.Register(c => new NotificationService(c.Resolve<ICrudRepository>(),c.Resolve<IPaymentPlanEngine>(),c.Resolve<IAuthorisationEngine>())).As<INotificationService>();
 			// Register Web specific Managers
 			builder.Register(c => new WebMembershipManager(c.Resolve<IOAuthSecurityService>(), c.Resolve<ISignupManager>(),c.Resolve<IUserEngine>())).As<IWebMembershipManager>();
 			

@@ -85,6 +85,20 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
             Assert.IsTrue(result.WasSuccessfull);
         }
 
+        [TestMethod]
+        public void ShouldNotBeAbleToUpdateNotificationOptionsForInValidUser()
+        {
+            BuildServices();
+
+            var options = new NotificationOptions { DebtId = Guid.NewGuid(), UserId = Guid.NewGuid() };
+
+            options.NotificationEmailAddress = string.Format("test{0}@tests.com", DateTime.Now.Millisecond);
+            var result = _notificationService.UpdateNotificationOptionsForUserDebt(options);
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.WasSuccessfull);
+            Assert.AreEqual<int>(1,result.Errors.Count);
+        }
+
         private void BuildServices()
         {
             var builder = new WebDependencyBuilder();

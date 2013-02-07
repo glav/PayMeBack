@@ -226,6 +226,9 @@
     <Compile Include="Data\ICrudRepository.cs" />
     <Compile Include="Data\IDebtRepository.cs" />
     <Compile Include="Data\IUserRepository.cs" />
+    <Compile Include="Data\NotificationOptionsDetail.cs">
+      <DependentUpon>PayMeBackModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\OAuthToken.cs">
       <DependentUpon>PayMeBackModel.tt</DependentUpon>
     </Compile>
@@ -258,13 +261,17 @@
     <Compile Include="Domain\AuthorisationRequestType.cs" />
     <Compile Include="Domain\DetailModelDataExtensions.cs" />
     <Compile Include="Domain\Engines\AuthenticationEngine.cs" />
+    <Compile Include="Domain\Engines\AuthorisationEngine.cs" />
     <Compile Include="Domain\Engines\CultureFormattingEngine.cs" />
     <Compile Include="Domain\Engines\HelpEngine.cs" />
+    <Compile Include="Domain\Engines\IAuthorisationEngine.cs" />
     <Compile Include="Domain\Engines\ICultureFormattingEngine.cs" />
     <Compile Include="Domain\Engines\IHelpEngine.cs" />
+    <Compile Include="Domain\Engines\IPaymentPlanEngine.cs" />
     <Compile Include="Domain\Engines\IUsageLogger.cs" />
     <Compile Include="Domain\Engines\IUserEngine.cs" />
     <Compile Include="Domain\Engines\OAuthExtensions.cs" />
+    <Compile Include="Domain\Engines\PaymentPlanEngine.cs" />
     <Compile Include="Domain\Engines\UsageLogger.cs" />
     <Compile Include="Domain\Engines\UserEngine.cs" />
     <Compile Include="Domain\IWebMembershipManager.cs" />

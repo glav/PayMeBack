@@ -9,6 +9,7 @@
           <EntitySet Name="UsageLog" EntityType="PayMeBackModel.Store.UsageLog" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DebtDetail" EntityType="PayMeBackModel.Store.DebtDetail" store:Type="Tables" Schema="Payment" />
           <EntitySet Name="DebtPaymentInstallmentDetail" EntityType="PayMeBackModel.Store.DebtPaymentInstallmentDetail" store:Type="Tables" Schema="Payment" />
+          <EntitySet Name="NotificationOptionsDetail" EntityType="PayMeBackModel.Store.NotificationOptionsDetail" store:Type="Tables" Schema="Payment" />
           <EntitySet Name="UserPaymentPlanDetail" EntityType="PayMeBackModel.Store.UserPaymentPlanDetail" store:Type="Tables" Schema="Payment" />
           <EntitySet Name="OAuthToken" EntityType="PayMeBackModel.Store.OAuthToken" store:Type="Tables" Schema="Security" />
           <EntitySet Name="UserDetail" EntityType="PayMeBackModel.Store.UserDetail" store:Type="Tables" Schema="Security" />
@@ -68,6 +69,20 @@
           <Property Name="PaymentDate" Type="date" Nullable="false" />
           <Property Name="AmountPaid" Type="money" Nullable="false" />
           <Property Name="PaymentMethod" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NotificationOptionsDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DebtId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Method" Type="int" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="256" />
+          <Property Name="SmsPhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReminderIntervalFrequency" Type="int" Nullable="false" />
+          <Property Name="ReminderIntervalCount" Type="int" />
+          <Property Name="ReminderIntervalDayOfWeek" Type="int" />
         </EntityType>
         <EntityType Name="UserPaymentPlanDetail">
           <Key>
@@ -186,6 +201,7 @@
             <Parameter Name="pageNumber" Mode="In" Type="Int32" />
             <Parameter Name="pageSize" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="NotificationOptionsDetails" EntityType="PayMeBackModel.NotificationOptionsDetail" />
         </EntityContainer>
         <EntityType Name="OAuthToken">
           <Key>
@@ -193,9 +209,9 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AccessToken" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="AccessTokenExpiry" Type="DateTime" Nullable="false" />
+          <Property Name="AccessTokenExpiry" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RefreshToken" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="RefreshTokenExpiry" Type="DateTime" Nullable="false" />
+          <Property Name="RefreshTokenExpiry" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AssociatedUserId" Type="Guid" Nullable="false" />
           <Property Name="Scope" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
         </EntityType>
@@ -205,7 +221,7 @@
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" />
           <Property Type="Boolean" Name="IsRequest" Nullable="false" />
-          <Property Type="DateTime" Name="TimeOfOperation" Nullable="false" />
+          <Property Type="DateTime" Name="TimeOfOperation" Nullable="false" Precision="3" />
           <Property Type="String" Name="HttpMethod" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Type="String" Name="ClientIdentifier" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Uri" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
@@ -217,12 +233,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
-          <Property Type="DateTime" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
           <Property Type="Guid" Name="UserPaymentPlanId" Nullable="false" />
           <Property Type="Guid" Name="UserIdWhoOwesDebt" Nullable="false" />
           <Property Type="Int32" Name="PaymentPeriod" Nullable="false" />
-          <Property Type="DateTime" Name="StartDate" Nullable="false" />
-          <Property Type="DateTime" Name="ExpectedEndDate" />
+          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="ExpectedEndDate" Precision="0" />
           <Property Type="Decimal" Name="InitialPayment" Precision="19" Scale="4" />
           <Property Type="Boolean" Name="IsOutstanding" />
           <Property Type="Decimal" Name="TotalAmountOwed" Nullable="false" Precision="19" Scale="4" />
@@ -238,7 +254,7 @@
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="UserId" Nullable="false" />
-          <Property Type="DateTime" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="3" />
           <NavigationProperty Name="DebtDetails" Relationship="PayMeBackModel.FK_Debt_UserPaymentPlanDetail" FromRole="UserPaymentPlanDetail" ToRole="DebtDetail" />
           <NavigationProperty Name="UserDetail" Relationship="PayMeBackModel.FK_UserPaymentPlanDetail_UserDetail" FromRole="UserPaymentPlanDetail" ToRole="UserDetail" />
         </EntityType>
@@ -260,7 +276,7 @@
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="DebtId" Nullable="false" />
-          <Property Type="DateTime" Name="PaymentDate" Nullable="false" />
+          <Property Type="DateTime" Name="PaymentDate" Nullable="false" Precision="0" />
           <Property Type="Decimal" Name="AmountPaid" Nullable="false" Precision="19" Scale="4" />
           <Property Type="Int32" Name="PaymentMethod" Nullable="false" />
           <NavigationProperty Name="DebtDetail" Relationship="PayMeBackModel.FK_DebtPaymentInstallmentDetail_Debt" FromRole="DebtPaymentInstallmentDetail" ToRole="DebtDetail" />
@@ -315,6 +331,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="NotificationOptionsDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="Guid" Name="DebtId" Nullable="false" />
+          <Property Type="Int32" Name="Method" Nullable="false" />
+          <Property Type="String" Name="EmailAddress" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SmsPhoneNumber" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ReminderIntervalFrequency" Nullable="false" />
+          <Property Type="Int32" Name="ReminderIntervalCount" />
+          <Property Type="Int32" Name="ReminderIntervalDayOfWeek" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -396,6 +426,21 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SearchUsers" FunctionName="PayMeBackModel.Store.usp_SearchUsers" />
+          <EntitySetMapping Name="NotificationOptionsDetails">
+            <EntityTypeMapping TypeName="PayMeBackModel.NotificationOptionsDetail">
+              <MappingFragment StoreEntitySet="NotificationOptionsDetail">
+                <ScalarProperty Name="ReminderIntervalDayOfWeek" ColumnName="ReminderIntervalDayOfWeek" />
+                <ScalarProperty Name="ReminderIntervalCount" ColumnName="ReminderIntervalCount" />
+                <ScalarProperty Name="ReminderIntervalFrequency" ColumnName="ReminderIntervalFrequency" />
+                <ScalarProperty Name="SmsPhoneNumber" ColumnName="SmsPhoneNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Method" ColumnName="Method" />
+                <ScalarProperty Name="DebtId" ColumnName="DebtId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -440,6 +485,7 @@
           <ConnectorPoint PointX="4.875" PointY="2.3026432291666667" />
           <ConnectorPoint PointX="5.625" PointY="2.3026432291666667" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="PayMeBackModel.NotificationOptionsDetail" Width="1.5" PointX="3.5" PointY="5.125" />
         </Diagram>
     </Diagrams>
   </Designer>
