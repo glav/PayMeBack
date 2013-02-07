@@ -103,5 +103,21 @@ namespace Glav.PayMeBack.Web.Helpers
 			return detail;
 		}
 
+        public static NotificationOptionsDetail ToDataRecord(this NotificationOptions options)
+        {
+            return new NotificationOptionsDetail
+            {
+                DebtId = options.DebtId,
+                UserId = options.UserId,
+                EmailAddress = options.NotificationEmailAddress,
+                Method = (int)options.NotificationMethod,
+                ReminderIntervalCount = options.Interval != null ? options.Interval.FrequencyCount : 0,
+                ReminderIntervalDayOfWeek = options.Interval != null ? (int)options.Interval.WeekDay : (int)DayOfWeek.Monday,
+                ReminderIntervalFrequency = options.Interval != null ? (int)options.Interval.Frequency : (int)IntervalFrequency.Unspecified,
+                SmsPhoneNumber = options.NotificationSmsNumber,
+                Id = options.Id
+            };
+        }
+
 	}
 }

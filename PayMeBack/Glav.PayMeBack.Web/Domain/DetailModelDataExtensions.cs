@@ -80,5 +80,25 @@ namespace Glav.PayMeBack.Web.Domain
 			return debt;
 
 		}
+
+        public static NotificationOptions ToModel(this NotificationOptionsDetail detail)
+        {
+            return new Core.Domain.NotificationOptions
+                {
+                    DebtId = detail.DebtId,
+                    UserId = detail.UserId,
+                    Interval = new Core.Domain.ReminderInterval
+                    {
+                        Frequency = (Core.Domain.IntervalFrequency)detail.ReminderIntervalFrequency,
+                        FrequencyCount = detail.ReminderIntervalCount.HasValue ? detail.ReminderIntervalCount.Value : 0,
+                        WeekDay = detail.ReminderIntervalDayOfWeek.HasValue ? (DayOfWeek)detail.ReminderIntervalDayOfWeek.Value : DayOfWeek.Monday
+                    },
+                    NotificationEmailAddress = detail.EmailAddress,
+                    NotificationMethod = (Core.Domain.NotificationType)detail.Method,
+                    NotificationSmsNumber = detail.SmsPhoneNumber,
+                    Id = detail.Id
+                };
+        }
+
 	}
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Glav.PayMeBack.Core.Domain
 {
-    public class NotificationOptions
+    public class NotificationOptions : BaseModel
     {
         public Guid UserId { get; set; }
         public Guid DebtId { get; set; }

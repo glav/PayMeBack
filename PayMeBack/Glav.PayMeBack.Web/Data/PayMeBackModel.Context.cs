@@ -32,6 +32,7 @@ namespace Glav.PayMeBack.Web.Data
         public DbSet<UserPaymentPlanDetail> UserPaymentPlanDetails { get; set; }
         public DbSet<DebtPaymentInstallmentDetail> DebtPaymentInstallmentDetails { get; set; }
         public DbSet<UserDetail> UserDetails { get; set; }
+        public DbSet<NotificationOptionsDetail> NotificationOptionsDetails { get; set; }
     
         public virtual ObjectResult<UserDetail> SearchUsers(string searchCriteria, Nullable<int> pageNumber, Nullable<int> pageSize)
         {

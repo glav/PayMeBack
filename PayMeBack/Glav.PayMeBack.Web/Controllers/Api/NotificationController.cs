@@ -18,9 +18,13 @@ namespace Glav.PayMeBack.Web.Controllers.Api
             _notificationService = notificationService;
         }
 
-        public ApiResponse PostUpdateNotificationOptions(NotificationOptions notificationOptions)
+        public ApiResponse PostUpdateNotificationOptions([FromUri] User user, NotificationOptions notificationOptions)
         {
             var response = new ApiResponse();
+            if (notificationOptions != null)
+            {
+                notificationOptions.UserId = user != null ? user.Id : Guid.Empty;
+            }
             var result = _notificationService.UpdateNotificationOptionsForUserDebt(notificationOptions);
             response.IsSuccessful = result.WasSuccessfull;
             if (!result.WasSuccessfull)
