@@ -34,7 +34,7 @@ namespace Glav.PayMeBack.Client.Proxies
 		/// <returns></returns>
 		public ProxyResponse<NotificationOptions> GetNotificationOptions()
 		{
-			ProxyResponse<UserPaymentPlan> proxyResult = null;
+            ProxyResponse<NotificationOptions> proxyResult = null;
 
 			ContentType = RequestContentType.ApplicationJson;
 			OperationMethod = HttpMethod.Get;

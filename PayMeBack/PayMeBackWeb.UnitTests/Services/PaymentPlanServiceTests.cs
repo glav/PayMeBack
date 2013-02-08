@@ -143,8 +143,11 @@ namespace PayMeBackWeb.UnitTests.Services
 			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(paymentPlanInDb);
 			_debtRepo.Setup(m => m.UpdateUserPaymentPlan(It.IsAny<Data.UserPaymentPlanDetail>()));
 
+            var planEngine = new PaymentPlanEngine(_cacheProvider.Object, _debtRepo.Object, _crudRepo.Object);
+            var paymentPlanService = new PaymentPlanService(_userEngine.Object, _crudRepo.Object, _debtRepo.Object, _cacheProvider.Object, _currencyEngine.Object, _authEngine.Object, planEngine);
+
 			//Now add in a payment
-			var paymentPlan = _paymentPlanService.GetPaymentPlan(testUser.Id);
+			var paymentPlan = paymentPlanService.GetPaymentPlan(testUser.Id);
 			Assert.IsNotNull(paymentPlan);
 			Assert.IsNotNull(paymentPlan.DebtsOwedToMe);
 			Assert.IsNotNull(paymentPlan.DebtsOwedToOthers);
@@ -152,7 +155,8 @@ namespace PayMeBackWeb.UnitTests.Services
 			Assert.IsNotNull(paymentPlan.DebtsOwedToMe[0].PaymentInstallments);
 
 			paymentPlan.DebtsOwedToMe[0].PaymentInstallments.Add(new DebtPaymentInstallment { AmountPaid = 5, PaymentDate = DateTime.UtcNow, TypeOfPayment = PaymentMethodType.Cash });
-			var result = _paymentPlanService.UpdatePaymentPlan(paymentPlan);
+
+            var result = paymentPlanService.UpdatePaymentPlan(paymentPlan);
 
 			Assert.IsNotNull(result);
 			Assert.IsTrue(result.WasSuccessfull);
@@ -193,7 +197,10 @@ namespace PayMeBackWeb.UnitTests.Services
 
 			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(paymentPlan);
 			_cacheProvider.Setup(m => m.Get<UserPaymentPlanDetail>(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<Func<UserPaymentPlanDetail>>())).Returns(paymentPlan);
-			var result = _paymentPlanService.GetDebtSummaryForUser(testUser.Id);
+            
+            var planEngine = new PaymentPlanEngine(_cacheProvider.Object, _debtRepo.Object, _crudRepo.Object);
+            var paymentPlanService = new PaymentPlanService(_userEngine.Object, _crudRepo.Object, _debtRepo.Object, _cacheProvider.Object, _currencyEngine.Object, _authEngine.Object, planEngine);
+            var result = paymentPlanService.GetDebtSummaryForUser(testUser.Id);
 
 			Assert.IsNotNull(result);
 			Assert.AreEqual<decimal>(100,result.TotalAmountOwedToYou);
@@ -292,10 +299,15 @@ namespace PayMeBackWeb.UnitTests.Services
 			_cacheProvider.Setup(m => m.Get<UserPaymentPlanDetail>(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<Func<UserPaymentPlanDetail>>())).Returns(paymentPlan);
 
             var planModel = paymentPlan.ToModel();
+            planModel.DebtsOwedToMe = new List<Debt>();
+            debts.ForEach(d => planModel.DebtsOwedToMe.Add(d.ToModel()));
+            planModel.DebtsOwedToOthers = new List<Debt>();
             _planEngine.Setup<UserPaymentPlan>(p => p.GetPaymentPlan(It.IsAny<Guid>())).Returns(planModel);
 
+            var paymentPlanService = new PaymentPlanService(_userEngine.Object, _crudRepo.Object, _debtRepo.Object, _cacheProvider.Object, _currencyEngine.Object, _authEngine.Object, _planEngine.Object);
 
-			var result = _paymentPlanService.GetDebtSummaryForUser(testUser.Id);
+
+			var result = paymentPlanService.GetDebtSummaryForUser(testUser.Id);
 
 			Assert.IsNotNull(result);
 			Assert.AreEqual<decimal>(150, result.TotalAmountOwedToYou);
@@ -370,7 +382,10 @@ namespace PayMeBackWeb.UnitTests.Services
 			_debtRepo.Setup<Data.UserPaymentPlanDetail>(m => m.GetUserPaymentPlan(testDetailUser.Id)).Returns(paymentPlan);
 			_cacheProvider.Setup(m => m.Get<UserPaymentPlanDetail>(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<Func<UserPaymentPlanDetail>>())).Returns(paymentPlan);
 
-			var result = _paymentPlanService.GetDebtSummaryForUser(testUser.Id);
+            var planEngine = new PaymentPlanEngine(_cacheProvider.Object, _debtRepo.Object, _crudRepo.Object);
+            var paymentPlanService = new PaymentPlanService(_userEngine.Object, _crudRepo.Object, _debtRepo.Object, _cacheProvider.Object, _currencyEngine.Object, _authEngine.Object, planEngine);
+
+            var result = paymentPlanService.GetDebtSummaryForUser(testUser.Id);
 
 			Assert.IsNotNull(result);
 			Assert.AreEqual<decimal>(100, result.TotalAmountOwedToYou);

@@ -68,6 +68,7 @@
     <Compile Include="BaseProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxies\AuthorisationProxy.cs" />
+    <Compile Include="Proxies\NotificationsProxy.cs" />
     <Compile Include="Proxies\DebtProxy.cs" />
     <Compile Include="Proxies\HelpProxy.cs" />
     <Compile Include="Proxies\UserProxy.cs" />
