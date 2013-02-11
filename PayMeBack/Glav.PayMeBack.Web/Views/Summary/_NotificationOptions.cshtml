@@ -1,9 +1,58 @@
-﻿<div id="notification-options-modal" class="hidden">
+﻿@model Glav.PayMeBack.Core.Domain.NotificationOptions
+
+@using Glav.PayMeBack.Core.Domain
+
+<div id="notification-options-modal" class="hidden">
     <div id="notification-options-container" class="dialog-container">
         <h3>Notification Options</h3>
         <div id="notification-options-section">
             <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="notification-options-progress-indicator progress-indicator hidden" />
             <fieldset>
+                <ul>
+                    <li>
+                        <label for="debt-notification-method">Method</label>
+                        <select id="debt-notification-method">
+                            <option selected="@(Model.NotificationMethod == NotificationType.None)" value="@((int)NotificationType.None)">@NotificationType.None.ToString()</option>
+                            <option selected="@(Model.NotificationMethod == NotificationType.Email)" value="@((int)NotificationType.Email)">@NotificationType.Email.ToString()</option>
+                            <option selected="@(Model.NotificationMethod == NotificationType.Sms)" value="@((int)NotificationType.Sms)">@NotificationType.Sms.ToString()</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="debt-notification-email">Email Address:</label>
+                        @Html.TextBoxFor(m => m.NotificationEmailAddress, new { @id = "debt-notification-email" })
+                        @Html.ValidationMessageFor(m => m.NotificationEmailAddress)
+                    </li>
+                    <li>
+                        <label for="debt-notification-sms">Sms Number:</label>
+                        @Html.TextBoxFor(m => m.NotificationSmsNumber, new { @id = "debt-notification-sms" })
+                        @Html.ValidationMessageFor(m => m.NotificationSmsNumber)
+                    </li>
+                    <li>
+                        <label for="debt-notification-interval">Reminder Interval</label>
+                        <select id="debt-notification-interval">
+                            <option selected="@(Model.Interval.Frequency == IntervalFrequency.Unspecified)" value="@((int)IntervalFrequency.Unspecified)">Not Set</option>
+                            <option selected="@(Model.Interval.Frequency == IntervalFrequency.Daily)" value="@((int)IntervalFrequency.Daily)">@IntervalFrequency.Daily.ToString()</option>
+                            <option selected="@(Model.Interval.Frequency == IntervalFrequency.Weekly)" value="@((int)IntervalFrequency.Weekly)">@IntervalFrequency.Weekly.ToString()</option>
+                            <option selected="@(Model.Interval.Frequency == IntervalFrequency.Monthly)" value="@((int)IntervalFrequency.Monthly)">@IntervalFrequency.Monthly.ToString()</option>
+                            <option selected="@(Model.Interval.Frequency == IntervalFrequency.Yearly)" value="@((int)IntervalFrequency.Yearly)">@IntervalFrequency.Yearly.ToString()</option>
+                        </select>
+
+                        <label for="debt-notification-frequency">Frequency Count</label>
+                        @Html.TextBoxFor(m => m.Interval.FrequencyCount,new { @id="debt-notification-frequency-count"})
+
+                        <label for="debt-notification-dayofweek">Reminder Interval</label>
+                        <select id="debt-notification-dayofweek">
+                            <option selected="@(Model.Interval.WeekDay == DayOfWeek.Monday)" value="@((int)DayOfWeek.Monday)">Monday</option>
+                            <option selected="@(Model.Interval.WeekDay == DayOfWeek.Tuesday)" value="@((int)DayOfWeek.Tuesday)">Tuesday</option>
+                            <option selected="@(Model.Interval.WeekDay == DayOfWeek.Wednesday)" value="@((int)DayOfWeek.Wednesday)">Wednesday</option>
+                            <option selected="@(Model.Interval.WeekDay == DayOfWeek.Thursday)" value="@((int)DayOfWeek.Thursday)">Thursday</option>
+                            <option selected="@(Model.Interval.WeekDay == DayOfWeek.Friday)" value="@((int)DayOfWeek.Friday)">Friday</option>
+                            <option selected="@(Model.Interval.WeekDay == DayOfWeek.Saturday)" value="@((int)DayOfWeek.Saturday)">Saturday</option>
+                            <option selected="@(Model.Interval.WeekDay == DayOfWeek.Sunday)" value="@((int)DayOfWeek.Sunday)">Sunday</option>
+                        </select>
+
+                    </li>
+                </ul>
                 <p>getting there, but this section is not complete</p>
                 <input type="button" value="Submit" id="notification-options-submit" class="action-button" />
             </fieldset>
