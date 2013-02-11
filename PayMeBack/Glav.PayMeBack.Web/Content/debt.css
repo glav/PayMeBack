@@ -10,13 +10,25 @@
         margin-left:150px;
         top:80px;
     }
-        #add-debt-container fieldset.dialog-form ul li {
-            width: 500px;
-            height: 25px;
-            margin: 4px 0;
+        @media (min-width: 850px) {
+
+            #add-debt-container fieldset.dialog-form ul li {
+                width: 80%;
+                height: 25px;
+                margin: 4px 0;
+            }
         }
+                @media (max-width: 490px) {
+
+                #add-debt-container fieldset.dialog-form ul li {
+                    width: 60%;
+                    height: 22px;
+                    margin: 2px 0;
+                }
+            }
+
             #add-debt-container fieldset.dialog-form ul li label {
-                width: 300px;
+                width: 65%;
                 float: left;
                 clear: left;
                 text-align: right;
@@ -24,7 +36,7 @@
 
             #add-debt-container fieldset.dialog-form ul li input,
             #add-debt-container fieldset.dialog-form ul li select {
-                width: 150px;
+                width: 30%;
             }
 
 /************ Debt Summary Section */
@@ -192,7 +204,7 @@ table.debt-summary-table {
     width: 550px;
 }
 #edit-debt-container img.edit-debt-progress-indicator {
-    margin-left:250px;
+    margin-left:25%;
     padding-top:100px;
 }
     #edit-debt-container img.login-progress-indicator {
