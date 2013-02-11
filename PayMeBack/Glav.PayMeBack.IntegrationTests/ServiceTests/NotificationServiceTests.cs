@@ -99,6 +99,43 @@ namespace Glav.PayMeBack.IntegrationTests.ServiceTests
             Assert.AreEqual<int>(1,result.Errors.Count);
         }
 
+        [TestMethod]
+        public void ShouldNotBeAbleToUpdateNotificationOptionsForAnotherUser()
+        {
+            BuildServices();
+            InitialiseTestData();
+
+            // Create another users debts
+            var signInTests = new SignupServiceTests();
+            var otherUser = signInTests.SignUpThenSignIn();
+            var paymentPlan = _paymentPlanService.GetPaymentPlan(otherUser.Id);
+            var emailAddress1 = string.Format("owes-debt-{0}@integrationtests.com", Guid.NewGuid());
+
+            paymentPlan.DebtsOwedToMe.Add(new Debt
+            {
+                ReasonForDebt = "test",
+                TotalAmountOwed = 100,
+                InitialPayment = 10,
+                PaymentPeriod = PaymentPeriod.Weekly,
+                StartDate = DateTime.Now,
+                UserWhoOwesDebt = new User { EmailAddress = emailAddress1 }
+            });
+            var result = _paymentPlanService.UpdatePaymentPlan(paymentPlan);
+            Assert.IsTrue(result.WasSuccessfull);
+            var updatedPlan = _paymentPlanService.GetPaymentPlan(otherUser.Id);
+            var debtId = updatedPlan.DebtsOwedToMe[0].Id;
+            
+
+            var options = new NotificationOptions { DebtId = debtId, UserId = _userId };
+
+            options.NotificationEmailAddress = string.Format("test{0}@tests.com", DateTime.Now.Millisecond);
+            var updResult = _notificationService.UpdateNotificationOptionsForUserDebt(options);
+            Assert.IsNotNull(updResult);
+            Assert.IsFalse(updResult.WasSuccessfull);
+            Assert.AreEqual<int>(1, updResult.Errors.Count);
+        }
+
+
         private void BuildServices()
         {
             var builder = new WebDependencyBuilder();

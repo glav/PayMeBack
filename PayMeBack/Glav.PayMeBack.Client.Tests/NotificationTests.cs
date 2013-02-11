@@ -28,8 +28,29 @@ namespace Glav.PayMeBack.Client.Tests
 		public void ShouldBeAbleToUpdateNotificationOptions()
 		{
             var bearerToken = SetupValidUserAndAuthenticate();
+            var notifyProxy = new NotificationsProxy(bearerToken);
 
-		}
+            var notifyResponse = notifyProxy.GetNotificationOptions();
+            Assert.IsNotNull(notifyResponse);
+            Assert.IsTrue(notifyResponse.IsRequestSuccessfull);
+            Assert.IsNotNull(notifyResponse.DataObject);
+
+            var options = notifyResponse.DataObject;
+            options.NotificationMethod = NotificationType.Sms;
+            var dummySms = DateTime.Now.Millisecond.ToString();
+            options.NotificationSmsNumber = dummySms;
+            notifyProxy.UpdateNotificationOptions(options);
+
+            var updatedOptions = notifyProxy.GetNotificationOptions();
+            Assert.AreEqual<NotificationType>(NotificationType.Sms, updatedOptions.DataObject.NotificationMethod);
+            Assert.AreEqual<string>(dummySms, updatedOptions.DataObject.NotificationSmsNumber);
+        }
+
+        [TestMethod]
+        public void ShouldNotBeAbleToUpdateOptionsThatUserDoesNotHaveAccessTo()
+        {
+            Assert.Inconclusive("Incomplete Test");
+        }
 
         private string SetupValidUserAndAuthenticate()
         {
