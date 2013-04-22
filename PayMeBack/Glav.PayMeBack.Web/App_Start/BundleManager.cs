@@ -12,7 +12,7 @@ namespace Glav.PayMeBack.Web
         {
 			var coreBundle = new ScriptBundle("~/CoreJs");
 			coreBundle.Include("~/Scripts/nyroModal/js/jquery.nyroModal.js")
-                .Include("~/Scripts/knockout-2.0.0.js")
+                .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/custom/payMeBack.Core.js")
                 .Include("~/Scripts/custom/InputManager.js")
                 .Include("~/Scripts/custom/progressManager.js")
