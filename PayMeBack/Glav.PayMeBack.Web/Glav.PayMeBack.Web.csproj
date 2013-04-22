@@ -401,6 +401,7 @@
     <Content Include="Images\progress.gif" />
     <Content Include="Images\SummaryHeadingBground.png" />
     <Content Include="Images\AddDebt.png" />
+    <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\Custom\ajaxManager.js" />
     <Content Include="Scripts\Custom\accountSettingsManager.js" />
     <Content Include="Scripts\Custom\notification-manager.js" />
