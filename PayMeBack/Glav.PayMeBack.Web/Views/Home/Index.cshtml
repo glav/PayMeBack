@@ -7,9 +7,9 @@
 @section ScriptHead {
 	@Scripts.Render("~/LandingPageJs")
 }
-<section class="clear-fix">
+<section class="clear-fix" data-ng-controller="homeController">
 	
-    <section id="intro-not-authenticated" class="hide-if-signed-in hidden">
+    <section id="intro-not-authenticated" data-ng-show="isUserSignedIn() != true">
 	    <h2>So you helped someone out by lending them some money?</h2>
 
 	    <p>People often lend family or friends money when required, but at some point of time, you probably want to be paid back.
@@ -19,7 +19,7 @@
 		    a little bit back on the debts they owe.</p>
     </section>
 
-    <section id="intro-authenticated"  class="show-if-signed-in hidden">
+    <section id="intro-authenticated" data-ng-show="isUserSignedIn()">
         @{
             var userName = !string.IsNullOrWhiteSpace(Model.UserName) ? Model.UserName : "{{firstname}}";
         }

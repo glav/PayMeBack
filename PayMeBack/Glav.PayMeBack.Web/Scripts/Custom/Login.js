@@ -7,33 +7,6 @@ if (typeof window.payMeBack.login === 'undefined') {
 
 window.payMeBack.login = (function () {
 
-    var isUserSignedIn = function () {
-        var state = $("#is-signed-in-state").val();
-        return (typeof state !== 'undefined' && state === "true");
-    };
-
-    var updateDisplayBasedOnSignedInStatus = function (isSignedIn, firstname) {
-        if (typeof isSignedIn === 'undefined') {
-            isSignedIn = isUserSignedIn();
-        }
-        if (isSignedIn === true) {
-            $(".hide-if-signed-in").hide();
-            $(".show-if-signed-in").show();
-            if (typeof firstname !== 'undefined') {
-                // If a firstname supplied attempt to bind it to any elements
-                // that have a class of 'data-bind' and a {{firstname}} element in the text
-                // NOTE: Knockout could probably be used here
-                var textEl = $(".data-bind");
-                if (textEl.length > 0) {
-                    var replacedText = textEl.text().replace("{{firstname}}", firstname);
-                    textEl.text(replacedText);
-                }
-            }
-        } else {
-            $(".hide-if-signed-in").show();
-            $(".show-if-signed-in").hide();
-        }
-    };
     var submitCredentials = function (payload, isSignup, onSuccessCallback) {
         var url;
 
@@ -66,13 +39,12 @@ window.payMeBack.login = (function () {
                         } else {
                             if (result && typeof result.success !== 'undefined' && result.success === true) {
                                 // This worked
-                                updateDisplayBasedOnSignedInStatus(true, result.firstname);
+                                //updateDisplayBasedOnSignedInStatus(true, result.firstname);
                                 $.nyroModalRemove();
                                 if (typeof onSuccessCallback !== 'undefined') {
                                     onSuccessCallback();
                                 }
                             } else {
-                                updateDisplayBasedOnSignedInStatus(false);
                                 var msg = "";
                                 if (typeof result.error !== 'undefined') {
                                     msg = result.error;
@@ -200,8 +172,7 @@ window.payMeBack.login = (function () {
 
     return {
         isUserSignedIn: function() { return isUserSignedIn(); },
-        showLoginDialog: function (redirectToHomeOnClose, isSignUp, onSuccessCallback) { showLoginDialog(redirectToHomeOnClose, isSignUp, onSuccessCallback) },
-        updateDisplayBasedOnSignedInStatus: function (isSignedIn) { updateDisplayBasedOnSignedInStatus(isSignedIn); }
+        showLoginDialog: function (redirectToHomeOnClose, isSignUp, onSuccessCallback) { showLoginDialog(redirectToHomeOnClose, isSignUp, onSuccessCallback) }
     };
 })();
 
@@ -217,6 +188,4 @@ $(document).ready(function () {
     }
 
     bindLoginSignUpAction();
-    window.payMeBack.login.updateDisplayBasedOnSignedInStatus();
-
 });

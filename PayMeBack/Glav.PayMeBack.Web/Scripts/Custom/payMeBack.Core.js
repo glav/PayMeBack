@@ -5,7 +5,14 @@ if (typeof window.payMeBack === 'undefined') {
 }
 if (typeof window.payMeBack.core === 'undefined') {
 
-	window.payMeBack.core = {
+    window.payMeBack.core = {
+        dependencies: {
+            moduleName: "paymeback",
+            userFactory: "userFactory",
+            homeController: "homeController",
+            summaryController: "summaryController",
+            signInController: "signInController"
+        },
         rootPath: "/",
         makePathFromVirtual: function(virtualPath) {
             if (typeof virtualPath === 'undefined') {

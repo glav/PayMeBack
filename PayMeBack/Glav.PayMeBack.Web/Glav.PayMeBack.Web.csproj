@@ -402,12 +402,16 @@
     <Content Include="Images\SummaryHeadingBground.png" />
     <Content Include="Images\AddDebt.png" />
     <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\AngularScripts\bootstrap.js" />
+    <Content Include="Scripts\AngularScripts\signInController.js" />
+    <Content Include="Scripts\AngularScripts\homeController.js" />
+    <Content Include="Scripts\AngularScripts\summaryController.js" />
+    <Content Include="Scripts\AngularScripts\userFactory.js" />
     <Content Include="Scripts\Custom\ajaxManager.js" />
     <Content Include="Scripts\Custom\accountSettingsManager.js" />
     <Content Include="Scripts\Custom\notification-manager.js" />
     <Content Include="Scripts\Custom\debt-manager.js" />
     <Content Include="Scripts\Custom\InputManager.js" />
-    <Content Include="Scripts\Custom\landing-page.js" />
     <Content Include="Scripts\Custom\Login.js" />
     <Content Include="Scripts\Custom\membership.js" />
     <Content Include="Scripts\Custom\notificationEngine.js" />
