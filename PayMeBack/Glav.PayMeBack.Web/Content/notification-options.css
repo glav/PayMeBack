@@ -1,0 +1,25 @@
+﻿#notification-options-container section.reminder-interval {
+    margin-top: 5%;
+}
+
+#notification-options-container fieldset ul {
+    list-style:none;
+    display:table;
+}
+
+#notification-options-container fieldset ul li {
+    width: 90%;
+    display:table-row;
+}
+
+    #notification-options-container fieldset ul li.frequency-interval {
+        margin-top: 5%;
+    }
+
+#notification-options-container fieldset ul li label {
+    display:table-cell;
+    width: 50%;
+}
+#notification-options-container fieldset ul li input, #notification-options-container fieldset ul li select {
+    display:table-cell;
+}
