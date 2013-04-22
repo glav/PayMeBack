@@ -39,12 +39,13 @@ namespace Glav.PayMeBack.Web
 
         public static void RegisterCssBundles(BundleCollection bundles)
         {
-            var cssBundle = new StyleBundle("~/MainCss")
+            var cssBundle = new StyleBundle("~/Content/MainCss")
                 .Include("~/Content/main.css")
+                .Include("~/Content/notification-options.css")
                 .Include("~/Content/debt.css");
             bundles.Add(cssBundle);
 
-            var nyroModalCssBundle = new StyleBundle("~/NyroModalCss")
+            var nyroModalCssBundle = new StyleBundle("~/Content/Nyromodal/Styles/NyroModalCss")
                 .Include("~/Scripts/nyroModal/styles/nyroModal.css");
             bundles.Add(nyroModalCssBundle);
         }
