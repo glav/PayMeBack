@@ -14,6 +14,9 @@ namespace Glav.PayMeBack.Web
 			coreBundle.Include("~/Scripts/nyroModal/js/jquery.nyroModal.js")
                 .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/custom/payMeBack.Core.js")
+                .Include("~/Scripts/AngularScripts/bootstrap.js")
+                .Include("~/Scripts/AngularScripts/userFactory.js")
+                .Include("~/Scripts/AngularScripts/signInController.js")
                 .Include("~/Scripts/custom/InputManager.js")
                 .Include("~/Scripts/custom/progressManager.js")
                 .Include("~/Scripts/custom/notificationEngine.js")
@@ -22,7 +25,7 @@ namespace Glav.PayMeBack.Web
 			bundles.Add(coreBundle);
 
 			var landingPageBundle = new ScriptBundle("~/LandingPageJs")
-                .Include("~/Scripts/custom/landing-page.js");
+                .Include("~/Scripts/AngularScripts/homeController.js");
             bundles.Add(landingPageBundle);
 
 			var membershipPageBundle = new ScriptBundle("~/MembershipPageJs")
@@ -30,6 +33,7 @@ namespace Glav.PayMeBack.Web
             bundles.Add(membershipPageBundle);
 
             var summaryPageBundle = new ScriptBundle("~/SummaryPageJs")
+                .Include("~/Scripts/AngularScripts/summaryController.js")
                 .Include("~/Scripts/custom/debt-manager.js")
                 .Include("~/Scripts/custom/summary-page.js")
                 .Include("~/Scripts/custom/notification-manager.js")
