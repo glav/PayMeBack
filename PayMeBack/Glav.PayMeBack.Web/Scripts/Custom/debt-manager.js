@@ -41,25 +41,7 @@ window.payMeBack.debtManager = (function () {
         }
     };
 
-    var clearFormData = function () {
-        $("#add-debt-container fieldset input[type!='button']").val("");
-    };
-
-    var captureFormData = function () {
-        return {
-            emailAddress: $("#add-debt-user-email").val(),
-            amountOwed: $("#add-debt-amount").val(),
-            debtReason: $("#add-debt-reason").val(),
-            initialAmountPaid: $("#add-debt-initial-amount").val(),
-            notes: $("#add-debt-notes").val(),
-            paymentPeriod: $("#add-debt-payment-period").val(),
-            expectedEndDate: $("#add-debt-end-date").val()
-        };
-    };
-
-    var captureDebtFormAndSubmit = function () {
-        var debtData = captureFormData();
-
+    var submitFormData = function (debtData) {
         $("#add-debt-container fieldset").fadeOut('normal', function () {
             var options = {
                 relatveUrl: "~/debt/Add",
@@ -82,7 +64,7 @@ window.payMeBack.debtManager = (function () {
     };
 
     var showAddDebtDialog = function (completionCallback) {
-        clearFormData();
+
         $.nyroModalManual({
             url: '#add-debt-modal',
             minHeight: 300,
@@ -102,14 +84,6 @@ window.payMeBack.debtManager = (function () {
             endShowContent: function () {
                 var debtContainer = $("#add-debt-container");
                 $(".progress-indicator", debtContainer).hide();
-                $("fieldset ul li input", debtContainer).unbind().on("keypress", function (e) {
-                    if (e.which === 13) {
-                        captureDebtFormAndSubmit();
-                    }
-                });
-                $("#add-debt-submit").unbind().on("click", function (e) {
-                    captureDebtFormAndSubmit();
-                });
 
                 $("#add-debt-user-email").focus();
                 window.payMeBack.inputManager.maskAllMoneyInputControls();
@@ -415,6 +389,7 @@ window.payMeBack.debtManager = (function () {
     return {
         showAddDebtDialog: function (completionCallback) { showAddDebtDialog(completionCallback); },
         deleteDebt: function (debtId) { deleteDebt(debtId); },
+        submitFormData: submitFormData,
         editDebt: function (debtId, completionCallback) { editDebt(debtId, completionCallback); },
         showAddPaymentToDebtDialog: function (debtId, xPos, yPos, completionCallback) { showAddPaymentToDebtDialog(debtId, xPos, yPos, completionCallback); }
     };
