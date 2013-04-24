@@ -78,35 +78,6 @@ window.payMeBack.login = (function () {
 
     };
 
-    var captureCredentialsAndSubmit = function (isSignupAction, onSuccessCallback) {
-        var payload = {};
-        var email = $("#credentials-userId").val();
-        var password = $("#credentials-userPassword").val();
-
-        if (typeof email !== 'undefined' && typeof password !== 'undefined'
-                && email.trim() !== "" && password.trim() !== "") {
-            payload = {
-                email: email,
-                password: password
-            };
-
-            if (isSignupAction === true) {
-                var firstName = $("#signup-firstname").val();
-                var surname = $("#signup-surname").val();
-                if (typeof firstName !== 'undefined') {
-                    payload.firstname = firstName;
-                } else {
-                    payload.firstname = "";
-                }
-                if (typeof surname !== 'undefined') {
-                    payload.surname = surname;
-                } else {
-                    payload.surname = "";
-                }
-            }
-            submitCredentials(payload, isSignupAction, onSuccessCallback);
-        }
-    };
 
     var showLoginDialog = function (redirectToHomeOnClose, isSignUp, onSuccessCallback) {
         var redirectOnClose = false;
@@ -144,14 +115,6 @@ window.payMeBack.login = (function () {
 
               },
               endShowContent: function () {
-                  $("#credentials-form input").unbind().on("keypress", function (e) {
-                      if (e.which === 13) {
-                          captureCredentialsAndSubmit(isSignupAction, onSuccessCallback);
-                      }
-                  });
-                  $("#credentials-submit").unbind().bind("click", function () {
-                      captureCredentialsAndSubmit(isSignupAction, onSuccessCallback);
-                  });
                   if (isSignupAction) {
                       $("#credentials-container")
                           .removeClass("login-dialog")
@@ -171,21 +134,7 @@ window.payMeBack.login = (function () {
     };
 
     return {
-        isUserSignedIn: function() { return isUserSignedIn(); },
+        submitCredentials: submitCredentials,
         showLoginDialog: function (redirectToHomeOnClose, isSignUp, onSuccessCallback) { showLoginDialog(redirectToHomeOnClose, isSignUp, onSuccessCallback) }
     };
 })();
-
-// This is the page load code which will determine whether login/sign in and sign out links are displayed or not
-$(document).ready(function () {
-    function bindLoginSignUpAction() {
-        $("div.header-menu li a.credentials-link").unbind().bind("click", function (e) {
-            var isSignUp = $(e.target).hasClass("sign-up");
-            window.payMeBack.login.showLoginDialog(false, isSignUp, function () {
-                location.assign(window.payMeBack.core.makePathFromVirtual("~/summary"));
-            });
-        });
-    }
-
-    bindLoginSignUpAction();
-});

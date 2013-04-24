@@ -19,6 +19,7 @@ namespace Glav.PayMeBack.Web
                 .Include("~/Scripts/AngularScripts/signInController.js")
                 .Include("~/Scripts/AngularScripts/addDebtController.js")
                 .Include("~/Scripts/AngularScripts/summaryActionLinkController.js")
+                .Include("~/Scripts/AngularScripts/authenticateController.js")
                 .Include("~/Scripts/AngularScripts/routeConfig.js")
                 .Include("~/Scripts/custom/InputManager.js")
                 .Include("~/Scripts/custom/progressManager.js")

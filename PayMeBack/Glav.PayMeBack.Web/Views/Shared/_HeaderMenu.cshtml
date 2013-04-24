@@ -5,8 +5,8 @@
 
 <div class="header-menu" data-ng-controller="signInController">
 	<ul>
-			<li data-ng-show="isUserSignedIn() == false" class="login"><a href="#" title="Sign In" class="credentials-link login">Sign In</a></li>
-			<li data-ng-show="isUserSignedIn() == false" class="sign-up"><a href="#" title="Sign Up" class="credentials-link sign-up">Sign Up</a></li>
+			<li data-ng-show="isUserSignedIn() == false" data-ng-click="signIn()" class="login"><a href="#" title="Sign In" class="credentials-link login">Sign In</a></li>
+			<li data-ng-show="isUserSignedIn() == false" data-ng-click="signUp()" class="sign-up"><a href="#" title="Sign Up" class="credentials-link sign-up">Sign Up</a></li>
 			<li data-ng-show="isUserSignedIn()" class="sign-out"><a title="Sign Out" href="~/Membership/Logout">Sign Out</a></li>
 		    <li class="contact-us">@Html.ActionLink("Contact Us","Index","Contact",new {title="Contact Us"})</li>
 	</ul>
