@@ -1,5 +1,5 @@
 ﻿<div id="credentials-dialog" class="hidden">  @*<-- Nyromodal will munge this element so cannot use it for styling*@
-	<div id="credentials-container" class="login-dialog hidden dialog-container">
+	<div id="credentials-container" class="login-dialog hidden dialog-container" data-ng-controller="authenticateController">
 		<h3 class="signup">Sign up Details</h3>
 		<h3 class="login">
 			Login Details</h3>
@@ -8,24 +8,24 @@
 			<ul>
 				<li>
 					<label>
-						Email:</label><input id="credentials-userId" type="text" /></li>
+						Email:</label><input id="credentials-userId" type="text" data-ng-model="loginData.email" /></li>
 				<li>
 					<label>
-						Password:</label><input id="credentials-userPassword" type="password" />
+						Password:</label><input id="credentials-userPassword" type="password" data-ng-model="loginData.password" />
 				</li>
 			</ul>
             <ul class="signup">
                 <li>
                     <label>First Name:</label>
-                    <input id="signup-firstname" type="text" />
+                    <input id="signup-firstname" type="text" data-ng-model="loginData.firstname" />
                 </li>
                 <li>
                     <label>Surname:</label>
-                    <input id="signup-surname" type="text" />
+                    <input id="signup-surname" type="text" data-ng-model="loginData.surname" />
                 </li>
             </ul>
-			<input type="button" value="Submit" id="credentials-submit" class="action-button" />
-			<input type="hidden" id="is-sign-up" value="false" />
+			<input type="button" value="Submit" id="credentials-submit" data-ng-click="submitCredentials()" class="action-button" />
+			<input type="hidden" id="is-sign-up" value="false" data-ng-model="isSignupAction" />
 		</fieldset>
 	</div>
 </div>

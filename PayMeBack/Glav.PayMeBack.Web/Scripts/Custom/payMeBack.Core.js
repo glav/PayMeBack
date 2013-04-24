@@ -13,7 +13,8 @@ if (typeof window.payMeBack.core === 'undefined') {
             summaryController: "summaryController",
             signInController: "signInController",
             addDebtController: "addDebtController",
-            summaryActionLinkController: "summaryActionLinkController"
+            summaryActionLinkController: "summaryActionLinkController",
+            authenticateController: "authenticateController"
         },
         rootPath: "/",
         makePathFromVirtual: function(virtualPath) {

@@ -404,6 +404,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\AngularScripts\addDebtController.js" />
     <Content Include="Scripts\AngularScripts\bootstrap.js" />
+    <Content Include="Scripts\AngularScripts\authenticateController.js" />
     <Content Include="Scripts\AngularScripts\routeConfig.js" />
     <Content Include="Scripts\AngularScripts\signInController.js" />
     <Content Include="Scripts\AngularScripts\homeController.js" />
