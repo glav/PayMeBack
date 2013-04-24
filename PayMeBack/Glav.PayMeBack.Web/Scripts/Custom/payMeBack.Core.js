@@ -11,7 +11,9 @@ if (typeof window.payMeBack.core === 'undefined') {
             userFactory: "userFactory",
             homeController: "homeController",
             summaryController: "summaryController",
-            signInController: "signInController"
+            signInController: "signInController",
+            addDebtController: "addDebtController",
+            summaryActionLinkController: "summaryActionLinkController"
         },
         rootPath: "/",
         makePathFromVirtual: function(virtualPath) {

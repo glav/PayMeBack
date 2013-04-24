@@ -32,9 +32,6 @@ $(document).ready(function () {
     }
 
     function bindActionLinks() {
-        $("#add-debt-link").unbind().on("click", function () {
-            window.payMeBack.debtManager.showAddDebtDialog(bindGridActions);
-        });
         $("#set-notification-link").unbind().on("click", function () {
             window.payMeBack.notificationManager.showNotificationOptionsForDebt(bindGridActions);
         });
