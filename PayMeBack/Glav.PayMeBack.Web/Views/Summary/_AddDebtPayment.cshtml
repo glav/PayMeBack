@@ -2,31 +2,27 @@
 <div id="add-debt-payment-container" class="hidden">
     <a href="#close" id="add-debt-payment-close">Close</a>
     <h3>Add Payment</h3>
-    <div id="add-debt-payment-section">
+    <div id="add-debt-payment-section" data-ng-controller="debtPaymentController">
         <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="add-debt-payment-progress-indicator progress-indicator hidden" />
         <fieldset>
 
             <ul>
                 <li class="amount">
                     <label for="payment-amount">Amount</label>
-                    <input id="payment-amount" type="number" class="data-entry" />
+                    <input id="payment-amount" data-ng-model="paymentData.AmountPaid" type="number" class="data-entry" />
                 </li>
                 <li class="date">
                     <label>Date</label>
-                    <input id="payment-date" type="date" class="data-entry"  />
+                    <input id="payment-date" data-ng-model="paymentData.PaymentDate" type="date" class="data-entry"  />
                 </li>
                 <li class="type">
                     <label>Type</label>
-                    <select id="payment-type"  class="data-entry">
-                        <option value="1" selected="selected">Cash</option>
-                        <option value="2">Bank Transfer</option>
-                        <option value="3">Services</option>
-                        <option value="4">Goods</option>
+                    <select id="payment-type" data-ng-model="paymentData.TypeOfPayment" class="data-entry" data-ng-options="p.value as p.label for p in paymentTypeOptions">
                     </select>
                 </li>
             </ul>
             <div class="action-container">
-                <input id="add-payment-action" type="button" value="Add" class="action-button" />
+                <input id="add-payment-action" type="button" value="Add" class="action-button" data-ng-click="submitDebtDataToServer()" />
             </div>
         </fieldset>
     </div>

@@ -14,6 +14,12 @@ namespace Glav.PayMeBack.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Debts",
+                url: "debts/{action}/{debtId}",
+                defaults: new { controller = "Debt", action = "Index" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

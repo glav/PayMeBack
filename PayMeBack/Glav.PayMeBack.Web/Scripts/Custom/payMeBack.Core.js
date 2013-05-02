@@ -9,10 +9,12 @@ if (typeof window.payMeBack.core === 'undefined') {
         dependencies: {
             moduleName: "paymeback",
             userFactory: "userFactory",
+            debtFactory: "debtFactory",
             homeController: "homeController",
             summaryController: "summaryController",
             signInController: "signInController",
             addDebtController: "addDebtController",
+            debtPaymentController: "debtPaymentController",
             summaryActionLinkController: "summaryActionLinkController",
             authenticateController: "authenticateController"
         },
