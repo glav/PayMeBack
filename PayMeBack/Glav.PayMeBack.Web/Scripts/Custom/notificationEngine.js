@@ -43,12 +43,12 @@ window.payMeBack.notificationEngine = (function () {
 
         });
 
-        $("body").on("click", function () {
-            var msgEl = $("#status-message");
-            msgEl.slideUp('normal', function () {
-                msgEl.remove();
-            });
-        });
+        //$("body").on("click", function () {
+        //    var msgEl = $("#status-message");
+        //    msgEl.slideUp('normal', function () {
+        //        msgEl.remove();
+        //    });
+        //});
         $(window).scrollTop(0);
         htmlEl.slideDown('normal');
 

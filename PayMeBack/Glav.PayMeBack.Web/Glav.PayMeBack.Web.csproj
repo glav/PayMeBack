@@ -208,6 +208,7 @@
     <Compile Include="Controllers\Api\HelpController.cs" />
     <Compile Include="Controllers\Api\NotificationController.cs" />
     <Compile Include="Controllers\Api\OAuthController.cs" />
+    <Compile Include="Controllers\Api\PaymentController.cs" />
     <Compile Include="Controllers\Api\SummaryController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -405,6 +406,8 @@
     <Content Include="Scripts\AngularScripts\addDebtController.js" />
     <Content Include="Scripts\AngularScripts\bootstrap.js" />
     <Content Include="Scripts\AngularScripts\authenticateController.js" />
+    <Content Include="Scripts\AngularScripts\debtPaymentController.js" />
+    <Content Include="Scripts\AngularScripts\debtFactory.js" />
     <Content Include="Scripts\AngularScripts\routeConfig.js" />
     <Content Include="Scripts\AngularScripts\signInController.js" />
     <Content Include="Scripts\AngularScripts\homeController.js" />

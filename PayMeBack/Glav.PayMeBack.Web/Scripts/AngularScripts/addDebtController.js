@@ -1,12 +1,12 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtController, function ($scope) {
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtController, function ($scope, $rootScope) {
 
     init();
 
     function init() {
         $scope.debtData = {
-            emailAddress: 'hi',
+            emailAddress: '',
             amountOwed: 0,
             debtReason: '',
             initialAmountPaid: 0,
@@ -29,6 +29,9 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtContro
     }
 
     $scope.submitDebtDataToServer = function () {
-        window.payMeBack.debtManager.submitFormData($scope.debtData);
+        window.payMeBack.debtManager.submitFormData($scope.debtData, function () {
+            $rootScope.$broadcast('debtSummaryListChanged');
+        });
+
     }
 });
