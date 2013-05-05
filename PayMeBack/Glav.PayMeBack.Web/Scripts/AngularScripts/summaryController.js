@@ -24,7 +24,10 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
                 debtFactory.deleteDebt(id)
                     .then(refreshSummaryList());
             });
-
-        }
+        };
+        
+        $scope.editDebt = function (id) {
+            window.payMeBack.debtManager.editDebt(id);
+        };
     }
 );

@@ -41,7 +41,6 @@ namespace Glav.PayMeBack.Web
             var summaryPageBundle = new ScriptBundle("~/SummaryPageJs")
                 .Include("~/Scripts/AngularScripts/summaryController.js")
                 .Include("~/Scripts/custom/debt-manager.js")
-                .Include("~/Scripts/custom/summary-page.js")
                 .Include("~/Scripts/custom/notification-manager.js")
                 .Include("~/Scripts/custom/accountSettingsManager.js");
             bundles.Add(summaryPageBundle);

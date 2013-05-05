@@ -32,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr data-ng-repeat="debt in debts.DebtsOwedToYou" data-debt-id="{{debt.Id}}" data-ng-class-odd="'odd'" data-ng-class-even="'even'" class="debt-item-row">
+            <tr data-ng-repeat="debt in debts.DebtsOwedToYou" data-debt-id="{{debt.Id}}" data-ng-class-odd="'odd'" data-ng-class-even="'even'" data-ng-click="editDebt(debt.Id)" class="debt-item-row">
                 <td class="action-icon action-delete" data-ng-click="deleteDebt(debt.Id)" title="Delete"></td>
                 <td class="action-icon action-add-payment" data-ng-click="addPayment(debt.Id, $event)" title="Add Payment"></td>
                 <td class="action-dialog"></td>
