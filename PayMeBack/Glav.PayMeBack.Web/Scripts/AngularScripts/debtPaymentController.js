@@ -28,7 +28,6 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentCo
             .then(function () {
                 $("#add-debt-payment-container").fadeOut();
                 $rootScope.$broadcast('debtSummaryListChanged');
-                /* broadvast refresh event*/
             });
     }
 });

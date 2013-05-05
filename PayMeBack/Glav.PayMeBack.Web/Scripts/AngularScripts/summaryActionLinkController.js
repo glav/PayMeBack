@@ -6,4 +6,12 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryAction
     $scope.showAddDebtDialog = function () {
         window.payMeBack.debtManager.showAddDebtDialog();
     };
+
+    $scope.showNotificationsDialog = function () {
+        window.payMeBack.notificationManager.showNotificationOptionsForDebt();
+    };
+
+    $scope.showManageProfileDialog = function () {
+        window.payMeBack.accountSettingsManager.showAccountSettingsForUser();
+    };
 });
