@@ -22,8 +22,8 @@
             </ul>
             <div id="edit-debt-payments-container">
                 <div class="initial-payment">
-                    <label>Amount Remaining:</label><span id="edit-debt-amt-remaining">{{debt.AmountRemaining}}</span>,
-                    <label>Initial Payment:</label><span id="edit-debt-initial-payment">{{debt.InitialPayment}}</span>
+                    <label>Amount Remaining:</label><span id="edit-debt-amt-remaining">{{debt.AmountRemaining | currency:"$"}}</span>,
+                    <label>Initial Payment:</label><span id="edit-debt-initial-payment">{{debt.InitialPayment | currency:"$"}}</span>
                 </div>
                 <table>
                     <thead>
