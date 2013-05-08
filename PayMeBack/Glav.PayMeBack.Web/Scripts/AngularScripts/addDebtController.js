@@ -29,10 +29,17 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtContro
     }
 
     $scope.submitDebtDataToServer = function () {
-        window.payMeBack.debtManager.submitFormData($scope.debtData, function () {
+        window.payMeBack.progressManager.showProgressIndicator("add-debt-container");
+        debtFactory.addDebt($scope.debtData).then(function () {
             debtFactory.triggerRefresh();
             init();
+            window.payMeBack.progressManager.hideProgressIndicator("add-debt-container");
+            $.nyroModalRemove();
         });
+        //window.payMeBack.debtManager.submitFormData($scope.debtData, function () {
+        //    debtFactory.triggerRefresh();
+        //    init();
+        //});
 
     }
 });

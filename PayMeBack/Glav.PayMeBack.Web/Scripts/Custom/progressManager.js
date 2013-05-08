@@ -52,7 +52,6 @@ window.payMeBack.progressManager = (function () {
     };
 
     var showProgressIndicator = function (containerElement, completionCallback) {
-        console.log("showProgressINdicator: " + containerElement);
         /// This function will find the progress indicator element within the supplied container
         /// and try and display the element first with id matching idOrClassName var
         /// then if it does not find it, try and display the element with that className

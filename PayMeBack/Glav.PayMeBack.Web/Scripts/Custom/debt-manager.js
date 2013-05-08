@@ -86,55 +86,6 @@ window.payMeBack.debtManager = (function () {
     };
 
 
-    var captureEditDebtFormAndSubmit = function () {
-        var originalpaymentPlan = $("#edit-debt-payments-container").data("plan");
-        var debtId = $("#edit-debt-payments-container").data("debtId");
-
-        if (typeof originalpaymentPlan === "undefined" || typeof debtId === "undefined") {
-            return;
-        }
-
-        var numTotalDebt = originalpaymentPlan.DebtsOwedToMe.length;
-        var currentDebt = null;
-        for (var cnt = 0; cnt < numTotalDebt; cnt++) {
-            currentDebt = originalpaymentPlan.DebtsOwedToMe[cnt];
-            if (currentDebt.Id === debtId) {
-                break;
-            }
-        }
-
-        if (currentDebt === null) {
-            return;
-        }
-
-        currentDebt.UserWhoOwesDebt.EmailAddress = $("#edit-debt-user-email").val();
-        currentDebt.TotalAmountOwed = $("#edit-debt-amount").val();
-        currentDebt.ExpectedEndDate = $("#edit-debt-end-date").val();
-        currentDebt.ReasonForDebt = $("#edit-debt-reason").val();
-        currentDebt.Notes = $("#edit-debt-notes").val();
-
-        $("#edit-debt-container fieldset").fadeOut('normal', function () {
-            var options = {
-                relatveUrl: "~/api/debts",
-                httpMethod: "POST",
-                dataPayload: originalpaymentPlan,
-                progressContainerIdOrClassName: "edit-debt-container",
-                statusMsgContainerSelector: "#edit-debt-container",
-                successCallback: function (result) {
-                    getDebtSummaryHtml();
-                    $.nyroModalRemove();
-                },
-                errorCallback: function () {
-                    $("#edit-debt-container fieldset").fadeIn();
-                },
-                errorMessage: "There was a problem updating the debt details. Please try again.",
-                typeOfError: window.payMeBack.notificationEngine.MESSAGE_TYPE_SMALL_ERROR,
-                ignoreResultStatus: false
-            };
-            window.payMeBack.ajaxManager.ajaxRequest(options);
-        });
-
-    };
 
     var editDebt = function (debtId, completionCallback) {
         $.nyroModalManual({

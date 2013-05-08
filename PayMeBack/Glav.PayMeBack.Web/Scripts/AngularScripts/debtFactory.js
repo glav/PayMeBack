@@ -81,6 +81,25 @@ window.payMeBack.app.factory(window.payMeBack.core.dependencies.debtFactory, fun
                     return {};
                 });
         },
+        addDebt: function(debt) {
+            if (typeof debt === 'undefined') {
+                return {};
+            }
+            return $http(
+                {
+                    method: "POST",
+                    url: "/debt/Add",
+                    data:debt,
+                    headers: { "Authorization": "Bearer " + window.payMeBack.auth.accessToken }
+                }).then(function (result) {
+                    if (result.status === 200) {
+                        return result.data;
+                    }
+
+                    return {};
+                });
+
+        },
 
         getDebtSummaryItems: function () {
             // return a promise via angular JS
