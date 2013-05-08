@@ -10,51 +10,18 @@
 <h2>Summary of Debts</h2>
 
 <h3>Debts that are owed to you</h3>
-<div id="debts-owed-to-me" class="debt-section" data-ng-controller="summaryController">
+<div data-ng-controller="summaryController">
+    <div id="debts-owed-to-me" class="debt-section">
 
-    <div class="progress-indicator hidden">
-        <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" />
-        <span>Updating ....</span>
-    </div>
-    <h4>Total Amount owed to you: <span class="total-owed-amount">@Html.ToCurrencyDisplay(Model.TotalAmountOwedToYou)</span></h4>
+        <div class="progress-indicator hidden">
+            <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" />
+            <span>Updating ....</span>
+        </div>
+        <h4 data-ng-show="debts.TotalAmountOwedToYou > 0">Total Amount owed to you: <span class="total-owed-amount">{{debts.TotalAmountOwedToYou | currency:"$"}}</span></h4>
 
-    <table id="debt-summary-owed-test" class="debt-summary-table">
-        <thead>
-            <tr>
-                <th colspan="2"></th>
-                <th></th>
-                @*Dummy column to bind dialogs to*@
-                <th class="col-hdr-who">Who</th>
-                <th class="col-hdr-amt">Amount</th>
-                <th class="col-hdr-started">Started</th>
-                <th class="col-hdr-last-paid-amt">Last Paid</th>
-                <th class="col-hdr-last-paid-date" colspan="2">Last Date of Payment</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr data-ng-repeat="debt in debts.DebtsOwedToYou" data-debt-id="{{debt.Id}}" data-ng-class-odd="'odd'" data-ng-class-even="'even'" data-ng-click="editDebt(debt.Id)" class="debt-item-row">
-                <td class="action-icon action-delete" data-ng-click="deleteDebt(debt.Id)" title="Delete"></td>
-                <td class="action-icon action-add-payment" data-ng-click="addPayment(debt.Id, $event)" title="Add Payment"></td>
-                <td class="action-dialog"></td>
-                <td class="col-who">{{debt.UserWhoOwesDebt.EmailAddress}}</td>
-                <td class="col-amt">{{debt.AmountOwing | currency:"$"}}</td>
-                <td class="col-started">{{debt.StartDate | date:'dd MMM yyyy'}}</td>
-                <td class="col-last-paid-amt">{{debt.LastAmountPaid | currency:"$"}}</td>
-                <td class="col-last-paid-date">{{debt.LastPaymentDate | date:'dd MMM yyyy'}}</td>
+        <h4 data-ng-show="debts.TotalAmountOwedToYou == 0">None</h4>
 
-            </tr>
-        </tbody>
-    </table>
-
-    <hr />
-
-    @if (Model.DebtsOwedToYou == null || Model.DebtsOwedToYou.Count == 0)
-    {
-        <h4>No Debts</h4>
-    }
-    else
-    {
-        <table id="debt-summary-owed" class="debt-summary-table">
+        <table id="debt-summary-owed" class="debt-summary-table" data-ng-show="debts.TotalAmountOwedToYou > 0">
             <thead>
                 <tr>
                     <th colspan="2"></th>
@@ -68,65 +35,53 @@
                 </tr>
             </thead>
             <tbody>
-                @{rowCount = 0;}
-                @foreach (var debtItem in Model.DebtsOwedToYou)
-                {
-                    rowCount++;
-                    alternatingRowStyle = rowCount % 2 == 0 ? "odd" : "even";
-                    <tr data-debt-id="@debtItem.Id" class="@alternatingRowStyle debt-item-row">
-                        <td class="action-icon action-delete" title="Delete"></td>
-                        <td class="action-icon action-add-payment" title="Add Payment"></td>
-                        <td class="action-dialog"></td>
-                        @*Dummy column to contain action dialogs*@
-                        <td class="col-who">@debtItem.UserWhoOwesDebt.EmailAddress</td>
-                        <td class="col-amt">@Html.ToCurrencyDisplay(debtItem.AmountOwing)</td>
-                        <td class="col-started">@Html.ToDisplayDate(debtItem.StartDate)</td>
-                        <td class="col-last-paid-amt">@Html.ToCurrencyDisplay(debtItem.LastAmountPaid)</td>
-                        <td class="col-last-paid-date">@Html.ToDisplayDate(debtItem.LastPaymentDate)</td>
-                    </tr>
-                }
+                <tr data-ng-repeat="debt in debts.DebtsOwedToYou" data-debt-id="{{debt.Id}}" data-ng-class-odd="'odd'" data-ng-class-even="'even'" data-ng-click="editDebt(debt.Id)" class="debt-item-row">
+                    <td class="action-icon action-delete" data-ng-click="deleteDebt(debt.Id, $event)" title="Delete"></td>
+                    <td class="action-icon action-add-payment" data-ng-click="addPayment(debt.Id, $event)" title="Add Payment"></td>
+                    <td class="action-dialog"></td>
+                    <td class="col-who">{{debt.UserWhoOwesDebt.EmailAddress}}</td>
+                    <td class="col-amt">{{debt.AmountOwing | currency:"$"}}</td>
+                    <td class="col-started">{{debt.StartDate | date:'dd MMM yyyy'}}</td>
+                    <td class="col-last-paid-amt">{{debt.LastAmountPaid | currency:"$"}}</td>
+                    <td class="col-last-paid-date">{{debt.LastPaymentDate | date:'dd MMM yyyy'}}</td>
+
+                </tr>
             </tbody>
         </table>
-    }
 
-</div>
+    </div>
 
-<h3>Debts that you owe to others</h3>
-<div id="debts-owed-to-others" class="debt-section">
-    <h4>Total Amount owed by you: <span class="total-owed-amount">@Html.ToCurrencyDisplay(Model.TotalAmountYouOwe)</span></h4>
+    <h3>Debts that you owe to others</h3>
+    <div id="debts-owed-to-others" class="debt-section">
+        <h4 data-ng-show="debts.TotalAmountYouOwe > 0">Total Amount owed by you: <span class="total-owed-amount">{{debts.TotalAmountYouOwe | currency:"$"}}</span></h4>
 
-    @if (Model.DebtsYouOwe == null || Model.DebtsYouOwe.Count == 0)
-    {
-        <h4>No Debts</h4>
-    }
-    else
-    {
-        <table id="debt-summary-owing" class="debt-summary-table">
+        <h4 data-ng-show="debts.TotalAmountYouOwe == 0">None</h4>
+
+        <table id="debt-summary-owed" class="debt-summary-table" data-ng-show="debts.TotalAmountYouOwe > 0">
             <thead>
                 <tr>
+                    <th colspan="2"></th>
+                    <th></th>
+                    @*Dummy column to bind dialogs to*@
                     <th class="col-hdr-who">Who</th>
                     <th class="col-hdr-amt">Amount</th>
                     <th class="col-hdr-started">Started</th>
                     <th class="col-hdr-last-paid-amt">Last Paid</th>
-                    <th class="col-hdr-last-paid-date">Last Date of Payment</th>
+                    <th class="col-hdr-last-paid-date" colspan="2">Last Date of Payment</th>
                 </tr>
             </thead>
             <tbody>
-                @{rowCount = 0;}
-                @foreach (var debtItem in Model.DebtsYouOwe)
-                {
-                    rowCount++;
-                    alternatingRowStyle = rowCount % 2 == 0 ? "odd" : "even";
-                    <tr class="@alternatingRowStyle">
-                        <td class="col-who">@debtItem.UserWhoOwesDebt.EmailAddress</td>
-                        <td class="col-amt">@Html.ToCurrencyDisplay(debtItem.AmountOwing)</td>
-                        <td class="col-started">@Html.ToDisplayDate(debtItem.StartDate)</td>
-                        <td class="col-last-paid-amt">@Html.ToCurrencyDisplay(debtItem.LastAmountPaid)</td>
-                        <td class="col-last-paid-date">@Html.ToDisplayDate(debtItem.LastPaymentDate)</td>
-                    </tr>
-                }
+                <tr data-ng-repeat="debt in debts.DebtsYouOwe" data-debt-id="{{debt.Id}}" data-ng-class-odd="'odd'" data-ng-class-even="'even'" class="debt-item-row">
+                    <td></td>
+                    <td></td>
+                    <td class="action-dialog"></td>
+                    <td class="col-who">{{debt.UserWhoOwesDebt.EmailAddress}}</td>
+                    <td class="col-amt">{{debt.AmountOwing | currency:"$"}}</td>
+                    <td class="col-started">{{debt.StartDate | date:'dd MMM yyyy'}}</td>
+                    <td class="col-last-paid-amt">{{debt.LastAmountPaid | currency:"$"}}</td>
+                    <td class="col-last-paid-date">{{debt.LastPaymentDate | date:'dd MMM yyyy'}}</td>
+                </tr>
             </tbody>
         </table>
-    }
+    </div>
 </div>
-

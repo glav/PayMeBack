@@ -31,6 +31,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtContro
     $scope.submitDebtDataToServer = function () {
         window.payMeBack.debtManager.submitFormData($scope.debtData, function () {
             debtFactory.triggerRefresh();
+            init();
         });
 
     }

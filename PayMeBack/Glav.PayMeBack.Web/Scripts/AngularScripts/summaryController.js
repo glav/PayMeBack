@@ -20,7 +20,8 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
             $event.stopPropagation();
         };
 
-        $scope.deleteDebt = function (id) {
+        $scope.deleteDebt = function (id, $event) {
+            $event.stopPropagation();
             window.payMeBack.notificationEngine.showConfirmationContextMessage(null, "Deleting this debt will remove it entirely", function () {
                 debtFactory.deleteDebt(id)
                     .then(function () {
