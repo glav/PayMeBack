@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentController,
-    function ($scope, $rootScope, debtFactory) {
+    function ($scope, debtFactory) {
 
     init();
 
@@ -27,7 +27,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentCo
         debtFactory.addPayment($scope.paymentData)
             .then(function () {
                 $("#add-debt-payment-container").fadeOut();
-                $rootScope.$broadcast('debtSummaryListChanged');
+                debtFactory.triggerRefresh();
             });
     }
 });

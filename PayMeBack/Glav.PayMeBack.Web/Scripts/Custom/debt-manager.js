@@ -10,37 +10,6 @@ window.payMeBack.debtManager = (function () {
 
     var _defaultDateFormat = "d/m/y";
 
-    var paymentTypes = {
-        Unknown: 0,
-        Cash: 1,
-        BankTransfer: 2,
-        Services: 3,
-        Goods: 4
-    };
-
-    var getPaymentTypeDescrption = function (paymentTypeValue) {
-        switch (paymentTypeValue) {
-            case paymentTypes.Unknown:
-                return "Unknown";
-                break;
-            case paymentTypes.Cash:
-                return "Cash";
-                break;
-            case paymentTypes.BankTransfer:
-                return "Bank Transfer";
-                break;
-            case paymentTypes.Services:
-                return "Services";
-                break;
-            case paymentTypes.Goods:
-                return "Goods";
-                break;
-            default:
-                return "Unknown";
-                break;
-        }
-    };
-
     var submitFormData = function (debtData, successCallback) {
         $("#add-debt-container fieldset").fadeOut('normal', function () {
             var options = {
@@ -97,59 +66,6 @@ window.payMeBack.debtManager = (function () {
         }
     };
 
-    var populateEditDebtForm = function (paymentPlan, selectedDebtId) {
-        // Store the retrieved payment plan on the container element for later
-        $("#edit-debt-payments-container").data("plan", paymentPlan);
-        $("#edit-debt-payments-container").data("debtId", selectedDebtId);
-
-
-        var numTotalDebt = paymentPlan.DebtsOwedToMe.length;
-        var currentDebt = null;
-        for (var cnt = 0; cnt < numTotalDebt; cnt++) {
-            currentDebt = paymentPlan.DebtsOwedToMe[cnt];
-            if (currentDebt.Id === selectedDebtId) {
-                break;
-            }
-        }
-
-        if (currentDebt === null) {
-            return;
-        }
-
-        var emailLabel = $("#edit-debt-user-email");
-        var debtAmountInput = $("#edit-debt-amount");
-        var debtByDateInput = $("#edit-debt-end-date");
-        var debtReasonText = $("#edit-debt-reason");
-        var debtNotesText = $("#edit-debt-notes");
-
-        $("#edit-debt-initial-payment").text(window.payMeBack.core.formatCurrency(currentDebt.InitialPayment));
-        $("#edit-debt-amt-remaining").text(window.payMeBack.core.formatCurrency(currentDebt.AmountRemaining));
-
-        emailLabel.text(currentDebt.UserWhoOwesDebt.EmailAddress);
-        debtAmountInput.val(currentDebt.TotalAmountOwed);
-        if (currentDebt.ExpectedEndDate && currentDebt.ExpectedEndDate !== null) {
-            debtByDateInput.val(currentDebt.ExpectedEndDate);
-        }
-        debtReasonText.val(currentDebt.ReasonForDebt);
-        debtNotesText.val(currentDebt.Notes);
-
-        var tableRowArea = $("#edit-debt-payments-container table tbody");
-        tableRowArea.empty();
-
-        if (currentDebt.PaymentInstallments && currentDebt.PaymentInstallments.length > 0) {
-            var length = currentDebt.PaymentInstallments.length;
-            // Grab the row template, fill it in and append it
-            var rowTemplate = $("#installment-row-template");
-            for (var rowCnt = 0; rowCnt < length; rowCnt++) {
-                var installment = currentDebt.PaymentInstallments[rowCnt];
-                var html = rowTemplate.html();
-                var row = html.replace("{{date}}", window.payMeBack.core.formatDate(installment.PaymentDate, "ddd " + _defaultDateFormat))
-                            .replace("{{amount}}", window.payMeBack.core.formatCurrency(installment.AmountPaid))
-                            .replace("{{type}}", getPaymentTypeDescrption(installment.TypeOfPayment));
-                tableRowArea.append(row);
-            }
-        }
-    };
 
     var showAddPaymentToDebtDialog = function (xPos, yPos) {
         // position and show the dialog
@@ -164,35 +80,11 @@ window.payMeBack.debtManager = (function () {
                         $(this).fadeOut();
                     });
                 });
-                // If the user click *inside* the dialog, which is still part of the body, dont let the
-                // event propagate otherwise the previous handler will close the dialog
-                //container.unbind().on('click', function (e) {
-                //    e.stopImmediatePropagation();
-                //});;
 
                 $("#payment-amount").focus();
             });
     };
 
-
-    var getDebtDetails = function (debtId) {
-        var options = {
-            relatveUrl: "~/api/debts",
-            progressContainerIdOrClassName: "edit-debt-container",
-            successCallback: function (result) {
-                $("#edit-debt-container fieldset").removeClass("hidden").fadeIn();
-                populateEditDebtForm(result, debtId);
-            },
-            errorCallback: function () {
-                $("#edit-debt-container fieldset").fadeIn();
-            },
-            errorMessage: "There was a problem retrieving the debt details. Please try again.",
-            typeOfError: window.payMeBack.notificationEngine.MESSAGE_TYPE_SMALL_ERROR,
-            ignoreResultStatus: true
-        };
-        window.payMeBack.ajaxManager.ajaxRequest(options);
-
-    };
 
     var captureEditDebtFormAndSubmit = function () {
         var originalpaymentPlan = $("#edit-debt-payments-container").data("plan");
@@ -253,10 +145,6 @@ window.payMeBack.debtManager = (function () {
             bgColor: window.payMeBack.core.colours.nyroModalBackground,
             endRemove: function () {
                 var fieldForm = $("#edit-debt-container fieldset");
-                $("input[type='text']", fieldForm).val("");
-                $("input[type='date']", fieldForm).val("");
-                $("input[type='number']", fieldForm).val("");
-                $("textarea", fieldForm).val("");
                 fieldForm.hide();
                 $("#edit-debt-container .progress-indicator").hide();
                 if (typeof completionCallback !== 'undefined') {
@@ -267,16 +155,15 @@ window.payMeBack.debtManager = (function () {
             endShowContent: function () {
                 var debtContainer = $("#edit-debt-container");
                 $(".progress-indicator", debtContainer).hide();
-                $("fieldset ul li input", debtContainer).unbind().on("keypress", function (e) {
-                    if (e.which === 13) {
-                        captureEditDebtFormAndSubmit();
-                    }
-                });
-                $("#edit-debt-submit").unbind().on("click", function (e) {
-                    captureEditDebtFormAndSubmit();
-                });
-                getDebtDetails(debtId);
-
+                //$("fieldset ul li input", debtContainer).unbind().on("keypress", function (e) {
+                //    if (e.which === 13) {
+                //        captureEditDebtFormAndSubmit();
+                //    }
+                //});
+                //$("#edit-debt-submit").unbind().on("click", function (e) {
+                //    captureEditDebtFormAndSubmit();
+                //});
+                $("#edit-debt-container fieldset").removeClass("hidden").fadeIn();
 
                 window.payMeBack.inputManager.maskAllMoneyInputControls();
             }
