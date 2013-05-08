@@ -17,16 +17,22 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
             $rootScope.debtId = id;
 
             window.payMeBack.debtManager.showAddPaymentToDebtDialog(xPos, yPos, id);
+            $event.stopPropagation();
         };
 
         $scope.deleteDebt = function (id) {
             window.payMeBack.notificationEngine.showConfirmationContextMessage(null, "Deleting this debt will remove it entirely", function () {
                 debtFactory.deleteDebt(id)
-                    .then(refreshSummaryList());
+                    .then(function () {
+                        refreshSummaryList();
+                        debtFactory.triggerRefresh();
+                    });
             });
         };
         
         $scope.editDebt = function (id) {
+            $rootScope.debtId = id;
+            debtFactory.triggerActiveItemChanged(id);
             window.payMeBack.debtManager.editDebt(id);
         };
     }

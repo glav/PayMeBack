@@ -1,6 +1,6 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtController, function ($scope, $rootScope) {
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtController, function ($scope, debtFactory) {
 
     init();
 
@@ -30,7 +30,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtContro
 
     $scope.submitDebtDataToServer = function () {
         window.payMeBack.debtManager.submitFormData($scope.debtData, function () {
-            $rootScope.$broadcast('debtSummaryListChanged');
+            debtFactory.triggerRefresh();
         });
 
     }

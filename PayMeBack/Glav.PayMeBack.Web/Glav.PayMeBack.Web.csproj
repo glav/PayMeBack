@@ -406,6 +406,8 @@
     <Content Include="Scripts\AngularScripts\addDebtController.js" />
     <Content Include="Scripts\AngularScripts\bootstrap.js" />
     <Content Include="Scripts\AngularScripts\authenticateController.js" />
+    <Content Include="Scripts\AngularScripts\debtConstantsFactory.js" />
+    <Content Include="Scripts\AngularScripts\editDebtController.js" />
     <Content Include="Scripts\AngularScripts\debtPaymentController.js" />
     <Content Include="Scripts\AngularScripts\debtFactory.js" />
     <Content Include="Scripts\AngularScripts\routeConfig.js" />

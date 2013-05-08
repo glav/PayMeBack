@@ -8,6 +8,7 @@ if (typeof window.payMeBack.core === 'undefined') {
     window.payMeBack.core = {
         dependencies: {
             moduleName: "paymeback",
+            debtConstantsFactory: "debtConstantsFactory",
             userFactory: "userFactory",
             debtFactory: "debtFactory",
             homeController: "homeController",
@@ -16,7 +17,8 @@ if (typeof window.payMeBack.core === 'undefined') {
             addDebtController: "addDebtController",
             debtPaymentController: "debtPaymentController",
             summaryActionLinkController: "summaryActionLinkController",
-            authenticateController: "authenticateController"
+            authenticateController: "authenticateController",
+            editDebtController: "editDebtController"
         },
         rootPath: "/",
         makePathFromVirtual: function(virtualPath) {
