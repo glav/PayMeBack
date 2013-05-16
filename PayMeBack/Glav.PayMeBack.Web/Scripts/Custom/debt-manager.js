@@ -55,7 +55,7 @@ window.payMeBack.debtManager = (function () {
                 $(".progress-indicator", debtContainer).hide();
 
                 $("#add-debt-user-email").focus();
-                window.payMeBack.inputManager.maskAllMoneyInputControls();
+                //window.payMeBack.inputManager.maskAllMoneyInputControls();
             }
         });
     };
@@ -116,7 +116,7 @@ window.payMeBack.debtManager = (function () {
                 //});
                 $("#edit-debt-container fieldset").removeClass("hidden").fadeIn();
 
-                window.payMeBack.inputManager.maskAllMoneyInputControls();
+                //window.payMeBack.inputManager.maskAllMoneyInputControls();
             }
         });
     };

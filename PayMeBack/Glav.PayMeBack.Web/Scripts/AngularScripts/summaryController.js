@@ -6,13 +6,20 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
         refreshSummaryList();
 
         function refreshSummaryList() {
-            $scope.debts = debtFactory.getDebtSummaryItems();
+            $scope.IsInProgress = true;
+
+            $scope.debts = debtFactory.getDebtSummaryItems()
+                .then(function (result) {
+                    $scope.IsInProgress = false;
+                    return result;
+            });
+            
         }
 
         $scope.$on('debtSummaryListChanged', refreshSummaryList);
 
         $scope.addPayment = function (id, $event) {
-            var xPos = $event.client;
+            var xPos = $event.clientX;
             var yPos = $event.clientY;
             $rootScope.debtId = id;
 
@@ -25,7 +32,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
             window.payMeBack.notificationEngine.showConfirmationContextMessage(null, "Deleting this debt will remove it entirely", function () {
                 debtFactory.deleteDebt(id)
                     .then(function () {
-                        refreshSummaryList();
+                        //refreshSummaryList();
                         debtFactory.triggerRefresh();
                     });
             });
@@ -35,6 +42,12 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
             $rootScope.debtId = id;
             debtFactory.triggerActiveItemChanged(id);
             window.payMeBack.debtManager.editDebt(id);
+        };
+
+        $scope.editNotification = function (id, $event) {
+            $event.stopPropagation();
+            debtFactory.triggerActiveItemChanged(id);
+            window.payMeBack.notificationManager.showNotificationOptionsForDebt();
         };
     }
 );

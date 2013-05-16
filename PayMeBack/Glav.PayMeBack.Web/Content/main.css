@@ -261,3 +261,9 @@ div.status-message {
             padding: 0 3px;
             color: green;
         }
+
+/**** Validation errors *****/
+/*.ng-invalid-required {
+    border-color: yellow;
+}*/
+/**** End Validation errors *****/

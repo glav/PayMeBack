@@ -126,6 +126,10 @@ table.debt-summary-table {
         }
         table.debt-summary-table td.action-add-payment {
             background: url(../images/add.png) no-repeat 2px 2px;
+            min-width: 18px;
+        }
+        table.debt-summary-table td.action-edit-notification {
+            background: url(../images/NotificationEdit.png) no-repeat 2px 2px;
             border-right:1px dotted #CFCFCF;
             min-width: 18px;
         }

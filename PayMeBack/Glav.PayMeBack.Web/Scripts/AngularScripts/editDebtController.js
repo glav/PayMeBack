@@ -18,9 +18,6 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.editDebtContr
         $scope.$on('debtSummaryListChanged', refreshPlanFromSource);
 
         $scope.$on('debtActiveItemChanged', function (event, id) {
-            // inefficient. See how we can make the code commented out work
-            //$scope.debt = debtFactory.getDebt(id);
-
             var numTotalDebt = $scope.paymentPlan.DebtsOwedToMe.length;
             var currentDebt = null;
             for (var cnt = 0; cnt < numTotalDebt; cnt++) {
@@ -43,6 +40,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.editDebtContr
                     break;
                 }
             }
+            $.nyroModalRemove();
             debtFactory.updatePaymentPlan($scope.paymentPlan).then(function (result) {
                 $("#edit-debt-payments-container").data("plan", result);
                 debtFactory.triggerRefresh();

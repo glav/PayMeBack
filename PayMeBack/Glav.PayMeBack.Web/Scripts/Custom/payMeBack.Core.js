@@ -11,6 +11,7 @@ if (typeof window.payMeBack.core === 'undefined') {
             debtConstantsFactory: "debtConstantsFactory",
             userFactory: "userFactory",
             debtFactory: "debtFactory",
+            notificationFactory: "notificationFactory",
             homeController: "homeController",
             summaryController: "summaryController",
             signInController: "signInController",
@@ -18,7 +19,8 @@ if (typeof window.payMeBack.core === 'undefined') {
             debtPaymentController: "debtPaymentController",
             summaryActionLinkController: "summaryActionLinkController",
             authenticateController: "authenticateController",
-            editDebtController: "editDebtController"
+            editDebtController: "editDebtController",
+            notificationOptionsController: "notificationOptionsController"
         },
         rootPath: "/",
         makePathFromVirtual: function(virtualPath) {

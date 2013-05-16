@@ -398,6 +398,7 @@
     <Content Include="Images\Borrow-PayBack-small.png" />
     <Content Include="Images\delete-icon.png" />
     <Content Include="Images\NavButtonsSprite.png" />
+    <Content Include="Images\NotificationEdit.png" />
     <Content Include="Images\PayMeBackTitle.png" />
     <Content Include="Images\progress.gif" />
     <Content Include="Images\SummaryHeadingBground.png" />
@@ -406,6 +407,10 @@
     <Content Include="Scripts\AngularScripts\addDebtController.js" />
     <Content Include="Scripts\AngularScripts\bootstrap.js" />
     <Content Include="Scripts\AngularScripts\authenticateController.js" />
+    <Content Include="Scripts\AngularScripts\dateValidationDirective.js" />
+    <Content Include="Scripts\AngularScripts\defaultButtonDirective.js" />
+    <Content Include="Scripts\AngularScripts\notificationFactory.js" />
+    <Content Include="Scripts\AngularScripts\notificationOptionsController.js" />
     <Content Include="Scripts\AngularScripts\debtConstantsFactory.js" />
     <Content Include="Scripts\AngularScripts\editDebtController.js" />
     <Content Include="Scripts\AngularScripts\debtPaymentController.js" />

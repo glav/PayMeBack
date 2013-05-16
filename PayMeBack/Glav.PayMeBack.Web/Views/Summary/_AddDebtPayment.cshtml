@@ -4,27 +4,29 @@
     <h3>Add Payment</h3>
     <div id="add-debt-payment-section" data-ng-controller="debtPaymentController">
         <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="add-debt-payment-progress-indicator progress-indicator hidden" />
-        <fieldset>
+        <form data-ng-submit="submitDebtDataToServer()">
+            <fieldset>
 
-            <ul>
-                <li class="amount">
-                    <label for="payment-amount">Amount</label>
-                    <input id="payment-amount" data-ng-model="paymentData.AmountPaid" type="number" class="data-entry" />
-                </li>
-                <li class="date">
-                    <label>Date</label>
-                    <input id="payment-date" data-ng-model="paymentData.PaymentDate" type="date" class="data-entry"  />
-                </li>
-                <li class="type">
-                    <label>Type</label>
-                    <select id="payment-type" data-ng-model="paymentData.TypeOfPayment" class="data-entry" data-ng-options="p.value as p.label for p in paymentTypeOptions">
-                    </select>
-                </li>
-            </ul>
-            <div class="action-container">
-                <input id="add-payment-action" type="button" value="Add" class="action-button" data-ng-click="submitDebtDataToServer()" />
-            </div>
-        </fieldset>
+                <ul>
+                    <li class="amount">
+                        <label for="payment-amount">Amount</label>
+                        <input id="payment-amount" name="paymentAmount" data-ng-model="paymentData.AmountPaid" type="number" class="data-entry" />
+                    </li>
+                    <li class="date">
+                        <label>Date</label>
+                        <input id="payment-date" name="paymentDate" data-ng-model="paymentData.PaymentDate" type="date" class="data-entry" />
+                    </li>
+                    <li class="type">
+                        <label>Type</label>
+                        <select id="payment-type" name="paymentType" data-ng-model="paymentData.TypeOfPayment" class="data-entry" data-ng-options="p.value as p.label for p in paymentTypeOptions">
+                        </select>
+                    </li>
+                </ul>
+                <div class="action-container">
+                    <input id="add-payment-action" type="submit" value="Add" class="action-button" />
+                </div>
+            </fieldset>
+        </form>
     </div>
 </div>
 @*</div>*@
