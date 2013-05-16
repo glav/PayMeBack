@@ -1,49 +1,56 @@
-﻿
-<div id="edit-debt-modal" class="hidden">
+﻿<div id="edit-debt-modal" class="hidden">
     <div id="edit-debt-container" class="dialog-container" data-ng-controller="editDebtController">
         <h3>Edit / List debt details</h3>
         <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="edit-debt-progress-indicator progress-indicator hidden" />
 
-        <fieldset class="dialog-form hidden">
-            <ul>
-                <li>
-                    <label id="edit-debt-user-email">{{debt.UserWhoOwesDebt.EmailAddress}}</label>
-                    <label for="edit-debt-amount">owes you:</label>
-                    <input type="number" id="edit-debt-amount" maxlength="10" data-ng-model="debt.TotalAmountOwed" class="input-money" />
-                    <label>by</label>
-                    <input type="date" id="edit-debt-end-date" data-ng-model="debt.ExpectedEndDate" maxlength="10" min="2000-01-01" />
-                </li>
-                <li class="reason-notes">
-                    <label for="edit-debt-reason">Reason?</label>
-                    <textarea type="text" id="edit-debt-reason" maxlength="255" data-ng-model="debt.ReasonForDebt"></textarea>
-                    <label for="edit-debt-notes">Notes:</label>
-                    <textarea type="text" id="edit-debt-notes" maxlength="255" data-ng-model="debt.Notes"></textarea>
-                </li>
-            </ul>
-            <div id="edit-debt-payments-container">
-                <div class="initial-payment">
-                    <label>Amount Remaining:</label><span id="edit-debt-amt-remaining">{{debt.AmountRemaining | currency:"$"}}</span>,
+        <form data-ng-submit="submitEditForm()">
+            <fieldset class="dialog-form hidden">
+                <ul>
+                    <li>
+                        <label id="edit-debt-user-email">{{debt.UserWhoOwesDebt.EmailAddress}}</label>
+                        <label for="edit-debt-amount">owes you:</label>
+                        <input type="number" id="edit-debt-amount" name="editDebtAmount" maxlength="10" data-ng-model="debt.TotalAmountOwed" class="input-money" />
+                        <label>by</label>
+                        <input type="text" id="editDebtEndDate" name="editDebtEndDate" data-ng-model="debt.ExpectedEndDate" />
+                        (<span ng-show="editdebt.editdebtenddate.$error.datevalid">Invalid</span>)
+                    [{{editdebt.editDebtEndDate.$error.$valid}}]
+                    [{{editdebt.editDebtEndDate.$valid}}]
+                    [{{editdebt.editDebtEndDate.$error.dateValid}}]
+                    [{{editdebt.debt.ExpectedEndDate.$error}}]
+                        *{{editdebt.$valid}}*
+                    </li>
+                    <li class="reason-notes">
+                        <label for="edit-debt-reason">Reason?</label>
+                        <textarea type="text" id="edit-debt-reason" maxlength="255" data-ng-model="debt.ReasonForDebt"></textarea>
+                        <label for="edit-debt-notes">Notes:</label>
+                        <textarea type="text" id="edit-debt-notes" maxlength="255" data-ng-model="debt.Notes"></textarea>
+                    </li>
+                </ul>
+                <div id="edit-debt-payments-container">
+                    <div class="initial-payment">
+                        <label>Amount Remaining:</label><span id="edit-debt-amt-remaining">{{debt.AmountRemaining | currency:"$"}}</span>,
                     <label>Initial Payment:</label><span id="edit-debt-initial-payment">{{debt.InitialPayment | currency:"$"}}</span>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="date">Date Paid</th>
+                                <th class="amount">Installment Amount</th>
+                                <th class="type">Type of Payment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="installment in debt.PaymentInstallments">
+                                <td class="date">{{installment.PaymentDate | date:'dd MMM yyyy'}}</td>
+                                <td class="amount">{{installment.AmountPaid | currency:"$"}}</td>
+                                <td class="type">{{getPaymentDescription(installment.TypeOfPayment)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="date">Date Paid</th>
-                            <th class="amount">Installment Amount</th>
-                            <th class="type">Type of Payment</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-ng-repeat="installment in debt.PaymentInstallments">
-                            <td class="date">{{installment.PaymentDate | date:'dd MMM yyyy'}}</td>
-                            <td class="amount">{{installment.AmountPaid | currency:"$"}}</td>
-                            <td class="type">{{getPaymentDescription(installment.TypeOfPayment)}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <input type="button" value="Submit" data-ng-click="submitEditForm()" id="edit-debt-submit" class="action-button" />
-        </fieldset>
+                <input type="submit" value="Submit" id="edit-debt-submit" class="action-button" />
+            </fieldset>
+        </form>
     </div>
 </div>
 

@@ -15,6 +15,12 @@ namespace Glav.PayMeBack.Web
         {
             var routes = config.Routes;
             routes.MapHttpRoute(
+                name: "Notifications",
+                routeTemplate: "api/Notification/{debtId}",
+                defaults: new { controller = "Notification" }
+            );
+
+            routes.MapHttpRoute(
                 name: "SignUp",
                 routeTemplate: ResourceNames.Authorisation + "/Signup",
                 defaults: new { controller = "OAuth", action = "Signup" }

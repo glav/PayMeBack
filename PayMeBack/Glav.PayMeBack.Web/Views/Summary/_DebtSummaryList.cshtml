@@ -13,18 +13,18 @@
 <div data-ng-controller="summaryController">
     <div id="debts-owed-to-me" class="debt-section">
 
-        <div class="progress-indicator hidden">
+        <div data-ng-show="IsInProgress == true" class="progress-indicator">
             <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" />
             <span>Updating ....</span>
         </div>
-        <h4 data-ng-show="debts.TotalAmountOwedToYou > 0">Total Amount owed to you: <span class="total-owed-amount">{{debts.TotalAmountOwedToYou | currency:"$"}}</span></h4>
+        <h4 data-ng-show="debts.TotalAmountOwedToYou > 0">Total Amount owed to you: <span class="total-owed-amount">{{debts.TotalAmountOwedToYou | currency}}</span></h4>
 
         <h4 data-ng-show="debts.TotalAmountOwedToYou == 0">None</h4>
 
-        <table id="debt-summary-owed" class="debt-summary-table" data-ng-show="debts.TotalAmountOwedToYou > 0">
+        <table id="debt-summary-owed" class="debt-summary-table" data-ng-show="debts.TotalAmountOwedToYou > 0 && IsInProgress != true">
             <thead>
                 <tr>
-                    <th colspan="2"></th>
+                    <th colspan="3"></th>
                     <th></th>
                     @*Dummy column to bind dialogs to*@
                     <th class="col-hdr-who">Who</th>
@@ -38,6 +38,7 @@
                 <tr data-ng-repeat="debt in debts.DebtsOwedToYou" data-debt-id="{{debt.Id}}" data-ng-class-odd="'odd'" data-ng-class-even="'even'" data-ng-click="editDebt(debt.Id)" class="debt-item-row">
                     <td class="action-icon action-delete" data-ng-click="deleteDebt(debt.Id, $event)" title="Delete"></td>
                     <td class="action-icon action-add-payment" data-ng-click="addPayment(debt.Id, $event)" title="Add Payment"></td>
+                    <td class="action-icon action-edit-notification" data-ng-click="editNotification(debt.Id, $event)" title="Edit Notification Options"></td>
                     <td class="action-dialog"></td>
                     <td class="col-who">{{debt.UserWhoOwesDebt.EmailAddress}}</td>
                     <td class="col-amt">{{debt.AmountOwing | currency:"$"}}</td>
