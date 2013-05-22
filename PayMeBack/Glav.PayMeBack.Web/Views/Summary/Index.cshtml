@@ -13,6 +13,7 @@
         <li><a href="#" data-ng-click="showAddDebtDialog()" id="add-debt-link"><img src="~/Images/AddDebt.png" border="0" alt="Add Debt" title="Add Debt" /><span>Add Debt</span></a></li>
         <li><a href="#" data-ng-click="showManageProfileDialog()" id="manage-profile-link"><img src="~/Images/AccountProfile.png" border="0" alt="Manage Account Profile" title="Manage Account Profile" /><span>Account Profile</span></a></li>
     </ul>
+    @Html.Partial("_AddDebt")
 </section>
 
 <section class="clear-fix debt-summary-section" id="debt-summary-section">
@@ -24,9 +25,10 @@
 
 </section>
 
-@Html.Partial("_AddDebt")
-@Html.Partial("_EditDebt")
+@*@Html.Partial("_AddDebt")*@
+@*@Html.Partial("_EditDebt")*@
 @Html.Partial("_AddDebtPayment")
 
-@Html.Partial("_NotificationOptions", new Glav.PayMeBack.Core.Domain.NotificationOptions())
+@*@Html.Partial("_NotificationOptions", new Glav.PayMeBack.Core.Domain.NotificationOptions())*@
+
 @Html.Partial("_AccountSettings")

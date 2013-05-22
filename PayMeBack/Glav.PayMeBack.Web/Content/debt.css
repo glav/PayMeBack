@@ -13,7 +13,7 @@
         @media (min-width: 850px) {
 
             #add-debt-container fieldset.dialog-form ul li {
-                width: 80%;
+                width: 95%;
                 height: 25px;
                 margin: 4px 0;
             }
@@ -211,6 +211,10 @@ table.debt-summary-table {
     margin-left:25%;
     padding-top:100px;
 }
+    #edit-debt-container .by-separator {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
     #edit-debt-container img.login-progress-indicator {
         margin-left:150px;
         top:80px;
@@ -251,7 +255,7 @@ table.debt-summary-table {
                 }
 
     #edit-debt-payments-container {
-        height:90px;
+        height:9em;
         overflow-y: auto;
         border: solid 1px #e8e2e2;
         border-radius: 3px;
@@ -278,8 +282,8 @@ table.debt-summary-table {
             margin: auto;
         }
             #edit-debt-payments-container table thead tr {
-                background-color: #e2e1e1;
-                border-bottom: 2px solid #A2A2A2;
+                /*background-color: #e2e1e1;*/
+                border-bottom: 2px dotted #A2A2A2;
             }
 
             #edit-debt-payments-container .date {
@@ -291,5 +295,10 @@ table.debt-summary-table {
             #edit-debt-payments-container .type {
                 text-align: center;
             }
+            #edit-debt-payments-container .date, #edit-debt-payments-container .amount {
+                border-right: 2px dotted #A2A2A2;
+                padding: 0 1% 0 0;
+            }
+
     
     

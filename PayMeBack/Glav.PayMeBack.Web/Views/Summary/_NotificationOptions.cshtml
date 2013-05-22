@@ -2,12 +2,12 @@
 
 @using Glav.PayMeBack.Core.Domain
 
-<div id="notification-options-modal" class="hidden">
+<div id="notification-options-modal" modal="editNotificationModal" options="opts" close="closeEditNotificationModal()">
     <div id="notification-options-container" class="dialog-container" data-ng-controller="notificationOptionsController">
         <h3>Notification Options</h3>
         <div id="notification-options-section">
-            <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="notification-options-progress-indicator progress-indicator hidden" />
-            <form data-ng-submit="submitOptionsForm()">
+            <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="notification-options-progress-indicator progress-indicator" data-ng-show="notifyProgress" />
+            <form data-ng-submit="submitOptionsForm()" novalidate data-ng-hide="notifyProgress">
                 <fieldset>
                     <ul>
                         <li>
@@ -39,9 +39,12 @@
                         </li>
                     </ul>
                     <p>getting there, but this section is not complete</p>
+@*                    <input type="submit" value="Submit" id="notification-options-submit" class="action-button" />*@
                     <input type="submit" value="Submit" id="notification-options-submit" class="action-button" />
+
                 </fieldset>
             </form>
+            
         </div>
     </div>
 

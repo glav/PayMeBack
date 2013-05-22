@@ -163,6 +163,9 @@ input.action-button {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3ffdd', endColorstr='#b6efb6',GradientType=0 ); /* IE6-9 */
 }
 
+div.dialog-container {
+    padding: 1%;
+}
 div.dialog-container h3 {
     background-color: #99FF9D;
     margin-bottom: 0;
@@ -179,7 +182,7 @@ div.dialog-container h3 {
 
     div.dialog-container fieldset.dialog-form ul, div.dialog-container div.dialog-form ul {
         list-style:none;
-        padding-left: 20px;
+        /*padding-left: 20px;*/
     }
 
         div.dialog-container fieldset.dialog-form ul li, div.dialog-container div.dialog-form ul li {
@@ -267,3 +270,12 @@ div.status-message {
     border-color: yellow;
 }*/
 /**** End Validation errors *****/
+
+/***** bootstrap modal mods **********/
+div.modal{
+    box-shadow: 6px 6px 15px #666666;
+}
+    div.modal label {
+        padding-top: 1%;
+    }
+/***** end- bootstrap modal mods **********/

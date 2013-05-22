@@ -14,7 +14,8 @@ namespace Glav.PayMeBack.Web
 			coreBundle.Include("~/Scripts/nyroModal/js/jquery.nyroModal.js")
                 .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/custom/payMeBack.Core.js")
-                .Include("~/Scripts/AngularScripts/bootstrap.js")
+                .Include("~/Scripts/AngularScripts/ui-bootstrap-tpls-0.3.0.js")
+                .Include("~/Scripts/AngularScripts/init.js")
                 .Include("~/Scripts/AngularScripts/debtConstantsFactory.js")
                 .Include("~/Scripts/AngularScripts/userFactory.js")
                 .Include("~/Scripts/AngularScripts/debtFactory.js")
@@ -56,6 +57,7 @@ namespace Glav.PayMeBack.Web
         {
             var cssBundle = new StyleBundle("~/Content/MainCss")
                 .Include("~/Content/main.css")
+                .Include("~/Content/bootstrap.css")
                 .Include("~/Content/notification-options.css")
                 .Include("~/Content/debt.css");
             bundles.Add(cssBundle);

@@ -10,28 +10,6 @@ window.payMeBack.debtManager = (function () {
 
     var _defaultDateFormat = "d/m/y";
 
-    var submitFormData = function (debtData, successCallback) {
-        $("#add-debt-container fieldset").fadeOut('normal', function () {
-            var options = {
-                relatveUrl: "~/debt/Add",
-                httpMethod: "POST",
-                dataPayload: debtData,
-                progressContainerIdOrClassName: "add-debt-container",
-                successCallback: function () {
-                    $.nyroModalRemove();
-                    invokeCallback(successCallback);
-                },
-                errorCallback: function () {
-                    $("#add-debt-container fieldset").fadeIn();
-                },
-                errorMessage: "There was a problem adding the debt record to the system. Please try again.",
-                typeOfError: window.payMeBack.notificationEngine.MESSAGE_TYPE_ERROR,
-                ignoreResultStatus: false
-            };
-            window.payMeBack.ajaxManager.ajaxRequest(options);
-        });
-    };
-
     var showAddDebtDialog = function (completionCallback) {
 
         $.nyroModalManual({
@@ -106,24 +84,13 @@ window.payMeBack.debtManager = (function () {
             endShowContent: function () {
                 var debtContainer = $("#edit-debt-container");
                 $(".progress-indicator", debtContainer).hide();
-                //$("fieldset ul li input", debtContainer).unbind().on("keypress", function (e) {
-                //    if (e.which === 13) {
-                //        captureEditDebtFormAndSubmit();
-                //    }
-                //});
-                //$("#edit-debt-submit").unbind().on("click", function (e) {
-                //    captureEditDebtFormAndSubmit();
-                //});
                 $("#edit-debt-container fieldset").removeClass("hidden").fadeIn();
-
-                //window.payMeBack.inputManager.maskAllMoneyInputControls();
             }
         });
     };
 
     return {
         showAddDebtDialog: function (completionCallback) { showAddDebtDialog(completionCallback); },
-        submitFormData: submitFormData,
         editDebt: function (debtId, completionCallback) { editDebt(debtId, completionCallback); },
         showAddPaymentToDebtDialog: function (debtId, xPos, yPos, completionCallback) { showAddPaymentToDebtDialog(debtId, xPos, yPos, completionCallback); }
     };

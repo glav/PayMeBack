@@ -1,13 +1,13 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtController, function ($scope, debtFactory) {
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtController, function ($scope, $rootScope, debtFactory) {
 
     init();
 
     function init() {
         $scope.debtData = {
             emailAddress: '',
-            amountOwed: 0,
+            amountOwed: null,
             debtReason: '',
             initialAmountPaid: 0,
             notes: '',
@@ -34,12 +34,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtContro
             debtFactory.triggerRefresh();
             init();
             window.payMeBack.progressManager.hideProgressIndicator("add-debt-container");
-            $.nyroModalRemove();
+            //$.nyroModalRemove();
         });
-        //window.payMeBack.debtManager.submitFormData($scope.debtData, function () {
-        //    debtFactory.triggerRefresh();
-        //    init();
-        //});
-
     }
 });

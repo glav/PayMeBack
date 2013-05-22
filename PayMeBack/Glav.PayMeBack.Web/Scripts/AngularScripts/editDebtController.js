@@ -1,23 +1,20 @@
 ﻿/// <reference path="../_references.js" />
 
 window.payMeBack.app.controller(window.payMeBack.core.dependencies.editDebtController,
-    function ($scope, debtFactory) {
+    function ($scope, $rootScope, debtFactory) {
 
-        $scope.debt = {};
-        refreshPlanFromSource();
+        //$scope.debt = {};
 
-        function refreshPlanFromSource() {
-            debtFactory.getPaymentPlan().then(function (result) {
-                $scope.paymentPlan = result;
-                $("#edit-debt-payments-container").data("plan", result);
-                return result;
-            });
+        init();
 
+        function init() {
+            if ($scope.debtId !== undefined) {
+                getCurrentDebtFromPlan($scope.debtId);
+            }
         }
 
-        $scope.$on('debtSummaryListChanged', refreshPlanFromSource);
-
-        $scope.$on('debtActiveItemChanged', function (event, id) {
+        function getCurrentDebtFromPlan(id) {
+            $scope.debt = {};
             var numTotalDebt = $scope.paymentPlan.DebtsOwedToMe.length;
             var currentDebt = null;
             for (var cnt = 0; cnt < numTotalDebt; cnt++) {
@@ -26,8 +23,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.editDebtContr
                     $scope.debt = currentDebt;
                 }
             }
-
-        });
+        };
 
         $scope.getPaymentDescription = debtFactory.getPaymentTypeDescrption;
 
@@ -40,13 +36,14 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.editDebtContr
                     break;
                 }
             }
-            $.nyroModalRemove();
+            //$.nyroModalRemove();
             debtFactory.updatePaymentPlan($scope.paymentPlan).then(function (result) {
                 $("#edit-debt-payments-container").data("plan", result);
                 debtFactory.triggerRefresh();
-                $.nyroModalRemove();
+                debtFactory.triggerCloseAllDialogs();
+                //$.nyroModalRemove();
             });
-            
+
         };
         //debtFactory.triggerRefresh();
     }
