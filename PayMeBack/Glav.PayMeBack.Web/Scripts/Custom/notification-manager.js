@@ -8,7 +8,7 @@ if (typeof window.payMeBack.debtManager === 'undefined') {
 
 window.payMeBack.notificationManager = (function () {
 
-    var showNotificationOptionsForDebt = function(competedCallback) {
+    var showNotificationOptionsForDebt = function(competedCallback, onRemoved, onContentShown) {
         $.nyroModalManual({
             url: '#notification-options-modal',
             minHeight: 300,
@@ -18,16 +18,22 @@ window.payMeBack.notificationManager = (function () {
             //modal: true,
             //closeButton: null,
             endRemove: function () {
-                $("#notification-options-container fieldset").show();
-                $("#notification-options-container .progress-indicator").hide();
-                if (typeof completionCallback !== 'undefined') {
-                    completionCallback();
+                if (typeof onRemoved !== 'undefined') {
+                    onRemoved();
                 }
+                //$("#notification-options-container fieldset").show();
+                //$("#notification-options-container .progress-indicator").hide();
+                //if (typeof completionCallback !== 'undefined') {
+                //    completionCallback();
+                //}
 
             },
             endShowContent: function () {
-                var container = $("#notification-options-container");
-                $(".progress-indicator", container).hide();
+                if (typeof onContentShown !== 'undefined') {
+                    onContentShown();
+                }
+                //var container = $("#notification-options-container");
+                //$(".progress-indicator", container).hide();
             }
         });
     };

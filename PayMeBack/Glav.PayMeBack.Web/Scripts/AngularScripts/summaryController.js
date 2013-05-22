@@ -1,22 +1,33 @@
 ﻿/// <reference path="../_references.js" />
 
 window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryController,
-    function ($scope, $rootScope, debtFactory) {
+    function ($scope, $rootScope, debtFactory,$dialog) {
 
         refreshSummaryList();
 
         function refreshSummaryList() {
             $scope.IsInProgress = true;
 
+            // Retrieve the paymentplan details and place into rootscope for things
+            // like the edit controller
+            debtFactory.getPaymentPlan().then(function (result) {
+                $rootScope.paymentPlan = result;
+            });
+
+            // Get the debt summary items
             $scope.debts = debtFactory.getDebtSummaryItems()
                 .then(function (result) {
                     $scope.IsInProgress = false;
                     return result;
             });
-            
+
         }
 
         $scope.$on('debtSummaryListChanged', refreshSummaryList);
+        $scope.$on('closeAllDialogs', function () {
+            refreshSummaryList();
+            $scope.closeEditDebtModal();
+        });
 
         $scope.addPayment = function (id, $event) {
             var xPos = $event.clientX;
@@ -40,14 +51,40 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
         
         $scope.editDebt = function (id) {
             $rootScope.debtId = id;
-            debtFactory.triggerActiveItemChanged(id);
-            window.payMeBack.debtManager.editDebt(id);
+            $scope.editDebtModal = true;
+            //debtFactory.triggerActiveItemChanged(id);
+            //window.payMeBack.debtManager.editDebt(id);
+        };
+
+        $scope.closeEditDebtModal = function () {
+            $scope.editDebtModal = false;
         };
 
         $scope.editNotification = function (id, $event) {
-            $event.stopPropagation();
             debtFactory.triggerActiveItemChanged(id);
-            window.payMeBack.notificationManager.showNotificationOptionsForDebt();
+            $scope.editNotificationModal = true;
+            $event.stopPropagation();
+
+           
+            //window.payMeBack.notificationManager.showNotificationOptionsForDebt(undefined, function () {
+            //    $rootScope.notifyProgress = false;
+            //    //$("#notification-options-container fieldset").show();
+            //    //$("#notification-options-container .progress-indicator").hide();
+            //}, function () {
+            //    $rootScope.notifyProgress = false;
+            //    $scope.$digest();
+            //    //var container = $("#notification-options-container");
+            //    //$(".progress-indicator", container).hide();
+            //});
+        };
+
+        $scope.closeEditNotificationModal = function () {
+            $scope.editNotificationModal = false;
+        }
+
+        $scope.opts = {
+            backdropFade: true,
+            dialogFade: true
         };
     }
 );

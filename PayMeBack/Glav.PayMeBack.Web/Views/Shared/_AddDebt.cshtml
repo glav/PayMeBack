@@ -1,4 +1,4 @@
-﻿<div id="add-debt-modal" class="hidden">
+﻿<div id="add-debt-modal" modal="addDebtModal" options="opts" close="closeAddDebtModal()">
     <div id="add-debt-container" class="dialog-container" data-ng-controller="addDebtController" data-ng-model="debtData">
         <h3>Add a debt that is owed to you</h3>
         <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="add-debt-progress-indicator progress-indicator hidden" />
@@ -7,15 +7,15 @@
                 <ul>
                     <li>
                         <label for="add-debt-user-email">Email address of person who owes you money:</label>
-                        <input required type="email" id="add-debt-user-email" maxlength="50" data-ng-model="debtData.emailAddress" />
+                        <input required type="email" id="add-debt-user-email" placeholder="Email Address" maxlength="50" data-ng-model="debtData.emailAddress" />
                     </li>
                     <li>
                         <label for="add-debt-amount">Enter amount owed to you:</label>
-                        <input required type="number" data-ng-required="debtData.amountOwed > 0" id="add-debt-amount" maxlength="10" class="input-money" data-ng-model="debtData.amountOwed" />
+                        <input required type="number" placeholder="Amount" data-ng-required="debtData.amountOwed > 0" id="add-debt-amount" maxlength="10" class="input-money" data-ng-model="debtData.amountOwed" />
                     </li>
                     <li>
                         <label for="add-debt-reason">What is the reason or nature of the debt?</label>
-                        <input type="text" id="add-debt-reason" maxlength="255" data-ng-model="debtData.debtReason" />
+                        <input type="text" id="add-debt-reason" placeholder="Reaosn (if any)" maxlength="255" data-ng-model="debtData.debtReason" />
                     </li>
                     <li>
                         <label for="add-debt-initial-amount">Enter an amount has already been paid off, if any:</label>
@@ -23,7 +23,7 @@
                     </li>
                     <li>
                         <label for="add-debt-notes">General notes or detail related to this debt:</label>
-                        <input type="text" id="add-debt-notes" maxlength="255" data-ng-model="debtData.notes" />
+                        <input type="text" id="add-debt-notes" placeholder="Notes (if any)" maxlength="255" data-ng-model="debtData.notes" />
                     </li>
                     <li>
                         <label for="add-debt-payment-period">How often do you expect payments to be made?</label>
@@ -32,7 +32,7 @@
                     </li>
                     <li>
                         <label for="add-debt-end-date">Expected or desired date this debt should be paid off by:</label>
-                        <input type="date" id="add-debt-end-date" maxlength="10" data-ng-model="debtData.expectedEndDate" />
+                        <input type="date" id="add-debt-end-date" placeholder="dd/mm/yyyy" maxlength="10" data-ng-model="debtData.expectedEndDate" />
                     </li>
                 </ul>
                 <input type="submit" value="Submit" id="add-debt-submit" class="action-button" />

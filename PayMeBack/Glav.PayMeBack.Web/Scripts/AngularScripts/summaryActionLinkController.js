@@ -4,10 +4,27 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryAction
 
     // For the add debt link
     $scope.showAddDebtDialog = function () {
-        window.payMeBack.debtManager.showAddDebtDialog();
+        //window.payMeBack.debtManager.showAddDebtDialog();
+        $scope.addDebtModal = true;
     };
 
     $scope.showManageProfileDialog = function () {
         window.payMeBack.accountSettingsManager.showAccountSettingsForUser();
     };
+
+    $scope.closeAddDebtModal = function () {
+        $scope.addDebtModal = false;
+    }
+
+    $scope.$on('debtSummaryListChanged', function () {
+        $scope.addDebtModal = false;
+    });
+
+
+
+    $scope.opts = {
+        backdropFade: true,
+        dialogFade: true
+    };
+
 });

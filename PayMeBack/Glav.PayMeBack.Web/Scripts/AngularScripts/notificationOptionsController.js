@@ -9,11 +9,14 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.notificationO
     });
 
     $scope.submitOptionsForm = function () {
+        $scope.notifyProgress = true;
         alert('not done yet');
-    }
+        $scope.notifyProgress = false;
+    };
 
 
     function init() {
+        $scope.inProgress = false;
         $scope.notificationOptions = [
             { value: 0, label: 'None' },
             { value: 1, label: 'Email' },
@@ -34,6 +37,6 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.notificationO
             { value: 4, label: 'Friday' },
             { value: 5, label: 'Saturday' },
             { value: 6, label: 'Sunday' }
-];
+        ];
     }
 });

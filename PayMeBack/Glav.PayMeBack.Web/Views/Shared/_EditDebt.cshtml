@@ -1,23 +1,17 @@
-﻿<div id="edit-debt-modal" class="hidden">
+﻿<div id="edit-debt-modal" modal="editDebtModal" opts="opts" close="closeEditDebtModal()">
     <div id="edit-debt-container" class="dialog-container" data-ng-controller="editDebtController">
         <h3>Edit / List debt details</h3>
         <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="edit-debt-progress-indicator progress-indicator hidden" />
 
-        <form data-ng-submit="submitEditForm()">
-            <fieldset class="dialog-form hidden">
+        <form data-ng-submit="submitEditForm()" name="editdebt">
+            <fieldset class="dialog-form">
                 <ul>
                     <li>
                         <label id="edit-debt-user-email">{{debt.UserWhoOwesDebt.EmailAddress}}</label>
                         <label for="edit-debt-amount">owes you:</label>
                         <input type="number" id="edit-debt-amount" name="editDebtAmount" maxlength="10" data-ng-model="debt.TotalAmountOwed" class="input-money" />
-                        <label>by</label>
-                        <input type="text" id="editDebtEndDate" name="editDebtEndDate" data-ng-model="debt.ExpectedEndDate" />
-                        (<span ng-show="editdebt.editdebtenddate.$error.datevalid">Invalid</span>)
-                    [{{editdebt.editDebtEndDate.$error.$valid}}]
-                    [{{editdebt.editDebtEndDate.$valid}}]
-                    [{{editdebt.editDebtEndDate.$error.dateValid}}]
-                    [{{editdebt.debt.ExpectedEndDate.$error}}]
-                        *{{editdebt.$valid}}*
+                        <label class="by-separator">by</label>
+                        <input type="date" id="editDebtEndDate" pattern="[0-9][-/][(0-9)^(1-2)][/-][0-9]" name="editDebtEndDate" data-ng-model="debt.ExpectedEndDate" />
                     </li>
                     <li class="reason-notes">
                         <label for="edit-debt-reason">Reason?</label>
