@@ -32,7 +32,7 @@
                     </li>
                     <li>
                         <label for="add-debt-end-date">Expected or desired date this debt should be paid off by:</label>
-                        <input type="date" id="add-debt-end-date" placeholder="dd/mm/yyyy" maxlength="10" data-ng-model="debtData.expectedEndDate" />
+                        <input type="date" id="add-debt-end-date" dateValid placeholder="yyyy-mm-dd" placeholder="yyyy-mm-dd" pattern="\d{4}[/-]\d{1,2}[/-]\d{1,2}" maxlength="10" data-ng-model="debtData.expectedEndDate" />
                     </li>
                 </ul>
                 <input type="submit" value="Submit" id="add-debt-submit" class="action-button" />

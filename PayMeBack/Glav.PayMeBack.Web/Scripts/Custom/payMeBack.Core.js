@@ -35,46 +35,6 @@ if (typeof window.payMeBack.core === 'undefined') {
             return actualPath;
         },
         
-        formatDate: function (textDate, format) {
-            var createDateString = function (dateObj, cultureFormat) {
-                var days = ["Sunday", "Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday"];
-                var shortDayDesc = days[dateObj.getDay()].substr(0, 3);
-                var day = dateObj.getDate();
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                var month = dateObj.getMonth() + 1;
-                if (month <10) {
-                    month = "0" + month;
-                }
-                var year = dateObj.getFullYear();
-
-                var formattedDate = cultureFormat.replace("ddd", shortDayDesc)
-                    .replace("d", day)
-                    .replace("m", month)
-                    .replace("y", year);
-                return formattedDate;
-            };
-            try {
-                var dateFormat = "d/m/y";
-                if (typeof format !== 'undefined') {
-                    dateFormat = format;
-                }
-
-                // default to todays date if no initial date passed in
-                var d;
-                if (typeof textDate === "undefined" || textDate === null || textDate === "") {
-                    d = new Date();
-                } else {
-                    d = new Date(textDate);
-                }
-
-                
-                return createDateString(d, dateFormat);
-            } catch (e) {
-                return createDateString(new Date(), "d/m/y");
-            }
-        },
         
         formatCurrency: function(amount) {
             try {

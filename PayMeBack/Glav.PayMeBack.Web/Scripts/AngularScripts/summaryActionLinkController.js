@@ -4,7 +4,6 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryAction
 
     // For the add debt link
     $scope.showAddDebtDialog = function () {
-        //window.payMeBack.debtManager.showAddDebtDialog();
         $scope.addDebtModal = true;
     };
 
