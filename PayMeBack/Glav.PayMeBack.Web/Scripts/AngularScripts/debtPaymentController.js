@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentController,
-    function ($scope, debtFactory) {
+    function ($scope, debtFactory,dateFilter) {
 
     init();
 
@@ -9,7 +9,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentCo
         $scope.paymentData = {
             DebtId: '',  // from $rootScope
             AmountPaid: 0,
-            PaymentDate: window.payMeBack.core.formatDate(null, "y-m-d"),
+            PaymentDate: dateFilter(new Date(), "y-m-d"),
             TypeOfPayment: 1
         };
 

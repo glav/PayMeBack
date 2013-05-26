@@ -266,9 +266,12 @@ div.status-message {
         }
 
 /**** Validation errors *****/
-/*.ng-invalid-required {
-    border-color: yellow;
-}*/
+input.ng-invalid {
+    background-color: #FAbbaf !important;
+}
+input.ng-pristine {
+    background-color: white !important;
+}
 /**** End Validation errors *****/
 
 /***** bootstrap modal mods **********/

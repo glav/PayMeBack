@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="paymeback">
+    <head>
+        <meta charset="utf-8">
+        <title>Date Directive Tests</title>
+        <link rel="stylesheet" href="qunit-1.10.0.css">
+        <script src="../Custom/payMeBack.Core.js"></script>
+        <script src="../jquery-1.7.1.min.js"></script>
+        <script src="../angular.js"></script>
+        <script src="qunit-1.10.0.js"></script>
+    </head>
+    <body>
+        <div id="qunit"></div>
+        
+        <script type="text/javascript">
+            // Stubs
+            window.payMeBack = {};
+            window.payMeBack.app = angular.module('paymeback', []);
+            window.payMeBack.app.testController = window.payMeBack.app.controller('testController', ['$scope', function ($scope) {
+                $scope.testModel = "201sss01";
+                //function makeInvalid() {
+                //    $scope.testModel = "zzz";
+                //}
+                
+            }]);
+
+        </script>
+        <script src="../AngularScripts/dateValidationDirective.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                // Get the angular dependency injector or service locator
+                var injector = angular.injector(['ng', 'paymeback']);
+                // Setup the test initialise function to create a valid scope before the test
+                // So we can access this.$scope inside the test
+                var init = {
+                    setup: function () {
+                        this.$scope = injector.get('$rootScope').$new();
+                    }
+                };
+                module('tests', init);
+
+                test("Should validate the date string 2013-01-01", function () {
+                    // get the $compile service from angular
+                    var $compile = injector.get('$compile');
+                    // Create our HTML that contains our directive (with model and controller) and
+                    // get angular to compile this element which in turn evaluates the directive
+                    var element = $compile('<input type="text" date-valid id="testDate" name="testDate" data-ng-model="testModel" data-ng-controller="testController"  />')(this.$scope);
+                    ok(element.hasClass('ng-valid'), "Element is not valid! Expexted element to be valid1");
+                });
+
+                test("Should NOT validate the date string 'blah'", function () {
+                    // get the $compile service from angular
+                    var $compile = injector.get('$compile');
+                    // Create our HTML that contains our directive (with model and controller) and
+                    // get angular to compile this element which in turn evaluates the directive
+                    var element = $compile('<input type="text" date-valid id="testDate" name="testDate" data-ng-model="testModel" data-ng-controller="testController"  />')(this.$scope);
+                    ok(element.hasClass('ng-valid'), "Element is not valid! Expexted element to be valid1");
+
+                    this.$scope.testModel = "blah";
+                    this.$scope.$apply();
+                    //equal(5, element.text());
+                    //delete this.$scope.foo;
+                    ok(element.hasClass('ng-invalid'), "Element is valid! Expexted element to be invalid");
+                });
+
+            });
+
+        </script>
+
+        <form data-ng-controller="testController" name="testForm">
+            
+            <input type="text" date-valid id="test-input" name="testInput" data-ng-model="data" /> 
+        </form>
+
+        
+
+    </body>
+</html>
+
+<!-- from a jsFiddle for Qunit with angular
+    
+    var myApp = angular.module('myApp', []);
+
+myApp.controller('MyCtrl', ['$scope', function($scope) {
+    $scope.addTwo = function(n) {
+        return n + 2;
+    };}]);
+
+myApp.service('MyService', function() {
+    this.addThree = function(n) {
+        return n + 3;
+    };
+});
+
+myApp.directive('myDirective', function() {
+    return {
+        link: function(scope, elm, attrs) {
+            scope.$watch(attrs.myDirective, function(value) {
+                elm.text(value + 4);
+            });
+        }
+    }
+});
+
+myApp.filter('myfilter', function() {
+    return function(s) {
+        return s + 5;
+    };
+});
+
+// tests
+var injector = angular.injector(['ng', 'myApp']);
+
+var init = {
+    setup: function() {
+        this.$scope = injector.get('$rootScope').$new();
+    }
+};
+
+module('tests', init);
+
+test('MyCtrl', function() {
+    var $controller = injector.get('$controller');
+    $controller('MyCtrl', {
+        $scope: this.$scope
+    });
+    equal(3, this.$scope.addTwo(1));
+});
+
+test('MyService', function() {
+    var MyService = injector.get('MyService');
+    equal(4, MyService.addThree(1));
+});
+
+test('MyDirective', function() {
+    var $compile = injector.get('$compile');
+    var element = $compile('<div my-directive="foo"></div>')(this.$scope);
+    this.$scope.foo = 1;
+    this.$scope.$apply();
+    equal(5, element.text());
+    delete this.$scope.foo;
+});
+
+test('MyFilter', function() {
+    var $filter = injector.get('$filter');
+    equal(6, $filter('myfilter')(1));
+});
+    
+    -->
