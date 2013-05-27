@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryController,
-    function ($scope, $rootScope, debtFactory,$dialog) {
+    function ($scope, $rootScope, debtFactory, $dialog, eventFactory) {
 
         refreshSummaryList();
 
@@ -25,7 +25,6 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
 
         $scope.$on('debtSummaryListChanged', refreshSummaryList);
         $scope.$on('closeAllDialogs', function () {
-            refreshSummaryList();
             $scope.closeEditDebtModal();
         });
 
@@ -43,8 +42,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
             window.payMeBack.notificationEngine.showConfirmationContextMessage(null, "Deleting this debt will remove it entirely", function () {
                 debtFactory.deleteDebt(id)
                     .then(function () {
-                        //refreshSummaryList();
-                        debtFactory.triggerRefresh();
+                        eventFactory.triggerRefresh();
                     });
             });
         };
@@ -52,8 +50,6 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
         $scope.editDebt = function (id) {
             $rootScope.debtId = id;
             $scope.editDebtModal = true;
-            //debtFactory.triggerActiveItemChanged(id);
-            //window.payMeBack.debtManager.editDebt(id);
         };
 
         $scope.closeEditDebtModal = function () {
@@ -61,7 +57,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
         };
 
         $scope.editNotification = function (id, $event) {
-            debtFactory.triggerActiveItemChanged(id);
+            eventFactory.triggerActiveItemChanged(id);
             $scope.editNotificationModal = true;
             $event.stopPropagation();
 

@@ -27,7 +27,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentCo
         debtFactory.addPayment($scope.paymentData)
             .then(function () {
                 $("#add-debt-payment-container").fadeOut();
-                debtFactory.triggerRefresh();
+                eventFactory.triggerRefresh();
             });
     }
 });

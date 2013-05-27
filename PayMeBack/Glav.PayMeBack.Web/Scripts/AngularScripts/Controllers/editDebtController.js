@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 window.payMeBack.app.controller(window.payMeBack.core.dependencies.editDebtController,
-    function ($scope, $rootScope, debtFactory) {
+    function ($scope, $rootScope, debtFactory, eventFactory) {
 
         //$scope.debt = {};
 
@@ -36,15 +36,12 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.editDebtContr
                     break;
                 }
             }
-            //$.nyroModalRemove();
             debtFactory.updatePaymentPlan($scope.paymentPlan).then(function (result) {
                 $("#edit-debt-payments-container").data("plan", result);
-                debtFactory.triggerRefresh();
-                debtFactory.triggerCloseAllDialogs();
-                //$.nyroModalRemove();
+                eventFactory.triggerRefresh();
+                eventFactory.triggerCloseAllDialogs();
             });
 
         };
-        //debtFactory.triggerRefresh();
     }
 );

@@ -1,12 +1,15 @@
-﻿<div id="account-settings-modal" class="hidden">
-    <div id="account-settings-container" class="dialog-container">
+﻿<div id="account-settings-modal" modal="acctSettingsModal" opts="opts" close="closeAcctSettingsModal()">
+    <div id="account-settings-container" data-ng-controller="accountSettingsController" class="dialog-container">
         <h3>Account Settings</h3>
         <div id="account-settings-section">
             <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="account-settings-progress-indicator progress-indicator hidden" />
-            <fieldset>
-                <p>getting there, but this section is not complete</p>
-                <input type="button" value="Submit" id="account-settings-submit" class="action-button" />
-            </fieldset>
+            <form data-ng-submit="submitAcctSettingsForm()" name="acctSettings">
+                <fieldset>
+                    <p>getting there, but this section is not complete</p>
+                    <input name="someField" />
+                    <input type="submit" value="Submit" id="account-settings-submit" class="action-button" />
+                </fieldset>
+            </form>
         </div>
     </div>
 
