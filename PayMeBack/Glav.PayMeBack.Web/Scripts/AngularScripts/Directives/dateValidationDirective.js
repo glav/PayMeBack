@@ -71,18 +71,15 @@ window.payMeBack.app.directive('dateValid', function (dateFilter) {
                         }
                     }
                 }
-                console.log(components);
-                console.log('y = ' + year + ', m = ' + month + ', d = ' + day);
-                console.log('normalisedFormat=' + normalisedFormat);
                 var intMonth = parseInt(month, 10);
-                if (isNaN(intMonth) !== true && month <= 12) {
+                if (isNaN(intMonth) !== true && month <= 12 && month > 0) {
                     month = intMonth - 1;
                 } else {
                     return new Date(0, 0, 0);
                 }
 
                 var intDay = parseInt(day, 10);
-                if (isNaN(intDay) == true || intDay > 31) {
+                if (isNaN(intDay) == true || intDay > 31 || day <= 0) {
                     return new Date(0, 0, 0);
                 }
                 var testDate = new Date(year, month, day);
