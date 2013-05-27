@@ -28,6 +28,10 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.editDebtContr
         $scope.getPaymentDescription = debtFactory.getPaymentTypeDescrption;
 
         $scope.submitEditForm = function () {
+            // If form is invalid, then simply return and leave modal open
+            if ($scope.editdebt.$invalid) {
+                return;
+            }
             var numTotalDebt = $scope.paymentPlan.DebtsOwedToMe.length;
             var currentDebt = $scope.debt;
             for (var cnt = 0; cnt < numTotalDebt; cnt++) {
