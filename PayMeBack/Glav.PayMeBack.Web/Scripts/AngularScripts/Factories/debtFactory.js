@@ -114,16 +114,6 @@ window.payMeBack.app.factory(window.payMeBack.core.dependencies.debtFactory, fun
 
         },
 
-        //triggerRefresh: function () {
-        //    $rootScope.$broadcast('debtSummaryListChanged');
-        //},
-        //triggerActiveItemChanged: function (id) {
-        //    $rootScope.$broadcast('debtActiveItemChanged',id);
-        //},
-        //triggerCloseAllDialogs: function() {
-        //    $rootScope.$broadcast('closeAllDialogs');
-        //},
-
         getPaymentTypeDescrption: function (paymentTypeValue) {
             switch (paymentTypeValue) {
                 case debtConstantsFactory.paymentTypes.Unknown:
