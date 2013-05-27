@@ -9,13 +9,21 @@ window.payMeBack.app.directive('dateValid', function (dateFilter) {
             //var dateFormat = 'd-m-y';
 
             function isDateValue(dateValue) {
-                var dateComponents = getDateComponents(dateValue);
-                var testDate = createDateFromComponents(dateComponents, dateFormat);
-                //var testDate = new Date(dateValue);
-                var isValid = testDate.getFullYear() > 1950
-                                && isNaN(testDate.getFullYear()) !== true
-                                && isNaN(testDate.getMonth()) !== true
-                                && isNaN(testDate.getDate()) !== true;
+                var isValid = false;
+                var testDate = null;
+
+                if (dateValue === null || dateValue === "") {
+                    // Allow blank dates
+                    isValid = true;
+                } else {
+                    var dateComponents = getDateComponents(dateValue);
+                    testDate = createDateFromComponents(dateComponents, dateFormat);
+                    //var testDate = new Date(dateValue);
+                    isValid = testDate.getFullYear() > 1950
+                                    && isNaN(testDate.getFullYear()) !== true
+                                    && isNaN(testDate.getMonth()) !== true
+                                    && isNaN(testDate.getDate()) !== true;
+                }
                 return {
                     isValid: isValid,
                     dateData: testDate
@@ -87,15 +95,15 @@ window.payMeBack.app.directive('dateValid', function (dateFilter) {
             }
 
             function formattedDate(dateValue) {
-                return dateFilter(dateValue, dateFormat);
+                if (dateValue != null && dateValue != "") {
+                    return dateFilter(dateValue, dateFormat);
+                } else {
+                    return "";
+                }
             }
 
             // Model to View update
             ctrl.$formatters.unshift(function (modelValue) {
-                if (!dateFormat || !modelValue) {
-                    ctrl.$setValidity('dateValid', false);
-                    return undefined;
-                }
 
                 var result = isDateValue(modelValue);
                 if (!result.isValid) {
@@ -111,14 +119,11 @@ window.payMeBack.app.directive('dateValid', function (dateFilter) {
             //      Need to investigate why
             //View to Model update
             ctrl.$parsers.unshift(function (viewValue) {
-                console.log(viewValue);
                 var result = isDateValue(viewValue);
                 if (result.isValid) {
                     ctrl.$setValidity('dateValid', true);
-                    console.log('valid');
                     return formattedDate(result.dateData);
                 }
-                console.log('invalid');
                 ctrl.$setValidity('dateValid', false);
                 return undefined;
             });

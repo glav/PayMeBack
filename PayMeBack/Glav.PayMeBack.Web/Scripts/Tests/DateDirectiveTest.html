@@ -100,7 +100,7 @@
                     this.$scope.$apply();
                     //equal(5, element.text());
                     //delete this.$scope.foo;
-                    ok(element.hasClass('ng-valid'), "Element is invalid! Expexted element to be valid");
+                    ok(element.hasClass('ng-valid'), "Element is invalid! Expected element to be valid");
                 });
 
                 test("Should NOT validate when day, month, or year equals 0", function () {
@@ -109,13 +109,22 @@
                     var element = $compile('<input type="text" date-valid="mm-dd-yyyy" id="testDate" name="testDate" data-ng-model="testModel"   />')(this.$scope);
                     this.$scope.testModel = "0/13/2015";
                     this.$scope.$apply();
-                    ok(element.hasClass('ng-invalid'), "Element is valid! Expexted element to be invalid as day = 0");
+                    ok(element.hasClass('ng-invalid'), "Element is valid! Expected element to be invalid as day = 0");
                     this.$scope.testModel = "01/0/2015";
                     this.$scope.$apply();
-                    ok(element.hasClass('ng-invalid'), "Element is valid! Expexted element to be invalid as month = 0");
+                    ok(element.hasClass('ng-invalid'), "Element is valid! Expected element to be invalid as month = 0");
                     this.$scope.testModel = "01/01/0000";
                     this.$scope.$apply();
-                    ok(element.hasClass('ng-invalid'), "Element is valid! Expexted element to be invalid as year = 0");
+                    ok(element.hasClass('ng-invalid'), "Element is valid! Expected element to be invalid as year = 0");
+                });
+
+                test("Should allow an empty date", function () {
+                    // Create our HTML that contains our directive (with model and controller) and
+                    // get angular to compile this element which in turn evaluates the directive
+                    var element = $compile('<input type="text" date-valid="mm-dd-yyyy" id="testDate" name="testDate" data-ng-model="testModel"   />')(this.$scope);
+                    this.$scope.testModel = "";
+                    this.$scope.$apply();
+                    ok(element.hasClass('ng-valid'), "Element is invalid! Expected element to be valid as date is empty");
                 });
             });
 
