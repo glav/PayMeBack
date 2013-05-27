@@ -16,19 +16,19 @@ namespace Glav.PayMeBack.Web
                 .Include("~/Scripts/custom/payMeBack.Core.js")
                 .Include("~/Scripts/AngularScripts/ui-bootstrap-tpls-0.3.0.js")
                 .Include("~/Scripts/AngularScripts/init.js")
-                .Include("~/Scripts/AngularScripts/debtConstantsFactory.js")
-                .Include("~/Scripts/AngularScripts/userFactory.js")
-                .Include("~/Scripts/AngularScripts/debtFactory.js")
-                .Include("~/Scripts/AngularScripts/defaultButtonDirective.js")
-                .Include("~/Scripts/AngularScripts/dateValidationDirective.js")
-                .Include("~/Scripts/AngularScripts/notificationFactory.js")
-                .Include("~/Scripts/AngularScripts/signInController.js")
-                .Include("~/Scripts/AngularScripts/addDebtController.js")
-                .Include("~/Scripts/AngularScripts/debtPaymentController.js")
-                .Include("~/Scripts/AngularScripts/summaryActionLinkController.js")
-                .Include("~/Scripts/AngularScripts/editDebtController.js")
-                .Include("~/Scripts/AngularScripts/authenticateController.js")
-                .Include("~/Scripts/AngularScripts/notificationOptionsController.js")
+                .Include("~/Scripts/AngularScripts/Factories/debtConstantsFactory.js")
+                .Include("~/Scripts/AngularScripts/Factories/userFactory.js")
+                .Include("~/Scripts/AngularScripts/Factories/debtFactory.js")
+                .Include("~/Scripts/AngularScripts/Directives/defaultButtonDirective.js")
+                .Include("~/Scripts/AngularScripts/Directives/dateValidationDirective.js")
+                .Include("~/Scripts/AngularScripts/Factories/notificationFactory.js")
+                .Include("~/Scripts/AngularScripts/Controllers/signInController.js")
+                .Include("~/Scripts/AngularScripts/Controllers/addDebtController.js")
+                .Include("~/Scripts/AngularScripts/Controllers/debtPaymentController.js")
+                .Include("~/Scripts/AngularScripts/Controllers/summaryActionLinkController.js")
+                .Include("~/Scripts/AngularScripts/Controllers/editDebtController.js")
+                .Include("~/Scripts/AngularScripts/Controllers/authenticateController.js")
+                .Include("~/Scripts/AngularScripts/Controllers/notificationOptionsController.js")
                 .Include("~/Scripts/AngularScripts/routeConfig.js")
                 .Include("~/Scripts/custom/InputManager.js")
                 .Include("~/Scripts/custom/progressManager.js")
@@ -38,7 +38,7 @@ namespace Glav.PayMeBack.Web
 			bundles.Add(coreBundle);
 
 			var landingPageBundle = new ScriptBundle("~/LandingPageJs")
-                .Include("~/Scripts/AngularScripts/homeController.js");
+                .Include("~/Scripts/AngularScripts/Controllers/homeController.js");
             bundles.Add(landingPageBundle);
 
 			var membershipPageBundle = new ScriptBundle("~/MembershipPageJs")
@@ -46,7 +46,7 @@ namespace Glav.PayMeBack.Web
             bundles.Add(membershipPageBundle);
 
             var summaryPageBundle = new ScriptBundle("~/SummaryPageJs")
-                .Include("~/Scripts/AngularScripts/summaryController.js")
+                .Include("~/Scripts/AngularScripts/Controllers/summaryController.js")
                 .Include("~/Scripts/custom/debt-manager.js")
                 .Include("~/Scripts/custom/accountSettingsManager.js");
             bundles.Add(summaryPageBundle);
