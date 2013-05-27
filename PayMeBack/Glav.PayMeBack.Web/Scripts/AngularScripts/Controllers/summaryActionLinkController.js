@@ -8,7 +8,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryAction
     };
 
     $scope.showManageProfileDialog = function () {
-        window.payMeBack.accountSettingsManager.showAccountSettingsForUser();
+        $scope.acctSettingsModal = true;
     };
 
     $scope.closeAddDebtModal = function () {
@@ -19,6 +19,14 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryAction
         $scope.addDebtModal = false;
     });
 
+    $scope.closeAcctSettingsModal = function () {
+        $scope.acctSettingsModal = false;
+    }
+
+    $scope.$on("closeAllDialogs", function () {
+        $scope.acctSettingsModal = false;
+        $scope.addDebtModal = false;
+    });
 
 
     $scope.opts = {

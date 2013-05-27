@@ -1,6 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtController, function ($scope, $rootScope, debtFactory) {
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtController,
+    function ($scope, $rootScope, debtFactory, eventFactory) {
 
     init();
 
@@ -31,10 +32,9 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtContro
     $scope.submitDebtDataToServer = function () {
         window.payMeBack.progressManager.showProgressIndicator("add-debt-container");
         debtFactory.addDebt($scope.debtData).then(function () {
-            debtFactory.triggerRefresh();
+            eventFactory.triggerRefresh();
             init();
             window.payMeBack.progressManager.hideProgressIndicator("add-debt-container");
-            //$.nyroModalRemove();
         });
     }
 });

@@ -109,8 +109,11 @@ window.payMeBack.login = (function () {
                   credsElement.hide();
                   $("li input", credsElement).val("");
                   if (redirectOnClose) {
-
-                      location.assign(window.payMeBack.core.makePathFromVirtual("~"));
+                      $("#intro-not-authenticated").fadeOut('slow', function () {
+                          $("#intro-authenticated").fadeIn('slow', function () {
+                              location.assign(window.payMeBack.core.makePathFromVirtual("~"));
+                          });
+                      });
                   }
 
               },

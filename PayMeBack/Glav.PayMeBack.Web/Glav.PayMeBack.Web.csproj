@@ -408,6 +408,8 @@
     <Content Include="Images\AddDebt.png" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\AngularScripts\Controllers\addDebtController.js" />
+    <Content Include="Scripts\AngularScripts\Controllers\accountSettingsController.js" />
+    <Content Include="Scripts\AngularScripts\Factories\eventFactory.js" />
     <Content Include="Scripts\AngularScripts\init.js" />
     <Content Include="Scripts\AngularScripts\Controllers\authenticateController.js" />
     <Content Include="Scripts\AngularScripts\Directives\dateValidationDirective.js" />
@@ -426,7 +428,6 @@
     <Content Include="Scripts\AngularScripts\ui-bootstrap-tpls-0.3.0.js" />
     <Content Include="Scripts\AngularScripts\Factories\userFactory.js" />
     <Content Include="Scripts\Custom\ajaxManager.js" />
-    <Content Include="Scripts\Custom\accountSettingsManager.js" />
     <Content Include="Scripts\Custom\debt-manager.js" />
     <Content Include="Scripts\Custom\InputManager.js" />
     <Content Include="Scripts\Custom\Login.js" />
@@ -445,8 +446,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-2.1.0.debug.js" />
-    <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\nyroModal\img\ajaxLoader.gif" />
     <Content Include="Scripts\nyroModal\img\close.gif" />
