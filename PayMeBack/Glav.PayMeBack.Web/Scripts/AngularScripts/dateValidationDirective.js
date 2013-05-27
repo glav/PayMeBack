@@ -42,7 +42,7 @@ window.payMeBack.app.directive('dateValid', function (dateFilter) {
                 var normalisedFormatComponents = normalisedFormat.split('/');
                 var formatCount = normalisedFormatComponents.length;
                 var year, month, day;
-                
+
                 if (normalisedFormatComponents[0].toLowerCase().indexOf('y') >= 0) {
                     year = components[0];
                     if (formatCount > 0 && normalisedFormatComponents[1].toLowerCase().indexOf('m') >= 0) {
@@ -61,8 +61,8 @@ window.payMeBack.app.directive('dateValid', function (dateFilter) {
                     year = components[2];
                     if (normalisedFormatComponents[0].toLowerCase().indexOf('m') >= 0) {
                         month = components[0];
-                        if (formatCount > 1) {
-                            day = components[2];
+                        if (formatCount > 0) {
+                            day = components[1];
                         }
                     } else {
                         day = components[0];
@@ -72,13 +72,17 @@ window.payMeBack.app.directive('dateValid', function (dateFilter) {
                     }
                 }
                 console.log(components);
+                console.log('y = ' + year + ', m = ' + month + ', d = ' + day);
+                console.log('normalisedFormat=' + normalisedFormat);
                 var intMonth = parseInt(month, 10);
-                if (isNaN(intMonth) !== true) {
+                if (isNaN(intMonth) !== true && month <= 12) {
                     month = intMonth - 1;
                 } else {
                     return new Date(0, 0, 0);
                 }
-                if (isNaN(parseInt(day, 10)) == true) {
+
+                var intDay = parseInt(day, 10);
+                if (isNaN(intDay) == true || intDay > 31) {
                     return new Date(0, 0, 0);
                 }
                 var testDate = new Date(year, month, day);
