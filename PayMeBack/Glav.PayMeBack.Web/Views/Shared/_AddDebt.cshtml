@@ -2,7 +2,7 @@
     <div id="add-debt-container" class="dialog-container" data-ng-controller="addDebtController" data-ng-model="debtData">
         <h3>Add a debt that is owed to you</h3>
         <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="add-debt-progress-indicator progress-indicator hidden" />
-        <form data-ng-submit="submitDebtDataToServer()">
+        <form data-ng-submit="submitDebtDataToServer()" name="addDebtForm">
             <fieldset class="dialog-form">
                 <ul>
                     <li>
@@ -32,7 +32,7 @@
                     </li>
                     <li>
                         <label for="add-debt-end-date">Expected or desired date this debt should be paid off by:</label>
-                        <input type="date" id="add-debt-end-date" dateValid placeholder="yyyy-mm-dd" placeholder="yyyy-mm-dd" pattern="\d{4}[/-]\d{1,2}[/-]\d{1,2}" maxlength="10" data-ng-model="debtData.expectedEndDate" />
+                        <input type="text" id="add-debt-end-date" date-valid="dd-mm-yyyy" placeholder="dd-mm-yyyy" maxlength="10" data-ng-model="debtData.expectedEndDate" />
                     </li>
                 </ul>
                 <input type="submit" value="Submit" id="add-debt-submit" class="action-button" />
