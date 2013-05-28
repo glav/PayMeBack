@@ -1,6 +1,6 @@
 /// <reference path="../_references.js" />
 
-window.payMeBack.app.factory(window.payMeBack.core.dependencies.notificationFactory, function ($http) {
+window.payMeBack.app.factory(window.payMeBack.core.dependencies.notificationFactory, ['$http',function ($http) {
 
     return {
         getNotificationOptions: function (debtId) {
@@ -18,4 +18,4 @@ window.payMeBack.app.factory(window.payMeBack.core.dependencies.notificationFact
     };
 
 
-});
+}]);

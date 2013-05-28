@@ -1,5 +1,5 @@
 ﻿
-window.payMeBack.app.directive('dateValid', function (dateFilter) {
+window.payMeBack.app.directive('dateValid', function ['dateFilter',(dateFilter) {
     return {
         require: 'ngModel',
         restrict: 'A',
@@ -129,7 +129,7 @@ window.payMeBack.app.directive('dateValid', function (dateFilter) {
             });
         }
     };
-});
+}]);
 
 
 

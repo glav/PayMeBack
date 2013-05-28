@@ -1,6 +1,6 @@
 /// <reference path="../_references.js" />
 
-window.payMeBack.app.factory(window.payMeBack.core.dependencies.userFactory, function () {
+window.payMeBack.app.factory(window.payMeBack.core.dependencies.userFactory, [function () {
 
     return {
         isUserSignedIn: function () {
@@ -10,4 +10,4 @@ window.payMeBack.app.factory(window.payMeBack.core.dependencies.userFactory, fun
     };
 
     
-});
+}]);

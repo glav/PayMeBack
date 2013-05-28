@@ -37,4 +37,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtContro
             window.payMeBack.progressManager.hideProgressIndicator("add-debt-container");
         });
     }
-});
+    }).$inject = ['$scope', '$rootScope', 'debtFactory', 'eventFactory'];
