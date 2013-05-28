@@ -30,6 +30,11 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtContro
     }
 
     $scope.submitDebtDataToServer = function () {
+        debugger;
+        console.log($scope.addDebtForm);
+        if ($scope.addDebtForm.$invalid) {
+            return;
+        }
         window.payMeBack.progressManager.showProgressIndicator("add-debt-container");
         debtFactory.addDebt($scope.debtData).then(function () {
             eventFactory.triggerRefresh();

@@ -1,5 +1,5 @@
 ﻿
-window.payMeBack.app.directive('dateValid', function ['dateFilter',(dateFilter) {
+window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter) {
     return {
         require: 'ngModel',
         restrict: 'A',
