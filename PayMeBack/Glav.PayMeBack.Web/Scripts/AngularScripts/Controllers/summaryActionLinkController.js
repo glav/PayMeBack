@@ -16,9 +16,9 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryAction
             $scope.addDebtModal = false;
         }
 
-        $scope.$on('debtSummaryListChanged', function () {
-            $scope.addDebtModal = false;
-        });
+        //$scope.$on('debtSummaryListChanged', function () {
+        //    $scope.addDebtModal = false;
+        //});
 
         $scope.closeAcctSettingsModal = function () {
             $scope.acctSettingsModal = false;

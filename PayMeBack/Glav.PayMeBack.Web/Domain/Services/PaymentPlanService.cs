@@ -169,6 +169,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
 														{
 															throw new ArgumentException("No user information associated with a debt");
 														}
+                                                        if (d.IsOutstanding && d.TotalAmountOwed <= 0)
+                                                        {
+                                                            throw new ValidationException("A debt must have an amount owed greater than 0");
+                                                        }
 													});
 
 			// Ensure the amount of payments does not exceed the total debt.
