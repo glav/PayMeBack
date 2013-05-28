@@ -1,8 +1,8 @@
 ﻿<div id="add-debt-modal" modal="addDebtModal" options="opts" close="closeAddDebtModal()">
     <div id="add-debt-container" class="dialog-container" data-ng-controller="addDebtController" data-ng-model="debtData">
         <h3>Add a debt that is owed to you</h3>
-        <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="add-debt-progress-indicator progress-indicator hidden" />
-        <form data-ng-submit="submitDebtDataToServer()" name="addDebtForm">
+        <img src="@Url.Content("~/Images/progress.gif")" data-ng-show="addDebtInProgress" alt="Progress" title="progress" class="add-debt-progress-indicator progress-indicator" />
+        <form data-ng-submit="submitDebtDataToServer()" name="addDebtForm" data-ng-show="!addDebtInProgress">
             <fieldset class="dialog-form">
                 <ul>
                     <li>
@@ -11,7 +11,7 @@
                     </li>
                     <li>
                         <label for="add-debt-amount">Enter amount owed to you:</label>
-                        <input required type="number" placeholder="Amount" data-ng-required="debtData.amountOwed > 0" id="add-debt-amount" maxlength="10" class="input-money" data-ng-model="debtData.amountOwed" />
+                        <input required type="number" placeholder="Amount" required="debtData.amountOwed > 0" id="add-debt-amount" maxlength="10" class="input-money" data-ng-model="debtData.amountOwed" />
                     </li>
                     <li>
                         <label for="add-debt-reason">What is the reason or nature of the debt?</label>

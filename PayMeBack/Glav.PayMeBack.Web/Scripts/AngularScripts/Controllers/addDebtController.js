@@ -27,19 +27,19 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtContro
             { value: 7, label: 'Half Yearly' },
             { value: 8, label: 'Yearly' }
         ];
+
+        $scope.addDebtInProgress = false;
     }
 
     $scope.submitDebtDataToServer = function () {
-        debugger;
-        console.log($scope.addDebtForm);
         if ($scope.addDebtForm.$invalid) {
             return;
         }
-        window.payMeBack.progressManager.showProgressIndicator("add-debt-container");
+        $scope.addDebtInProgress = true;
         debtFactory.addDebt($scope.debtData).then(function () {
             eventFactory.triggerRefresh();
+            eventFactory.triggerCloseAllDialogs();
             init();
-            window.payMeBack.progressManager.hideProgressIndicator("add-debt-container");
         });
     }
     }).$inject = ['$scope', '$rootScope', 'debtFactory', 'eventFactory'];
