@@ -83,4 +83,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
             dialogFade: true
         };
     }
-);
+).$inject = ['$scope','$rootScope','debtFactory','$dialog','eventFactory'];

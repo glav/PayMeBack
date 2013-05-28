@@ -30,4 +30,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentCo
                 eventFactory.triggerRefresh();
             });
     }
-});
+    }).$inject = ['$scope', 'debtFactory', 'dateFilter'];

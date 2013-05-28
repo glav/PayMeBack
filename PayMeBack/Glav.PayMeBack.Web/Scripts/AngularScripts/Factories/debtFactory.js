@@ -1,6 +1,6 @@
 /// <reference path="../_references.js" />
 
-window.payMeBack.app.factory(window.payMeBack.core.dependencies.debtFactory, function ($http, $rootScope, debtConstantsFactory) {
+window.payMeBack.app.factory(window.payMeBack.core.dependencies.debtFactory, ['$http','$rootScope','debtConstantsFactory',function ($http, $rootScope, debtConstantsFactory) {
 
     return {
         addPayment: function (payment) {
@@ -140,4 +140,4 @@ window.payMeBack.app.factory(window.payMeBack.core.dependencies.debtFactory, fun
     };
 
 
-});
+}]);

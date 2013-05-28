@@ -1,6 +1,6 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.factory(window.payMeBack.core.dependencies.debtConstantsFactory, function () {
+window.payMeBack.app.factory(window.payMeBack.core.dependencies.debtConstantsFactory, [function () {
     return {
         paymentTypes: {
             Unknown: 0,
@@ -10,4 +10,4 @@ window.payMeBack.app.factory(window.payMeBack.core.dependencies.debtConstantsFac
             Goods: 4
         }
     }
-});
+}]);

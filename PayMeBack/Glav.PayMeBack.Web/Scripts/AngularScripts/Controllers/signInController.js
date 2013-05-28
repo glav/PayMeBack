@@ -1,6 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.signInController, function ($scope, $rootScope, userFactory) {
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.signInController,
+    function ($scope, $rootScope, userFactory) {
 
     $scope.isUserSignedIn = userFactory.isUserSignedIn;
     $scope.signIn = function () {
@@ -14,4 +15,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.signInControl
         window.payMeBack.login.showLoginDialog(false, true);
     };
 
-});
+    }).$inject = ['$scope', '$rootScope', 'userFactory'];

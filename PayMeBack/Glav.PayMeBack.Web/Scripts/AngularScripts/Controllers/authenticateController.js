@@ -1,6 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.authenticateController, function ($scope, $rootScope) {
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.authenticateController,
+    function ($scope, $rootScope) {
 
     init();
 
@@ -20,4 +21,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.authenticateC
             surname: ''
         }
     }
-});
+    }).$inject = ['$scope', '$rootScope'];

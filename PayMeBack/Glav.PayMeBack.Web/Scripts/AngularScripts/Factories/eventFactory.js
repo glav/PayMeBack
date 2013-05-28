@@ -1,6 +1,6 @@
 /// <reference path="../_references.js" />
 
-window.payMeBack.app.factory(window.payMeBack.core.dependencies.eventFactory, function ($rootScope) {
+window.payMeBack.app.factory(window.payMeBack.core.dependencies.eventFactory, ['$rootScope',function ($rootScope) {
 
     return {
         triggerRefresh: function () {
@@ -15,4 +15,4 @@ window.payMeBack.app.factory(window.payMeBack.core.dependencies.eventFactory, fu
     };
 
     
-});
+}]);

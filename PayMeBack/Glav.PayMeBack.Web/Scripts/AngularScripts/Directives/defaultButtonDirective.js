@@ -1,5 +1,5 @@
 ﻿
-window.payMeBack.app.directive('defaultButton', function () {
+window.payMeBack.app.directive('defaultButton', [function () {
     return {
         restrict: 'AE', // A=attribute, E = element, C = class, M =comment
         link: function (scope, element, attrs) {
@@ -11,7 +11,7 @@ window.payMeBack.app.directive('defaultButton', function () {
             });
         }
     };
-});
+}]);
 
 
 

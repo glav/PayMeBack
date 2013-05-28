@@ -48,4 +48,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.editDebtContr
 
         };
     }
-);
+).$inject = ['$scope', '$rootScope', 'debtFactory', 'eventFactory'];
