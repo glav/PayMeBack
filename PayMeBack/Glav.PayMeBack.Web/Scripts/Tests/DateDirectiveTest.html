@@ -71,12 +71,12 @@
                     ok(element.hasClass('ng-valid'), "Element is invalid! Expexted element to be valid");
                 });
 
-                test("Should validate the date string '15/02/2015' using format dd-mm-yyyy", function () {
+                test("Should validate the date string '15/02/2015' using format dd-MM-yyyy", function () {
                     // Create our HTML that contains our directive (with model and controller) and
                     // get angular to compile this element which in turn evaluates the directive
                     this.$scope.testModel = "15/02/2015";
                     this.$scope.$apply();
-                    var element = $compile('<input type="text" date-valid="dd-mm-yyyy" id="testDate" name="testDate" data-ng-model="testModel"  />')(this.$scope);
+                    var element = $compile('<input type="text" date-valid="dd-MM-yyyy" id="testDate" name="testDate" data-ng-model="testModel"  />')(this.$scope);
                     //equal(5, element.text());
                     //delete this.$scope.foo;
                     ok(element.hasClass('ng-valid'), "Element is invalid! Expexted element to be valid");
@@ -84,7 +84,7 @@
                 test("Should NOT validate the date string '15/13/2015' using format dd-mm-yyyy", function () {
                     // Create our HTML that contains our directive (with model and controller) and
                     // get angular to compile this element which in turn evaluates the directive
-                    var element = $compile('<input type="text" date-valid="dd-mm-yyyy" id="testDate" name="testDate" data-ng-model="testModel"  />')(this.$scope);
+                    var element = $compile('<input type="text" date-valid="dd-MM-yyyy" id="testDate" name="testDate" data-ng-model="testModel"  />')(this.$scope);
                     this.$scope.testModel = "15/13/2015";
                     this.$scope.$apply();
                     //equal(5, element.text());
@@ -92,10 +92,10 @@
                     ok(element.hasClass('ng-invalid'), "Element is valid! Expexted element to be invalid");
                 });
 
-                test("Should validate the date string '12/13/2015' using format mm-dd-yyyy", function () {
+                test("Should validate the date string '12/13/2015' using format MM-dd-yyyy", function () {
                     // Create our HTML that contains our directive (with model and controller) and
                     // get angular to compile this element which in turn evaluates the directive
-                    var element = $compile('<input type="text" date-valid="mm-dd-yyyy" id="testDate" name="testDate" data-ng-model="testModel"   />')(this.$scope);
+                    var element = $compile('<input type="text" date-valid="MM-dd-yyyy" id="testDate" name="testDate" data-ng-model="testModel"   />')(this.$scope);
                     this.$scope.testModel = "12/13/2015";
                     this.$scope.$apply();
                     //equal(5, element.text());
