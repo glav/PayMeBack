@@ -5,19 +5,22 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter)
         restrict: 'A',
         link: function (scope, elm, attrs, ctrl) {
 
-            var dateFormat = attrs.dateValid || "yyyy-mm-dd";
+            var dateFormat = attrs.dateValid || "yyyy-MM-dd";
             //var dateFormat = 'd-m-y';
 
-            function isDateValue(dateValue) {
+            function isDateValue(dateValue, dateFormatToUse) {
+                if (dateFormatToUse === undefined) {
+                    dateFormatToUse = dateFormat;
+                }
                 var isValid = false;
                 var testDate = null;
-
                 if (dateValue === null || dateValue === "") {
                     // Allow blank dates
                     isValid = true;
                 } else {
+                    dateValue = stripTimeComponent(dateValue);
                     var dateComponents = getDateComponents(dateValue);
-                    testDate = createDateFromComponents(dateComponents, dateFormat);
+                    testDate = createDateFromComponents(dateComponents, dateFormatToUse);
                     //var testDate = new Date(dateValue);
                     isValid = testDate.getFullYear() > 1950
                                     && isNaN(testDate.getFullYear()) !== true
@@ -38,6 +41,15 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter)
                 var components = dateValue.split('/');
                 return components;
 
+            }
+
+            function stripTimeComponent(dateValue) {
+                var pos = dateValue.indexOf('T');
+                if (pos >= 0) {
+                    var strippedDate = dateValue.substr(0, pos);
+                    return strippedDate;
+                }
+                return dateValue;
             }
 
             function createDateFromComponents(components, format) {
@@ -104,8 +116,9 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter)
 
             // Model to View update
             ctrl.$formatters.unshift(function (modelValue) {
-
-                var result = isDateValue(modelValue);
+                // When getting data from the model/server, it always gets
+                // serialised as yyyy-MM-dd
+                var result = isDateValue(modelValue,'yyyy-MM-dd');
                 if (!result.isValid) {
                     ctrl.$setValidity('dateValid', false);
                     return undefined;

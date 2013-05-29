@@ -11,7 +11,7 @@
                         <label for="edit-debt-amount">owes you:</label>
                         <input type="number" id="edit-debt-amount" pattern="\d{1,10}" name="editDebtAmount" maxlength="10" data-ng-model="debt.TotalAmountOwed" class="input-money" />
                         <label class="by-separator">by</label>
-                        <input type="date" id="editDebtEndDate" date-valid="yyyy/mm/dd" placeholder="yyyy-mm-dd" @*pattern="\d{4}[/-]\d{1,2}[/-]\d{1,2}"*@ name="editDebtEndDate" maxlength="10" data-ng-model="debt.ExpectedEndDate" />
+                        <input type="date" id="editDebtEndDate" date-valid="dd-MM-yyyy" placeholder="dd-mm-yyyy" @*pattern="\d{4}[/-]\d{1,2}[/-]\d{1,2}"*@ name="editDebtEndDate" maxlength="10" data-ng-model="debt.ExpectedEndDate" />
                     </li>
                     <li class="reason-notes">
                         <label for="edit-debt-reason">Reason?</label>
