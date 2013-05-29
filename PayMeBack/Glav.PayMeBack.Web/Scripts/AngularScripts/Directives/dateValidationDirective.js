@@ -14,6 +14,7 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter)
                 }
                 var isValid = false;
                 var testDate = null;
+
                 if (dateValue === null || dateValue === "") {
                     // Allow blank dates
                     isValid = true;
@@ -114,11 +115,21 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter)
                 }
             }
 
+            function isDateInSerialisedIsoFormat(dateValue) {
+                return (dateValue && dateValue.indexOf('T') >= 0);
+            }
+
             // Model to View update
             ctrl.$formatters.unshift(function (modelValue) {
-                // When getting data from the model/server, it always gets
-                // serialised as yyyy-MM-dd
-                var result = isDateValue(modelValue,'yyyy-MM-dd');
+                var result;
+                if (isDateInSerialisedIsoFormat(modelValue)) {
+                    // When getting data from the model/server, it always gets
+                    // serialised as yyyy-MM-dd
+                    result = isDateValue(modelValue,'yyyy-MM-dd'); 
+                } else {
+                    result = isDateValue(modelValue); 
+                }
+                
                 if (!result.isValid) {
                     ctrl.$setValidity('dateValid', false);
                     return undefined;
