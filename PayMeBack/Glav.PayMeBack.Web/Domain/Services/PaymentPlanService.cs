@@ -41,7 +41,26 @@ namespace Glav.PayMeBack.Web.Domain.Services
             return _planEngine.GetPaymentPlan(userId);
 		}
 
-		public DataAccessResult AddDebtOwed(Guid userId, Debt debt)
+        public UserPaymentPlan GetOustandingDebtsPaymentPlan(Guid userId)
+        {
+            var paymentPlan = _planEngine.GetPaymentPlan(userId);
+            var completedDebts = paymentPlan.DebtsOwedToMe.Where(d => !d.IsOutstanding).ToList();
+            if (completedDebts != null && completedDebts.Count > 0)
+            {
+                completedDebts.ForEach(c => paymentPlan.DebtsOwedToMe.Remove(c));
+            }
+
+            completedDebts = paymentPlan.DebtsOwedToOthers.Where(c => !c.IsOutstanding).ToList();
+            if (completedDebts != null && completedDebts.Count > 0)
+            {
+                completedDebts.ForEach(c => paymentPlan.DebtsOwedToOthers.Remove(c));
+            }
+
+            return paymentPlan;
+
+        }
+        
+        public DataAccessResult AddDebtOwed(Guid userId, Debt debt)
 		{
 			var userPaymentPlan = GetPaymentPlan(userId);
 			userPaymentPlan.DebtsOwedToMe.Add(debt);

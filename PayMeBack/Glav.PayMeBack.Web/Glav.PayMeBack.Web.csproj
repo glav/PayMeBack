@@ -409,6 +409,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\AngularScripts\Controllers\addDebtController.js" />
     <Content Include="Scripts\AngularScripts\Controllers\accountSettingsController.js" />
+    <Content Include="Scripts\AngularScripts\Directives\addPaymentDialogDirective.js" />
     <Content Include="Scripts\AngularScripts\Factories\eventFactory.js" />
     <Content Include="Scripts\AngularScripts\init.js" />
     <Content Include="Scripts\AngularScripts\Controllers\authenticateController.js" />

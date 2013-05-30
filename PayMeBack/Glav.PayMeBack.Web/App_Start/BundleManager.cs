@@ -22,6 +22,7 @@ namespace Glav.PayMeBack.Web
                 .Include("~/Scripts/AngularScripts/Factories/debtFactory.js")
                 .Include("~/Scripts/AngularScripts/Directives/defaultButtonDirective.js")
                 .Include("~/Scripts/AngularScripts/Directives/dateValidationDirective.js")
+                .Include("~/Scripts/AngularScripts/Directives/addPaymentDialogDirective.js")
                 .Include("~/Scripts/AngularScripts/Factories/notificationFactory.js")
                 .Include("~/Scripts/AngularScripts/Controllers/signInController.js")
                 .Include("~/Scripts/AngularScripts/Controllers/addDebtController.js")

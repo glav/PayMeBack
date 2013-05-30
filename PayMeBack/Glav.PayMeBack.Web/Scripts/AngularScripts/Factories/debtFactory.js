@@ -30,7 +30,8 @@ window.payMeBack.app.factory(window.payMeBack.core.dependencies.debtFactory, ['$
             return $http(
                 {
                     method: "GET",
-                    url: "/api/debts",
+                    //url: "/api/debts",
+                    url:"/api/debts/Outstanding",
                     headers: { "Authorization": "Bearer " + window.payMeBack.auth.accessToken }
                 }).then(function (result) {
                     if (result.status === 200) {
