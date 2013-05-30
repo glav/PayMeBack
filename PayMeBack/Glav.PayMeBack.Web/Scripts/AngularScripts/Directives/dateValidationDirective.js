@@ -37,8 +37,8 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', 'dateService',
                     var result = dateService.isDateValue(viewValue, dateFormat);
                     if (result.isValid) {
                         ctrl.$setValidity('dateValid', true);
-                        return result.dateData;
-                        //return formattedDate(result.dateData);
+                        //return result.dateData;
+                        return formattedDate(result.dateData);
                     }
                     ctrl.$setValidity('dateValid', false);
                     return undefined;

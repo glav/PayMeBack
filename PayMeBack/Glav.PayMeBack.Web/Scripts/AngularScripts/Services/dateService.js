@@ -1,5 +1,5 @@
 ﻿
-window.payMeBack.app.service('dateService', ['dateFilter',function (dateFilter) {
+window.payMeBack.app.service('dateService', ['dateFilter', function (dateFilter) {
     return {
         defaultDateFormat: "yyyy-MM-dd",
 
@@ -14,10 +14,10 @@ window.payMeBack.app.service('dateService', ['dateFilter',function (dateFilter) 
                 // Allow blank dates
                 isValid = true;
             } else {
-
-                dateValue = this.stripTimeComponent(dateValue);
-                var dateComponents = this.getDateComponents(dateValue);
-                testDate = this.createDateFromComponents(dateComponents, dateFormatToUse);
+                //dateValue = this.stripTimeComponent(dateValue);
+                var components = this.getComponents(dateValue);
+                console.log(components);
+                testDate = this.createDateFromComponents(components, dateFormatToUse);
                 //var testDate = new Date(dateValue);
                 isValid = testDate.getFullYear() > 1950
                                 && isNaN(testDate.getFullYear()) !== true
@@ -31,62 +31,76 @@ window.payMeBack.app.service('dateService', ['dateFilter',function (dateFilter) 
         },
 
         // utilise separators
-        getDateComponents: function (dateValue) {
-            // COnvert any supported separators (- and .) into '/'
-            dateValue = dateValue.replace(/-/g, '/');
-            //dateValue = dateValue.replace(/./g, '/');
-            var components = dateValue.split('/');
-            return components;
+        getComponents: function (dateValue) {
+            if (dateValue) {
+                var datePart, timePart;
+                var tPos = dateValue.indexOf('T');
+                if (tPos >= 0) {
+                    datePart = dateValue.substr(0, tPos);
+                    timePart = dateValue.substr(tPos + 1, dateValue.length - 1);
+                } else {
+                    datePart = dateValue;
+                    timePart = "0:0:0";
+                }
+                // COnvert any supported separators (- and .) into '/'
+                datePart = datePart.replace(/-/g, '/');
+                //dateValue = dateValue.replace(/./g, '/');
+                var dateComponents = datePart.split('/');
+                var timeComponents = timePart.split(':');
+                if (timeComponents.length >= 3) {
+                    var dotPos = timeComponents[2].indexOf('.');
+                    if (dotPos >= 0) {
+                        timeComponents[2] = timeComponents[2].substr(0, dotPos);
+                    }
+                }
 
-        },
-
-        stripTimeComponent: function (dateValue) {
-            if (dateValue.indexOf) {
-                var pos = dateValue.indexOf('T');
-                if (pos >= 0) {
-                    var strippedDate = dateValue.substr(0, pos);
-                    return strippedDate;
+                return {
+                    dateParts: dateComponents,
+                    timeParts: timeComponents
                 }
             }
-            return dateValue;
+            return {
+                dateParts: [],
+                timeParts: []
+            };
+
         },
 
         createDateFromComponents: function (components, format) {
-            if (components.length !== 3) {
+            if (components.dateParts.length !== 3) {
                 return new Date(0, 0, 0);
             }
 
             var normalisedFormat = format.replace(/-/g, '/');
-            //normalisedFormat = normalisedFormat.replace(/./g, '/');
             var normalisedFormatComponents = normalisedFormat.split('/');
             var formatCount = normalisedFormatComponents.length;
             var year, month, day;
 
             if (normalisedFormatComponents[0].toLowerCase().indexOf('y') >= 0) {
-                year = components[0];
+                year = components.dateParts[0];
                 if (formatCount > 0 && normalisedFormatComponents[1].toLowerCase().indexOf('m') >= 0) {
-                    month = components[1];
+                    month = components.dateParts[1];
                     if (formatCount > 1) {
-                        day = components[2];
+                        day = components.dateParts[2];
                     }
                 } else {
-                    day = components[1];
+                    day = components.dateParts[1];
                     if (formatCount > 1) {
-                        month = components[2];
+                        month = components.dateParts[2];
                     }
                 }
 
             } else {
-                year = components[2];
+                year = components.dateParts[2];
                 if (normalisedFormatComponents[0].toLowerCase().indexOf('m') >= 0) {
-                    month = components[0];
+                    month = components.dateParts[0];
                     if (formatCount > 0) {
-                        day = components[1];
+                        day = components.dateParts[1];
                     }
                 } else {
-                    day = components[0];
+                    day = components.dateParts[0];
                     if (formatCount > 1) {
-                        month = components[1];
+                        month = components.dateParts[1];
                     }
                 }
             }
@@ -101,8 +115,8 @@ window.payMeBack.app.service('dateService', ['dateFilter',function (dateFilter) 
             if (isNaN(intDay) == true || intDay > 31 || day <= 0) {
                 return new Date(0, 0, 0);
             }
-            var currentDate = new Date();
-            var testDate = new Date(year, month, day, currentDate.getHours(), currentDate.getMinutes());
+            console.log('year=' + year + ' month=' + month + ', day=' + day + ',hour=' + parseInt(components.timeParts[0], 10) + ', minute=' + parseInt(components.timeParts[1], 10));
+            var testDate = new Date(year, month, day, parseInt(components.timeParts[0], 10), parseInt(components.timeParts[1], 10));
             return testDate;
         },
 
