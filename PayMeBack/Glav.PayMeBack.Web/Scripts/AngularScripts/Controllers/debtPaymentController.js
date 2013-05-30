@@ -22,6 +22,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentCo
     }
 
     $scope.submitDebtDataToServer = function () {
+        debugger;
         if ($scope.addPaymentForm.$invalid) {
             return;
         }

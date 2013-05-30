@@ -1,163 +1,51 @@
-﻿
-window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter) {
-    return {
-        require: 'ngModel',
-        restrict: 'A',
-        link: function (scope, elm, attrs, ctrl) {
+﻿/// <reference path="../Services/dateService.js" />
 
-            var dateFormat = attrs.dateValid || "yyyy-MM-dd";
-            //var dateFormat = 'd-m-y';
+window.payMeBack.app.directive('dateValid', ['dateFilter', 'dateService',
+    function (dateFilter, dateService) {
+        return {
+            require: 'ngModel',
+            restrict: 'A',
+            link: function (scope, elm, attrs, ctrl) {
 
-            function isDateValue(dateValue, dateFormatToUse) {
-                if (dateFormatToUse === undefined) {
-                    dateFormatToUse = dateFormat;
-                }
-                var isValid = false;
-                var testDate = null;
+                var dateFormat = attrs.dateValid || "yyyy-MM-dd";
+                //var dateFormat = 'd-m-y';
 
-                if (dateValue === null || dateValue === "") {
-                    // Allow blank dates
-                    isValid = true;
-                } else {
-                    
-                    dateValue = stripTimeComponent(dateValue);
-                    var dateComponents = getDateComponents(dateValue);
-                    testDate = createDateFromComponents(dateComponents, dateFormatToUse);
-                    //var testDate = new Date(dateValue);
-                    isValid = testDate.getFullYear() > 1950
-                                    && isNaN(testDate.getFullYear()) !== true
-                                    && isNaN(testDate.getMonth()) !== true
-                                    && isNaN(testDate.getDate()) !== true;
-                }
-                return {
-                    isValid: isValid,
-                    dateData: testDate
-                };
-            }
 
-            // utilise separators
-            function getDateComponents(dateValue) {
-                // COnvert any supported separators (- and .) into '/'
-                dateValue = dateValue.replace(/-/g, '/');
-                //dateValue = dateValue.replace(/./g, '/');
-                var components = dateValue.split('/');
-                return components;
-
-            }
-
-            function stripTimeComponent(dateValue) {
-                if (dateValue.indexOf) {
-                    var pos = dateValue.indexOf('T');
-                    if (pos >= 0) {
-                        var strippedDate = dateValue.substr(0, pos);
-                        return strippedDate;
-                    }
-                }
-                return dateValue;
-            }
-
-            function createDateFromComponents(components, format) {
-                if (components.length !== 3) {
-                    return new Date(0, 0, 0);
-                }
-
-                var normalisedFormat = format.replace(/-/g, '/');
-                //normalisedFormat = normalisedFormat.replace(/./g, '/');
-                var normalisedFormatComponents = normalisedFormat.split('/');
-                var formatCount = normalisedFormatComponents.length;
-                var year, month, day;
-
-                if (normalisedFormatComponents[0].toLowerCase().indexOf('y') >= 0) {
-                    year = components[0];
-                    if (formatCount > 0 && normalisedFormatComponents[1].toLowerCase().indexOf('m') >= 0) {
-                        month = components[1];
-                        if (formatCount > 1) {
-                            day = components[2];
-                        }
+                // Model to View update
+                ctrl.$formatters.unshift(function (modelValue) {
+                    var result;
+                    if (dateService.isDateInSerialisedIsoFormat(modelValue)) {
+                        // When getting data from the model/server, it always gets
+                        // serialised as yyyy-MM-dd
+                        result = dateService.isDateValue(modelValue, 'yyyy-MM-dd');
                     } else {
-                        day = components[1];
-                        if (formatCount > 1) {
-                            month = components[2];
-                        }
+                        result = dateService.isDateValue(modelValue, dateFormat);
                     }
 
-                } else {
-                    year = components[2];
-                    if (normalisedFormatComponents[0].toLowerCase().indexOf('m') >= 0) {
-                        month = components[0];
-                        if (formatCount > 0) {
-                            day = components[1];
-                        }
-                    } else {
-                        day = components[0];
-                        if (formatCount > 1) {
-                            month = components[1];
-                        }
+                    if (!result.isValid) {
+                        ctrl.$setValidity('dateValid', false);
+                        return undefined;
                     }
-                }
-                var intMonth = parseInt(month, 10);
-                if (isNaN(intMonth) !== true && month <= 12 && month > 0) {
-                    month = intMonth - 1;
-                } else {
-                    return new Date(0, 0, 0);
-                }
+                    ctrl.$setValidity('dateValid', true);
+                    return dateService.formattedDate(result.dateData, dateFormat);
+                });
 
-                var intDay = parseInt(day, 10);
-                if (isNaN(intDay) == true || intDay > 31 || day <= 0) {
-                    return new Date(0, 0, 0);
-                }
-                var currentDate = new Date();
-                var testDate = new Date(year, month, day, currentDate.getHours(),currentDate.getMinutes());
-                return testDate;
-            }
-
-            function formattedDate(dateValue) {
-                if (dateValue != null && dateValue != "") {
-                    return dateFilter(dateValue, dateFormat);
-                } else {
-                    return "";
-                }
-            }
-
-            function isDateInSerialisedIsoFormat(dateValue) {
-                return (dateValue && dateValue.indexOf && dateValue.indexOf('T') >= 0);
-            }
-
-            // Model to View update
-            ctrl.$formatters.unshift(function (modelValue) {
-                var result;
-                if (isDateInSerialisedIsoFormat(modelValue)) {
-                    // When getting data from the model/server, it always gets
-                    // serialised as yyyy-MM-dd
-                    result = isDateValue(modelValue,'yyyy-MM-dd'); 
-                } else {
-                    result = isDateValue(modelValue); 
-                }
-                
-                if (!result.isValid) {
+                //NOTE: This does not seem to set the field to invalid or anything like that
+                //      Need to investigate why
+                //View to Model update
+                ctrl.$parsers.unshift(function (viewValue) {
+                    var result = dateService.isDateValue(viewValue, dateFormat);
+                    if (result.isValid) {
+                        ctrl.$setValidity('dateValid', true);
+                        return result.dateData;
+                        //return formattedDate(result.dateData);
+                    }
                     ctrl.$setValidity('dateValid', false);
                     return undefined;
-                }
-                ctrl.$setValidity('dateValid', true);
-                return formattedDate(result.dateData, dateFormat);
-            });
-
-            //NOTE: This does not seem to set the field to invalid or anything like that
-            //      Need to investigate why
-            //View to Model update
-            ctrl.$parsers.unshift(function (viewValue) {
-                var result = isDateValue(viewValue);
-                if (result.isValid) {
-                    ctrl.$setValidity('dateValid', true);
-                    return result.dateData;
-                    //return formattedDate(result.dateData);
-                }
-                ctrl.$setValidity('dateValid', false);
-                return undefined;
-            });
-        }
-    };
-}]);
+                });
+            }
+        };
+    }]);
 
 
 

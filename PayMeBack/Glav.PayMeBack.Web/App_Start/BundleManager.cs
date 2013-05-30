@@ -10,8 +10,8 @@ namespace Glav.PayMeBack.Web
     {
         public static void RegisterJsBundles(BundleCollection bundles)
         {
-			var coreBundle = new ScriptBundle("~/CoreJs");
-			coreBundle.Include("~/Scripts/nyroModal/js/jquery.nyroModal.js")
+            var coreBundle = new ScriptBundle("~/CoreJs");
+            coreBundle.Include("~/Scripts/nyroModal/js/jquery.nyroModal.js")
                 .Include("~/Scripts/angular.js")
                 .Include("~/Scripts/custom/payMeBack.Core.js")
                 .Include("~/Scripts/AngularScripts/ui-bootstrap-tpls-0.3.0.js")
@@ -20,6 +20,7 @@ namespace Glav.PayMeBack.Web
                 .Include("~/Scripts/AngularScripts/Factories/userFactory.js")
                 .Include("~/Scripts/AngularScripts/Factories/eventFactory.js")
                 .Include("~/Scripts/AngularScripts/Factories/debtFactory.js")
+                .Include("~/Scripts/AngularScripts/Services/dateService.js")
                 .Include("~/Scripts/AngularScripts/Directives/defaultButtonDirective.js")
                 .Include("~/Scripts/AngularScripts/Directives/dateValidationDirective.js")
                 .Include("~/Scripts/AngularScripts/Directives/addPaymentDialogDirective.js")
@@ -38,13 +39,13 @@ namespace Glav.PayMeBack.Web
                 .Include("~/Scripts/custom/notificationEngine.js")
                 .Include("~/Scripts/custom/ajaxManager.js")
                 .Include("~/Scripts/custom/Login.js");
-			bundles.Add(coreBundle);
+            bundles.Add(coreBundle);
 
-			var landingPageBundle = new ScriptBundle("~/LandingPageJs")
+            var landingPageBundle = new ScriptBundle("~/LandingPageJs")
                 .Include("~/Scripts/AngularScripts/Controllers/homeController.js");
             bundles.Add(landingPageBundle);
 
-			var membershipPageBundle = new ScriptBundle("~/MembershipPageJs")
+            var membershipPageBundle = new ScriptBundle("~/MembershipPageJs")
                 .Include("~/Scripts/custom/membership.js");
             bundles.Add(membershipPageBundle);
 
