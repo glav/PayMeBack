@@ -426,6 +426,7 @@
     <Content Include="Scripts\AngularScripts\Controllers\homeController.js" />
     <Content Include="Scripts\AngularScripts\Controllers\summaryActionLinkController.js" />
     <Content Include="Scripts\AngularScripts\Controllers\summaryController.js" />
+    <Content Include="Scripts\AngularScripts\Services\dateService.js" />
     <Content Include="Scripts\AngularScripts\ui-bootstrap-tpls-0.3.0.js" />
     <Content Include="Scripts\AngularScripts\Factories\userFactory.js" />
     <Content Include="Scripts\Custom\ajaxManager.js" />
