@@ -28,15 +28,6 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
             $scope.closeEditDebtModal();
         });
 
-        $scope.addPayment = function (id, $event) {
-            var xPos = $event.clientX;
-            var yPos = $event.clientY;
-            $rootScope.debtId = id;
-
-            window.payMeBack.debtManager.showAddPaymentToDebtDialog(xPos, yPos, id);
-            $event.stopPropagation();
-        };
-
         $scope.deleteDebt = function (id, $event) {
             $event.stopPropagation();
             window.payMeBack.notificationEngine.showConfirmationContextMessage(null, "Deleting this debt will remove it entirely", function () {

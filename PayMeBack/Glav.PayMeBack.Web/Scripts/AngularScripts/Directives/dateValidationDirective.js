@@ -19,6 +19,7 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter)
                     // Allow blank dates
                     isValid = true;
                 } else {
+                    
                     dateValue = stripTimeComponent(dateValue);
                     var dateComponents = getDateComponents(dateValue);
                     testDate = createDateFromComponents(dateComponents, dateFormatToUse);
@@ -45,10 +46,12 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter)
             }
 
             function stripTimeComponent(dateValue) {
-                var pos = dateValue.indexOf('T');
-                if (pos >= 0) {
-                    var strippedDate = dateValue.substr(0, pos);
-                    return strippedDate;
+                if (dateValue.indexOf) {
+                    var pos = dateValue.indexOf('T');
+                    if (pos >= 0) {
+                        var strippedDate = dateValue.substr(0, pos);
+                        return strippedDate;
+                    }
                 }
                 return dateValue;
             }
@@ -103,7 +106,8 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter)
                 if (isNaN(intDay) == true || intDay > 31 || day <= 0) {
                     return new Date(0, 0, 0);
                 }
-                var testDate = new Date(year, month, day);
+                var currentDate = new Date();
+                var testDate = new Date(year, month, day, currentDate.getHours(),currentDate.getMinutes());
                 return testDate;
             }
 
@@ -116,7 +120,7 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter)
             }
 
             function isDateInSerialisedIsoFormat(dateValue) {
-                return (dateValue && dateValue.indexOf('T') >= 0);
+                return (dateValue && dateValue.indexOf && dateValue.indexOf('T') >= 0);
             }
 
             // Model to View update
@@ -134,9 +138,8 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter)
                     ctrl.$setValidity('dateValid', false);
                     return undefined;
                 }
-
                 ctrl.$setValidity('dateValid', true);
-                return formattedDate(modelValue);
+                return formattedDate(result.dateData, dateFormat);
             });
 
             //NOTE: This does not seem to set the field to invalid or anything like that
@@ -146,7 +149,8 @@ window.payMeBack.app.directive('dateValid', ['dateFilter', function (dateFilter)
                 var result = isDateValue(viewValue);
                 if (result.isValid) {
                     ctrl.$setValidity('dateValid', true);
-                    return formattedDate(result.dateData);
+                    return result.dateData;
+                    //return formattedDate(result.dateData);
                 }
                 ctrl.$setValidity('dateValid', false);
                 return undefined;

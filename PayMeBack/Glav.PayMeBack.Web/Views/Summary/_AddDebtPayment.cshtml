@@ -4,7 +4,7 @@
     <h3>Add Payment</h3>
     <div id="add-debt-payment-section" data-ng-controller="debtPaymentController">
         <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="add-debt-payment-progress-indicator progress-indicator hidden" />
-        <form data-ng-submit="submitDebtDataToServer()">
+        <form data-ng-submit="submitDebtDataToServer()" name="addPaymentForm">
             <fieldset>
 
                 <ul>
@@ -14,7 +14,7 @@
                     </li>
                     <li class="date">
                         <label>Date</label>
-                        <input id="payment-date" name="paymentDate" required data-ng-model="paymentData.PaymentDate" type="date" class="data-entry" />
+                        <input id="payment-date" date-valid="dd-MM-yyyy" placeholder="dd-MM-yyyy" name="paymentDate" required data-ng-model="paymentData.PaymentDate" type="text" class="data-entry" />
                     </li>
                     <li class="type">
                         <label>Type</label>

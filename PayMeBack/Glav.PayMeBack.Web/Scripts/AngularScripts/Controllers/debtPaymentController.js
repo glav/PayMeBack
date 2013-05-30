@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentController,
-    function ($scope, debtFactory,dateFilter) {
+    function ($scope, debtFactory,dateFilter,eventFactory) {
 
     init();
 
@@ -9,7 +9,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentCo
         $scope.paymentData = {
             DebtId: '',  // from $rootScope
             AmountPaid: 0,
-            PaymentDate: dateFilter(new Date(), "y-m-d"),
+            PaymentDate: dateFilter(new Date(), "dd-MM-yyyy"),
             TypeOfPayment: 1
         };
 
@@ -22,12 +22,14 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentCo
     }
 
     $scope.submitDebtDataToServer = function () {
+        if ($scope.addPaymentForm.$invalid) {
+            return;
+        }
         $scope.paymentData.DebtId = $scope.debtId;
-
         debtFactory.addPayment($scope.paymentData)
             .then(function () {
                 $("#add-debt-payment-container").fadeOut();
                 eventFactory.triggerRefresh();
             });
     }
-    }).$inject = ['$scope', 'debtFactory', 'dateFilter'];
+    }).$inject = ['$scope', 'debtFactory', 'dateFilter','eventFactory'];

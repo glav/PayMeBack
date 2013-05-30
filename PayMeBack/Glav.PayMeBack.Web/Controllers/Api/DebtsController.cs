@@ -34,7 +34,21 @@ namespace Glav.PayMeBack.Web.Controllers.Api
 			return _paymentPlanService.GetPaymentPlan(user.Id);
         }
 
-		/// <summary>
+        /// <summary>
+        /// Returns an existing payment plan, or a new one if one does not
+        /// exist for the user. The user is inferred from the user making the
+        /// request. If a user has existing debts, only outstanding debts are
+        /// returned, not fulfilled/completed debts.
+        /// </summary>
+        /// <param name="user">The user to retrieve the paymentplan for. This is
+        /// retrieving from the users access token who is making the request</param>
+        /// <returns>A <see cref="UserPaymentPlan"/></returns>
+        public UserPaymentPlan GetOutstanding([FromUri] User user)
+        {
+            return _paymentPlanService.GetOustandingDebtsPaymentPlan(user.Id);
+        }
+        
+        /// <summary>
 		/// Updates an existing payment plan for the user making the request
 		/// </summary>
 		/// <param name="paymentPlan">The payment plan to be updated.</param>
