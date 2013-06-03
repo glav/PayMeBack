@@ -16,7 +16,6 @@ window.payMeBack.app.service('dateService', ['dateFilter', function (dateFilter)
             } else {
                 //dateValue = this.stripTimeComponent(dateValue);
                 var components = this.getComponents(dateValue);
-                console.log(components);
                 testDate = this.createDateFromComponents(components, dateFormatToUse);
                 //var testDate = new Date(dateValue);
                 isValid = testDate.getFullYear() > 1950
@@ -115,7 +114,6 @@ window.payMeBack.app.service('dateService', ['dateFilter', function (dateFilter)
             if (isNaN(intDay) == true || intDay > 31 || day <= 0) {
                 return new Date(0, 0, 0);
             }
-            console.log('year=' + year + ' month=' + month + ', day=' + day + ',hour=' + parseInt(components.timeParts[0], 10) + ', minute=' + parseInt(components.timeParts[1], 10));
             var testDate = new Date(year, month, day, parseInt(components.timeParts[0], 10), parseInt(components.timeParts[1], 10));
             return testDate;
         },

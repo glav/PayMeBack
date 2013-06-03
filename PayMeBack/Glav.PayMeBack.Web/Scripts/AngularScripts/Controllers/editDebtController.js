@@ -40,6 +40,16 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.editDebtContr
                     break;
                 }
             }
+
+            if (currentDebt.expectedEndDate !== '') {
+                var result = dateService.isDateValue(currentDebt.ExpectedEndDate, 'dd-MM-yyyy');
+                if (result.isValid) {
+                    currentDebt.ExpectedEndDate = dateFilter(result.dateData, 'yyyy-MM-dd');
+                } else {
+                    return;
+                }
+            }
+
             debtFactory.updatePaymentPlan($scope.paymentPlan).then(function (result) {
                 $("#edit-debt-payments-container").data("plan", result);
                 eventFactory.triggerRefresh();
