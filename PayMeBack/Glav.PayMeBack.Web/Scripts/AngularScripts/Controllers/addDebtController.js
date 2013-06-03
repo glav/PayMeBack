@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtController,
-    function ($scope, $rootScope, debtFactory, eventFactory) {
+    function ($scope, $rootScope, debtFactory, eventFactory, dateService) {
 
     init();
 
@@ -36,10 +36,20 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtContro
             return;
         }
         $scope.addDebtInProgress = true;
+
+        if ($scope.debtData.expectedEndDate !== '') {
+            var result = dateService.isDateValue($scope.debtData.expectedEndDate, 'dd-MM-yyyy');
+            if (result.isValid) {
+                $scope.debtData.expectedEndDate = dateFilter(result.dateData, 'yyyy-MM-dd');
+            } else {
+                return;
+            }
+        }
+
         debtFactory.addDebt($scope.debtData).then(function () {
             eventFactory.triggerRefresh();
             eventFactory.triggerCloseAllDialogs();
             init();
         });
     }
-    }).$inject = ['$scope', '$rootScope', 'debtFactory', 'eventFactory'];
+    }).$inject = ['$scope', '$rootScope', 'debtFactory', 'eventFactory','dateService'];

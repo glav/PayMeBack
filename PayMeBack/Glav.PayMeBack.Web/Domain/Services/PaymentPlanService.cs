@@ -41,7 +41,7 @@ namespace Glav.PayMeBack.Web.Domain.Services
             return _planEngine.GetPaymentPlan(userId);
 		}
 
-        public UserPaymentPlan GetOustandingDebtsPaymentPlan(Guid userId)
+        public UserPaymentPlan GetOutstandingDebtsPaymentPlan(Guid userId)
         {
             var paymentPlan = _planEngine.GetPaymentPlan(userId);
             var completedDebts = paymentPlan.DebtsOwedToMe.Where(d => !d.IsOutstanding).ToList();

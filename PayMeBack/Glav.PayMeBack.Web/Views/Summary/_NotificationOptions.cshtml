@@ -15,25 +15,25 @@
                             <select id="debt-notification-method" name="debtNotificationMethod" data-ng-model="notifyOptions.NotificationMethod" data-ng-options="p.value as p.label for p in notificationOptions">
                             </select>
                         </li>
-                        <li class="notification-email-option">
+                        <li class="notification-email-option" data-ng-show="isEmailSelected()">
                             <label for="debt-notification-email">Email Address:</label>
-                            <input type="text" id="debt-notification-email" name="debtNotificationEmail" data-ng-model="notifyOptions.NotificationEmailAddress" />
+                            <input type="email" id="debt-notification-email" data-ng-required="isEmailSelected()" name="debtNotificationEmail" data-ng-model="notifyOptions.NotificationEmailAddress" />
                         </li>
-                        <li class="notification-sms-option">
+                        <li class="notification-sms-option" data-ng-show="isSmsSelected()">
                             <label for="debt-notification-sms">Sms Number:</label>
-                            <input type="tel" id="debt-notification-sms" name="debtNotificationSms" data-ng-model="notifyOptions.NotificationSmsNumber" />
+                            <input type="tel" id="debt-notification-sms" data-ng-required="isSmsSelected()" name="debtNotificationSms" data-ng-model="notifyOptions.NotificationSmsNumber" />
                         </li>
-                        <li class="frequency-interval">
+                        <li class="frequency-interval" data-ng-show="isSelectionMade()">
                             <label for="debt-notification-interval">Reminder Interval</label>
                             <select id="debt-notification-interval" name="debtNotificationInterval" data-ng-model="notifyOptions.Interval.Frequency" data-ng-options="p.value as p.label for p in notificationInterval">
                             </select>
                         </li>
-                        <li class="frequency-option">
+                        <li class="frequency-option" data-ng-show="isSelectionMade() && isReminderIntervalSelectionMade()">
                             <label for="debt-notification-frequency">Frequency Count</label>
                             <input id="debt-notification-frequency" name="debtNotificationFrequency" type="number" data-ng-mpdel="notifyOptions.Interval.FrequencyCount" />
                         </li>
-                        <li class="frequency-option">
-                            <label for="debt-notification-dayofweek">Reminder Interval</label>
+                        <li class="frequency-option" data-ng-show="isSelectionMade() && isIntervalWeekly()">
+                            <label for="debt-notification-dayofweek">Reminder Option</label>
                             <select id="debt-notification-dayofweek" name="debtNotificationDayofweek" data-ng-model="notifyOptions.Interval.WeekDay" data-ng-options="p.value as p.label for p in weekDays">
                             </select>
                         </li>

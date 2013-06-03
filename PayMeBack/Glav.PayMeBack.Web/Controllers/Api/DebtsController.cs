@@ -45,7 +45,7 @@ namespace Glav.PayMeBack.Web.Controllers.Api
         /// <returns>A <see cref="UserPaymentPlan"/></returns>
         public UserPaymentPlan GetOutstanding([FromUri] User user)
         {
-            return _paymentPlanService.GetOustandingDebtsPaymentPlan(user.Id);
+            return _paymentPlanService.GetOutstandingDebtsPaymentPlan(user.Id);
         }
         
         /// <summary>
