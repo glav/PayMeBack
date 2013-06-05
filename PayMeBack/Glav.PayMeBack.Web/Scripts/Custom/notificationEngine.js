@@ -105,7 +105,7 @@ window.payMeBack.notificationEngine = (function () {
 
     return {
         showPopupDialogMessage: function (message) { showPopupDialogMessage(message); },
-        showStatusBarMessage: function (message, containerEl, topPositionOffset) { showStatusBarMessage(message, containerEl, topPositionOffset); },
+        showStatusBarMessage: function (message, messageType, containerEl, topPositionOffset) { showStatusBarMessage(message, messageType, containerEl, topPositionOffset); },
         showConfirmationContextMessage: function (triggerElement, message, confirmationCallback) { showConfirmationContextMessage(triggerElement, message, confirmationCallback); },
         MessageTypeInfo: MESSAGE_TYPE_INFO,
         MessageTypeError: MESSAGE_TYPE_ERROR,

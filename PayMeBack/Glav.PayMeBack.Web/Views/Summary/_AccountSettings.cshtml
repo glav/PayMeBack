@@ -4,9 +4,31 @@
         <div id="account-settings-section">
             <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="account-settings-progress-indicator progress-indicator hidden" />
             <form data-ng-submit="submitAcctSettingsForm()" name="acctSettings">
-                <fieldset>
-                    <p>getting there, but this section is not complete</p>
-                    <input name="someField" />
+                <fieldset class="dialog-form">
+                    <ul>
+                        <li>
+                            <label>Email:</label>
+                            <input type="email" maxlength="128" required data-ng-model="userData.UserDetails.EmailAddress" />
+                        </li>
+                        <li>
+                            <label>Password:</label>
+                            <input type="password" maxlength="100" name="password" id="password" data-ng-model="userData.NewPassword" />
+                        </li>
+                        <li>
+                            <label>Retype New Password:</label>
+                            <input type="password" password-match="password" data-ng-model="passwordMatch" name="passwordMatch" data-ng-required="isPasswordEntered()" maxlength="100"  />
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label>First names:</label>
+                            <input type="text" maxlength="128" data-ng-model="userData.UserDetails.FirstNames" />
+                        </li>
+                        <li>
+                            <label>Surname:</label>
+                            <input type="text" maxlength="128" data-ng-model="userData.UserDetails.Surname" />
+                        </li>
+                    </ul>
                     <input type="submit" value="Submit" id="account-settings-submit" class="action-button" />
                 </fieldset>
             </form>
