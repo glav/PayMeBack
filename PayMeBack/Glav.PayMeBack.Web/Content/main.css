@@ -185,11 +185,11 @@ div.dialog-container h3 {
         /*padding-left: 20px;*/
     }
 
-        div.dialog-container fieldset.dialog-form ul li, div.dialog-container div.dialog-form ul li {
+        /*div.dialog-container fieldset.dialog-form ul li, div.dialog-container div.dialog-form ul li {
             padding: 5px;
             font-size: 1.1em;
             width:260px;
-        }
+        }*/
         
             div.dialog-container fieldset.dialog-form ul li input, 
             div.dialog-container div.dialog-form ul li input,
@@ -200,6 +200,17 @@ div.dialog-container h3 {
                 -webskit-border-radius: 5px;
                 float: right;
                 width: 170px;
+            }
+
+        #account-settings-section fieldset.dialog-form ul li {
+            width: 75%;
+        }
+            
+            #account-settings-section fieldset.dialog-form ul li label {
+                clear: both;
+                float: left;
+                text-align: right;
+                width: 45%;
             }
 /*** Login Dialog  ******/ 
 

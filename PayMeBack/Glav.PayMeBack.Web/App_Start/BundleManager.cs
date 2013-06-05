@@ -21,9 +21,12 @@ namespace Glav.PayMeBack.Web
                 .Include("~/Scripts/AngularScripts/Factories/eventFactory.js")
                 .Include("~/Scripts/AngularScripts/Factories/debtFactory.js")
                 .Include("~/Scripts/AngularScripts/Services/dateService.js")
+                .Include("~/Scripts/AngularScripts/Services/messageService.js")
+                .Include("~/Scripts/AngularScripts/Services/errorService.js")
                 .Include("~/Scripts/AngularScripts/Directives/defaultButtonDirective.js")
                 .Include("~/Scripts/AngularScripts/Directives/dateValidationDirective.js")
                 .Include("~/Scripts/AngularScripts/Directives/addPaymentDialogDirective.js")
+                .Include("~/Scripts/AngularScripts/Directives/passwordMatchDirective.js")
                 .Include("~/Scripts/AngularScripts/Factories/notificationFactory.js")
                 .Include("~/Scripts/AngularScripts/Controllers/signInController.js")
                 .Include("~/Scripts/AngularScripts/Controllers/addDebtController.js")
@@ -50,8 +53,7 @@ namespace Glav.PayMeBack.Web
             bundles.Add(membershipPageBundle);
 
             var summaryPageBundle = new ScriptBundle("~/SummaryPageJs")
-                .Include("~/Scripts/AngularScripts/Controllers/summaryController.js")
-                .Include("~/Scripts/custom/debt-manager.js");
+                .Include("~/Scripts/AngularScripts/Controllers/summaryController.js");
             bundles.Add(summaryPageBundle);
         }
 

@@ -17,6 +17,7 @@ if (typeof window.payMeBack.core === 'undefined') {
             summaryController: "summaryController",
             signInController: "signInController",
             addDebtController: "addDebtController",
+            userAccountController: "userAccountController",
             debtPaymentController: "debtPaymentController",
             summaryActionLinkController: "summaryActionLinkController",
             authenticateController: "authenticateController",
