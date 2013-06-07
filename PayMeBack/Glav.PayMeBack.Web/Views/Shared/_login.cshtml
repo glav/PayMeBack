@@ -14,6 +14,10 @@
                         <label>
                             Password:</label><input required id="credentials-userPassword" type="password" data-ng-model="loginData.password" />
                     </li>
+                    <li data-ng-show="isSignupAction">
+                        <label>
+                            Retype Password:</label><input data-ng-required="isSignupAction" id="credentials-retypedPassword" type="password" data-ng-model="loginData.retypedPassword" password-match="credentials-userPassword" />
+                    </li>
                 </ul>
                 <ul class="signup">
                     <li>
