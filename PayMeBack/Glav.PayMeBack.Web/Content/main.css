@@ -222,6 +222,9 @@ div.dialog-container h3 {
 #credentials-form {
     text-align:center;
 }
+        #credentials-form ul li{
+            line-height: 40px;
+        }
             #credentials-form ul li label {
                 margin-right: 10px;
             }

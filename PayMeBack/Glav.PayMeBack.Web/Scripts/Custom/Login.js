@@ -89,9 +89,9 @@ window.payMeBack.login = (function () {
             isSignupAction = isSignUp === true;
         }
 
-        var modalHeight = 200;
+        var modalHeight = 210;
         if (isSignupAction) {
-            modalHeight = 280;
+            modalHeight = 340;
         }
 
         $.nyroModalManual(
@@ -99,7 +99,7 @@ window.payMeBack.login = (function () {
               url: '#credentials-dialog',
               minHeight: modalHeight,
               height: modalHeight,
-              minWidth: 350,
+              minWidth: 360,
               width: 380,
               bgColor: window.payMeBack.core.colours.nyroModalBackground,
               //modal: true,
