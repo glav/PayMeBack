@@ -3,13 +3,8 @@
     width: 550px;
 }
 #add-debt-container img.add-debt-progress-indicator {
-    margin-left:250px;
-    padding-top:100px;
+    padding-top:10%;
 }
-    #add-debt-container img.login-progress-indicator {
-        margin-left:150px;
-        top:80px;
-    }
         @media (min-width: 850px) {
 
             #add-debt-container fieldset.dialog-form ul li {
@@ -151,7 +146,7 @@ table.debt-summary-table {
 	color: black;
 }
     #add-debt-payment-container .progress-indicator {
-        margin: 30px 0 0 80px;
+        margin: 30px 0 0 0;
     }
     
     #add-debt-payment-container div.action-container {

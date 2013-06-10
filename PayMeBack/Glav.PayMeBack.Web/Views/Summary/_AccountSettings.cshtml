@@ -2,8 +2,8 @@
     <div id="account-settings-container" data-ng-controller="accountSettingsController" class="dialog-container">
         <h3>Account Settings</h3>
         <div id="account-settings-section">
-            <img src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="account-settings-progress-indicator progress-indicator hidden" />
-            <form data-ng-submit="submitAcctSettingsForm()" name="acctSettings">
+            <img data-ng-show="isInProgress" src="@Url.Content("~/Images/progress.gif")" alt="Progress" title="progress" class="account-settings-progress-indicator progress-indicator" />
+            <form data-ng-submit="submitAcctSettingsForm()" name="acctSettings" data-ng-show="isInProgress == false">
                 <fieldset class="dialog-form">
                     <ul>
                         <li>

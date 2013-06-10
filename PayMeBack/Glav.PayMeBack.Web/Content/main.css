@@ -212,11 +212,14 @@ div.dialog-container h3 {
                 text-align: right;
                 width: 45%;
             }
+.progress-indicator {
+    left:50%;
+    position:relative;
+}
 /*** Login Dialog  ******/ 
 
 #credentials-container img.login-progress-indicator {
-    margin-left:150px;
-    top:80px;
+    top:20%;
 }
 
 #credentials-form {
