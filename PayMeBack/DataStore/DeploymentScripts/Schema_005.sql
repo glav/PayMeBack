@@ -42,6 +42,7 @@ CREATE TABLE [Payment].[NotificationOptionsDetail](
 	[ReminderIntervalFrequency] [int] NOT NULL,
 	[ReminderIntervalCount] [int] NULL,
 	[ReminderIntervalDayOfWeek] [int] NULL,
+	[ReminderTime] [time](7) NULL,
  CONSTRAINT [PK_Payment.NotificationOptionsDetail] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

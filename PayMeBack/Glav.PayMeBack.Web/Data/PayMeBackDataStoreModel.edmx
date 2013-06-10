@@ -83,6 +83,7 @@
           <Property Name="ReminderIntervalFrequency" Type="int" Nullable="false" />
           <Property Name="ReminderIntervalCount" Type="int" />
           <Property Name="ReminderIntervalDayOfWeek" Type="int" />
+          <Property Name="ReminderTime" Type="time" />
         </EntityType>
         <EntityType Name="UserPaymentPlanDetail">
           <Key>
@@ -344,6 +345,7 @@
           <Property Type="Int32" Name="ReminderIntervalFrequency" Nullable="false" />
           <Property Type="Int32" Name="ReminderIntervalCount" />
           <Property Type="Int32" Name="ReminderIntervalDayOfWeek" />
+          <Property Type="Time" Name="ReminderTime" Precision="7" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -429,6 +431,7 @@
           <EntitySetMapping Name="NotificationOptionsDetails">
             <EntityTypeMapping TypeName="PayMeBackModel.NotificationOptionsDetail">
               <MappingFragment StoreEntitySet="NotificationOptionsDetail">
+                <ScalarProperty Name="ReminderTime" ColumnName="ReminderTime" />
                 <ScalarProperty Name="ReminderIntervalDayOfWeek" ColumnName="ReminderIntervalDayOfWeek" />
                 <ScalarProperty Name="ReminderIntervalCount" ColumnName="ReminderIntervalCount" />
                 <ScalarProperty Name="ReminderIntervalFrequency" ColumnName="ReminderIntervalFrequency" />

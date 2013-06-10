@@ -30,12 +30,16 @@
                         </li>
                         <li class="frequency-option" data-ng-show="isSelectionMade() && isReminderIntervalSelectionMade()">
                             <label for="debt-notification-frequency">Frequency Count</label>
-                            <input id="debt-notification-frequency" name="debtNotificationFrequency" type="number" data-ng-mpdel="notifyOptions.Interval.FrequencyCount" />
+                            <input id="debt-notification-frequency" name="debtNotificationFrequency" type="number" data-ng-model="notifyOptions.Interval.FrequencyCount" />
                         </li>
                         <li class="frequency-option" data-ng-show="isSelectionMade() && isIntervalWeekly()">
                             <label for="debt-notification-dayofweek">Reminder Option</label>
                             <select id="debt-notification-dayofweek" name="debtNotificationDayofweek" data-ng-model="notifyOptions.Interval.WeekDay" data-ng-options="p.value as p.label for p in weekDays">
                             </select>
+                        </li>
+                        <li class="frequency-option" data-ng-show="isSelectionMade() && isReminderIntervalSelectionMade()">
+                            <label for="debt-notification-time">Reminder time:</label>
+                            <input id="debt-notification-time" name="debtNotificationTime" type="number" data-ng-model="notifyOptions.Interval.Time" />
                         </li>
                     </ul>
                     <p>getting there, but this section is not complete</p>

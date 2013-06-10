@@ -114,6 +114,7 @@ namespace Glav.PayMeBack.Web.Helpers
                 ReminderIntervalCount = options.Interval != null ? options.Interval.FrequencyCount : 0,
                 ReminderIntervalDayOfWeek = options.Interval != null ? (int)options.Interval.WeekDay : (int)DayOfWeek.Monday,
                 ReminderIntervalFrequency = options.Interval != null ? (int)options.Interval.Frequency : (int)IntervalFrequency.Unspecified,
+                ReminderTime = options.Interval != null && options.Interval.Time != TimeSpan.MinValue ? options.Interval.Time : (Nullable<System.TimeSpan>)null,
                 SmsPhoneNumber = options.NotificationSmsNumber,
                 Id = options.Id
             };

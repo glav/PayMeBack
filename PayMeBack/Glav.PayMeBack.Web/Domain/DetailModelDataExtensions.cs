@@ -91,7 +91,8 @@ namespace Glav.PayMeBack.Web.Domain
                     {
                         Frequency = (Core.Domain.IntervalFrequency)detail.ReminderIntervalFrequency,
                         FrequencyCount = detail.ReminderIntervalCount.HasValue ? detail.ReminderIntervalCount.Value : 0,
-                        WeekDay = detail.ReminderIntervalDayOfWeek.HasValue ? (DayOfWeek)detail.ReminderIntervalDayOfWeek.Value : DayOfWeek.Monday
+                        WeekDay = detail.ReminderIntervalDayOfWeek.HasValue ? (DayOfWeek)detail.ReminderIntervalDayOfWeek.Value : DayOfWeek.Monday,
+                        Time = detail.ReminderTime.HasValue ? detail.ReminderTime.Value : TimeSpan.MinValue
                     },
                     NotificationEmailAddress = detail.EmailAddress,
                     NotificationMethod = (Core.Domain.NotificationType)detail.Method,
