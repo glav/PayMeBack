@@ -38,7 +38,8 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.notificationO
                 Interval: {
                     Frequency: 0,
                     FrequencyCount: 0,
-                    WeekDay: 0
+                    WeekDay: 0,
+                    Time: 0
                 }
             };
             $scope.notificationOptions = [

@@ -10,6 +10,7 @@ namespace Glav.PayMeBack.Core.Domain
         public IntervalFrequency Frequency { get; set; }
         public int FrequencyCount { get; set; }   // eg. every 3 days or every 2 weeks
         public DayOfWeek WeekDay { get; set; }  // If set to weekly
+        public TimeSpan Time { get; set; }
     }
 
     public enum IntervalFrequency

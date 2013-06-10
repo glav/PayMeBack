@@ -23,5 +23,6 @@ namespace Glav.PayMeBack.Web.Data
         public int ReminderIntervalFrequency { get; set; }
         public Nullable<int> ReminderIntervalCount { get; set; }
         public Nullable<int> ReminderIntervalDayOfWeek { get; set; }
+        public Nullable<System.TimeSpan> ReminderTime { get; set; }
     }
 }
