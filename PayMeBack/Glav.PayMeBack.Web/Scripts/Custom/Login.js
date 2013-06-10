@@ -67,8 +67,6 @@ window.payMeBack.login = (function () {
                 error: function () {
                     window.payMeBack.progressManager.hideProgressIndicator("credentials-container", function () {
                         $("#credentials-form").fadeIn();
-                        updateDisplayBasedOnSignedInStatus(false);
-
                         var msg = "There was a problem " + (isSignup ? "signing you up" : "logging you in") + " to the system. Please try again.";
                         window.payMeBack.notificationEngine.showStatusBarMessage(msg, window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent", 5);
                     });
