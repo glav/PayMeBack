@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 window.payMeBack.app.controller(window.payMeBack.core.dependencies.authenticateController,
-    function ($scope, $rootScope) {
+    function ($scope, $rootScope, $timeout) {
 
     init();
 
@@ -11,7 +11,16 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.authenticateC
         }
         window.payMeBack.login.submitCredentials($scope.loginData, $scope.isSignupAction, function () {
             $rootScope.isSignupAction = false;
-            location.assign(window.payMeBack.core.makePathFromVirtual("~/summary"));
+            //Note: once we convert the login to not use the nyroModal, then we can remove
+            // this timeout rubbish
+            $timeout(function () {
+                //small delay while the result is returned.This causes apply to be called
+                // and angular will trigger some binding magic and display an update
+                $timeout(function () {
+                    // now  we do a redirect
+                    location.assign(window.payMeBack.core.makePathFromVirtual("~/summary"));
+                }, 2000);
+            }, 500);
 
         });
     };
@@ -24,4 +33,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.authenticateC
             surname: ''
         }
     }
-    }).$inject = ['$scope', '$rootScope'];
+    }).$inject = ['$scope', '$rootScope','$timeout'];

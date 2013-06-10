@@ -41,6 +41,7 @@ window.payMeBack.login = (function () {
                                 // This worked
                                 //updateDisplayBasedOnSignedInStatus(true, result.firstname);
                                 $.nyroModalRemove();
+                                $("#is-signed-in-state").val("true");
                                 if (typeof onSuccessCallback !== 'undefined') {
                                     onSuccessCallback();
                                 }
@@ -105,7 +106,6 @@ window.payMeBack.login = (function () {
               endRemove: function () {
                   var credsElement = $("#credentials-container");
                   credsElement.hide();
-                  $("li input", credsElement).val("");
                   if (redirectOnClose) {
                       $("#intro-not-authenticated").fadeOut('slow', function () {
                           $("#intro-authenticated").fadeIn('slow', function () {
