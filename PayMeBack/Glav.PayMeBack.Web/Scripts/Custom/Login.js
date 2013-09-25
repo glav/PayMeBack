@@ -32,8 +32,8 @@ window.payMeBack.login = (function () {
                 dataType: "json",
                 success: function (result) {
                     window.payMeBack.progressManager.hideProgressIndicator("credentials-container", function () {
-                        if (result && typeof result.error !== 'undefined') {
-                            window.payMeBack.notificationEngine.showStatusBarMessage("The request had an error: " + result.error, window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent", 5);
+                        if (result && typeof result.error !== 'undefined' && result.error.length > 0) {
+                            window.payMeBack.notificationEngine.showStatusBarMessage("Sorry, there was a problem: " + result.error, window.payMeBack.notificationEngine.MessageTypeError, "#nyroModalContent", 5);
                             $("#credentials-form").fadeIn();
 
                         } else {
@@ -65,7 +65,8 @@ window.payMeBack.login = (function () {
                         }
                     });
                 },
-                error: function () {
+                error: function (e) {
+                    console.log(e);
                     window.payMeBack.progressManager.hideProgressIndicator("credentials-container", function () {
                         $("#credentials-form").fadeIn();
                         var msg = "There was a problem " + (isSignup ? "signing you up" : "logging you in") + " to the system. Please try again.";

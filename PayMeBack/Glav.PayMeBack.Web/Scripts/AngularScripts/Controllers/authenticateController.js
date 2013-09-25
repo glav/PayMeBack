@@ -1,6 +1,6 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.authenticateController,
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.authenticateController, ['$scope', '$rootScope','$timeout',
     function ($scope, $rootScope, $timeout) {
 
     init();
@@ -33,4 +33,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.authenticateC
             surname: ''
         }
     }
-    }).$inject = ['$scope', '$rootScope','$timeout'];
+    }]);

@@ -28,10 +28,15 @@ namespace Glav.PayMeBack.Web.Domain
             var serviceResponse = new MembershipResponseModel { Firstname = firstname, Surname = surname, Email = email };
             var response = _signupManager.SignUpNewUser(email, firstname, surname, password);
             serviceResponse.IsSuccessfull = response.IsSuccessfull;
-			if (response.IsSuccessfull)
-			{
-				CreateCookieWithAuthTokenAndSetResponse(email, response.AccessGrant.access_token, response.AccessGrant.refresh_token);
-			}
+            if (response.IsSuccessfull)
+            {
+                CreateCookieWithAuthTokenAndSetResponse(email, response.AccessGrant.access_token, response.AccessGrant.refresh_token);
+            }
+            else
+            {
+                serviceResponse.IsSuccessfull = false;
+                serviceResponse.Error = response.ErrorDetails.error;
+            }
 
             return serviceResponse;
 		}

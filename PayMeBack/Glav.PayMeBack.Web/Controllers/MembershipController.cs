@@ -53,7 +53,8 @@ namespace Glav.PayMeBack.Web.Controllers
                 success = responseModel.IsSuccessfull,
                 firstname = responseModel.Firstname,
                 surname = responseModel.Surname,
-                email = responseModel.Email
+                email = responseModel.Email,
+                error=responseModel.IsSuccessfull ?string.Empty : responseModel.Error
             });
         }
     }
