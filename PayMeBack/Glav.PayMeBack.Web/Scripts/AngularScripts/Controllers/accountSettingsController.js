@@ -1,6 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 window.payMeBack.app.controller(window.payMeBack.core.dependencies.accountSettingsController,
+    ['$scope', 'debtFactory', 'eventFactory', 'userFactory', 'messageService', 'errorService',
     function ($scope, debtFactory, eventFactory, userFactory, messageService, errorService) {
 
         init();
@@ -45,4 +46,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.accountSettin
         };
 
 
-    }).$inject = ['$scope', 'debtFactory', 'eventFactory', 'userFactory', 'messageService', 'errorService'];
+    }]);

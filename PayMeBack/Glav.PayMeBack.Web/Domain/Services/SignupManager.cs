@@ -23,7 +23,10 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		public OAuthAuthorisationGrantResponse SignUpNewUser(string emailAddress, string firstNames, string lastName, string password)
 		{
 			IsEmailValid(emailAddress);
-			VerifyUserDoesNotExist(emailAddress);
+            if (!VerifyUserDoesNotExist(emailAddress))
+            {
+                return new OAuthAuthorisationGrantResponse { IsSuccessfull = false, ErrorDetails = new OAuthGrantRequestError { error = "User already exists" } };
+            }
 
 			var user = new User { EmailAddress = emailAddress, FirstNames = firstNames, Surname = lastName };
 
@@ -46,13 +49,15 @@ namespace Glav.PayMeBack.Web.Domain.Services
 		}
 
 
-		private void VerifyUserDoesNotExist(string emailAddress)
+		private bool VerifyUserDoesNotExist(string emailAddress)
 		{
 			var user = _userService.GetUserByEmail(emailAddress);
 			if (user != null)
 			{
-				throw new Exception(string.Format("User [{0}] already exists", emailAddress));
+                return false;
+				//throw new Exception(string.Format("User [{0}] already exists", emailAddress));
 			}
+            return true;
 		}
 
 		private void IsEmailValid(string emailAddress)
