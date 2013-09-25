@@ -18,7 +18,7 @@ namespace Glav.PayMeBack.Client.Tests
             var bearerToken = SetupValidUserAndAuthenticate();
 			var notifyProxy = new NotificationsProxy(bearerToken);
 
-            var notifyResponse = notifyProxy.GetNotificationOptions();
+            var notifyResponse = notifyProxy.GetNotificationOptions(Guid.Empty);
             Assert.IsNotNull(notifyResponse);
             Assert.IsTrue(notifyResponse.IsRequestSuccessfull);
             Assert.IsNotNull(notifyResponse.DataObject);
@@ -30,7 +30,7 @@ namespace Glav.PayMeBack.Client.Tests
             var bearerToken = SetupValidUserAndAuthenticate();
             var notifyProxy = new NotificationsProxy(bearerToken);
 
-            var notifyResponse = notifyProxy.GetNotificationOptions();
+            var notifyResponse = notifyProxy.GetNotificationOptions(Guid.Empty);
             Assert.IsNotNull(notifyResponse);
             Assert.IsTrue(notifyResponse.IsRequestSuccessfull);
             Assert.IsNotNull(notifyResponse.DataObject);
@@ -41,7 +41,7 @@ namespace Glav.PayMeBack.Client.Tests
             options.NotificationSmsNumber = dummySms;
             notifyProxy.UpdateNotificationOptions(options);
 
-            var updatedOptions = notifyProxy.GetNotificationOptions();
+            var updatedOptions = notifyProxy.GetNotificationOptions(Guid.Empty);
             Assert.AreEqual<NotificationType>(NotificationType.Sms, updatedOptions.DataObject.NotificationMethod);
             Assert.AreEqual<string>(dummySms, updatedOptions.DataObject.NotificationSmsNumber);
         }

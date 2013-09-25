@@ -1,6 +1,6 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtController,
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtController,['$scope', '$rootScope', 'debtFactory', 'eventFactory','dateService',
     function ($scope, $rootScope, debtFactory, eventFactory, dateService) {
 
     init();
@@ -52,4 +52,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.addDebtContro
             init();
         });
     }
-    }).$inject = ['$scope', '$rootScope', 'debtFactory', 'eventFactory','dateService'];
+    }]);

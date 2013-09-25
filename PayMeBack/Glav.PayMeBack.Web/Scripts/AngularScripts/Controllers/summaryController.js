@@ -1,6 +1,6 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryController,
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryController, ['$scope', '$rootScope', 'debtFactory', '$dialog', 'eventFactory',
     function ($scope, $rootScope, debtFactory, $dialog, eventFactory) {
 
         refreshSummaryList();
@@ -19,7 +19,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
                 .then(function (result) {
                     $scope.IsInProgress = false;
                     return result;
-            });
+                });
 
         }
 
@@ -37,7 +37,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
                     });
             });
         };
-        
+
         $scope.editDebt = function (id) {
             $rootScope.debtId = id;
             $scope.editDebtModal = true;
@@ -52,7 +52,7 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
             $scope.editNotificationModal = true;
             $event.stopPropagation();
 
-           
+
             //window.payMeBack.notificationManager.showNotificationOptionsForDebt(undefined, function () {
             //    $rootScope.notifyProgress = false;
             //    //$("#notification-options-container fieldset").show();
@@ -74,4 +74,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryContro
             dialogFade: true
         };
     }
-).$inject = ['$scope','$rootScope','debtFactory','$dialog','eventFactory'];
+]);

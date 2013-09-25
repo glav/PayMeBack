@@ -1,6 +1,6 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryActionLinkController,
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryActionLinkController, ['$scope',
     function ($scope) {
 
         // For the add debt link
@@ -35,4 +35,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.summaryAction
             dialogFade: true
         };
 
-    }).$inject = ['$scope'];
+    }]);

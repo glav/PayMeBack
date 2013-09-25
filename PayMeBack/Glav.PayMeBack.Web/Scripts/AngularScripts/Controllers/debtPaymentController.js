@@ -1,6 +1,6 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentController,
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentController,['$scope', 'debtFactory', 'dateFilter', 'eventFactory', 'dateService',
     function ($scope, debtFactory, dateFilter, eventFactory, dateService) {
 
         init();
@@ -46,4 +46,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.debtPaymentCo
                     clearData();
                 });
         }
-    }).$inject = ['$scope', 'debtFactory', 'dateFilter', 'eventFactory', 'dateService'];
+    }]);
