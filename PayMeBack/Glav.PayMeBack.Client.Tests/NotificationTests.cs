@@ -30,6 +30,8 @@ namespace Glav.PayMeBack.Client.Tests
             var bearerToken = SetupValidUserAndAuthenticate();
             var notifyProxy = new NotificationsProxy(bearerToken);
 
+            //TODO: Need to create a debt first to associate the notification with
+            //      before this test will pass
             var notifyResponse = notifyProxy.GetNotificationOptions(Guid.Empty);
             Assert.IsNotNull(notifyResponse);
             Assert.IsTrue(notifyResponse.IsRequestSuccessfull);
