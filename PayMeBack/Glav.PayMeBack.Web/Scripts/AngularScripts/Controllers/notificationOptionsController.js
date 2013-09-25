@@ -1,6 +1,6 @@
 ﻿/// <reference path="../_references.js" />
 
-window.payMeBack.app.controller(window.payMeBack.core.dependencies.notificationOptionsController,
+window.payMeBack.app.controller(window.payMeBack.core.dependencies.notificationOptionsController,['$scope', 'notificationFactory',
     function ($scope, notificationFactory) {
 
         init();
@@ -64,4 +64,4 @@ window.payMeBack.app.controller(window.payMeBack.core.dependencies.notificationO
                 { value: 6, label: 'Sunday' }
             ];
         }
-    }).$inject = ['$scope', 'notificationFactory'];
+    }]);

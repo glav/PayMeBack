@@ -32,13 +32,13 @@ namespace Glav.PayMeBack.Client.Proxies
 		/// pass it anything else like a user id
 		/// </summary>
 		/// <returns></returns>
-		public ProxyResponse<NotificationOptions> GetNotificationOptions()
+		public ProxyResponse<NotificationOptions> GetNotificationOptions(Guid debtId)
 		{
             ProxyResponse<NotificationOptions> proxyResult = null;
 
 			ContentType = RequestContentType.ApplicationJson;
 			OperationMethod = HttpMethod.Get;
-			var uri = base.GetRequestUri(null);
+			var uri = base.GetRequestUri(debtId.ToString());
 			var response = GetResponse<NotificationOptions>(uri);
 			if (response.IsRequestSuccessfull)
 			{
